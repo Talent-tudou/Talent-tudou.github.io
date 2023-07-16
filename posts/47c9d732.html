@@ -1,0 +1,336 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>VCS的使用（一） | TUDOU の SECRET</title><meta name="author" content="TUDOU"><meta name="copyright" content="TUDOU"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="VCS仿真基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VCS的使用（一）">
+<meta property="og:url" content="https://talent-tudou.github.io/posts/47c9d732.html">
+<meta property="og:site_name" content="TUDOU の SECRET">
+<meta property="og:description" content="VCS仿真基础知识">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/07/15/Eh62BXfziSAgdj9.jpg">
+<meta property="article:published_time" content="2023-07-15T07:05:11.842Z">
+<meta property="article:modified_time" content="2023-07-15T23:52:07.369Z">
+<meta property="article:author" content="TUDOU">
+<meta property="article:tag" content="IC">
+<meta property="article:tag" content="SV">
+<meta property="article:tag" content="VCS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/07/15/Eh62BXfziSAgdj9.jpg"><link rel="shortcut icon" href="https://s2.loli.net/2023/06/26/1Y5Nck8XL4RjaFv.png"><link rel="canonical" href="https://talent-tudou.github.io/posts/47c9d732.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VCS的使用（一）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-07-16 07:52:07'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/style.css?v1"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/./img/%E5%9C%9F%E8%B1%86.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-align-center"></i><span> 总览</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/IC/"><i class="fa-fw fas fa-sitemap"></i><span> 数字IC</span></a></div><div class="menus_item"><a class="site-page" href="/DFT/"><i class="fa-fw fas fa-mortar-board"></i><span> DFT</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2023/07/15/Eh62BXfziSAgdj9.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="TUDOU の SECRET"><span class="site-name">TUDOU の SECRET</span></a></span><div id="menus"></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-archive"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-align-center"></i><span> 总览</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/IC/"><i class="fa-fw fas fa-sitemap"></i><span> 数字IC</span></a></div><div class="menus_item"><a class="site-page" href="/DFT/"><i class="fa-fw fas fa-mortar-board"></i><span> DFT</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="nav-right"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">VCS的使用（一）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-07-15T07:05:11.842Z" title="发表于 2023-07-15 15:05:11">2023-07-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-07-15T23:52:07.369Z" title="更新于 2023-07-16 07:52:07">2023-07-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/VCS/">VCS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="VCS的使用（一）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 align="center">
+1、VCS简介
+</h1>
+<h4 id="关于vcs">1.1、关于VCS</h4>
+<p>​ VCS是Verilog Compiled Simulator的缩写。VCS
+MX是一个编译型的代码仿真器。它可以使你能够<code>分析</code>、<code>编译</code>和<code>仿真</code>Verilog，VHDL，混合HDL，SystemVerilog，OpenVera和SystemC描述的设计。它还为提供了一系列仿真和调试功能，以验证设计。这些功能提供了源码调试和仿真结果查看功能。</p>
+<p>​ VCS提供了一系列的feature，如下图</p>
+<p>​ <img src="https://s2.loli.net/2023/07/15/m2KeqRvixpr3lL1.png" /></p>
+<ul>
+<li><p>业界领先的性能和兼容性</p>
+<p>无论是RTL还是gate level，还是TLM或者是AMS</p></li>
+<li><p>高级仿真技术</p>
+<p>X-prop，低功耗，精调的并行化等</p></li>
+<li><p>次世代的验证planning和覆盖率分析</p>
+<p>Verification planner， Verdi coverage和formal coverage分析</p></li>
+<li><p>广泛的语言和方法学支持</p>
+<p>UVM，UPF，Analog Mixed-signed， combined
+TLM/RTL，SystemC，Systemverilog，Verilog，VHDL，Mixed-language</p></li>
+</ul>
+<h4 id="vcs-setup">1.2、VCS Setup</h4>
+<p>​
+通常情况下，公司的IT部门会将工具都安装好了，一般情况下，不需要我们在进行环境的配置什么的了，但是万一需要自己的安装VCS的时候，环境是需要自己配置的，下面给出配置的环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setenv VCS_HOME /tools/synopsys/vcs-2016</span><br><span class="line">set PATH = ($VCS_HOME/bin $PATH)</span><br><span class="line">setenv LM_LICENSE portid@hostname</span><br><span class="line">setenv VCS_CC /usr/bin/gcc</span><br></pre></td></tr></table></figure>
+<h4 id="vcs帮助文档">1.3、VCS帮助文档</h4>
+<ul>
+<li><p>尽量查阅VCS MX User
+Guide作为查找某个功能，特性的第一选择<code>%&gt; vsc -doc</code></p></li>
+<li><p>查看VCS工具提供的一些options，这些options的含义可以在UG中查找<code>%&gt; vcs -help</code></p></li>
+<li><p>如果是刚入门，可以查看VCS quickstart</p>
+<p>/tools/synopsys/vcs-2016/doc/UserGuide/examples-pdf/systemverilog/vcs_quickstart</p></li>
+</ul>
+<h4 id="善于利用solvnet">1.4、善于利用SolvNet</h4>
+<p>​
+VCS/VCS-MX的所有文档（S家其他EDA工具的文档）都可以在SolvNet上查找到。不仅仅是UG，还有很多用户提交的issue和case，供用户参考。如果你在使用VCS的过程中遇到问题，也可以提交case，Synopsys会有专门的人员来帮助解决问题。但是SolvNet需要公司的邮箱注册</p>
+<h1 align="center">
+2、VCS的Verilog仿真事件队列
+</h1>
+<h4 id="仿真队列介绍">2.1、仿真队列介绍</h4>
+<p>​ 数字仿真工具VCS是如何处理我们交给他们的代码的，如下图所示：</p>
+<p><img src="https://s2.loli.net/2023/07/15/EL1YNFKrwIDMzU9.png" /></p>
+<ul>
+<li>第一步：将所有的initial和always和连续赋值语句读进去，将这些语句按照固定的顺序放到一个队列里面</li>
+<li>第二步：首先执行没有延迟的语句，比如变量的初始化</li>
+<li>第三步：当这些没有延迟的语句和initial语句全部执行完毕了，VCS工具就会将时间记为0，就是current
+time。</li>
+<li>第四步：进入active region区，在这个区间首先执行User Defined
+Primitive（用户自定义语句），比如说与门、或门、非门；$display语句；没有延迟的assign语句；阻塞赋值的全部；<strong>非阻塞赋值只将右边的表达式的值计算出来，没有完成对左边的赋值</strong>。</li>
+<li>第五步：计入inactive
+region区域，相当于没有#0的语句，该区域的语句执行相对晚点，这个区域主要执行#0语句。</li>
+<li>第六步：进入Nonblocking assign
+region区域，<strong>该区域完成对非阻塞赋值左边的赋值</strong>。</li>
+<li>第七步：进入monitor区，该区域主要执行monitor函数，比如说监测a的值，当a的值变化，monitor才会监测到。<strong>用monitor和display监测非阻塞赋值，monitor监测的赋值后的值，display展示的是赋值前的值。</strong></li>
+<li>第八步：进入feture区域，执行一些其他的语句。</li>
+</ul>
+<h4 id="案例">2.2、案例</h4>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="keyword">timescale</span> 1ns/100ps</span></span><br><span class="line"><span class="meta">`<span class="keyword">define</span> CASS1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> sim_event;</span><br><span class="line">  <span class="keyword">reg</span> clk, a, z, zin;</span><br><span class="line">  <span class="keyword">always</span>@(<span class="keyword">posedge</span> clk)</span><br><span class="line">    <span class="keyword">begin</span></span><br><span class="line">      a = <span class="number">1&#x27;b1</span>;</span><br><span class="line">      #<span class="number">0</span>;</span><br><span class="line">      a = <span class="number">1&#x27;b0</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">  <span class="meta">`<span class="keyword">ifdef</span> CASS1</span></span><br><span class="line">  	<span class="keyword">always</span>@(a) #<span class="number">0</span> z=zin;</span><br><span class="line">  	<span class="keyword">always</span>@(a) zin=a;</span><br><span class="line">  <span class="meta">`<span class="keyword">else</span></span></span><br><span class="line">  	<span class="keyword">always</span>@(a) #<span class="number">0</span> z=zin;</span><br><span class="line">  	<span class="keyword">always</span>@(a) zin=a;</span><br><span class="line">  <span class="meta">`<span class="keyword">endif</span></span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">    #<span class="number">50</span> clk=<span class="number">1&#x27;bz</span>;</span><br><span class="line">    #<span class="number">50</span> clk=<span class="number">1&#x27;b0</span>;</span><br><span class="line">    #<span class="number">50</span> clk=<span class="number">1&#x27;b1</span>;</span><br><span class="line">    #<span class="number">50</span> $finsh;</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">    $vcdpluson();</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在Linux系统输入vcs +v2k sim_event.v
+-debug_all（+v2k：表示支持verilog2001），编译之后产生了simv文件，然后输入./simv
+-gui
+&amp;（./sim：在当前执行simv文件，-gui：gui界面，&amp;：后台执行）</li>
+</ul>
+<h4 id="波形">2.3、波形</h4>
+<ul>
+<li>VCS仿真结果：</li>
+</ul>
+<figure>
+<img src="https://s2.loli.net/2023/07/15/E5ZFL3fPSsVBamy.png"
+alt="在这里插入图片描述" />
+<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<p>​
+<code>其中，斜线表示未知数，线条在中间是高阻态，clk先是未知值，接着是高阻态，然后是低电平，最后是高电平</code>。</p>
+<p>​ 使用VCS编译最后的结果a，z，zin分别是0，1，1。</p>
+<ul>
+<li>Modelsim仿真的结果：</li>
+</ul>
+<figure>
+<img src="https://s2.loli.net/2023/07/15/yLMoQBuiJkKCvSD.png"
+alt="在这里插入图片描述" />
+<figcaption aria-hidden="true">在这里插入图片描述</figcaption>
+</figure>
+<p>​ 使用modelsim编译最后的结果，a，z，zin分别是0，0，0。</p>
+<h4 id="testbeach一些规范用语">2.4、testbeach一些规范用语</h4>
+<ul>
+<li>时序逻辑采用非阻塞赋值，&lt;=</li>
+<li>敏感列表要完整，建议使用always(*)</li>
+<li>不要再always语句块中使用#0</li>
+</ul>
+<h4 id="tips学习视频-数字ic设计之仿真工具vcs">TIPS：学习视频: <a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Y3411Y7Um/?spm_id_from=333.337.search-card.all.click&amp;vd_source=60c00cdd90ad670830fe93e7bfa2f110">数字IC设计之仿真工具VCS</a></h4>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://talent-tudou.github.io/">tudou</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://talent-tudou.github.io/">https://talent-tudou.github.io/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">此文章版權歸tudou所有，如有轉載，請註明來自原作者</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/IC/">IC</a><a class="post-meta__tags" href="/tags/SV/">SV</a><a class="post-meta__tags" href="/tags/VCS/">VCS</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2023/07/15/Eh62BXfziSAgdj9.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/77df3bea.html" title="VCS的使用（二）"><img class="cover" src="https://s2.loli.net/2023/07/15/ImcGjkiw3B76fDn.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">VCS的使用（二）</div></div></a></div><div class="next-post pull-right"><a href="/posts/3fca5055.html" title="AHB &amp;&amp; APB"><img class="cover" src="https://s2.loli.net/2023/06/27/U8FqiX2JBebH45E.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">AHB &amp;&amp; APB</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/77df3bea.html" title="VCS的使用（二）"><img class="cover" src="https://s2.loli.net/2023/07/15/ImcGjkiw3B76fDn.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-15</div><div class="title">VCS的使用（二）</div></div></a></div><div><a href="/posts/3fca5055.html" title="AHB &amp;&amp; APB"><img class="cover" src="https://s2.loli.net/2023/06/27/U8FqiX2JBebH45E.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-27</div><div class="title">AHB &amp;&amp; APB</div></div></a></div><div><a href="/posts/3ac198b8.html" title="VCS的使用（三）"><img class="cover" src="https://s2.loli.net/2023/07/15/sDdk4W1pPH9v7wV.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-15</div><div class="title">VCS的使用（三）</div></div></a></div><div><a href="/posts/8860511.html" title="IC验证笔记"><img class="cover" src="/./img/u=609138798,2318753168&fm=253&fmt=auto&app=120&f=JPEG.webp" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-23</div><div class="title">IC验证笔记</div></div></a></div><div><a href="/posts/706d18fa.html" title="IC验证笔记2"><img class="cover" src="https://s2.loli.net/2023/06/25/HnFGM9163OwBUKs.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-25</div><div class="title">IC验证笔记2</div></div></a></div><div><a href="/posts/76a286c.html" title="IC验证笔记3"><img class="cover" src="https://s2.loli.net/2023/06/25/E9HmFf1TIur7Wo6.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-25</div><div class="title">IC验证笔记3</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/./img/%E5%9C%9F%E8%B1%86.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">TUDOU</div><div class="author-info__description">相信你，给你一个支点，可以撬起整个地球！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Talent-tudou" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1041694511@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1041694511&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">有任何问题请通过邮箱联系：1041694511@qq.com</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">
+1、VCS简介
+</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Evcs"><span class="toc-text">1.1、关于VCS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vcs-setup"><span class="toc-text">1.2、VCS Setup</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vcs%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3"><span class="toc-text">1.3、VCS帮助文档</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%96%84%E4%BA%8E%E5%88%A9%E7%94%A8solvnet"><span class="toc-text">1.4、善于利用SolvNet</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-text">
+2、VCS的Verilog仿真事件队列
+</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%BF%E7%9C%9F%E9%98%9F%E5%88%97%E4%BB%8B%E7%BB%8D"><span class="toc-text">2.1、仿真队列介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A1%88%E4%BE%8B"><span class="toc-text">2.2、案例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A2%E5%BD%A2"><span class="toc-text">2.3、波形</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#testbeach%E4%B8%80%E4%BA%9B%E8%A7%84%E8%8C%83%E7%94%A8%E8%AF%AD"><span class="toc-text">2.4、testbeach一些规范用语</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tips%E5%AD%A6%E4%B9%A0%E8%A7%86%E9%A2%91-%E6%95%B0%E5%AD%97ic%E8%AE%BE%E8%AE%A1%E4%B9%8B%E4%BB%BF%E7%9C%9F%E5%B7%A5%E5%85%B7vcs"><span class="toc-text">TIPS：学习视频: 数字IC设计之仿真工具VCS</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/3ac198b8.html" title="VCS的使用（三）"><img src="https://s2.loli.net/2023/07/15/sDdk4W1pPH9v7wV.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VCS的使用（三）"/></a><div class="content"><a class="title" href="/posts/3ac198b8.html" title="VCS的使用（三）">VCS的使用（三）</a><time datetime="2023-07-15T08:09:52.134Z" title="发表于 2023-07-15 16:09:52">2023-07-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/77df3bea.html" title="VCS的使用（二）"><img src="https://s2.loli.net/2023/07/15/ImcGjkiw3B76fDn.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VCS的使用（二）"/></a><div class="content"><a class="title" href="/posts/77df3bea.html" title="VCS的使用（二）">VCS的使用（二）</a><time datetime="2023-07-15T07:18:34.180Z" title="发表于 2023-07-15 15:18:34">2023-07-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/47c9d732.html" title="VCS的使用（一）"><img src="https://s2.loli.net/2023/07/15/Eh62BXfziSAgdj9.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VCS的使用（一）"/></a><div class="content"><a class="title" href="/posts/47c9d732.html" title="VCS的使用（一）">VCS的使用（一）</a><time datetime="2023-07-15T07:05:11.842Z" title="发表于 2023-07-15 15:05:11">2023-07-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3fca5055.html" title="AHB &amp;&amp; APB"><img src="https://s2.loli.net/2023/06/27/U8FqiX2JBebH45E.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="AHB &amp;&amp; APB"/></a><div class="content"><a class="title" href="/posts/3fca5055.html" title="AHB &amp;&amp; APB">AHB &amp;&amp; APB</a><time datetime="2023-06-27T00:27:07.603Z" title="发表于 2023-06-27 08:27:07">2023-06-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/990ebdcf.html" title="IC验证笔记4"><img src="https://s2.loli.net/2023/06/27/I3WfxYMG2mXtgac.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IC验证笔记4"/></a><div class="content"><a class="title" href="/posts/990ebdcf.html" title="IC验证笔记4">IC验证笔记4</a><time datetime="2023-06-27T00:27:07.603Z" title="发表于 2023-06-27 08:27:07">2023-06-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By TUDOU</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to tudou blog!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addModeChange('mermaid', runMermaid)
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script src="/js/script.js?v1"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="enable"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
