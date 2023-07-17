@@ -4,6 +4,58 @@
   
     
     <entry>
+      <title>Gvim</title>
+      <link href="/posts/f0c76671.html"/>
+      <url>/posts/f0c76671.html</url>
+      
+        <content type="html"><![CDATA[<h1 align="center">Gvim &amp;&amp; Vim</h1><h4 id="gvim简介">1.Gvim简介</h4><p>​Gvim是存在于Linux系统中的一个文档编辑器，用于日常办公和程序编写的都是一个不错的选择。</p><p>​ Givm有三种模式：输入模式、命令模式和底线命令模式（编辑模式）</p><h4 id="工作模式">2.工作模式</h4><p>​直接<code>givm filename</code>就会自动创建文件，并弹出编辑界面，这个时候是处于默认的命令模式下，可以使用k，j，h和i来移动光标的位置，还可以对文件进行赋复制，粘贴，替换和删除等操作。</p><ul><li>工作模式之间的切换</li></ul><p><img src="https://s2.loli.net/2023/07/17/YaDWKoSzkQbFuVi.png" /></p><h4 id="光标的移动">3.光标的移动</h4><ul><li><code>h</code>：左</li><li><code>j</code>：下</li><li><code>k</code>：上</li><li><code>l</code>：右</li><li><code>w/W</code>：下一个单词的头</li><li><code>b/B</code>：上一个单词的头</li><li><code>nw/nW</code>：n为数字，向右移动n个单词</li><li><code>nb/nB</code>：n为数字，向左移动n个单词</li><li><code>Ctrl+b</code>：上翻屏</li><li><code>Ctrl+f</code>：下翻屏</li><li><code>0 or ^</code>：移动到行首</li><li><code>$</code>：移动到行尾</li><li><code>n$</code>：光标移动至当前行只有n行的行尾</li><li><code>gg</code>：移动到文件头</li><li><code>G</code>：移动到文件尾</li><li><code>nG</code>：移动到第n行</li><li><code>:n</code>：快速到第n行的行首</li></ul><h4 id="输入模式">4.输入模式</h4><ul><li><code>i(insert)</code>：在后面插入</li><li><code>I</code>：在前面插入</li><li><code>o</code>：在下面插入新一行</li><li><code>O</code>：在上面插入新一行</li><li><code>a(append)</code>：在后面插入</li><li><code>A</code>：在行尾插入</li></ul><h4 id="查找与替换">5.查找与替换</h4><ul><li><code>/string</code>：光标所在位置向前查string</li><li><code>/^abc</code>：查以abc为首的行</li><li><code>/abc$</code>：查以abc为尾的行</li><li><code>?abc</code>：向后查abc</li><li><code>n</code>：向下翻查找到的内容</li><li><code>N</code>：向上翻</li><li><code>r</code>：替换所在的位置</li><li><code>R</code>：连续覆盖，直到Esc</li><li><code>:s;a1;a2;g</code>：在所在的行，将a1换成a2（;可以用/代替）</li><li><code>:n1,n2s/a1/a2/g</code>：在n1行到n2行之间替换</li><li><code>:g/a1/a2/g</code>：全文替换</li></ul><h4 id="删除">6.删除</h4><ul><li><code>x</code>：删除所在光标</li><li><code>dd</code>：所在行</li><li><code>ndd</code>：后面n行后删了</li><li><code>dG</code>：直接删除到文件尾</li><li><code>D</code>：删除光标到行尾</li><li><code>:a1,a2d</code>：a1行到a2行删了</li><li><code>viw</code>：选中单词</li></ul><h4 id="复制粘贴">7.复制粘贴</h4><ul><li><code>p</code>：粘贴到光标后</li><li><code>P</code>：粘贴到光标前</li><li><code>y</code>：复制</li><li><code>yy(nyy)</code>：复制行</li><li><code>yw</code>：将单词复制</li></ul><h4 id="退出编辑器">8.退出编辑器</h4><ul><li><code>:wq</code>：保存退出</li><li><code>:wq!</code>：保存强制退出</li><li><code>:q</code>：不保存</li><li><code>:q!</code>：不保存，强制退出</li><li><code>:w</code>：保存，不退出</li><li><code>:w!</code>：强制保存</li><li><code>:w filename</code>：另存到filename文件</li><li><code>x!</code>：保存文本，并退出</li><li><code>ZZ</code>：直接退出</li></ul><h4 id="插件">9.插件</h4><ul><li><p><code>ws</code>：横向新窗口</p></li><li><p><code>wv</code>：纵向新窗口</p></li><li><p><code>wc</code>：关闭窗口</p></li><li><p><code>ctrl+h,j,k,l</code>：切换窗口</p></li><li><p><code>vt</code>：目录</p></li><li><p><code>r</code>：更新文件夹</p></li><li><p><code>u</code>：到上一级</p></li><li><p><code>mm</code>：标记</p></li><li><p><code>mn/mp</code>：下一处标记</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Gvim </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Gvim </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Verdi的使用（一）</title>
+      <link href="/posts/a21d1cae.html"/>
+      <url>/posts/a21d1cae.html</url>
+      
+        <content type="html"><![CDATA[<h1 align="center">Verdi的使用技巧</h1><h4><ol type="1"><li>$fsdbDumpfile(fsdb_name, limit_size)</h4></li></ol><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$fsdbDumpfile(<span class="string">&quot;tb_top.fsdb&quot;</span>, <span class="number">10240</span>);<span class="comment">//第一个参数指定波形文件名字，第二个参数可以选择用来限制波形的大小(MB)</span></span><br></pre></td></tr></table></figure><h4 id="fsdbdumpvarslevel_number-module_instance-option">2.$fsdbDumpvars(level_number, module_instance, "option=")</h4><ul><li><p>level_number和module_instance和上面VCS DVE的$vcdpluson</p></li><li><p>option加载波形的选择</p><ul><li>+IO_Only--只加载IO port信号</li><li>+Reg_Only--只加载reg类型的信号</li><li>+mda--加载memory和MDA信号</li><li>+packedmda--只加载packed MDA</li><li>+struct--只加载structs</li><li>+parameter--只加载parameter</li><li>+fsdbfile+filename--指定fsdb文件名字</li></ul></li></ul><h4 id="fsdbdumpmda">3. $fsdbDumpMDA</h4><ul><li>一般情况下，我们定义的二维数组来模拟memory在Verdi是不显示的，使用此条命令可以使二维数组显示出来</li></ul><h4 id="verdi的使用">4. Verdi的使用</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">verdi -sv -f tb_top_filelist.f -top tb_top -ssf dut.fsdb &amp;</span><br></pre></td></tr></table></figure><ul><li>-sv:支持SystemVerilog格式</li><li>-f tb_top_filelist.f:加载设计的文件列表</li><li>-top tb_top：设置设计顶层</li><li>-ssf dut.fsdb:加载fsdb文件</li><li>&amp;:后台执行</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Verdi </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> Verdi </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>VCS的使用（三）</title>
       <link href="/posts/3ac198b8.html"/>
       <url>/posts/3ac198b8.html</url>
