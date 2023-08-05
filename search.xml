@@ -4,6 +4,192 @@
   
     
     <entry>
+      <title>AMBA</title>
+      <link href="/posts/b93aa256.html"/>
+      <url>/posts/b93aa256.html</url>
+      
+        <content type="html"><![CDATA[<div><p><iframe src="/pdfjs/web/viewer.html?file=/pdf/DDI0479D_m_class_processor_system_r1p1_trm.pdf" width="100%" height="800px" frameborder="0"></iframe></p></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> UVM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> SV </tag>
+            
+            <tag> UVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>AHB</title>
+      <link href="/posts/2e6bdb54.html"/>
+      <url>/posts/2e6bdb54.html</url>
+      
+        <content type="html"><![CDATA[<div><p><iframe src="/pdfjs/web/viewer.html?file=/pdf/AHB5.pdf" width="100%" height="800px" frameborder="0"></iframe></p></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> UVM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> SV </tag>
+            
+            <tag> UVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>APB4</title>
+      <link href="/posts/8dab17c6.html"/>
+      <url>/posts/8dab17c6.html</url>
+      
+        <content type="html"><![CDATA[<div><p><iframe src="/pdfjs/web/viewer.html?file=/pdf/APB4.pdf" width="100%" height="800px" frameborder="0"></iframe></p></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> UVM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> SV </tag>
+            
+            <tag> UVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>芯片验证漫游指南</title>
+      <link href="/posts/5fcd3df9.html"/>
+      <url>/posts/5fcd3df9.html</url>
+      
+        <content type="html"><![CDATA[<div><p><iframe src="/pdfjs/web/viewer.html?file=/pdf/芯片验证漫游指南――从系统理论到UVM的验证全视界 (刘斌) (z-lib.org).pdf" width="100%" height="800px" frameborder="0"></iframe></p></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> UVM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> SV </tag>
+            
+            <tag> UVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>UVM源码</title>
+      <link href="/posts/d7663e9b.html"/>
+      <url>/posts/d7663e9b.html</url>
+      
+        <content type="html"><![CDATA[<div><p><iframe src="/pdfjs/web/viewer.html?file=/pdf/UVM1.1应用指南及源代码分析_20111211版.pdf" width="100%" height="800px" frameborder="0"></iframe></p></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> UVM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> SV </tag>
+            
+            <tag> UVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>UVM实战（卷Ⅰ)</title>
+      <link href="/posts/b084d4b9.html"/>
+      <url>/posts/b084d4b9.html</url>
+      
+        <content type="html"><![CDATA[<div><p><iframe src="/pdfjs/web/viewer.html?file=/pdf/APB4.pdf" width="100%" height="800px" frameborder="0"></iframe></p></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> UVM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> SV </tag>
+            
+            <tag> UVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linux常用命令</title>
       <link href="/posts/d0edc1ed.html"/>
       <url>/posts/d0edc1ed.html</url>
@@ -49,9 +235,9 @@
       
         <tags>
             
-            <tag> VASP </tag>
-            
             <tag> DFT </tag>
+            
+            <tag> VASP </tag>
             
             <tag> PHONOPY </tag>
             
