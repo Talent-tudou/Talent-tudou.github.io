@@ -235,9 +235,9 @@
       
         <tags>
             
-            <tag> DFT </tag>
-            
             <tag> VASP </tag>
+            
+            <tag> DFT </tag>
             
             <tag> PHONOPY </tag>
             
