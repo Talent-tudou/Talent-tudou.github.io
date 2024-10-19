@@ -8,24 +8,24 @@
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
   <title>Shell基础 | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这里是IC攻城狮聚集地!">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="article">
 <meta property="og:title" content="Shell基础">
 <meta property="og:url" content="https://talent-tudou.github.io/2024/10/19/Shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="ZLIN">
-<meta property="og:description" content="这里是IC攻城狮聚集地!">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/10/19/yfeJ1AmC9bQkFvL.png">
 <meta property="article:published_time" content="2024-10-19T04:54:59.000Z">
-<meta property="article:modified_time" content="2024-10-19T08:11:26.340Z">
+<meta property="article:modified_time" content="2024-10-19T10:57:53.884Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="Programming">
 <meta property="article:tag" content="Shell">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/19/yfeJ1AmC9bQkFvL.png">
   
     <link rel="alternative" href="/atom.xml" title="ZLIN" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="https://s2.loli.net/2023/06/26/1Y5Nck8XL4RjaFv.png">
   
   <link rel="stylesheet" type="text/css" href="/./main.0cf68a.css">
   <style type="text/css">
@@ -49,7 +49,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
-			<img src="https://s2.loli.net/2024/10/19/2W5t64IHwKJ9OkR.jpg" class="js-avatar">
+			<img src="https://s2.loli.net/2023/07/18/U8LvflPaiXOcWQb.jpg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author" style="font-family: Lucida grande; color: black; font-size: 30px;"><a href="/">ZLIN</a></h1>
@@ -66,12 +66,16 @@
 	        
 				<li><a href="/categories">分类</a></li>
 	        
+				<li><a href="/tags">标签</a></li>
+	        
+				<li><a href="/Download">下载</a></li>
+	        
 				<li><a href="/aboutme">关于我</a></li>
 	        
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数4
+			总文章数10
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -115,7 +119,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="https://s2.loli.net/2024/10/19/2W5t64IHwKJ9OkR.jpg" class="js-avatar">
+				<img src="https://s2.loli.net/2023/07/18/U8LvflPaiXOcWQb.jpg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">ZLin</h1>
@@ -124,6 +128,10 @@
 			<p class="header-subtitle"><i class="icon icon-quo-left"></i>我是IC小牛马,你是什么<i class="icon icon-quo-right"></i></p>
 			
 			
+			
+				
+			
+				
 			
 				
 			
@@ -151,11 +159,15 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
+					<li style="width: 20%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/categories">分类</a></li>
+					<li style="width: 20%"><a href="/categories">分类</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/aboutme">关于我</a></li>
+					<li style="width: 20%"><a href="/tags">标签</a></li>
+		        
+					<li style="width: 20%"><a href="/Download">下载</a></li>
+		        
+					<li style="width: 20%"><a href="/aboutme">关于我</a></li>
 		        
 				</ul>
 			</nav>
@@ -190,7 +202,215 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p><a><span id="more"></span></a></p>
+<h2 id="Shell变量"><a href="#Shell变量" class="headerlink" title="Shell变量"></a>Shell变量</h2><h3 id="取出变量值"><a href="#取出变量值" class="headerlink" title="取出变量值"></a>取出变量值</h3><ul>
+<li><p>单引号：所见即所得</p>
+</li>
+<li><p>双引号：输出引号里面的所有内容，识别特殊字符，弱引用</p>
+</li>
+<li><p>无引号：连续的符号可以不加引号，有空格有歧义，最好使用双引号</p>
+</li>
+<li><p>反引号：<kbd><code>ls</code></kbd>引用命令执行的结果，就等于$()用法</p>
+</li>
+<li><h3 id="特殊变量"><a href="#特殊变量" class="headerlink" title="特殊变量"></a>特殊变量</h3></li>
+<li><p><a>$</a> : 获取shell脚本的文件名，以及脚本路径</p>
+</li>
+<li><p><a>$n</a> : 获取shell脚本的第n个参数，n在1-9之间，就可以写$1这样的，如果大于了10，就需要用$(10)，参数之间用空格隔开</p>
+</li>
+<li><p><a>$#</a> : 获取执行shell脚本后面的参数总个数</p>
+</li>
+<li><p><a>$*</a> : 获取shell脚本所有参数，不加引号等同于$@的作用，加上了引号就是把接受的参数作为单个字符串了 “$1  $2”</p>
+</li>
+<li><p><a>$@</a> : 不加引号，效果同上，加上了引号， 效果是分开每个参数，”$1”, “$2”， 空格保留</p>
+</li>
+</ul>
+<h3 id="特殊状态变量"><a href="#特殊状态变量" class="headerlink" title="特殊状态变量"></a>特殊状态变量</h3><ul>
+<li>$? ： 上一次命令执行是不是正常执行的，0正确，非0就是失败了</li>
+<li>$$ ： 当前shell脚本的进程号</li>
+<li>$! ： 上一次后台进程的PID</li>
+<li>$_ ： 上次命令的最后一个参数</li>
+</ul>
+<h3 id="内置命令"><a href="#内置命令" class="headerlink" title="内置命令"></a>内置命令</h3><ul>
+<li><h4 id="echo-：-输出内容到指定的"><a href="#echo-：-输出内容到指定的" class="headerlink" title="echo ： 输出内容到指定的"></a><a>echo</a> ： 输出内容到指定的</h4><ul>
+<li>-n : 不换行输出内容</li>
+<li>-e ： 解释转移字符</li>
+<li>\n : 换行</li>
+<li>\r ：回车</li>
+<li>\t : tab</li>
+<li>\b : 退格</li>
+<li>\v ： 纵向制表符</li>
+</ul>
+</li>
+<li><h4 id="eval-：-执行多个命令"><a href="#eval-：-执行多个命令" class="headerlink" title="eval ： 执行多个命令"></a><a>eval</a> ： 执行多个命令</h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval ls; cd xxx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="exec：-不创建子shell，执行该命令，完成命令之后自己就exit了"><a href="#exec：-不创建子shell，执行该命令，完成命令之后自己就exit了" class="headerlink" title="exec： 不创建子shell，执行该命令，完成命令之后自己就exit了"></a><a>exec</a>： 不创建子shell，执行该命令，完成命令之后自己就exit了</h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec date</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="export"><a href="#export" class="headerlink" title="export"></a><a>export</a></h4></li>
+<li><h4 id="read"><a href="#read" class="headerlink" title="read"></a><a>read</a></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read -p &quot;Input :&quot; var</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="shift"><a href="#shift" class="headerlink" title="shift"></a><a>shift</a></h4></li>
+</ul>
+<h2 id="逻辑控制"><a href="#逻辑控制" class="headerlink" title="逻辑控制"></a>逻辑控制</h2><h3 id="if"><a href="#if" class="headerlink" title="if"></a><a>if</a></h3><blockquote>
+<p>语法: 如果一行里面写了多个语句，就要写分号；了，如果是一行就写了一句话了，就不用写分号了</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if command</span><br><span class="line">then </span><br><span class="line">  command</span><br><span class="line">if</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>bash的if语句会直接运行if后面的命令，如果该命令执行正确（状态码位0），处于then的命令就会被执行，否则就不会被执行，或者执行其他的逻辑语句，最后到fi结束逻辑控制</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if [ pwd ]</span><br><span class="line">	then </span><br><span class="line">		echo &quot;hhh&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="if-then-else"><a href="#if-then-else" class="headerlink" title="if-then-else"></a><a>if-then-else</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line">if [ $1 -ge 2 ]</span><br><span class="line">  then</span><br><span class="line">    echo &quot;you need input a number more than 1&quot;</span><br><span class="line">else</span><br><span class="line">   echo &quot;sorry&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="嵌套if"><a href="#嵌套if" class="headerlink" title="嵌套if"></a><a>嵌套if</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if [ $1 -ge 2 ]</span><br><span class="line">  then</span><br><span class="line">    echo &quot;you need input a number more than 1&quot;</span><br><span class="line">else</span><br><span class="line">  if [ $1 -le 2 ]</span><br><span class="line">     echo &quot;sorry&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="elif语句"><a href="#elif语句" class="headerlink" title="elif语句"></a><a>elif语句</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if [ $1 -le 20 ]</span><br><span class="line">  then</span><br><span class="line">    echo &quot;you need input a number more than 1&quot;</span><br><span class="line">elif [ $1 -ge  30 ]</span><br><span class="line">  then</span><br><span class="line">        echo &quot;hhhh&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="test"><a href="#test" class="headerlink" title="test"></a><a>test</a></h3><ul>
+<li><p>test命令最短的定义可能是评估一个表达式；如果条件为真，则返回一个0。如果表达式不为真，则返回一个大于0的数值，也可以将其称为假值。检查最后所执行命令的状态的最简便的方法就是<kbd>$？</kbd></p>
+</li>
+<li><p>检测文件类型的option： test [option] filename，</p>
+<ul>
+<li><p>-e ： 该filename是不是存在</p>
+</li>
+<li><p>-f ： 该filename是不是文件</p>
+</li>
+<li><p>-d ： 该filename是不是目录</p>
+</li>
+<li><p>-b ： 该filename是不是要给block device</p>
+</li>
+<li><p>-c ： 该filename是不是一个character device</p>
+</li>
+<li><p>-s ： 该filename是不是一个socket</p>
+</li>
+<li><p>-p ： 该filename是不是一个FIFO（pipe）文件</p>
+</li>
+<li><p>-L ： 该filename是不是要给连结档</p>
+</li>
+</ul>
+</li>
+<li><p>文件权限的option ： test [option] filename</p>
+<ul>
+<li>-r 检测文件是不是有可读属性</li>
+<li>-w 检测文件是不是有可写属性</li>
+<li>-x 检测文件是不是有可执行属性</li>
+<li>-u 检测文件是不是有SUID属性</li>
+<li>-g 检测文件是不是有SGID属性</li>
+<li>-k 检测文件是不是有Sticky bit属性</li>
+<li>-s 检测文件是不是非空白文件</li>
+</ul>
+</li>
+<li><p>两个文件之变的比较 ： test filename1 [option] filename2</p>
+<ul>
+<li>-nt （newer than）判断filename1是不是比filename2新</li>
+<li>-ot （older than）判断filename1是不是比filename2旧</li>
+<li>-ef 判断filename1与filename2是不是一个文件，可以用在判断hard link上面，是不是指向了同一个文件</li>
+</ul>
+</li>
+<li><p>判断两个整数 ： test num1 [option] num2</p>
+<ul>
+<li>-eq : equal 判断两个数值相等的吗</li>
+<li>-ne ： not equal 判断两个数值不相等的吗</li>
+<li>-gt ： greater than 判断n1 大于 n2吗</li>
+<li>-lt : less than 判断n1 小于 n2 吗</li>
+<li>-ge ： greater than or equal 判断n1 大于等于 n2吗</li>
+<li>-le ： less than or equal 判断n1 小于等于 n2吗</li>
+</ul>
+</li>
+<li><p>判断字符串</p>
+<ul>
+<li><p>-z : 判断是不是空的，是用的就是true，不是空个，就是false</p>
+</li>
+<li><p>-n ： 判断是不是不是空的，不是空个就是true，是空的就是false</p>
+</li>
+<li><p>&#x3D; ： string1 是不是等于string2</p>
+</li>
+<li><p>!&#x3D; ： string1 是不是不等于string2</p>
+</li>
+</ul>
+</li>
+<li><p>&amp;&amp; 与 || （和c语言中的是一样的）</p>
+</li>
+<li><p>数学表达式： bash支持<strong>双小括号</strong>写入高级的数学表达式</p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/10/19/yfeJ1AmC9bQkFvL.png" alt="image-20240317154916014"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var=199</span><br><span class="line">if (( &quot;$var&quot; &gt; $1 ));then</span><br><span class="line">  echo &quot;$var is greater than $1&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="双中括号"><a href="#双中括号" class="headerlink" title="双中括号[[]]"></a>双中括号[[]]</h3><ul>
+<li>双中括号提供了针对字符串的高级特性，模式匹配，正则表达式的匹配</li>
+<li>&#x3D;&#x3D; ： 就是c语言里面的，是不是相等意思</li>
+</ul>
+<h3 id="case"><a href="#case" class="headerlink" title="case"></a>case</h3><ul>
+<li>就是和c语言里面是一样的</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">case &quot;$1&quot; in</span><br><span class="line">1)</span><br><span class="line">  echo &quot;\$1 is 1&quot;</span><br><span class="line">;;</span><br><span class="line">2)</span><br><span class="line">  echo &quot;\$2 is 2&quot;</span><br><span class="line">;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<h3 id="for命令"><a href="#for命令" class="headerlink" title="for命令"></a>for命令</h3><ul>
+<li>和c语言的一样,但是里面可能需要转义符号和双引号</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;1..100&#125;;do</span><br><span class="line"> echo &quot;$i&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>for遍历文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">for word in $(cat lin.sh)</span><br><span class="line">do</span><br><span class="line">echo &quot;$word&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>c语言风格的for循环</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (( a=1,b=2;a&lt;=10;a++,b++ ))</span><br><span class="line">do </span><br><span class="line">        echo &quot;$a &amp;&amp; $b&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">while [ $1 -gt $2 ];do</span><br><span class="line"> echo &quot;$1 is greater than $2&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行多个命令的时候，每条命令都是单独一行的</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">while echo &quot;$1&quot; </span><br><span class="line"> [ $1 -gt $2 ] </span><br><span class="line">do</span><br><span class="line"> echo &quot;$1 is greater than $2&quot;</span><br><span class="line">sleep 23</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h3 id="until命令"><a href="#until命令" class="headerlink" title="until命令"></a>until命令</h3><ul>
+<li>和while的用法是一样的，就是意思是相反的</li>
+</ul>
+<h3 id="IFS分隔符"><a href="#IFS分隔符" class="headerlink" title="IFS分隔符"></a>IFS分隔符</h3><ul>
+<li>用来指定分隔符的，没有指定的话，好像是空格，可以指定的分割符有：空格，制表符，换行符，逗号</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">oldifs=$IFS</span><br><span class="line">IFS=,</span><br><span class="line">names=&quot;lin,zhi,wen&quot;</span><br><span class="line">for i in $names;</span><br><span class="line">do</span><br><span class="line">  echo $i</span><br><span class="line">done</span><br><span class="line">IFS=$oldifs</span><br></pre></td></tr></table></figure>
+
+<h3 id="打断循环"><a href="#打断循环" class="headerlink" title="打断循环"></a>打断循环</h3><ul>
+<li>break<ul>
+<li>break 2，就是跳出两层循环，其他的和c语言是一样的</li>
+</ul>
+</li>
+<li>continue： 和c是一样的</li>
+</ul>
+<h3 id="循环输出的重新定向"><a href="#循环输出的重新定向" class="headerlink" title="循环输出的重新定向"></a>循环输出的重新定向</h3><ul>
+<li>在shell脚本里面，循环输出后的结果，可以进行重定向</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">oldifs=$IFS</span><br><span class="line">IFS=,</span><br><span class="line">names=&quot;lin,zhi,wen&quot;</span><br><span class="line">for i in $names;</span><br><span class="line">do</span><br><span class="line">  echo $i</span><br><span class="line">done &gt; tudou.txt</span><br><span class="line">IFS=$oldifs</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="函数的概念"><a href="#函数的概念" class="headerlink" title="函数的概念"></a>函数的概念</h3><ul>
+<li>当你需要一段重复的代码的时候，就可以把这段代码定义成函数了，可以重复的调用，下面是两种常用的定义函数的方式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">标准的函数的定义，func_name后面可以不给括号，建议标准的写法吧</span></span><br><span class="line">function func_name() &#123;</span><br><span class="line">	command</span><br><span class="line">	return 状态码</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">简化的函数的定义</span></span><br><span class="line">func_name() &#123;</span><br><span class="line">	command</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">lin_func_use() &#123;</span><br><span class="line">        echo &quot;$1&quot;</span><br><span class="line">&#125;</span><br><span class="line">if [ $# -gt 1 ];then</span><br><span class="line">  lin_func_use &quot;$1&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>函数名需要唯一，负责会覆盖函数的定义的，就是和c语言一样的</li>
+<li>在函数里面使用<kbd>return</kbd>命令来定制特殊的退出状态码，也可以保存到变量里面</li>
+<li>函数里面的变量是属于局部变量的，写在脚本里面的变量是全局变量（除了函数体内部的）</li>
+<li>可以在函数体里面生命上<kbd>local</kbd>，声明为局部的，虽然我认为没有什么用</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">name=&quot;linzhiwen&quot;</span><br><span class="line">lin_func_use() &#123;</span><br><span class="line">        local name=&quot;lin&quot;</span><br><span class="line">        echo &quot;$name&quot;</span><br><span class="line">        return 2;</span><br><span class="line">&#125;</span><br><span class="line">if [ $# -gt 1 ];then</span><br><span class="line">  lin_func_use &quot;$1&quot;</span><br><span class="line">fi</span><br><span class="line">echo $?</span><br></pre></td></tr></table></figure>
+
+
       
  <!-- 添加版权声明 -->
  
@@ -208,9 +428,6 @@
    本作品采用
    <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
    进行许可。转载请注明出处！
-   
-     <br>
-     <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a>
    
  </div>
 
@@ -378,7 +595,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell%E5%8F%98%E9%87%8F"><span class="toc-number">1.</span> <span class="toc-text">Shell变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96%E5%87%BA%E5%8F%98%E9%87%8F%E5%80%BC"><span class="toc-number">1.1.</span> <span class="toc-text">取出变量值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F"><span class="toc-number">1.2.</span> <span class="toc-text">特殊变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E7%8A%B6%E6%80%81%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text">特殊状态变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text">内置命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#echo-%EF%BC%9A-%E8%BE%93%E5%87%BA%E5%86%85%E5%AE%B9%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84"><span class="toc-number">1.4.1.</span> <span class="toc-text">echo ： 输出内容到指定的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eval-%EF%BC%9A-%E6%89%A7%E8%A1%8C%E5%A4%9A%E4%B8%AA%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.2.</span> <span class="toc-text">eval ： 执行多个命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#exec%EF%BC%9A-%E4%B8%8D%E5%88%9B%E5%BB%BA%E5%AD%90shell%EF%BC%8C%E6%89%A7%E8%A1%8C%E8%AF%A5%E5%91%BD%E4%BB%A4%EF%BC%8C%E5%AE%8C%E6%88%90%E5%91%BD%E4%BB%A4%E4%B9%8B%E5%90%8E%E8%87%AA%E5%B7%B1%E5%B0%B1exit%E4%BA%86"><span class="toc-number">1.4.3.</span> <span class="toc-text">exec： 不创建子shell，执行该命令，完成命令之后自己就exit了</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#export"><span class="toc-number">1.4.4.</span> <span class="toc-text">export</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#read"><span class="toc-number">1.4.5.</span> <span class="toc-text">read</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shift"><span class="toc-number">1.4.6.</span> <span class="toc-text">shift</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">逻辑控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#if"><span class="toc-number">2.1.</span> <span class="toc-text">if</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if-then-else"><span class="toc-number">2.2.</span> <span class="toc-text">if-then-else</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B5%8C%E5%A5%97if"><span class="toc-number">2.3.</span> <span class="toc-text">嵌套if</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#elif%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.4.</span> <span class="toc-text">elif语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#test"><span class="toc-number">2.5.</span> <span class="toc-text">test</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E4%B8%AD%E6%8B%AC%E5%8F%B7"><span class="toc-number">2.6.</span> <span class="toc-text">双中括号[[]]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#case"><span class="toc-number">2.7.</span> <span class="toc-text">case</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for%E5%91%BD%E4%BB%A4"><span class="toc-number">2.8.</span> <span class="toc-text">for命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#while%E5%BE%AA%E7%8E%AF"><span class="toc-number">2.9.</span> <span class="toc-text">while循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#until%E5%91%BD%E4%BB%A4"><span class="toc-number">2.10.</span> <span class="toc-text">until命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IFS%E5%88%86%E9%9A%94%E7%AC%A6"><span class="toc-number">2.11.</span> <span class="toc-text">IFS分隔符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E6%96%AD%E5%BE%AA%E7%8E%AF"><span class="toc-number">2.12.</span> <span class="toc-text">打断循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E8%BE%93%E5%87%BA%E7%9A%84%E9%87%8D%E6%96%B0%E5%AE%9A%E5%90%91"><span class="toc-number">2.13.</span> <span class="toc-text">循环输出的重新定向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">3.1.</span> <span class="toc-text">函数的概念</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
