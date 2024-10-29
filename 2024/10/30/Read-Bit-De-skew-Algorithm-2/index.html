@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>文章分类 | ZLIN</title>
+  <title>Read Bit De-skew Algorithm 2 | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这里是IC攻城狮聚集地!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="文章分类">
-<meta property="og:url" content="https://talent-tudou.github.io/categories/index.html">
+  <meta name="description" content="描述了PUB（物理控制单元）中的读取比特去偏移（de-skew）算法的目标和过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Read Bit De-skew Algorithm 2">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/10/30/Read-Bit-De-skew-Algorithm-2/index.html">
 <meta property="og:site_name" content="ZLIN">
-<meta property="og:description" content="这里是IC攻城狮聚集地!">
+<meta property="og:description" content="描述了PUB（物理控制单元）中的读取比特去偏移（de-skew）算法的目标和过程">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-19T05:30:40.000Z">
-<meta property="article:modified_time" content="2024-10-19T07:29:28.841Z">
+<meta property="article:published_time" content="2024-10-29T16:13:11.000Z">
+<meta property="article:modified_time" content="2024-10-29T16:18:02.498Z">
 <meta property="article:author" content="ICXNM-ZLin">
-<meta property="article:tag" content="IC, UVM, SV, Shell, Python">
+<meta property="article:tag" content="IC">
+<meta property="article:tag" content="DDR">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="ZLIN" type="application/atom+xml">
@@ -181,20 +182,252 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article class="article article-type-post show">
-  <header class="article-header" style="text-align: left; border-bottom: 1px solid #ccc">
-  <h1 class="article-title" itemprop="name">
-    文章分类
-  </h1>
-  </header>
+            <article id="post-Read-Bit-De-skew-Algorithm-2" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Read Bit De-skew Algorithm 2
+    </h1>
+  
+
+        
+        <a href="/2024/10/30/Read-Bit-De-skew-Algorithm-2/" class="archive-article-date">
+  	<time datetime="2024-10-29T16:13:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>描述了PUB（物理控制单元）中的读取比特去偏移（de-skew）算法的目标和过程</p>
+</blockquote>
+<p><a><span id="more"></span></a></p>
+<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a><a>目标</a></h3><ul>
+<li>确保在读取路径中，数据比特的0到1的转换是对齐的。这是为了优化数据的传输可靠性，确保数据能够被准确读取。</li>
+</ul>
+<h3 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a><a>算法过程</a></h3><h4 id="1-写入数据："><a href="#1-写入数据：" class="headerlink" title="1. 写入数据："></a>1. <strong>写入数据</strong>：</h4><ul>
+<li>算法开始时，会向指定地址（DTAR0: x0000、DTAR1: x0008、DTAR2: x0010）发出一系列写入命令，确保数据正确写入。这一步骤是算法的基础。</li>
+</ul>
+<h4 id="2-可选的写入延长："><a href="#2-可选的写入延长：" class="headerlink" title="2. 可选的写入延长："></a>2. <strong>可选的写入延长</strong>：</h4><ul>
+<li>在写入序列之前，可以选择执行写入定级（Write Leveling Adjustment）。为此，DQS（数据选通信号）可以通过寄存器DTCR.DTEXD延长一个额外的周期。</li>
+</ul>
+<h4 id="3-读取数据："><a href="#3-读取数据：" class="headerlink" title="3. 读取数据："></a>3. <strong>读取数据</strong>：</h4><ul>
+<li>数据写入后，算法进入读取阶段，开始进行读取比特去偏移操作。</li>
+</ul>
+<h4 id="4-检测数据眼的左边缘："><a href="#4-检测数据眼的左边缘：" class="headerlink" title="4. 检测数据眼的左边缘："></a>4. <strong>检测数据眼的左边缘</strong>：</h4><ul>
+<li>读取比特去偏移算法的关键步骤是检测数据眼（data eye）的左边缘，即在这个位置上，至少有一个读取数据比特的故障被检测到。这可以理解为找到数据信号从0到1变化的第一个位置。</li>
+</ul>
+<h4 id="5-右移比特："><a href="#5-右移比特：" class="headerlink" title="5. 右移比特："></a>5. <strong>右移比特</strong>：</h4><ul>
+<li>一旦检测到左边缘，算法将对每个比特进行右移，直到检测到相应比特的读取故障，并且比较失败的次数达到寄存器DTCR.DTRPT中定义的次数n。</li>
+</ul>
+<h4 id="6-扫掠读取数据眼："><a href="#6-扫掠读取数据眼：" class="headerlink" title="6. 扫掠读取数据眼："></a>6. <strong>扫掠读取数据眼</strong>：</h4><ul>
+<li>完成所有比特的去偏移后，算法将扫掠读取数据眼，以定位右边缘。</li>
+</ul>
+<h4 id="7-计算眼中心："><a href="#7-计算眼中心：" class="headerlink" title="7. 计算眼中心："></a>7. <strong>计算眼中心</strong>：</h4><ul>
+<li>一旦检测到右边缘，算法将计算数据眼的中心，并将读取的DQS信号置于该中心位置。这样可以确保在读取数据时，DQS信号与数据的中心对齐，从而提高读取的成功率和准确性。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>整个算法的目标是通过精确定位和调整数据眼的边缘，确保读取过程中的数据比特在时间上是对齐的，从而减少读取错误。这在高速数据传输（如DDR内存）中尤为重要，因为任何微小的偏差都可能导致数据损坏。</p>
+</blockquote>
+
+      
+ <!-- 添加版权声明 -->
+ 
+
+ <div class="declare">
+   <strong>本文作者：</strong>
+   
+     ICXNM-ZLin
+   
+   <br>
+   <strong>本文链接：</strong>
+   <a href="https://talent-tudou.github.io/2024/10/30/Read-Bit-De-skew-Algorithm-2/" title="Read Bit De-skew Algorithm 2" target="_blank">https://talent-tudou.github.io/2024/10/30/Read-Bit-De-skew-Algorithm-2/</a>
+   <br>
+   <strong>版权声明：</strong>
+   本作品采用
+   <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+   进行许可。转载请注明出处！
+   
+ </div>
+
+     <!-- 添加版权声明 -->
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢大佬打赏！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://s2.loli.net/2024/10/20/c2HvlLfr9Z8RAFw.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="https://s2.loli.net/2024/10/19/gZdDkzJQK5yHuSX.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/10/30/Read-Bit-De-skew-Algorithm-2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
 
   
-  <div class="category-all-page">
-    <h2>共计&nbsp;12&nbsp;个分类</h2>
-    <ul class="category-list-item-list"><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/DDR/">DDR</a><span class="category-list-item-list-count">18</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/IC/">IC</a><span class="category-list-item-list-count">1</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/Memory/">Memory</a><span class="category-list-item-list-count">1</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/Programming/">Programming</a><span class="category-list-item-list-count">9</span><ul class="category-list-item-list-child"><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/Programming/C/">C</a><span class="category-list-item-list-count">1</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/Programming/Linux/">Linux</a><span class="category-list-item-list-count">1</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/Programming/Makefile/">Makefile</a><span class="category-list-item-list-count">1</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/Programming/Python/">Python</a><span class="category-list-item-list-count">1</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/Programming/Shell/">Shell</a><span class="category-list-item-list-count">1</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/Programming/SystemVerilog/">SystemVerilog</a><span class="category-list-item-list-count">2</span></li><li class="category-list-item-list-item"><a class="category-list-item-list-link" href="/categories/Programming/UVM/">UVM</a><span class="category-list-item-list-count">2</span></li></ul></li></ul>
-  </div>
+<nav id="article-nav">
   
-</article>
+    <a href="/2024/10/30/Write-Bit-De-skew-Algorithm/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Write Bit De-skew Algorithm
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/10/30/Read-Bit-De-skew-Algorithm/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Read Bit De-skew Algorithm</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+
           </div>
         </div>
       </div>
@@ -215,7 +448,7 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
