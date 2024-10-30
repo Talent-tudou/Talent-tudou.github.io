@@ -6,18 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>c语言运算符优先级 | ZLIN</title>
+  <title>Eye Diagram | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="c语言运算符优先级">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/10/20/c%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7/index.html">
+  <meta name="description" content="眼图（Eye Diagram）是用于分析数字信号完整性的一种图形工具。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eye Diagram">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/10/30/%E7%9C%BC%E5%9B%BE/index.html">
 <meta property="og:site_name" content="ZLIN">
+<meta property="og:description" content="眼图（Eye Diagram）是用于分析数字信号完整性的一种图形工具。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-20T03:04:19.000Z">
-<meta property="article:modified_time" content="2024-10-20T03:06:02.144Z">
+<meta property="article:published_time" content="2024-10-30T15:48:29.000Z">
+<meta property="article:modified_time" content="2024-10-30T15:59:04.320Z">
 <meta property="article:author" content="ICXNM-ZLin">
-<meta property="article:tag" content="Programming">
-<meta property="article:tag" content="C">
+<meta property="article:tag" content="IC">
+<meta property="article:tag" content="DDR">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="ZLIN" type="application/atom+xml">
@@ -180,27 +182,89 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-c语言运算符优先级" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-眼图" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      c语言运算符优先级
+      Eye Diagram
     </h1>
   
 
         
-        <a href="/2024/10/20/c%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7/" class="archive-article-date">
-  	<time datetime="2024-10-20T03:04:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-20</time>
+        <a href="/2024/10/30/%E7%9C%BC%E5%9B%BE/" class="archive-article-date">
+  	<time datetime="2024-10-30T15:48:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a><span id="more"></span></a></p>
+        <blockquote>
+<p>眼图（Eye Diagram）是用于分析数字信号完整性的一种图形工具。</p>
+</blockquote>
+<p><a><span id="more"></span></a></p>
+<h3 id="眼图的主要特点包括："><a href="#眼图的主要特点包括：" class="headerlink" title="眼图的主要特点包括："></a><a>眼图的主要特点包括：</a></h3><ol>
+<li><strong>重叠显示</strong>：通过在同一图形中叠加多个信号周期，能够直观地看到信号在不同时间点的状态。这种重叠可以揭示信号的噪声、抖动和失真等问题。</li>
+<li><strong>眼高和眼宽</strong>：眼图的“眼睛”部分的高度（眼高）代表信号的噪声裕度，越高意味着抗干扰能力越强。眼宽则与信号的时钟同步和抖动有关，越宽通常意味着更好的定时裕度。</li>
+<li><strong>使用场景</strong>：眼图常用于评估传输线的设计、信号的放大和调节，以及整个系统的性能。设计工程师可以根据眼图调整电路，改善信号完整性。</li>
+</ol>
+<h3 id="DDR读写眼图的特点："><a href="#DDR读写眼图的特点：" class="headerlink" title="DDR读写眼图的特点："></a><a>DDR读写眼图的特点：</a></h3><h4 id="1-读眼图："><a href="#1-读眼图：" class="headerlink" title="1. 读眼图："></a>1. <strong>读眼图</strong>：</h4><ul>
+<li><strong>读操作时的信号</strong>：在进行读操作时，数据总线上的信号状态会根据时钟的上升沿和下降沿变化。</li>
+<li><strong>眼图的形成</strong>：多个读操作周期的数据波形叠加形成眼图。通过观察眼图，可以评估信号的眼高和眼宽，判断是否存在噪声、抖动和时序问题。</li>
+<li><strong>重要参数</strong>：眼高反映了信号的噪声裕度，眼宽则表示定时裕度，二者都对系统的稳定性至关重要。</li>
+</ul>
+<h4 id="2-写眼图："><a href="#2-写眼图：" class="headerlink" title="2. 写眼图："></a>2. <strong>写眼图</strong>：</h4><ul>
+<li><strong>写操作时的信号</strong>：在写操作中，数据总线也会随时钟的变化而改变。</li>
+<li><strong>眼图的形成</strong>：类似于读眼图，通过叠加多个写操作周期的数据波形生成眼图。</li>
+<li><strong>写操作的关注点</strong>：写眼图通常需要关注信号的上升和下降时间，以确保数据能够在正确的时钟边缘被接收。</li>
+</ul>
+<h3 id="眼图分析的意义："><a href="#眼图分析的意义：" class="headerlink" title="眼图分析的意义："></a><a>眼图分析的意义：</a></h3><ul>
+<li><strong>信号完整性评估</strong>：通过分析眼图，设计工程师可以发现潜在的信号完整性问题，比如时序偏移、过多的抖动和噪声。</li>
+<li><strong>优化设计</strong>：根据眼图的结果，工程师可以调整传输线的设计、增加终端匹配、改善信号的驱动能力等，以优化DDR接口的性能。</li>
+</ul>
+<p>总之，DDR读写眼图是验证和优化DDR信号传输性能的重要工具，有助于确保数据的准确传输和系统的稳定运行。</p>
+<blockquote>
+<p><strong>眼高和眼宽是眼图中两个重要的参数，用于评估信号的完整性。</strong></p>
+</blockquote>
+<h3 id="眼高-Eye-Height"><a href="#眼高-Eye-Height" class="headerlink" title="眼高 (Eye Height)"></a><a>眼高 (Eye Height)</a></h3><ul>
+<li><strong>定义</strong>：眼高是眼图中“眼睛”打开部分的高度。它表示信号的电压范围，反映了信号的抗噪声能力。</li>
+<li><strong>重要性</strong>：眼高越大，说明信号在逻辑高和逻辑低状态之间的差异越明显，这样可以更好地抵抗噪声的干扰。如果眼高较小，信号可能更容易受到噪声的影响，导致错误读取。</li>
+</ul>
+<h3 id="眼宽-Eye-Width"><a href="#眼宽-Eye-Width" class="headerlink" title="眼宽 (Eye Width)"></a><a>眼宽 (Eye Width)</a></h3><ul>
+<li><strong>定义</strong>：眼宽是眼图中“眼睛”打开部分的宽度。它表示信号在有效传输期间的时间窗口，反映了信号的时序裕度。</li>
+<li><strong>重要性</strong>：眼宽越大，表示信号在时钟周期内保持稳定的时间越长，这样可以确保数据在多个时钟边缘被正确采样。如果眼宽较小，意味着信号在有效传输时间内的变化范围有限，容易导致数据的时序错误。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a>总结</a></h3><ul>
+<li><p><strong>眼高</strong>：反映信号的抗干扰能力，眼高越大，抗噪声能力越强。</p>
+<ul>
+<li><strong>电压差异</strong>：眼高反映了逻辑高电平（通常对应于信号的高电压状态）和逻辑低电平（通常对应于信号的低电压状态）之间的电压差。当眼高较大时，逻辑高和逻辑低的电压差明显，使得接收器更容易区分这两种状态。</li>
+<li><strong>噪声裕度</strong>：在信号传输过程中，电磁干扰、热噪声和其他因素可能会对信号造成影响。较大的眼高意味着在噪声干扰下，逻辑高和逻辑低的电压仍有足够的差距，可以减少错误判断的风险。也就是说，接收器能够在一定范围内的噪声干扰下，仍然正确识别信号的状态。</li>
+<li><strong>容错能力</strong>：较大的眼高使得系统在面对信号波动时具备更好的容错能力。如果信号电平因噪声而发生轻微变化，但仍在逻辑高和逻辑低之间的电压差距内，接收器能够准确判断信号状态，而不会误判为错误的逻辑状态。</li>
+</ul>
+</li>
+<li><p><strong>眼宽</strong>：反映信号的定时裕度，眼宽越大，数据传输的可靠性越高。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>通过观察眼高和眼宽，工程师可以评估和优化高速信号传输的设计，确保系统的稳定性和可靠性。</strong></p>
+</blockquote>
+<h3 id="示例：DDR3接口信号"><a href="#示例：DDR3接口信号" class="headerlink" title="示例：DDR3接口信号"></a><a>示例：DDR3接口信号</a></h3><blockquote>
+<p>假设在一个DDR3接口中，逻辑高电平的电压（Vih）为 1.5V，逻辑低电平的电压（Vil）为 0V。这意味着：</p>
+</blockquote>
+<ul>
+<li><strong>逻辑高电平（Vih）</strong>: 1.5V</li>
+<li><strong>逻辑低电平（Vil）</strong>: 0V</li>
+<li><strong>眼高</strong>: 1.5V - 0V &#x3D; 1.5V</li>
+</ul>
+<h3 id="情况分析"><a href="#情况分析" class="headerlink" title="情况分析"></a>情况分析</h3><h4 id="1-大眼高："><a href="#1-大眼高：" class="headerlink" title="1. 大眼高："></a>1. <strong>大眼高</strong>：</h4><ul>
+<li>如果眼高为1.5V，信号的逻辑高和逻辑低电平有足够的电压差异。在这种情况下，即使信号受到噪声的干扰（例如，0.1V的干扰），逻辑高电平的实际电压可能在1.4V到1.6V之间（1.5V ± 0.1V），而逻辑低电平仍然保持在0V。由于逻辑高和逻辑低之间的电压差异仍然很大，接收器能够轻松区分这两种状态，从而保持信号的准确性。</li>
+</ul>
+<h4 id="2-小眼高："><a href="#2-小眼高：" class="headerlink" title="2. 小眼高："></a>2. <strong>小眼高</strong>：</h4><ul>
+<li>如果眼高较小，比如只有0.3V（逻辑高为0.15V，逻辑低为-0.15V），噪声干扰可能会将逻辑高电平的电压降低到0.1V（0.15V - 0.1V），而逻辑低电平的电压可能保持在-0.15V。这时，接收器在识别信号时可能会出现混淆，因为0.1V可能被误判为逻辑低电平，从而导致错误的信号解码。</li>
+</ul>
 
       
  <!-- 添加版权声明 -->
@@ -213,7 +277,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/10/20/c语言运算符优先级/" title="c语言运算符优先级" target="_blank">https://talent-tudou.github.io/2024/10/20/c语言运算符优先级/</a>
+   <a href="https://talent-tudou.github.io/2024/10/30/眼图/" title="Eye Diagram" target="_blank">https://talent-tudou.github.io/2024/10/30/眼图/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -264,11 +328,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">C</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -280,11 +344,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Programming//" class="article-tag-list-link color2">Programming</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Programming/C//" class="article-tag-list-link color2">C</a>
+        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -339,7 +399,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/10/20/c%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/10/30/%E7%9C%BC%E5%9B%BE/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -353,18 +413,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/10/20/python%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          python基础语法
-        
-      </div>
-    </a>
   
-  
-    <a href="/2024/10/20/%E5%86%85%E5%AD%98%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">内存的基本概念</div>
+    <a href="/2024/10/30/Write-Bit-De-skew-Algorithm/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Write Bit De-skew Algorithm</div>
       <i class="icon-circle-right"></i>
     </a>
   
