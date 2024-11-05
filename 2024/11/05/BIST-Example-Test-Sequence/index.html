@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>get_response | ZLIN</title>
+  <title>BIST Example Test Sequence | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="get_response">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/10/20/get-response/index.html">
+  <meta name="description" content="描述了如何执行 BIST（内建自检） 测试的具体步骤，包括 DDR PHY 的测试初始化、配置和错误检查">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BIST Example Test Sequence">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/11/05/BIST-Example-Test-Sequence/index.html">
 <meta property="og:site_name" content="ZLIN">
+<meta property="og:description" content="描述了如何执行 BIST（内建自检） 测试的具体步骤，包括 DDR PHY 的测试初始化、配置和错误检查">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-20T02:32:24.000Z">
-<meta property="article:modified_time" content="2024-10-20T03:05:08.412Z">
+<meta property="article:published_time" content="2024-11-05T14:59:19.000Z">
+<meta property="article:modified_time" content="2024-11-05T15:10:41.272Z">
 <meta property="article:author" content="ICXNM-ZLin">
-<meta property="article:tag" content="Programming">
-<meta property="article:tag" content="SystemVerilog">
-<meta property="article:tag" content="UVM">
+<meta property="article:tag" content="IC">
+<meta property="article:tag" content="DDR">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="ZLIN" type="application/atom+xml">
@@ -181,27 +182,142 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-get-response" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-BIST-Example-Test-Sequence" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      get_response
+      BIST Example Test Sequence
     </h1>
   
 
         
-        <a href="/2024/10/20/get-response/" class="archive-article-date">
-  	<time datetime="2024-10-20T02:32:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-20</time>
+        <a href="/2024/11/05/BIST-Example-Test-Sequence/" class="archive-article-date">
+  	<time datetime="2024-11-05T14:59:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-11-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a><span id="more"></span></a></p>
+        <blockquote>
+<p>描述了如何执行 <strong>BIST（内建自检）</strong> 测试的具体步骤，包括 DDR PHY 的测试初始化、配置和错误检查<a><span id="more"></span></a></p>
+</blockquote>
+<h3 id="BIST-示例测试序列"><a href="#BIST-示例测试序列" class="headerlink" title="BIST 示例测试序列"></a>BIST 示例测试序列</h3><p>下面是每个步骤的详细说明：</p>
+<hr>
+<h4 id="1-配置复位后-PHY-初始化"><a href="#1-配置复位后-PHY-初始化" class="headerlink" title="1. 配置复位后 PHY 初始化"></a>1. <strong>配置复位后 PHY 初始化</strong></h4><ul>
+<li><strong>操作</strong>：在配置复位解除后，系统需要等待 PHY 完成初始化。</li>
+<li><strong>方法</strong>：通过轮询 <strong>PGSR0.IDONE</strong> 位，等到它的值变为‘1’，表示初始化完成。</li>
+<li><strong>注意</strong>：在等待 PHY 初始化时，可以同时配置其他 PUB（PHY 微控制器）寄存器。</li>
+<li><strong>原因</strong>：此步骤确保 PHY 在测试前已经准备好，类似于正常运行模式下的初始化过程。</li>
+</ul>
+<h4 id="2-选择-DRAM-模式或-BIST-循环回路模式"><a href="#2-选择-DRAM-模式或-BIST-循环回路模式" class="headerlink" title="2. 选择 DRAM 模式或 BIST 循环回路模式"></a>2. <strong>选择 DRAM 模式或 BIST 循环回路模式</strong></h4><ul>
+<li><p><strong>DRAM 模式</strong>：</p>
+<ul>
+<li><strong>操作</strong>：向<code>PIR</code>（PHY 初始化寄存器）写入以下设置：<ul>
+<li>设置 <strong>PIR.INIT</strong> &#x3D; 1，表示初始化 PHY。</li>
+<li>设置 <strong>PIR.DRAMRST</strong> &#x3D; 1（仅 DDR3）以重置 DRAM。</li>
+<li>设置 <strong>PIR.DRAMINIT</strong> &#x3D; 1 来初始化 DRAM。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>循环回路模式(Loopback)</strong></p>
+<ul>
+<li><strong>操作</strong>：如果不需要 DRAM 模式，只需设置 <strong>PIR.INIT</strong> &#x3D; 1 和 <strong>PIR.CTLDINIT</strong> &#x3D; 1，表示跳过 DRAM 初始化。</li>
+</ul>
+</li>
+<li><p><strong>原因</strong>：这一步确保选择正确的测试模式（DRAM 模式或循环回路模式）。</p>
+</li>
+</ul>
+<h4 id="3-等待-PHY-初始化完成"><a href="#3-等待-PHY-初始化完成" class="headerlink" title="3. 等待 PHY 初始化完成"></a>3. <strong>等待 PHY 初始化完成</strong></h4><ul>
+<li><strong>操作</strong>：等待 PHY 完成初始化，或者通过轮询 <strong>PGSR0.IDONE</strong> 位来确认初始化是否完成。</li>
+<li><strong>原因</strong>：确保 PHY 在开始 BIST 测试之前已经完全初始化。</li>
+</ul>
+<h4 id="4-配置读-DQS-90-度偏移和门控设置"><a href="#4-配置读-DQS-90-度偏移和门控设置" class="headerlink" title="4. 配置读 DQS 90 度偏移和门控设置"></a>4. <strong>配置读 DQS 90 度偏移和门控设置</strong></h4><ul>
+<li><p><strong>操作</strong>：可选择性地配置在 BIST 运行期间如何控制读 DQS（数据使能信号）的 90 度偏移和门控设置，通过写入 <code>PGCR1.LBDQSS</code>和 <code>PGCR1.LBGDQS</code>。</p>
+<ul>
+<li><strong>推荐</strong>：保持默认值，这样可以确保 DQS 信号正确对齐，并且在 BIST 循环回路测试期间 DQS 门控始终开启。</li>
+</ul>
+</li>
+<li><p><strong>选择回路模式</strong>：在配置PGCR1寄存器时，还需要通过写入 <code>PGCR1.IOLB</code>选择使用 pad-side还是 core-side回路。</p>
+<ul>
+<li><strong>推荐</strong>：使用 <strong>core-side</strong> 回路模式。</li>
+</ul>
+</li>
+<li><p><strong>原因</strong>：确保数据在 BIST 期间正确对齐，避免数据捕获时的对齐问题。</p>
+</li>
+</ul>
+<h4 id="5-设置-BIST-生成的测试模式数量"><a href="#5-设置-BIST-生成的测试模式数量" class="headerlink" title="5. 设置 BIST 生成的测试模式数量"></a>5. <strong>设置 BIST 生成的测试模式数量</strong></h4><ul>
+<li><p><strong>操作</strong>：通过向 BISTWCR.BWNCT写入，设置要生成的模式数量。</p>
+<ul>
+<li><strong>默认值</strong>：默认值 32 个模式通常足以覆盖大部分测试。</li>
+</ul>
+</li>
+<li><p><strong>原因</strong>：这一步是可选的，但可以根据需要配置测试模式的数量。</p>
+</li>
+</ul>
+<h4 id="6-确保地址-命令和I-O-接收器被供电"><a href="#6-确保地址-命令和I-O-接收器被供电" class="headerlink" title="6. 确保地址&#x2F;命令和I&#x2F;O 接收器被供电"></a>6. <strong>确保地址&#x2F;命令和I&#x2F;O 接收器被供电</strong></h4><ul>
+<li><strong>操作</strong>：如果计划使用 <strong>pad-side</strong> 回路，需要确保地址&#x2F;命令 I&#x2F;O 接收器已供电，可以通过向 <strong>ACIOCR0</strong> 写入 <strong>0x20000000</strong> 来确保这一点。</li>
+<li><strong>原因</strong>：地址和命令信号默认是关闭的，这一步确保它们在测试前被供电。</li>
+</ul>
+<h4 id="7-重置-PHY-FIFO"><a href="#7-重置-PHY-FIFO" class="headerlink" title="7. 重置 PHY FIFO"></a>7. <strong>重置 PHY FIFO</strong></h4><ul>
+<li><p>操作：通过写入 <code>PGCR0.PHYFRST = 0</code> 来重置 PHY FIFO。</p>
+<ul>
+<li><strong>等待</strong>：等待至少 8 个 <strong>cfg_clk 周期</strong>，以确保 FIFO 完全重置。</li>
+<li><strong>清除复位</strong>：通过写入 <strong><code>PGCR0.PHYFRST</code></strong> &#x3D; 1 清除复位状态，准备好进行测试。</li>
+</ul>
+</li>
+<li><p><strong>原因</strong>：确保 FIFO 中没有残留的坏数据或错误状态，避免影响 BIST 测试。</p>
+</li>
+</ul>
+<h4 id="8-触发-BIST-运行"><a href="#8-触发-BIST-运行" class="headerlink" title="8. 触发 BIST 运行"></a>8. <strong>触发 BIST 运行</strong></h4><ul>
+<li><p>操作：通过写入 3’b001到 BISTRR.BINST启动 BIST 测试。</p>
+<ul>
+<li><p>其他配置</p>
+<p>：在触发 BIST 时，还需要配置 </p>
+<p>BISTRR</p>
+<p> 寄存器中的其他字段，如：</p>
+<ul>
+<li>选择 <strong>循环回路模式</strong> 或 <strong>DRAM 模式</strong>。</li>
+<li>启用 <strong>地址&#x2F;命令通道</strong> 或 <strong>字节通道</strong>。</li>
+<li>启用 <strong>数据掩码</strong>。</li>
+<li>选择用于测试的具体 <strong>字节通道</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>原因</strong>：这一步启动了 BIST 测试，并且确保其他配置正确设置。</p>
+</li>
+</ul>
+<h4 id="9-等待-BIST-完成"><a href="#9-等待-BIST-完成" class="headerlink" title="9. 等待 BIST 完成"></a>9. <strong>等待 BIST 完成</strong></h4><ul>
+<li><strong>操作</strong>：通过轮询 <strong>BISTSR.BDONE</strong> 位，等待 BIST 测试完成，状态为 ‘1’。</li>
+<li><strong>原因</strong>：这一步确认 BIST 测试已成功完成。</li>
+</ul>
+<h4 id="10-检查是否有错误"><a href="#10-检查是否有错误" class="headerlink" title="10. 检查是否有错误"></a>10. <strong>检查是否有错误</strong></h4><ul>
+<li><p>操作：通过读取 BISTWER.ACWER地址&#x2F;命令通道错误）或 BISTWER.DXWER字节通道错误）来检查是否有错误。</p>
+<ul>
+<li>如果没有错误，测试完成。</li>
+</ul>
+</li>
+<li><p>如果发现错误，进一步读取 <strong>BIST 错误寄存器</strong>，查看具体哪些信号发生了错误。</p>
+<ul>
+<li>可选地，使用 <strong>BIST 调试模式寄存器</strong> 来帮助定位故障。</li>
+</ul>
+</li>
+<li><p><strong>原因</strong>：确保在 BIST 测试中发现并处理任何错误。</p>
+</li>
+</ul>
+<hr>
+<h3 id="关键操作总结："><a href="#关键操作总结：" class="headerlink" title="关键操作总结："></a>关键操作总结：</h3><ol>
+<li><strong>初始化 PHY</strong> 并配置相关寄存器。</li>
+<li><strong>选择测试模式</strong>（循环回路模式或 DRAM 模式）。</li>
+<li><strong>触发 BIST 测试</strong>，等待完成并检查错误。</li>
+<li>使用 <strong>BIST 调试寄存器</strong> 定位并调试可能的错误。</li>
+</ol>
+<p>这些步骤确保 DDR PHY 的 BIST 测试能够正确运行，并在发现问题时提供调试信息。这为测试人员提供了一种灵活的方式来验证 DDR PHY 的功能，确保其在生产中的可靠性。</p>
 
       
  <!-- 添加版权声明 -->
@@ -214,7 +330,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/10/20/get-response/" title="get_response" target="_blank">https://talent-tudou.github.io/2024/10/20/get-response/</a>
+   <a href="https://talent-tudou.github.io/2024/11/05/BIST-Example-Test-Sequence/" title="BIST Example Test Sequence" target="_blank">https://talent-tudou.github.io/2024/11/05/BIST-Example-Test-Sequence/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -265,15 +381,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SystemVerilog</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">UVM</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -285,15 +397,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Programming//" class="article-tag-list-link color2">Programming</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Programming/SystemVerilog//" class="article-tag-list-link color4">SystemVerilog</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Programming/SystemVerilog/UVM//" class="article-tag-list-link color4">UVM</a>
+        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -348,7 +452,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/10/20/get-response/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/11/05/BIST-Example-Test-Sequence/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -362,18 +466,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/10/20/%E5%86%85%E5%AD%98%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          内存的基本概念
-        
-      </div>
-    </a>
   
-  
-    <a href="/2024/10/19/make-run/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">make_run</div>
+    <a href="/2024/11/05/vim%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vim操作</div>
       <i class="icon-circle-right"></i>
     </a>
   
