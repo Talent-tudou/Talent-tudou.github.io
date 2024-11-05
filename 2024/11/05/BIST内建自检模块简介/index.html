@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/11/05/KVoF7RqgQZnbhmH.png">
 <meta property="article:published_time" content="2024-11-05T15:14:15.000Z">
-<meta property="article:modified_time" content="2024-11-05T15:29:59.138Z">
+<meta property="article:modified_time" content="2024-11-05T16:04:18.516Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="DDR">
@@ -77,7 +77,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数39
+			总文章数40
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -304,35 +304,27 @@
 <li>具体来说，环回模式下会 <strong>生成与 SDRAM 预期相符的读取数据</strong>，即通过 <strong>不翻转的时钟预置</strong> 来确保 <strong>DQS</strong> 信号稳定，以匹配标准的 <strong>SDRAM</strong> 行为。</li>
 </ul>
 <hr>
-<h3 id="AC-Loopback"><a href="#AC-Loopback" class="headerlink" title="AC Loopback"></a>AC Loopback</h3><ol>
-<li>**地址&#x2F;命令通道 (AC Lane)**：<ul>
+<h3 id="AC-Loopback"><a href="#AC-Loopback" class="headerlink" title="AC Loopback"></a>AC Loopback</h3><h4 id="1-地址-命令通道-AC-Lane-："><a href="#1-地址-命令通道-AC-Lane-：" class="headerlink" title="1. 地址&#x2F;命令通道 (AC Lane)："></a>1. <strong>地址&#x2F;命令通道 (AC Lane)：</strong></h4><ul>
 <li>地址&#x2F;命令通道负责与 <strong>SDRAM</strong>（同步动态随机存取存储器）进行通信，传输地址和控制信号。例如，<strong>地址信号</strong> 用于定位存储位置，<strong>命令信号</strong> 用于控制读写操作。</li>
 </ul>
-</li>
-<li><strong>AC PHY 环回逻辑</strong>：<ul>
+<h4 id="2-AC-PHY-环回逻辑："><a href="#2-AC-PHY-环回逻辑：" class="headerlink" title="2. AC PHY 环回逻辑："></a>2. <strong>AC PHY 环回逻辑</strong>：</h4><ul>
 <li>在 DDR3 或 DDR4 系统中，AC PHY 负责处理地址和命令的物理层传输。为了在测试时不依赖外部内存，AC PHY 提供了内建的 <strong>环回逻辑</strong>，允许将地址和命令信号从 SDRAM 发送到 AC PHY，再从 AC PHY 环回到接收路径。环回后的信号被当作 <strong>读取数据</strong> 和 <strong>读取时钟</strong> 进行处理。</li>
 </ul>
-</li>
-<li><strong>CK&#x2F;CK# 时钟信号的环回</strong>：<ul>
+<h4 id="3-CK-CK-时钟信号的环回："><a href="#3-CK-CK-时钟信号的环回：" class="headerlink" title="3. CK&#x2F;CK# 时钟信号的环回："></a>3. <strong>CK&#x2F;CK# 时钟信号的环回</strong>：</h4><ul>
 <li><strong>CK&#x2F;CK#</strong> 是用于同步数据传输的差分时钟信号。在 AC 环回模式下，<strong>CK&#x2F;CK#</strong> 信号被环回到 AC PHY，并被当作 <strong>读取时钟</strong> 来使用。</li>
 <li>在环回过程中，时钟会被 <strong>反向</strong>（inverted），以确保 <strong>ck_do</strong>（环回后的时钟信号）能在 <strong>DDR 时钟</strong> 的一个周期之前传输，确保第一个环回数据能够被正确地采样。</li>
 </ul>
-</li>
-<li><strong>BISTRR[BCKSEL] 寄存器</strong>：<ul>
+<h4 id="4-BISTRR-BCKSEL-寄存器："><a href="#4-BISTRR-BCKSEL-寄存器：" class="headerlink" title="4. BISTRR[BCKSEL] 寄存器："></a>4. <strong>BISTRR[BCKSEL] 寄存器</strong>：</h4><ul>
 <li>该寄存器字段用于选择哪个时钟信号（**CK[n]**）将用于捕捉地址和命令信号。在环回模式下，可以根据需要配置时钟源。</li>
 </ul>
-</li>
-<li><strong>时钟反转（Inverted Clock）</strong>：<ul>
+<h4 id="5-时钟反转（Inverted-Clock）："><a href="#5-时钟反转（Inverted-Clock）：" class="headerlink" title="5. 时钟反转（Inverted Clock）："></a>5. <strong>时钟反转（Inverted Clock）</strong>：</h4><ul>
 <li>在 AC 环回模式中，时钟信号会被 <strong>反转</strong>，这样可以使环回数据在 DDR 时钟周期的 <strong>提前一个周期</strong>（一个 DDR 时钟周期提前）时被正确采样。</li>
 <li><strong>反向时钟</strong> 的目的是确保 <strong>第一个环回的数据</strong> 能够在正确的时钟边沿上被采样，从而避免时序问题。</li>
 </ul>
-</li>
-<li><strong>cke 和 cs_n 对齐</strong>：<ul>
+<h4 id="6-cke-和-cs-n-对齐："><a href="#6-cke-和-cs-n-对齐：" class="headerlink" title="6. cke 和 cs_n 对齐："></a>6. <strong>cke 和 cs_n 对齐</strong>：</h4><ul>
 <li><strong>cke</strong>（时钟启用信号）和 <strong>cs_n</strong>（芯片选择信号）会与 <strong>ck_do</strong> 上升沿对齐。尽管时钟反转了，但因为 <strong>cke</strong> 和 <strong>cs_n</strong> 并没有被用于外部 DRAM 的操作，因此在环回测试中它们的对齐不会造成问题。</li>
 <li>这意味着，即使时钟信号发生了反转，<strong>cke</strong> 和 <strong>cs_n</strong> 信号与时钟的对齐状态并不影响环回模式中的测试，因为它们并不直接影响 DRAM 的操作。</li>
 </ul>
-</li>
-</ol>
 <h4 id="环回模式中的信号流程："><a href="#环回模式中的信号流程：" class="headerlink" title="环回模式中的信号流程："></a><strong>环回模式中的信号流程：</strong></h4><ol>
 <li><strong>地址和命令信号</strong>：从 <strong>SDRAM</strong> 发出，通过 <strong>AC PHY</strong> 环回逻辑，进入 <strong>AC PHY</strong> 接收路径，并被视为 <strong>读取数据</strong>。</li>
 <li><strong>时钟信号（CK&#x2F;CK#）</strong>：时钟信号同样被环回，反转后成为用于 <strong>读取数据</strong> 的时钟信号。</li>
