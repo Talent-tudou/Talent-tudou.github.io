@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>Data Byte DDL Control | ZLIN</title>
+  <title>C语言-swap_4bit_block | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="Data Byte DDL Control">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/10/28/Data-Byte-DDL-Control/index.html">
+  <meta name="description" content="Here&#39;s something encrypted, password is required to continue reading.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C语言-swap_4bit_block">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/11/05/C%E8%AF%AD%E8%A8%80-swap-4bit-block/index.html">
 <meta property="og:site_name" content="ZLIN">
+<meta property="og:description" content="Here&#39;s something encrypted, password is required to continue reading.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/10/28/NPYoG7idgV2nbcx.png">
-<meta property="article:published_time" content="2024-10-28T15:32:15.000Z">
-<meta property="article:modified_time" content="2024-10-28T15:37:19.956Z">
+<meta property="article:published_time" content="2024-11-05T13:47:46.000Z">
+<meta property="article:modified_time" content="2024-11-05T13:48:22.054Z">
 <meta property="article:author" content="ICXNM-ZLin">
-<meta property="article:tag" content="IC">
-<meta property="article:tag" content="DDR">
+<meta property="article:tag" content="Programming">
+<meta property="article:tag" content="C">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2024/10/28/NPYoG7idgV2nbcx.png">
   
     <link rel="alternative" href="/atom.xml" title="ZLIN" type="application/atom+xml">
   
@@ -182,66 +182,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Data-Byte-DDL-Control" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-C语言-swap-4bit-block" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Data Byte DDL Control
+      C语言-swap_4bit_block
     </h1>
   
 
         
-        <a href="/2024/10/28/Data-Byte-DDL-Control/" class="archive-article-date">
-  	<time datetime="2024-10-28T15:32:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-28</time>
+        <a href="/2024/11/05/C%E8%AF%AD%E8%A8%80-swap-4bit-block/" class="archive-article-date">
+  	<time datetime="2024-11-05T13:47:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-11-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><a><span id="more"></span></a></p>
-<p><img src="https://s2.loli.net/2024/10/28/NPYoG7idgV2nbcx.png" alt="image-20241028233711104"></p>
-<h3 id="主要概念"><a href="#主要概念" class="headerlink" title="主要概念"></a><strong>主要概念</strong></h3><h4 id="1-LCDL的类型"><a href="#1-LCDL的类型" class="headerlink" title="1. LCDL的类型"></a>1. LCDL的类型</h4><ul>
-<li>每个字节通道有6种类型的LCDL：<ul>
-<li><strong>WL LCDL</strong>（写入均衡LCDL）：用于平衡写入信号。</li>
-<li><strong>WDQ LCDL</strong>（写数据LCDL）：用于控制写入数据。</li>
-<li><strong>GDQS LCDL</strong>（读DQS门LCDL）：用于读取DQS信号的门控。</li>
-<li><strong>RDQS LCDL</strong>（读DQS LCDL）：用于读取DQS信号。</li>
-<li><strong>RDQS# LCDL</strong>（读DQS# LCDL）：DQS的反向信号。</li>
-<li><strong>GSQDS LCDL</strong>（读DQS门状态LCDL）：用于监测DQS门的状态。</li>
-</ul>
-</li>
-<li>每种LCDL都有相应的控制逻辑，具体的控制逻辑在后文提到。</li>
-</ul>
-<h4 id="2-x4支持："><a href="#2-x4支持：" class="headerlink" title="2. x4支持："></a>2. <strong>x4支持</strong>：</h4><ul>
-<li>对于x4模式，每个字节通道有两个LCDL控制逻辑实例，以独立控制两个半字节（nibble）。</li>
-</ul>
-<h4 id="3-MDL控制逻辑："><a href="#3-MDL控制逻辑：" class="headerlink" title="3. MDL控制逻辑："></a>3. <strong>MDL控制逻辑</strong>：</h4><ul>
-<li>每个字节通道还包括一个MDL控制逻辑实例，用于控制主延迟线（MDL）。</li>
-</ul>
-<h4 id="4-BDL控制逻辑："><a href="#4-BDL控制逻辑：" class="headerlink" title="4. BDL控制逻辑："></a>4. <strong>BDL控制逻辑</strong>：</h4><ul>
-<li>每个字节还包括多个BDL控制逻辑实例，用于独立控制每个字节通道的BDL。</li>
-<li>写路径BDL<ul>
-<li>包括8个写数据（WDQ）BDL、1个（或2个，适用于x4）写数据掩码（WDM）BDL、1个（或2个，适用于x4）写数据时钟（WDQS）BDL、1个（或2个，适用于x4）输出使能（OE）BDL。</li>
-</ul>
-</li>
-<li>读路径BDL<ul>
-<li>包括8个读数据（RDQ）BDL、1个（或2个，适用于x4）读数据掩码（RDM）BDL、1个（或2个，适用于x4）读数据时钟（RDQS）BDL、1个（或2个，适用于x4）读数据时钟#（RDQS#）BDL、1个（或2个，适用于x4）功耗下降接收器（PDR）BDL和1个（或2个，适用于x4）终端使能（TE）BDL。</li>
-</ul>
-</li>
-</ul>
-<h4 id="5-DDL控制的校准和VT补偿："><a href="#5-DDL控制的校准和VT补偿：" class="headerlink" title="5. DDL控制的校准和VT补偿："></a>5. <strong>DDL控制的校准和VT补偿</strong>：</h4><ul>
-<li>字节通道的DDL控制具有将DDL校准和VT补偿串行进行的选项，而不是并行进行。</li>
-<li>这种选项允许将DDL校准和VT补偿逻辑实例化一次，而不是在每个LCDL控制块中重复该逻辑。</li>
-<li>但串行校准和VT补偿的缺点是操作时间会增加。</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
-<p>这段文字的主要内容是介绍了每个字节通道中的LCDL和BDL的控制逻辑、如何进行独立控制以及在x4模式下的扩展。此外，它还提到DDL控制的校准和VT补偿可以选择串行或并行执行，这对于设计的复杂性和操作时间都有影响。</p>
-</blockquote>
-
+        <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="4e95431e3451c4a47cac61eb048a3eb073f146c1118d7959f460f340d3f79e2e">bc784a9a828376686ad79bc9be5654d361b361fd88beba2111ec0856b1960915f938a61ca008a7d77c2c4dafcc20a13dec000d6e8dfb085dada8da63426de172c8d43ffc55b872d29be296e19b6912bfbf4bc145b62b5e3902781fa369346d2ac0cd153de12acc03908056048b3e24496c6b7155767cfdbe4527f7541f8ee1586638e2538b22c9ebaf2d613266d2f2aedeb0af7663d048464ab0d4cb687655b353490564c428e44e8dee2a2868acc53f0238f2bce6617ad6681d84951ae70e66239abaf093c7defa8a75ae902103d20561085469a55a56229164165b91d07464b9a843b083a4d10427e910f1d4eb2c6f07b03572dace8343912a7fb9d92cc1f7f7b9adb2dc594f01abd348e38f87b3c9d6c39d12090eb92af7d4cf66f739e48bb1c43f8bd9788696ea855afa6acae17baf6fd87c6ba237bcf971724e725efba24673f1941111d496cf16fa1ea10c248791adfefeabca682d7413f14457c6e5a97814265248e28fb785cc210c47ffd1b8b6356cc052ece5dd4281f8cc165742e303a353a7e51510db2d921196d907d75e9676b230a3b91a98f4f01b9910b72a90de7bd7be65fda8a636f568025c115393f7caf937a4f3dad00608fa5941d51d13c428c0eab6877da9e5ee96d3503650e30c2a541060e789e0567ddd8132a1afed0f6aaac0aad8bc22175521f656bf460384a10a41ead5de0c84c0052cded6f3770fc4c63ee1469b66ee53b6488920d311645b410aea432c07d03a22270a48506c099d0c1cefb7deda259cda6c8c7d9e7d43df4fa067ec3a32362ef89ac913d396408508a8ee32bba7400a52aef511d357fffc9b9da056e44c92ea7a47e6448cb96b770c3e04ef062d68978a06510f41cc3c482228faa1f1789b828db47a2acc184e947312aeae0de8ddeaf290f2bb0d5cf4cef29bb3c2ed1703c1940c4f3bfee4c726849fdb9d9d3e0522893daccdd622b28a31d1688d60a083a292b724ba687cf2549fc1058d1256e3bb54a278dfb048a7e7762936b20d84aebc3c814ddaf395c682523217afe8735fe85200e92de95a9ff6fcae418747ae7b7950bb5f4abeaa579e811a25af5efd21c0f072aa85b9112972a7568558d51df06eadb3b5bf3311c6f9bb2bc0e63e71eab55e0e8f6afd94f5d13209aaef0a26fac741d3979b836e67dd27da8afba37c082ae2da12fe2d15ccc0e4aaa1504a4a7fee4d22b5de7ae6e1d92ed22d016ace30dd7473d99245c98d61c220dd34a0a980308949b55ea7fbd01987869a70c756c1bfb502c4440e48d74af1da4f1792d3f580c7013a6ed769e584c57e5b29217825b8b627a540301ec10a35b50dd8efb094bcda477c1b6f87c658b6c7b84fd461aba87a80aa3e3a0e2c0d870797f162a19cb32435b6366a52a018004fa2281bdb184551c88d2408b8a37d09c3a648fefb58bf525ce29841a312b44a1e356b31804852f6011bbb9ca5e38d87541e6bbd01c845af346d4e07422f6ab83dc63d0ce23af7ac983a121f3a851639b0300808ad5671f2afb96c2f723e262d9f580fdb080251adc0758246b3e94c9b575bda3b6835ddcf2ba8be22a2443a62d3af16f724e987c7fae4d2cab8fab0726e0ee4f233d3c9655a84b7e7ca9ef05b2b8c1a1182013b9f082314cd22c878bc9c0e551f30e08ebe028e3b40fa9cd3ba0ba8ddd7f6a6665ca03cf8d00e19e8b87cf7e431583d16b42a2921930f5f298a964951756262ee21fc714b77c364fd0b1c347d9b3c708e7a3486124d2e2ac014ee010590936df494bad3c2a470bb79dd81a672ffd5a78c6fb7666a8eb1499575b3114887f95eb843098504db7ec0122800c498b1b82ef26f762cdad14ce809f34abe0b4d40552d9e01bae64a9a513e0a2c79cf40e7547ed496429fd693c00b6b1c339eb78b3e20b027feb1b83b1ba1299eaaecc70ff481642cae2aa3039e7bdbd6b179ad9ec8d42f81ccf23a05bb9101f95bd37d5eeb3e2edb2042bdd9731b0ff6c4dbb66ac639e66ebf3e398e23e1ab558045a99fa7377df298d12386cd9363b8d91d0b5e1139240c72bc5646e6bc253e608576559224aa38945e1439f4ed74313b48c6c782d5e8d2d56d9663f581eac1905c9561b49b6ac95495e3b364cc26ab4a787ee8578b12a2416d7fa7fd6edbeab2e696e0bb9ea4fc8b65d577bbd3214e417b54a246ab6cd9fda3532f04382e47d058fd1268174802a6fd8a27dd6bf0dc5a76988421e2475ff7ba03aacd61eef89f8bcf5db1730333bcd36cdadd293fc731acb3e3bbf8580721bdb90e468309bf3c3e28df1ff3b09b9916fd24f84710b15eacf3d9ad71a4540e921e21b7af13175973785a4c3840f68f65a3e9c22a5bfa3ffaf3aec285487e981fb54cfd978f46bf091e0bee32ff5c92e9193b55b94080496e27da76848ff1893b305419aa29b61e83a2b2788393714b6973fc6ea61ca031eb1298ba583afee45346278c11c06f042001d8eb5a93639cec89a72919137ff7ef288a0b2985bbdb752d9bfcd53492c45f9cbaeaac863c0e717ba35ee5353c5e2e401e407f63ca5ee37890bc92b478c2082ee57d522c3d360716b74a97a9ea651ac6603b9096b5dec21f32249473b704dff17dd63e634ca320efd37c95a4f421668a97ec29736c38d13b09b4127d5354a964deb78d55285be0cac975022f9c9ee98954f5b1a92a56cea0794e4879a7e6e5132bf83c6b820b4d1437bde3f5ff782ff7d4f72d15ca3c42348de0836ec59c49e1d358e4dcd146803758d6cc7c11bd7574bddb965c7edfa756ac3f831c4726d433ee42c45b01fb45f9d50ff1cb7061b4c69b8b4b2e2921995c557662e37d3000658eb7236cf830cb66e2d690b0e4e617901081fa8b3fabddd0e11c2842e1ce09aeee52c91004aeaa31f6c6a4ca8e051356f545b565d3f471131111dabeaaa599ae9b91ffdaf3897f804d95ad6cc25acb9c5fc936241d2957ec73847911c0f04aa9ba3769923c18050874989ddbdbed51d77a37c3227f727059f1360b6f2cbd44bf669456fc2bdb6c54c1013ed8f1ea61bdfb80aa6aaa1bb49af733b63adff85493e3aa730961c2cab18820b709a0f84ce981c2555cd48dfc0a980ae9212b2ee7c4e3f56de51cdb76336fc145ada79bc248862f349094aad5e4730640d3f45eb8478f6b3c1aaee4a8e30c916f7b7afa3503f8a1d3fcb27274d82984ee65085c6f027f35dc10cf883b6fc946a68e950c5c4f28e3124ceb3e07dfd13d1d70d97922d0ef72a45e272f46fb4f511b5ebca9a51b4e64ff55a7997fc6a50ae019c97441b39ec352159700831a68daf7a3c691da22e646178ed8944dc92f6e791e0812aa8e150a5a3b001faa360822c0e4376cd16a9c14a88d184a3ef11ba6db3e7ef55311ba87557e392f58a065474c9ce05c559c2f4e33c4ee815f714787a4d6a4c789ba5fbd218d7d6fd9bc1a9e923a7b02ced7430e2f6bde1b72e150de19ded699993dc4bf52dd5c9179f56160a5f3f515843ebade91f544c632c806c6c9138a7595d7f1e4de84174e4dc97d02d529aa5780ac2c2ee6a9a2cf7f325558ebcd9e1d8f410a39fcd3b4fe76085d6f997e8fd801cfd8c16069c00c0d5620756edc74e416f783e68ed15538c19877865cc363e2702b8e8b70a5f15c77e6f1326a3d97f5dbbef5978d51831d62a7768b9cc6a43eb8b5fc9ce1903917eae333446aabce25568335cb6884fb412784ae5d9c11b4b626590182b253f8636993f2c4d223d672d09ee06aa72929c356207ed6492cba39ea03f2d4d90bcb65d56b539a5872ddc7b49baf2f226017d2c63ddeb89e87c7d4bc408ba66b551d3ba270093850f674c770582051a8482588b1e5d7fb0e7533666f44a9bd6d593abd97792c68bd4bf5ed21bf6648e2c7dcbe165327b897bc8088ce8e0e20160f1a1649fad2bd3a53f37687346f8574646b18a857a98c7223b81d1569dc6b52fb1e3ae68b669934ee2cd4257b0aee8dcfe5a627a5069a0993c177f8353fff104af578cc125cf7d4f75b42d6c45db45294c9417ae544310f7c52af2d1a02d02bc9d5c19ec5557acdfa2c8b3bf120ef3783cd63feacda3d7d554ac590d9955fc019c3644046880a3169306456805fe8116943065566bd32afa1eaa8e5858175695824a3c03ae038cf778a796812942a2f0533441588cb529979f784254628a5d23e0666bdcb209893507c67166c02307642eaabe7d3bdf2cff0d277be431a077b547fb5ffc5fce17bbcc02e407518637ffa171a0e0280101ee8ac838fbbf6ea04d6ce5ac35dd6ab4048c5ed0849f002134f3d936c29df8a84ac604aa8cdd0bcaa7fe71db2fc4e6490eb959de5d45880ec5b20355b86c7a909827d6d76a287fe71c9fb4e82793b131fec16289382f006d6544cbf31d10ee2579ddb7c0d308310e9478e8d2c48a25197ce17dd664a667dd7dee8a6c067c383f86b6a86f4fdf6aa35d8f069f2cb6b53ff8af8dbf002b27f28221743de53f22de894c6c272c24eb6c515da40c53e528811c5072401a23ebd55b994f3d65e584d45bde538cd87b98ef7b1e67f6540e493643556087ac53626247d4f6aa97d0797fa2429e4a7481bee0c629cb6af47bee5ff629418f0a822b250cc1c3d8ffc79acdd00e53d195c0a8b57ca24bb08415409377abdc9ad45e32ee496c758a9602b94b89574095e2b0a5708f271b1e6960c5444ce06830e45dabdedc705a2394ac475c0861e55e5bc96422258872f3b03c31ade4d43f1bff90e6d0de0ca3cc1a494dc6a4100bb340cfca4563d4f4f02e0bc9203a19c34725563e9e83300f984a17f1affff130b430af12252b67ff3bc8dc040439825539ce0e2efb41a38fdc94b6e3dcf109fccb4207232097a3c7b1b570fe6e63f244e4f83a1d21a97e3c56b91e5ead37d75308b27dd7ce57b492d009733f858d9729b350629730d961c883d977e</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">不是哥们，你谁啊？</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
       
  <!-- 添加版权声明 -->
  
@@ -253,7 +225,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/10/28/Data-Byte-DDL-Control/" title="Data Byte DDL Control" target="_blank">https://talent-tudou.github.io/2024/10/28/Data-Byte-DDL-Control/</a>
+   <a href="https://talent-tudou.github.io/2024/11/05/C语言-swap-4bit-block/" title="C语言-swap_4bit_block" target="_blank">https://talent-tudou.github.io/2024/11/05/C语言-swap-4bit-block/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -304,11 +276,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">C</a>
         		</li>
       		
 		</ul>
@@ -320,7 +292,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/Programming//" class="article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/C//" class="article-tag-list-link color2">C</a>
         		</li>
       		
 		</ul>
@@ -375,7 +351,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/10/28/Data-Byte-DDL-Control/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/11/05/C%E8%AF%AD%E8%A8%80-swap-4bit-block/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -389,18 +365,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/10/28/DDL-Calibration-Search-Algorithm/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          DDL Calibration Search Algorithm
-        
-      </div>
-    </a>
   
-  
-    <a href="/2024/10/28/AC-DLL-Control/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">AC DLL Control</div>
+    <a href="/2024/11/03/%E5%9F%BA%E4%BA%8EC-Model%E7%9A%84%E9%AA%8C%E8%AF%81%E6%96%B9%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">基于C-Model的验证方法</div>
       <i class="icon-circle-right"></i>
     </a>
   
