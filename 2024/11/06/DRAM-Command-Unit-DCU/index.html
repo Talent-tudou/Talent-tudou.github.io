@@ -6,20 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>tags | ZLIN</title>
+  <title>DRAM Command Unit(DCU) | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这里是IC攻城狮聚集地!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="https://talent-tudou.github.io/tags/index.html">
+  <meta name="description" content="DRAM Command Unit (DCU) 是一个执行内存命令的模块，主要用于通过配置端口发出和控制 DRAM（动态随机存取存储器）命令以及 RDIMM（注册式双列直插内存模块）缓冲芯片的命令。它在 DRAM 系统中的作用是确保内存的初始化、调试和控制能够独立于内存控制器进行操作，提供灵活性和可调试性。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DRAM Command Unit(DCU)">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/11/06/DRAM-Command-Unit-DCU/index.html">
 <meta property="og:site_name" content="ZLIN">
-<meta property="og:description" content="这里是IC攻城狮聚集地!">
+<meta property="og:description" content="DRAM Command Unit (DCU) 是一个执行内存命令的模块，主要用于通过配置端口发出和控制 DRAM（动态随机存取存储器）命令以及 RDIMM（注册式双列直插内存模块）缓冲芯片的命令。它在 DRAM 系统中的作用是确保内存的初始化、调试和控制能够独立于内存控制器进行操作，提供灵活性和可调试性。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-19T09:23:37.000Z">
-<meta property="article:modified_time" content="2024-10-20T11:03:20.754Z">
+<meta property="og:image" content="https://s2.loli.net/2024/11/06/Qmv5cFEN6lDIjGn.png">
+<meta property="og:image" content="https://s2.loli.net/2024/11/06/KPkgvjCd9mGOTEH.png">
+<meta property="og:image" content="https://s2.loli.net/2024/11/07/dum25cyYqCeDQjl.png">
+<meta property="article:published_time" content="2024-11-06T15:52:45.000Z">
+<meta property="article:modified_time" content="2024-11-06T16:15:37.674Z">
 <meta property="article:author" content="ICXNM-ZLin">
-<meta property="article:tag" content="IC, UVM, SV, Shell, Python">
+<meta property="article:tag" content="IC">
+<meta property="article:tag" content="DDR">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/11/06/Qmv5cFEN6lDIjGn.png">
   
     <link rel="alternative" href="/atom.xml" title="ZLIN" type="application/atom+xml">
   
@@ -181,27 +186,293 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="tags-" class="article article-type-tags " itemscope itemprop="blogPost">
+            <article id="post-DRAM-Command-Unit-DCU" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      tags
+      DRAM Command Unit(DCU)
     </h1>
   
 
         
-        <a href="/tags/index.html" class="archive-article-date">
-  	<time datetime="2024-10-19T09:23:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-19</time>
+        <a href="/2024/11/06/DRAM-Command-Unit-DCU/" class="archive-article-date">
+  	<time datetime="2024-11-06T15:52:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-11-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <blockquote>
+<p>DRAM Command Unit (DCU) 是一个执行内存命令的模块，主要用于通过配置端口发出和控制 DRAM（动态随机存取存储器）命令以及 RDIMM（注册式双列直插内存模块）缓冲芯片的命令。它在 DRAM 系统中的作用是确保内存的初始化、调试和控制能够独立于内存控制器进行操作，提供灵活性和可调试性。<a><span id="more"></span></a></p>
+</blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><a>简介</a></h2><h3 id="1-允许通过配置端口执行-DRAM-初始化"><a href="#1-允许通过配置端口执行-DRAM-初始化" class="headerlink" title="1. 允许通过配置端口执行 DRAM 初始化"></a>1. <strong>允许通过配置端口执行 DRAM 初始化</strong></h3><ul>
+<li><strong>DRAM 初始化</strong> 是指在内存模块首次启用或复位时，需要进行的一系列操作，以确保内存正常工作。通常包括设置内存时序、刷新模式、存取模式等参数。</li>
+<li><strong>配置端口</strong> 提供了一种通过软件来控制 DRAM 初始化过程的方法，而不需要依赖复杂的硬件控制逻辑。这意味着，用户可以通过编程接口向 DRAM 发出命令，从而实现初始化操作。这种方法使得内存初始化过程可以更加灵活和可控。</li>
+<li>举个例子，执行 DRAM 初始化时，可能需要向内存发送预充电、行激活、读取、写入等命令，通过配置端口，开发人员可以精确控制这些命令的发送顺序和时序，确保内存的可靠性。</li>
+</ul>
+<h3 id="2-提供独立于控制器的统一硅调试和表征功能"><a href="#2-提供独立于控制器的统一硅调试和表征功能" class="headerlink" title="2. 提供独立于控制器的统一硅调试和表征功能"></a>2. <strong>提供独立于控制器的统一硅调试和表征功能</strong></h3><ul>
+<li><strong>硅调试</strong> 和 <strong>表征</strong> 是指在开发过程中通过硬件和软件的协同工作来验证和测试芯片（尤其是内存子系统）的性能、时序、功耗等特性。</li>
+<li>DCU 允许开发人员通过软件接口直接向 DRAM 发送命令进行调试，而不依赖于内存控制器（如内存控制器的硬件实现）。这样，即使没有完整的内存控制器，调试人员仍然可以独立地对内存进行测试和验证。</li>
+<li>例如，可以使用 DCU 单元发送特定的命令流来验证 DRAM 在各种工作负载下的性能，或者进行精确的时序分析，确保内存与控制器之间的信号传输没有问题。</li>
+</ul>
+<h3 id="3-提供-DRAM-命令的通用软件执行机制"><a href="#3-提供-DRAM-命令的通用软件执行机制" class="headerlink" title="3. 提供 DRAM 命令的通用软件执行机制"></a>3. <strong>提供 DRAM 命令的通用软件执行机制</strong></h3><ul>
+<li>DCU 不仅仅是一个硬件单元，它还支持通过软件来执行一系列 DRAM 命令。这使得开发人员能够通过编程方式控制内存的各个方面。</li>
+<li>例如，软件可以通过 DCU 向 DRAM 发出常见的命令，如 <strong>读取</strong>（READ）、<strong>写入</strong>（WRITE）、<strong>预充电</strong>（PRECHARGE）、<strong>行激活</strong>（ACTIVATE）等。这样，开发人员可以在不同的工作模式下测试内存，验证功能是否正常。</li>
+<li>这种通用软件执行的机制使得软件开发人员能够灵活地模拟和控制内存行为，方便进行不同的测试和操作。</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/11/06/Qmv5cFEN6lDIjGn.png" alt="image-20241106235450107"></p>
+<p><img src="https://s2.loli.net/2024/11/06/KPkgvjCd9mGOTEH.png" alt="image-20241106235724242"></p>
+<h3 id="1-读取状态块-Read-Status-Block"><a href="#1-读取状态块-Read-Status-Block" class="headerlink" title="1. 读取状态块 (Read Status Block)"></a>1. <strong>读取状态块 (Read Status Block)</strong></h3><p>读取状态块是一个用于管理和跟踪内存读取操作状态的模块。它通常存储与读取操作相关的信息，例如读取请求是否完成、是否发生了错误等。在这个上下文中，读取状态块内有两个重要的缓存（期望缓存和读取缓存），它们共同工作来验证读取的数据是否符合预期。</p>
+<h3 id="2-期望缓存-Expected-Cache"><a href="#2-期望缓存-Expected-Cache" class="headerlink" title="2. 期望缓存 (Expected Cache)"></a>2. <strong>期望缓存 (Expected Cache)</strong></h3><p>期望缓存用于存储系统预期从内存中读取的数据。当系统发起读取操作时，通常会预设一个预期值，并将其存入期望缓存中。然后，读取的数据将与这个期望值进行比较，用以验证读取的正确性。如果读取的数据与预期数据不符，则可能表明出现了错误或数据不一致。</p>
+<h3 id="3-读取缓存-Read-Cache"><a href="#3-读取缓存-Read-Cache" class="headerlink" title="3. 读取缓存 (Read Cache)"></a>3. <strong>读取缓存 (Read Cache)</strong></h3><p>读取缓存存储实际从内存中读取的数据。它充当了内存与其他系统组件之间的缓冲区，用于缓存刚刚从内存中读取的数据。读取缓存中的数据会与期望缓存中的数据进行比较，从而确认数据是否符合预期。</p>
+<h3 id="4-读取比较逻辑-Read-Compare-Logic"><a href="#4-读取比较逻辑-Read-Compare-Logic" class="headerlink" title="4. 读取比较逻辑 (Read Compare Logic)"></a>4. <strong>读取比较逻辑 (Read Compare Logic)</strong></h3><p>读取比较逻辑的作用是将读取缓存中的数据与期望缓存中的数据进行比较。这一步是确保数据一致性和正确性的重要环节。如果读取到的数据和期望的数据不匹配，系统可以根据需要触发错误或执行某些修复措施。这对于数据完整性检测和故障诊断至关重要。</p>
+<h3 id="5-PUB引擎-PUB-Engines"><a href="#5-PUB引擎-PUB-Engines" class="headerlink" title="5. PUB引擎 (PUB Engines)"></a>5. <strong>PUB引擎 (PUB Engines)</strong></h3><p>PUB 引擎是系统中负责处理特定任务的模块或单元。文中提到，这些引擎与读取状态块共享期望缓存和读取缓存。也就是说，多个不同的处理单元或模块都可以访问这些缓存和比较逻辑，这样可以实现对内存读取的集中管理和处理。</p>
+<h3 id="6-DCU寄存器-DCU-Registers"><a href="#6-DCU寄存器-DCU-Registers" class="headerlink" title="6. DCU寄存器 (DCU Registers)"></a>6. <strong>DCU寄存器 (DCU Registers)</strong></h3><p><strong>DCU</strong>（DRAM命令单元）是与内存控制器进行交互的模块，它负责发出命令、控制内存操作等。DCU寄存器是访问期望缓存和读取缓存的接口。换句话说，期望缓存和读取缓存的内容是通过DCU寄存器来读写的。开发人员或硬件组件可以通过操作这些寄存器来控制缓存中的数据或获取所需的信息。</p>
+<h3 id="7-写入或读取DCU缓存-Writing-or-Reading-DCU-Caches"><a href="#7-写入或读取DCU缓存-Writing-or-Reading-DCU-Caches" class="headerlink" title="7. 写入或读取DCU缓存 (Writing or Reading DCU Caches)"></a>7. <strong>写入或读取DCU缓存 (Writing or Reading DCU Caches)</strong></h3><p>这部分描述了如何通过DCU寄存器来访问期望缓存和读取缓存。系统可以通过向这些寄存器写入数据来加载期望的值，或通过读取寄存器来获取实际读取的数据。通过这种方式，DCU为内存操作提供了灵活的控制接口，开发人员可以通过它来执行各种内存读取验证操作。</p>
+<hr>
+<h2 id="DCU命令（DCU-Commands）"><a href="#DCU命令（DCU-Commands）" class="headerlink" title="DCU命令（DCU Commands）"></a><a><strong>DCU命令（DCU Commands）</strong></a></h2><p><strong>DCU</strong>（DRAM命令单元）允许用户通过配置端口、APB（外设总线）或JTAG接口发出SDRAM命令。这个部分描述了如何编程DCU来执行SDRAM命令以及相关的时序要求。</p>
+<h4 id="1-通过DCU执行SDRAM命令"><a href="#1-通过DCU执行SDRAM命令" class="headerlink" title="1. 通过DCU执行SDRAM命令"></a>1. <strong>通过DCU执行SDRAM命令</strong></h4><ul>
+<li>DCU能够支持执行各种SDRAM命令，具体命令可以在文档的“PUB Commands”部分（第471页）找到。SDRAM命令是内存控制器与SDRAM之间通信的基本单元，例如读写操作、激活（Activate）、预充电（Precharge）等。</li>
+<li>用户通过编程DCU来设置这些命令，并将其发送到SDRAM。这意味着通过DCU，用户可以控制SDRAM的操作，而无需直接控制硬件级别的细节。</li>
+</ul>
+<h4 id="2-时序要求"><a href="#2-时序要求" class="headerlink" title="2. 时序要求"></a>2. <strong>时序要求</strong></h4><ul>
+<li><strong>时序控制</strong>：当用户编程DCU并发出命令时，DCU并不会自动处理这些命令的时序。也就是说，DCU只是将命令发送到SDRAM，但不会自动根据命令的执行顺序和时序要求来调整操作。</li>
+<li><strong>NOP命令</strong>：在SDRAM命令序列中，NOP（No Operation，无操作）命令常用于填充时序空隙或者确保系统的时序满足要求。如果DCU在执行命令时存在时间间隔，需要通过插入适当数量的NOP命令来填补这些空白。</li>
+<li><strong>时序特性</strong>：为了确保命令按预期执行，用户可以使用DCU的一些<strong>时序功能</strong>来调整命令之间的间隔，确保满足设备的时序要求。设备的时序要求包括每个命令的最小间隔时间，以及不同命令之间的依赖关系（例如，读取命令与激活命令之间的时序关系）。</li>
+</ul>
+<h4 id="3-激活（Activate）和预充电（Precharge）命令"><a href="#3-激活（Activate）和预充电（Precharge）命令" class="headerlink" title="3. 激活（Activate）和预充电（Precharge）命令"></a>3. <strong>激活（Activate）和预充电（Precharge）命令</strong></h4><ul>
+<li><strong>激活命令（Activate Command）</strong>：用于打开SDRAM的一个特定的行。只有在激活命令之后，SDRAM的特定行才能被访问。</li>
+<li><strong>预充电命令（Precharge Command）</strong>：用于关闭SDRAM的一个行，为新的读取或写入操作腾出空间。预充电命令通常在进行写入操作之前发出，以确保行被正确关闭。</li>
+<li><strong>手动控制</strong>：DCU不会自动生成激活命令或预充电命令。这意味着在执行读取或写入命令之前，用户需要手动发出激活命令来打开正确的行，并在操作结束后发出预充电命令以关闭该行。</li>
+</ul>
+<h4 id="4-操作顺序和依赖关系"><a href="#4-操作顺序和依赖关系" class="headerlink" title="4. 操作顺序和依赖关系"></a>4. <strong>操作顺序和依赖关系</strong></h4><ul>
+<li>在执行SDRAM命令时，命令之间有严格的顺序和依赖关系。例如，在发出读写命令之前，必须确保相应的SDRAM银行（bank）已被激活（Activate），并且在结束写入操作后需要发出预充电（Precharge）命令。</li>
+<li>用户必须根据SDRAM的时序规范来手动安排这些命令的顺序。如果命令顺序不正确，可能导致读取或写入错误，甚至是内存损坏。</li>
+</ul>
+<hr>
+<h2 id="DCU缓存（DCU-Caches）-的详细解释："><a href="#DCU缓存（DCU-Caches）-的详细解释：" class="headerlink" title="DCU缓存（DCU Caches） 的详细解释："></a><a><strong>DCU缓存（DCU Caches）</strong> 的详细解释：</a></h2><p>DCU（DRAM命令单元）有三个主要缓存，用于提高操作效率和数据访问的灵活性。下面对这三个缓存进行详细解释：</p>
+<h3 id="1-命令缓存（Command-Cache）"><a href="#1-命令缓存（Command-Cache）" class="headerlink" title="1. 命令缓存（Command Cache）"></a>1. <strong>命令缓存（Command Cache）</strong></h3><ul>
+<li><strong>深度</strong>：16深度（16 entries）。</li>
+<li><strong>功能</strong>：命令缓存用于存储待执行的DRAM命令。这些命令由调度器（scheduler）执行。命令缓存是一个队列，按顺序存储和调度将要发送到DRAM的命令。通过使用命令缓存，系统可以按顺序缓冲多个命令，提高执行效率。</li>
+<li><strong>内容</strong>：缓存中的每个条目不仅包括DRAM命令，还包含调度器所需的所有字段。特别地，每个条目还包含一个3位的RPT字段（Repeat Field），用于指示命令是否需要重复执行。RPT字段允许命令被执行多次。</li>
+</ul>
+<h3 id="2-读取数据缓存（Read-Data-Cache）"><a href="#2-读取数据缓存（Read-Data-Cache）" class="headerlink" title="2. 读取数据缓存（Read Data Cache）"></a>2. <strong>读取数据缓存（Read Data Cache）</strong></h3><ul>
+<li><strong>深度</strong>：4深度（4 entries）。</li>
+<li><strong>别名</strong>：也叫做<strong>捕获缓存（Capture Cache）</strong>。</li>
+<li><strong>功能</strong>：读取数据缓存用于捕获从DRAM读取的数据。它存储从DRAM读取的一个字节的数据。这是为了快速捕捉和暂存读取的数据，在后续的操作中可以直接从缓存中获取，而不必每次都去访问DRAM。</li>
+<li><strong>应用</strong>：该缓存是一个非常小的缓存，它通过缓存最常用的数据，减少了访问DRAM的次数，从而提高了数据读取的效率。</li>
+</ul>
+<h3 id="3-期望数据缓存（Expected-Data-Cache）"><a href="#3-期望数据缓存（Expected-Data-Cache）" class="headerlink" title="3. 期望数据缓存（Expected Data Cache）"></a>3. <strong>期望数据缓存（Expected Data Cache）</strong></h3><ul>
+<li><strong>深度</strong>：16深度（16 entries）。</li>
+<li><strong>功能</strong>：期望数据缓存用于存储预期与读取数据进行比较的数据。通过将读取数据与期望数据进行比对，系统能够判断数据是否正确或是否存在错误。该缓存是数据验证的一部分。</li>
+<li><strong>内容</strong>：缓存中的每个条目都包含一个5位的数据码，共80个寄存器。为了提高配置端口的访问速度，期望数据缓存是作为一个1深度、80位宽的缓存来定义的，这样只需要3次寄存器写入（而如果定义为16深度5位的缓存，则需要16次写入）。这个设计减少了配置数据写入的次数，从而提高了数据加载的效率。</li>
+</ul>
+<h3 id="4-缓存结构和访问"><a href="#4-缓存结构和访问" class="headerlink" title="4. 缓存结构和访问"></a>4. <strong>缓存结构和访问</strong></h3><ul>
+<li>每个缓存行都有一个与之对应的地址，用于标识缓存中的具体条目。例如，命令缓存有16行，因此缓存行的地址范围是0到15。</li>
+<li>每个缓存行会被划分为若干个<strong>32位片段（slice）</strong>，其中第0片段是缓存行中的最低有效字（least significant word）。每行的片段数量取决于设计中存在的字节通道数（byte lanes）和缓存类型。</li>
+<li>例如，<strong>读取数据缓存</strong>和<strong>期望数据缓存</strong>仅存储数据，不包含命令信息，而<strong>命令缓存</strong>除了包含命令字段外，还包括调度器需要的其他字段。</li>
+</ul>
+<h3 id="5-命令缓存条目的结构"><a href="#5-命令缓存条目的结构" class="headerlink" title="5. 命令缓存条目的结构"></a>5. <strong>命令缓存条目的结构</strong></h3><ul>
+<li><strong>命令缓存</strong>的每个条目包括多个字段，这些字段由调度器使用。命令字段的格式类似于系统中其他内部引擎所使用的格式。这些字段包括命令类型、地址、数据和控制信号。</li>
+<li>需要注意的是，<strong>命令缓存行的宽度不一定需要是32位的倍数</strong>。如果不是，最重要的字段（即最高有效字）应该通过填充0来确保它成为一个完整的32位字，以便进行写入操作。</li>
+</ul>
+<h3 id="6-访问方式"><a href="#6-访问方式" class="headerlink" title="6. 访问方式"></a>6. <strong>访问方式</strong></h3><ul>
+<li>用户可以通过<strong>DCU地址寄存器（DCUAR）</strong>和<strong>DCU数据寄存器（DCUDR）</strong>来读写这些缓存。DCU地址寄存器用于选择缓存的条目（例如，选择命令缓存的某一行），而数据寄存器则用于存取该条目的数据。</li>
+<li>在配置端口上，数据的写入或读取操作是通过寄存器来完成的，每个条目的数据通过这些寄存器进行传输。</li>
+</ul>
+<h3 id="7-缓存行格式"><a href="#7-缓存行格式" class="headerlink" title="7. 缓存行格式"></a>7. <strong>缓存行格式</strong></h3><ul>
+<li>每个缓存行的格式对于正确编程和使用DCU命令缓存至关重要。特别是，编程DCU命令缓存时，必须正确设置每个字段的宽度，以确保数据能够按预期方式存储和访问。</li>
+</ul>
+<h3 id="8-BIST和训练功能的使用"><a href="#8-BIST和训练功能的使用" class="headerlink" title="8. BIST和训练功能的使用"></a>8. <strong>BIST和训练功能的使用</strong></h3><ul>
+<li>读取数据缓存和期望数据缓存不仅仅用于标准的DRAM命令执行，它们还被其他PUB内部引擎（如<strong>BIST</strong>或<strong>训练功能</strong>）所使用。BIST（内建自测试，Built-In Self Test）和训练功能通常用于自检或优化SDRAM的性能。</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/11/07/dum25cyYqCeDQjl.png" alt="image-20241107000127665"></p>
+<hr>
+<h2 id="写入或读取DCU缓存（Writing-or-Reading-DCU-Caches）-的详细解释："><a href="#写入或读取DCU缓存（Writing-or-Reading-DCU-Caches）-的详细解释：" class="headerlink" title="写入或读取DCU缓存（Writing or Reading DCU Caches） 的详细解释："></a><a><strong>写入或读取DCU缓存（Writing or Reading DCU Caches）</strong> 的详细解释：</a></h2><p>写入和读取DCU缓存（命令缓存、读取数据缓存、期望数据缓存）有两种方法。下面详细解释了这两种方法。</p>
+<h3 id="1-手动写入或读取"><a href="#1-手动写入或读取" class="headerlink" title="1. 手动写入或读取"></a>1. <strong>手动写入或读取</strong></h3><ul>
+<li>步骤<ul>
+<li><strong>写入</strong>：要写入数据，首先需要将<strong>行地址（row address）**和**切片地址（slice address）**写入到**DCU地址寄存器（DCUAR）<strong>。接着，将32位的数据写入</strong>DCU数据寄存器（DCUDR）</strong>。这个过程需要手动控制行地址和切片地址的变化，确保每次都写入正确的地址位置。</li>
+<li><strong>读取</strong>：与写入类似，读取数据时也需要首先设置正确的行地址和切片地址，然后读取相应的数据。</li>
+</ul>
+</li>
+</ul>
+<p>这种方法虽然可以精确控制缓存的读写，但也可能比较繁琐，因为每次都需要手动更新地址寄存器，逐步填写每个缓存行的内容。</p>
+<h3 id="2-自动地址递增机制"><a href="#2-自动地址递增机制" class="headerlink" title="2. 自动地址递增机制"></a>2. <strong>自动地址递增机制</strong></h3><p>为了简化写入和读取过程，PUB实现了一种<strong>自动地址递增机制</strong>，该机制通过设置<strong>DCUAR寄存器中的INCA字段</strong>来启用。这种方式简化了手动控制的步骤，减少了错误和混乱的可能性。</p>
+<ul>
+<li><p>如何工作</p>
+<p>：</p>
+<ul>
+<li><strong>启用自动递增</strong>：通过在<strong>DCUAR寄存器</strong>中设置<strong>INCA字段</strong>，用户只需要指定<strong>起始行地址</strong>和<strong>起始切片地址</strong>，而不需要逐个更新地址。</li>
+<li><strong>自动递增</strong>：每次将32位数据写入<strong>DCUDR寄存器</strong>时，切片地址（slice address）会自动递增，直到当前缓存行被填满。当当前缓存行被填满时，切片地址会重置为0，并且行地址会自动递增，跳转到下一个缓存行。</li>
+<li><strong>简化操作</strong>：用户只需要进行一次起始地址和切片地址的设置，之后的所有操作会自动进行地址递增，极大简化了缓存操作，减少了手动控制的复杂性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-自动地址递增的优点"><a href="#3-自动地址递增的优点" class="headerlink" title="3. 自动地址递增的优点"></a>3. <strong>自动地址递增的优点</strong></h3><ul>
+<li><strong>减少复杂性</strong>：启用自动递增后，用户不需要每次都手动更新地址和切片地址，系统会自动处理这些步骤。这样可以减少配置错误和不必要的操作。</li>
+<li><strong>提高效率</strong>：自动递增机制加快了数据写入的速度，因为它减少了对寄存器的频繁写入，并且在写入时，缓存行地址和切片地址的更新都是自动完成的。</li>
+<li><strong>更少的错误</strong>：由于不需要手动跟踪和更新每个地址，减少了出错的可能性，尤其是在需要处理大批量数据时。</li>
+</ul>
+<hr>
+<h2 id="DCU命令缓存写入示例（DCU-Command-Cache-Write-Example）-的详细解释："><a href="#DCU命令缓存写入示例（DCU-Command-Cache-Write-Example）-的详细解释：" class="headerlink" title="DCU命令缓存写入示例（DCU Command Cache Write Example） 的详细解释："></a><a><strong>DCU命令缓存写入示例（DCU Command Cache Write Example）</strong> 的详细解释：</a></h2><p>此部分展示了如何使用<strong>地址&#x2F;切片模式（address&#x2F;slice mode）</strong>来写入DCU命令缓存（command cache）。此模式用于将一个46位宽的命令字写入缓存。这是典型的用于支持LPDDRn系统的系统，其中使用了20位地址，并支持最多4个rank（内存通道）。</p>
+<h4 id="1-背景说明"><a href="#1-背景说明" class="headerlink" title="1. 背景说明"></a>1. <strong>背景说明</strong></h4><ul>
+<li><strong>命令字宽度</strong>：每个命令字为46位。为了在命令缓存中写入此类数据，每一行将被拆分成两个32位的字（也就是两个切片），因此一个缓存行会由两个32位的字组成，其中第二个32位的字只有前14位有效（因为总宽度是46位）。</li>
+<li><strong>命令缓存行数</strong>：命令缓存的每一行有两个32位的切片，其中每个切片（32位）存储命令字的一个部分。第二个切片中的数据只有前14位有效，后18位将被忽略。</li>
+</ul>
+<h4 id="2-写入过程"><a href="#2-写入过程" class="headerlink" title="2. 写入过程"></a>2. <strong>写入过程</strong></h4><p>要在此模式下写入命令缓存，必须按如下步骤通过配置端口（或者APB或JTAG）向寄存器写入数据：</p>
+<p><strong>步骤 1：写入DCU地址寄存器（<code>DCUAR</code>）</strong></p>
+<ul>
+<li>将以下字段写入<code>DCUAR</code>寄存器，设置用于命令缓存的地址和切片信息：<ul>
+<li><strong>CSEL &#x3D; 2’b00</strong>：选择命令缓存（Command Cache）。</li>
+<li><strong>INCA &#x3D; 0</strong>：禁用地址递增（即每次写入时，地址不会自动递增，需要手动递增切片地址）。</li>
+<li><strong>ATYPE &#x3D; 0</strong>：写入访问（Write Access）。</li>
+<li><strong>CWADDR &#x3D; 0</strong>：选择缓存行地址为0。</li>
+<li><strong>CSADDR &#x3D; 0</strong>：选择缓存切片为0（即写入第一部分的32位数据）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>步骤 2：写入32位数据到DCU数据寄存器（<code>DCUDR</code>）</strong></p>
+<ul>
+<li>写入<strong>32位数据字</strong>，该数据字代表命令字的第0到31位（即命令字的低32位）。这是缓存行的第一部分数据。</li>
+</ul>
+<p><strong>步骤 3：更新DCU地址寄存器（<code>DCUAR</code>）以选择切片1</strong></p>
+<ul>
+<li>在<code>DCUAR</code>寄存器中再次写入（保持之前的设置，更新切片地址）：<ul>
+<li><strong>CWADDR &#x3D; 0</strong>：行地址保持为0。</li>
+<li><strong>CSADDR &#x3D; 1</strong>：选择缓存的第二个切片（即写入命令字的第32到45位）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>步骤 4：写入32位数据到DCU数据寄存器（DCUDR）</strong></p>
+<ul>
+<li>写入<strong>32位数据字</strong>，该数据字代表命令字的第32到45位（即命令字的高14位）。请注意，命令字的第14到31位会被忽略，只写入有效的高14位数据。</li>
+</ul>
+<p><strong>步骤 5：重复上述步骤</strong></p>
+<ul>
+<li>对于每个命令缓存行（从行地址0开始），重复步骤1到步骤4，直到所有命令缓存行都写入数据。每次操作时，更新<strong>CWADDR（行地址）</strong>，使其递增，直到所有缓存行完成写入。</li>
+</ul>
+<h4 id="3-注意事项"><a href="#3-注意事项" class="headerlink" title="3. 注意事项"></a>3. <strong>注意事项</strong></h4><ul>
+<li><strong>起始和结束地址</strong>：命令缓存的写入不一定需要从行地址<strong>CWADDR &#x3D; 0</strong>开始。你可以通过<strong>DCU运行寄存器（DCURR）</strong>指定任何起始和结束地址。但是，结束地址必须大于起始地址，因为执行会在命令缓存的最后一行结束，而不会环绕到缓存的开头。</li>
+<li><strong>命令缓存的执行顺序</strong>：即使你指定了不同的起始和结束行地址，命令缓存的执行仍会按顺序从起始行执行到结束行，不会回绕到缓存的开头。</li>
+</ul>
+<hr>
+<h2 id="DCU期望数据缓存写入示例（DCU-Expected-Cache-Write-Example）-的详细解释："><a href="#DCU期望数据缓存写入示例（DCU-Expected-Cache-Write-Example）-的详细解释：" class="headerlink" title="DCU期望数据缓存写入示例（DCU Expected Cache Write Example） 的详细解释："></a><a><strong>DCU期望数据缓存写入示例（DCU Expected Cache Write Example）</strong> 的详细解释：</a></h2><p>该示例展示了如何使用<strong>自动地址递增模式（automatic address incrementing mode）</strong>来写入DCU的期望数据缓存（expected data cache）。为了加速从配置端口的访问，期望数据缓存被定义为1深度、80位宽的缓存，这使得只需要<strong>3次寄存器写入</strong>即可加载数据，而如果该缓存被定义为**16深度、5位宽，则需要16次写入。</p>
+<h4 id="1-背景说明-1"><a href="#1-背景说明-1" class="headerlink" title="1. 背景说明"></a>1. <strong>背景说明</strong></h4><ul>
+<li><strong>缓存行宽度</strong>：期望数据缓存的行宽为80位。为了适应这个宽度，每行会被分成三个32位切片（即3个切片）。其中，第三个32位切片中只有前16位有效，因为总行宽只有80位，剩余的16位会被忽略。</li>
+<li><strong>缓存的格式</strong>：期望数据缓存的每一行包含3个32位数据字（切片），每个数据字的位宽分别为[31:0]、[63:32]和[79:64]。</li>
+</ul>
+<h4 id="2-写入过程-1"><a href="#2-写入过程-1" class="headerlink" title="2. 写入过程"></a>2. <strong>写入过程</strong></h4><p>要在期望数据缓存中写入数据，并启用自动地址递增模式，需要按照以下步骤通过配置端口（或APB或JTAG）向寄存器写入数据：</p>
+<p><strong>步骤 1：写入DCU地址寄存器（<code>DCUAR</code>）</strong></p>
+<ul>
+<li>将以下字段写入<code>DCUAR</code>寄存器，设置用于期望数据缓存的地址和切片信息：<ul>
+<li><strong>CSEL &#x3D; 2’b01</strong>：选择期望数据缓存（Expected Data Cache）。</li>
+<li><strong>INCA &#x3D; 1</strong>：启用地址递增（即每次写入时，地址会自动递增）。</li>
+<li><strong>ATYPE &#x3D; 0</strong>：写入访问（Write Access）。</li>
+<li><strong>CWADDR &#x3D; 0</strong>：选择缓存行地址为0（行地址为0）。</li>
+<li><strong>CSADDR &#x3D; 0</strong>：选择缓存切片为0（即写入第一部分的32位数据）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>步骤 2：写入32位数据到DCU数据寄存器（<code>DCUDR</code>）</strong></p>
+<ul>
+<li>写入<strong>32位数据字</strong>，该数据字代表期望数据缓存的第0到31位（即命令字的低32位）。这是缓存行的第一部分数据。</li>
+</ul>
+<p><strong>步骤 3：更新DCU地址寄存器（<code>DCUAR</code>）以选择切片1</strong></p>
+<ul>
+<li>在<code>DCUAR</code>寄存器中再次写入（保持之前的设置，更新切片地址）：<ul>
+<li><strong>CWADDR &#x3D; 0</strong>：行地址保持为0。</li>
+<li><strong>CSADDR &#x3D; 1</strong>：选择缓存的第二个切片（即写入命令字的第32到63位）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>步骤 4：写入32位数据到DCU数据寄存器（<code>DCUDR</code>）</strong></p>
+<ul>
+<li>写入<strong>32位数据字</strong>，该数据字代表期望数据缓存的第32到63位（即命令字的第32到63位）。写入的数据会填充缓存行的第二部分。</li>
+</ul>
+<p><strong>步骤 5：更新DCU地址寄存器（&#96;&#96;DCUAR&#96;）以选择切片2</strong></p>
+<ul>
+<li>在DCUAR寄存器中再次写入（保持之前的设置，更新切片地址）：<ul>
+<li><strong>CWADDR &#x3D; 0</strong>：行地址保持为0。</li>
+<li><strong>CSADDR &#x3D; 2</strong>：选择缓存的第三个切片（即写入命令字的第64到79位）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>步骤 6：写入32位数据到DCU数据寄存器（<code>DCUDR</code>）</strong></p>
+<ul>
+<li>写入<strong>32位数据字</strong>，该数据字代表期望数据缓存的第64到79位（即命令字的第64到79位）。请注意，此时数据的第16到31位将被忽略，只会写入有效的前16位。</li>
+</ul>
+<h4 id="3-注意事项-1"><a href="#3-注意事项-1" class="headerlink" title="3. 注意事项"></a>3. <strong>注意事项</strong></h4><ul>
+<li><strong>地址递增</strong>：启用<strong>INCA &#x3D; 1</strong>后，每次写入时切片地址会自动递增，直到缓存行写满为止。这样可以省去手动更新地址的步骤，简化操作。</li>
+<li><strong>无效数据位</strong>：期望数据缓存的每行宽度为80位，第三个32位切片中只有前16位有效，后16位的数据会被忽略，因此每次写入时，需要确保只写入有效数据。</li>
+</ul>
+<hr>
+<h2 id="DCU读取数据缓存读取示例（DCU-Read-Data-Cache-Read-Example）的详细解释："><a href="#DCU读取数据缓存读取示例（DCU-Read-Data-Cache-Read-Example）的详细解释：" class="headerlink" title="DCU读取数据缓存读取示例（DCU Read Data Cache Read Example）的详细解释："></a><a><strong>DCU读取数据缓存读取示例（DCU Read Data Cache Read Example）</strong>的详细解释：</a></h2><p>此示例展示了如何使用<strong>自动地址递增模式（automatic address incrementing mode）</strong>读取DCU的读取数据缓存（read data cache）。读取数据缓存每行包含32位数据，并且总共有4行，每行包含1个32位数据字（或1个切片）。</p>
+<h4 id="1-背景说明-2"><a href="#1-背景说明-2" class="headerlink" title="1. 背景说明"></a>1. <strong>背景说明</strong></h4><ul>
+<li><strong>缓存行宽度</strong>：读取数据缓存的每一行宽度为32位，即每行只有1个切片。</li>
+<li><strong>缓存的行数</strong>：共有4行数据，分别对应读取缓存的不同部分。</li>
+</ul>
+<h4 id="2-读取过程"><a href="#2-读取过程" class="headerlink" title="2. 读取过程"></a>2. <strong>读取过程</strong></h4><p>要从读取数据缓存中读取数据，并启用自动地址递增模式，需要按照以下步骤通过配置端口（或APB或JTAG）与寄存器进行交互：</p>
+<p><strong>步骤 1：写入DCU地址寄存器（DCUAR）</strong></p>
+<ul>
+<li>向DCUAR寄存器写入以下字段，设置用于读取数据缓存的地址和切片信息：<ul>
+<li><strong>CSEL &#x3D; 2’b10</strong>：选择读取数据缓存（Read Data Cache）。</li>
+<li><strong>INCA &#x3D; 1</strong>：启用地址递增（即每次读取时，地址会自动递增）。</li>
+<li><strong>ATYPE &#x3D; 1</strong>：读取访问（Read Access）。</li>
+<li><strong>CWADDR &#x3D; 0</strong>：选择缓存行地址为0（行地址为0）。</li>
+<li><strong>CSADDR &#x3D; 0</strong>：选择缓存切片为0（即从第一个切片开始读取）。</li>
+</ul>
+</li>
+</ul>
+<p><strong>步骤 2：从DCU数据寄存器（DCUDR）读取32位数据</strong></p>
+<ul>
+<li>读取<strong>32位数据字</strong>，该数据字代表缓存行的第0行数据（即缓存字的[31:0]位）。这是读取数据缓存的第一部分。</li>
+</ul>
+<p><strong>步骤 3：更新DCU地址寄存器（DCUAR）以选择下一行（行1）</strong></p>
+<ul>
+<li>在DCUAR寄存器中再次写入（保持之前的设置，更新行地址和切片地址）：<ul>
+<li><strong>CWADDR &#x3D; 1</strong>：选择缓存行地址为1（读取缓存的第二行数据）。</li>
+<li><strong>CSADDR &#x3D; 0</strong>：继续选择缓存切片为0。</li>
+</ul>
+</li>
+</ul>
+<p><strong>步骤 4：从DCU数据寄存器（DCUDR）读取32位数据</strong></p>
+<ul>
+<li>读取<strong>32位数据字</strong>，该数据字代表缓存行的第1行数据（即缓存字的[31:0]位）。这是读取数据缓存的第二部分。</li>
+</ul>
+<p><strong>步骤 5：更新DCU地址寄存器（DCUAR）以选择下一行（行2）</strong></p>
+<ul>
+<li>在DCUAR寄存器中再次写入：<ul>
+<li><strong>CWADDR &#x3D; 2</strong>：选择缓存行地址为2（读取缓存的第三行数据）。</li>
+<li><strong>CSADDR &#x3D; 0</strong>：继续选择缓存切片为0。</li>
+</ul>
+</li>
+</ul>
+<p><strong>步骤 6：从DCU数据寄存器（DCUDR）读取32位数据</strong></p>
+<ul>
+<li>读取<strong>32位数据字</strong>，该数据字代表缓存行的第2行数据（即缓存字的[31:0]位）。这是读取数据缓存的第三部分。</li>
+</ul>
+<p><strong>步骤 7：更新DCU地址寄存器（DCUAR）以选择下一行（行3）</strong></p>
+<ul>
+<li>在DCUAR寄存器中再次写入：<ul>
+<li><strong>CWADDR &#x3D; 3</strong>：选择缓存行地址为3（读取缓存的第四行数据）。</li>
+<li><strong>CSADDR &#x3D; 0</strong>：继续选择缓存切片为0。</li>
+</ul>
+</li>
+</ul>
+<p><strong>步骤 8：从DCU数据寄存器（DCUDR）读取32位数据</strong></p>
+<ul>
+<li>读取<strong>32位数据字</strong>，该数据字代表缓存行的第3行数据（即缓存字的[31:0]位）。这是读取数据缓存的最后部分。</li>
+</ul>
+<h4 id="3-注意事项-2"><a href="#3-注意事项-2" class="headerlink" title="3. 注意事项"></a>3. <strong>注意事项</strong></h4><ul>
+<li><strong>地址递增</strong>：由于每行的宽度为32位，并且每行只有一个切片，因此每次从DCUDR读取32位数据时，地址会自动递增。这样每次读取的数据都会对应到下一行的内容。即每次读取时，<strong>行地址（CWADDR）会自动递增</strong>，不需要手动更新。</li>
+<li><strong>缓存行宽度</strong>：读取数据缓存的每行宽度为32位，这意味着每次读取的数据都会填充整个缓存行，不会出现需要裁剪或忽略的部分。</li>
+</ul>
+<p><a>BDXSEL 由 DCU 读数据缓存使用，以选择字节通道来捕获读取数据。</a></p>
+
       
  <!-- 添加版权声明 -->
  
@@ -213,7 +484,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/tags/index.html" title="tags" target="_blank">https://talent-tudou.github.io/tags/index.html</a>
+   <a href="https://talent-tudou.github.io/2024/11/06/DRAM-Command-Unit-DCU/" title="DRAM Command Unit(DCU)" target="_blank">https://talent-tudou.github.io/2024/11/06/DRAM-Command-Unit-DCU/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -259,7 +530,33 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -309,7 +606,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/tags/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/11/06/DRAM-Command-Unit-DCU/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -321,6 +618,16 @@
 </article>
 
   
+<nav id="article-nav">
+  
+  
+    <a href="/2024/11/05/BIST%E5%86%85%E5%BB%BA%E8%87%AA%E6%A3%80%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">BIST（内建自检模块简介）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -339,6 +646,16 @@
 </aside>
 
 
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -361,7 +678,7 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
