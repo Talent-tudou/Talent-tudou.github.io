@@ -199,7 +199,41 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <p><a><span id="more"></span></a></p>
+<blockquote>
+<p>DDR（双倍数据速率）内存的写入定级（Write Leveling）是一种用于补偿时钟信号与数据信号之间的时延偏差的技术。在多个SDRAM DDR3&#x2F;DDR4系统中，由于信号必须按顺序从一个SDRAM路由到下一个SDRAM，可能会导致时钟信号（CK）和数据选通信号（DQS）之间的偏移。这种偏移可能会影响时序要求，例如tDQSS、tDSS和tDSH。写入定级算法的目标就是在每个SDRAM处重新对齐时钟和数据选通信号。</p>
+</blockquote>
+<h4 id="写入定级的算法步骤"><a href="#写入定级的算法步骤" class="headerlink" title="写入定级的算法步骤"></a>写入定级的算法步骤</h4><ul>
+<li><p><strong>进入写入定级模式</strong>：将一个内存rank中的所有SDRAM都置于写入定级模式。</p>
+</li>
+<li><p><strong>发送DQS脉冲</strong>：向DRAM发送DQS_t&#x2F;DQS_c脉冲，同时逐步增加这些信号的延迟。</p>
+</li>
+<li><p><strong>检测0到1的过渡</strong>：在反馈结果中查找DQS信号的0到1过渡。这个过渡点表明CK的上升沿在DQS的上升沿之后的某个时刻采样到了DQS信号。</p>
+</li>
+<li><p><strong>稳定性检查</strong>：为了确保结果的稳定性，算法要求在8个连续的tap延迟中，采样值为1的稳定时间，或者在DXnGSR0.WLPRD个连续tap延迟中，这个值可以通过DTCR1.WLVLDPRD选择。这样可以过滤掉抖动和毛刺。</p>
+</li>
+</ul>
+<h4 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h4><blockquote>
+<p>假设我们有一个包含4个SDRAM芯片的rank，它们的DQS信号需要进行写入定级。</p>
+</blockquote>
+<p><a>1. <strong>进入写入定级模式</strong>：</a>将所有4个SDRAM芯片设置为写入定级模式。</p>
+<p><a>2. <strong>发送脉冲并增加延迟</strong>：</a></p>
+<ul>
+<li>初始情况下，DQS_t&#x2F;DQS_c信号的延迟为0ns，发送脉冲。</li>
+<li>监测反馈结果，假设没有检测到0到1的过渡。</li>
+<li>将DQS_t&#x2F;DQS_c的延迟增加到1ns，发送脉冲，继续监测反馈结果。</li>
+<li>逐渐增加延迟，直到在某个时刻（例如3ns）检测到0到1的过渡。</li>
+</ul>
+<p><a>3. <strong>稳定性验证</strong>：</a>一旦检测到0到1的过渡，算法会继续监测在接下来的8个tap延迟中，DQS信号是否稳定为1。如果是，则确认该延迟为有效延迟。</p>
+<blockquote>
+<p>通过这种方式，写入定级算法能够有效地补偿时钟和数据之间的延迟偏差，确保信号的可靠性和系统的稳定性。</p>
+</blockquote>
+
+       -->
       
+        
+
         <p><a><span id="more"></span></a></p>
 <blockquote>
 <p>DDR（双倍数据速率）内存的写入定级（Write Leveling）是一种用于补偿时钟信号与数据信号之间的时延偏差的技术。在多个SDRAM DDR3&#x2F;DDR4系统中，由于信号必须按顺序从一个SDRAM路由到下一个SDRAM，可能会导致时钟信号（CK）和数据选通信号（DQS）之间的偏移。这种偏移可能会影响时序要求，例如tDQSS、tDSS和tDSH。写入定级算法的目标就是在每个SDRAM处重新对齐时钟和数据选通信号。</p>
@@ -231,6 +265,7 @@
 </blockquote>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -292,11 +327,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -308,7 +343,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -377,7 +412,7 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/10/27/DQS-Gate-Training/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2024/10/27/DQS%20Gate%20Training/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         

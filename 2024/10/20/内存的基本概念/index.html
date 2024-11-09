@@ -15,7 +15,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/10/20/QoV5wSBktCda4Xb.jpg">
 <meta property="article:published_time" content="2024-10-20T02:47:57.000Z">
-<meta property="article:modified_time" content="2024-10-20T03:25:00.119Z">
+<meta property="article:modified_time" content="2024-11-09T05:42:44.457Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="DDR">
 <meta property="article:tag" content="Programming">
@@ -201,7 +201,54 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <p><a><span id="more"></span></a></p>
+<h3 id="DIMM"><a href="#DIMM" class="headerlink" title="DIMM"></a>DIMM</h3><blockquote>
+<p>DIMM即Dual In-Line Memory Module，即内存条印刷电路板正反面均有金手指与主板上的内存条槽相接触的结构。内存条也有人叫DIMM条，主板上的内存槽也有人称为DIMM槽。除了有DIMM，还有SIMM（Single In-Line Memory Module)。</p>
+</blockquote>
+<h3 id="SODIMM"><a href="#SODIMM" class="headerlink" title="SODIMM"></a>SODIMM</h3><blockquote>
+<p>对于笔记本电脑，使用普通内存条会使笔记本尺寸过大，而直接使用内存颗粒则不便于扩展与维修，SODIMM应运而生，SODIMM是Small Outline DIMM，即小尺寸的DIMM。</p>
+</blockquote>
+<h3 id="Memory-Channel"><a href="#Memory-Channel" class="headerlink" title="Memory Channel"></a>Memory Channel</h3><blockquote>
+<p>若干个DIMM可以连接到一组总线上，这组总线被称为内存通道（Memory Channel）。</p>
+</blockquote>
+<h3 id="RANK"><a href="#RANK" class="headerlink" title="RANK"></a>RANK</h3><blockquote>
+<p>主板上放3条DIMM可以，但从第四条DIMM开始，因为走线距离过长的原因导致信号质量下降，因此，我们可以将两条物理DIMM的内存颗粒放在一块内存印刷电路板上。我们把这种逻辑DIMM称为Rank。为了支持多RANK的内存条，我们需要在物理DIMM接口上定义多个CS_N片选信号以选择相应的Rank。下图蓝色是Rank1的片选信号，黄色是Rank0的片选信号。</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2024/10/20/QoV5wSBktCda4Xb.jpg" alt="img"></p>
+<blockquote>
+<p>因此，一个Rank就是指一组内存颗粒的CS信号被连在一起，并由内存控制器单独的一根CS_N信号控制，共同组成位宽为64bit（不带ECC）或72bit（带ECC）的存储阵列，共同完成一条内存通道下发的指令。注意，支持ECC功能的内存条除了64bit的数据外，还有8bit的校验数据。</p>
+</blockquote>
+<h3 id="RDIMM"><a href="#RDIMM" class="headerlink" title="RDIMM"></a>RDIMM</h3><blockquote>
+<p>RDIMM的第一个字母R实际就是一颗额外的芯片，称为时钟缓存寄存器芯片（Registering Clock Driver)。没有该芯片的内存条一般被称为UDIMM（Unbuffered-DIMM）。这颗寄存器芯片主要用来缓存（buffer）时钟&#x2F;控制&#x2F;命令&#x2F;地址等信号。缓存的主要目的是解决信号质量以及负载过重的问题。RCD（时钟缓存寄存器芯片）</p>
+</blockquote>
+<h3 id="LRDIMM"><a href="#LRDIMM" class="headerlink" title="LRDIMM"></a>LRDIMM</h3><blockquote>
+<p>为了是一根物理DIMM支持更多的Rank，我们将数据信号通过数据缓存（Data Buffer）芯片缓存，而不直接连接DRAM Devices，从而改善数据信号的质量，这种结构称之为LRDIMM。</p>
+</blockquote>
+<p><a><strong>总结一下，DIMM分为如下三种：</strong></a></p>
+<ul>
+<li>UDIMM</li>
+</ul>
+<blockquote>
+<p>没有缓冲的存储模组（UnbufferDualInlineMemoryModule），简称UDIMM，存储模组上的全部信号线路可以和内存控制器的封装引脚直接进行连接。</p>
+</blockquote>
+<ul>
+<li>RDIMM</li>
+</ul>
+<blockquote>
+<p>RDIMM的第一个字母R实际就是一颗额外的芯片，称为时钟缓存寄存器芯片（Registering Clock Driver)。没有该芯片的内存条一般被称为UDIMM（Unbuffered-DIMM）。带寄存器的存储模组（RegisterDualInlineMemoryModule），简称RDIMM，特点是存储模组控制线路和地址线路先连接寄存器后再接入到控制器的封装引脚，而数据信号线路与控制器的封装引脚采用直接连接的方式。这样的设计不仅可以保证接入到内存控制器的信号受到很小的外界干扰，保证信号完整性。</p>
+</blockquote>
+<ul>
+<li>LRDIMM</li>
+</ul>
+<blockquote>
+<p>负载较低型存储模组（LoadReducedDualInlineMemoryModule），简称LRDIMM，模组上的全部信号总线先连接内存缓存器再连接控制器的封装引脚。</p>
+</blockquote>
+
+       -->
       
+        
+
         <p><a><span id="more"></span></a></p>
 <h3 id="DIMM"><a href="#DIMM" class="headerlink" title="DIMM"></a>DIMM</h3><blockquote>
 <p>DIMM即Dual In-Line Memory Module，即内存条印刷电路板正反面均有金手指与主板上的内存条槽相接触的结构。内存条也有人叫DIMM条，主板上的内存槽也有人称为DIMM槽。除了有DIMM，还有SIMM（Single In-Line Memory Module)。</p>
@@ -246,6 +293,7 @@
 </blockquote>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -307,11 +355,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color2">Programming</a>
         		</li>
       		
 		</ul>
@@ -323,11 +371,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Memory//" class="article-tag-list-link color2">Memory</a>
+        			<a href="/categories/Memory/" class="article-tag-list-link color2">Memory</a>
         		</li>
       		
 		</ul>

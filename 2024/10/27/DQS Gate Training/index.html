@@ -6,15 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>AC DLL Control | ZLIN</title>
+  <title>DQS Gate Training | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="article">
-<meta property="og:title" content="AC DLL Control">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/10/28/AC-DLL-Control/index.html">
+<meta property="og:title" content="DQS Gate Training">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/10/27/DQS%20Gate%20Training/index.html">
 <meta property="og:site_name" content="ZLIN">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-10-28T15:04:56.000Z">
-<meta property="article:modified_time" content="2024-10-28T15:54:45.157Z">
+<meta property="article:published_time" content="2024-10-27T13:51:46.000Z">
+<meta property="article:modified_time" content="2024-10-27T13:58:47.976Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="DDR">
@@ -180,68 +180,148 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-AC-DLL-Control" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-DQS Gate Training" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      AC DLL Control
+      DQS Gate Training
     </h1>
   
 
         
-        <a href="/2024/10/28/AC-DLL-Control/" class="archive-article-date">
-  	<time datetime="2024-10-28T15:04:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-28</time>
+        <a href="/2024/10/27/DQS%20Gate%20Training/" class="archive-article-date">
+  	<time datetime="2024-10-27T13:51:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
-      
+      <!-- 
         <p><a><span id="more"></span></a></p>
-<h3 id="主要概念"><a href="#主要概念" class="headerlink" title="主要概念"></a>主要概念</h3><ol>
-<li><strong>LCDL（本地校准延迟线）</strong>：<ul>
-<li>地址&#x2F;命令通道中只有一个LCDL（称为AC LCDL），其作用是为LPDDR3&#x2F;2地址提供90度的相位偏移。这个LCDL由通用的LCDL控制逻辑来管理。</li>
+<blockquote>
+<p>DQS Gate Training是DDR内存系统中一种关键的训练机制，旨在通过抑制噪声和准确捕获读取数据来优化数据传输。由于在读取路径中的延迟（例如电路板的走线长度）常常不精确，因此需要对门控（Gate）进行训练，以确保它与读取数据精确对齐。</p>
+</blockquote>
+<h4 id="主要组成部分"><a href="#主要组成部分" class="headerlink" title="主要组成部分"></a>主要组成部分</h4><blockquote>
+<p><strong>DQS门控：</strong></p>
+<ul>
+<li>DQS（数据选通信号）用于同步读数据。门控信号控制在何时允许数据被读取和采样，以抑制噪声影响。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>训练机制:</strong></p>
+<ul>
+<li>DDR4 PHY解决方案提供了一种内置的DQS门控训练单元，可以在初始化过程中或通过软件&#x2F;内存控制器触发（使用PIR寄存器）。</li>
+<li>提供了两种训练机制：基础门控训练（Basic Gate Training）和读取定级（Read-Leveling）</li>
+</ul>
+</blockquote>
+<h4 id="基础门控训练（Basic-Gate-Training）"><a href="#基础门控训练（Basic-Gate-Training）" class="headerlink" title="基础门控训练（Basic Gate Training）"></a>基础门控训练（Basic Gate Training）</h4><ul>
+<li><p>执行过程：</p>
+<ul>
+<li>执行一系列读取事务，通过在可能的门控位置上扫描DQS门，以发现一个合适的门控位置，使读取操作成功。</li>
+<li>由于可能的位置数量非常大（最多可达到9个tCK周期的延迟线tap），因此使用二分搜索算法加速搜索过程。</li>
 </ul>
 </li>
-<li><strong>MDL（主延迟线）控制逻辑</strong>：<ul>
-<li>另外还包含了MDL控制逻辑，用于控制主延迟线（MDL），这部分的逻辑也将在后续章节详细描述。</li>
-</ul>
-</li>
-<li><strong>BDL（可调延迟线）控制逻辑</strong>：<ul>
-<li>地址&#x2F;命令通道中有多个BDL控制逻辑实例，分别独立控制所有地址&#x2F;命令通道的BDL。这部分的详细逻辑也会在后续章节中说明。</li>
-</ul>
-</li>
-<li><strong>DDL校准逻辑</strong>：<ul>
-<li>地址&#x2F;命令通道的DDL校准逻辑嵌套在LCDL控制逻辑中。如果设计编译时启用了CA VT补偿（即未定义<code>DWC_NO_CA_VT_COMP</code>宏），则会在DDL控制级别实例化VT补偿逻辑。</li>
-</ul>
-</li>
-<li><strong>序列执行</strong>：<ul>
-<li>DDL校准和VT补偿在地址&#x2F;命令通道中总是串行进行，因为这个通道只有一个LCDL。</li>
-</ul>
-</li>
-</ol>
-<h3 id="VT补偿"><a href="#VT补偿" class="headerlink" title="VT补偿"></a>VT补偿</h3><ul>
-<li><strong>VT补偿</strong>是用于抵消由于温度变化、工艺变化等引起的电压阈值（VT）变化的逻辑。</li>
-<li>默认情况下，地址&#x2F;命令通道的所有DDL寄存器都经过VT补偿。如果禁用这一特性，特别是在命令&#x2F;地址训练禁用的情况下，可以减少PUB（物理接口块）的面积。</li>
-</ul>
-<h3 id="宏定义的影响"><a href="#宏定义的影响" class="headerlink" title="宏定义的影响"></a>宏定义的影响</h3><ul>
-<li><code>DWC_NO_CA_VT_COMP</code><ul>
-<li>如果这个宏被设置，AC DDL寄存器将不进行VT补偿。此时，AC DDL寄存器的行为如下：<ul>
-<li>AC BDL寄存器将返回其初始值（无论是复位、训练或写入的值），即使VT发生变化。</li>
-<li>AC LCDL寄存器也将返回其初始值（无论是校准、训练或写入的值），与VT变化无关。</li>
-<li><code>ACMDLR.IPRD</code>字段返回其初始的校准值，无论VT如何变化。</li>
-<li><code>ACMDLR.TPRD</code>被编译掉，因此返回的值为0。</li>
+<li><p>具体步骤：</p>
+<ul>
+<li>启动训练，系统将尝试不同的门控延迟位置。</li>
+<li>对于每个延迟位置，进行读取事务并监测读取成功与否。</li>
+<li>通过二分搜索算法有效地缩小可能的延迟范围，找到最佳的门控位置。</li>
 </ul>
 </li>
 </ul>
+<h4 id="读取定级（Read-Leveling）"><a href="#读取定级（Read-Leveling）" class="headerlink" title="读取定级（Read-Leveling）"></a>读取定级（Read-Leveling）</h4><ul>
+<li><p>执行过程：</p>
+<ul>
+<li>采用采样窗口技术来识别读取DQS的上升沿，并确定门控位置。</li>
+<li>读取定级不检查读取数据的正确性，而是关注DQS信号本身的时间对齐。</li>
+</ul>
+</li>
+<li><p>具体步骤：</p>
+<ul>
+<li>对DQS信号进行采样，寻找最佳的时机以确保读取的数据在门控开启时被准确采样。</li>
+<li>在整个过程中，读取数据的准确性并不是重点，主要是确保DQS与读取数据的时间对齐。</li>
+</ul>
+</li>
+<li><p>同步训练</p>
+<ul>
+<li>同时训练所有字节通道：这两个算法都同时训练所有字节通道，确保在每个rank中，所有字节的DQS信号都被有效地门控。</li>
+</ul>
 </li>
 </ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这段文字的核心在于描述地址&#x2F;命令通道中延迟线的控制和校准机制，以及如何通过宏定义选择是否启用VT补偿。这对于确保信号的准确传输和提高系统的可靠性至关重要。</p>
+<blockquote>
+<p>逐个训练rank：在共享AC双通道模式下，相关的每个rank也会逐个训练。</p>
+</blockquote>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><blockquote>
+<p>DQS Gate Training通过精确对齐门控信号和读取数据，提高了DDR内存的信号完整性和性能。通过基础门控训练和读取定级的结合，系统能够有效处理不确定性并优化数据传输过程。基础门控训练负责找到合适的门控位置，而读取定级确保信号的同步，为高效稳定的数据传输奠定基础。</p>
+</blockquote>
+
+       -->
+      
+        
+
+        <p><a><span id="more"></span></a></p>
+<blockquote>
+<p>DQS Gate Training是DDR内存系统中一种关键的训练机制，旨在通过抑制噪声和准确捕获读取数据来优化数据传输。由于在读取路径中的延迟（例如电路板的走线长度）常常不精确，因此需要对门控（Gate）进行训练，以确保它与读取数据精确对齐。</p>
+</blockquote>
+<h4 id="主要组成部分"><a href="#主要组成部分" class="headerlink" title="主要组成部分"></a>主要组成部分</h4><blockquote>
+<p><strong>DQS门控：</strong></p>
+<ul>
+<li>DQS（数据选通信号）用于同步读数据。门控信号控制在何时允许数据被读取和采样，以抑制噪声影响。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>训练机制:</strong></p>
+<ul>
+<li>DDR4 PHY解决方案提供了一种内置的DQS门控训练单元，可以在初始化过程中或通过软件&#x2F;内存控制器触发（使用PIR寄存器）。</li>
+<li>提供了两种训练机制：基础门控训练（Basic Gate Training）和读取定级（Read-Leveling）</li>
+</ul>
+</blockquote>
+<h4 id="基础门控训练（Basic-Gate-Training）"><a href="#基础门控训练（Basic-Gate-Training）" class="headerlink" title="基础门控训练（Basic Gate Training）"></a>基础门控训练（Basic Gate Training）</h4><ul>
+<li><p>执行过程：</p>
+<ul>
+<li>执行一系列读取事务，通过在可能的门控位置上扫描DQS门，以发现一个合适的门控位置，使读取操作成功。</li>
+<li>由于可能的位置数量非常大（最多可达到9个tCK周期的延迟线tap），因此使用二分搜索算法加速搜索过程。</li>
+</ul>
+</li>
+<li><p>具体步骤：</p>
+<ul>
+<li>启动训练，系统将尝试不同的门控延迟位置。</li>
+<li>对于每个延迟位置，进行读取事务并监测读取成功与否。</li>
+<li>通过二分搜索算法有效地缩小可能的延迟范围，找到最佳的门控位置。</li>
+</ul>
+</li>
+</ul>
+<h4 id="读取定级（Read-Leveling）"><a href="#读取定级（Read-Leveling）" class="headerlink" title="读取定级（Read-Leveling）"></a>读取定级（Read-Leveling）</h4><ul>
+<li><p>执行过程：</p>
+<ul>
+<li>采用采样窗口技术来识别读取DQS的上升沿，并确定门控位置。</li>
+<li>读取定级不检查读取数据的正确性，而是关注DQS信号本身的时间对齐。</li>
+</ul>
+</li>
+<li><p>具体步骤：</p>
+<ul>
+<li>对DQS信号进行采样，寻找最佳的时机以确保读取的数据在门控开启时被准确采样。</li>
+<li>在整个过程中，读取数据的准确性并不是重点，主要是确保DQS与读取数据的时间对齐。</li>
+</ul>
+</li>
+<li><p>同步训练</p>
+<ul>
+<li>同时训练所有字节通道：这两个算法都同时训练所有字节通道，确保在每个rank中，所有字节的DQS信号都被有效地门控。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>逐个训练rank：在共享AC双通道模式下，相关的每个rank也会逐个训练。</p>
+</blockquote>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><blockquote>
+<p>DQS Gate Training通过精确对齐门控信号和读取数据，提高了DDR内存的信号完整性和性能。通过基础门控训练和读取定级的结合，系统能够有效处理不确定性并优化数据传输过程。基础门控训练负责找到合适的门控位置，而读取定级确保信号的同步，为高效稳定的数据传输奠定基础。</p>
+</blockquote>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -252,7 +332,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/10/28/AC-DLL-Control/" title="AC DLL Control" target="_blank">https://talent-tudou.github.io/2024/10/28/AC-DLL-Control/</a>
+   <a href="https://talent-tudou.github.io/2024/10/27/DQS Gate Training/" title="DQS Gate Training" target="_blank">https://talent-tudou.github.io/2024/10/27/DQS Gate Training/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -303,11 +383,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -319,7 +399,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -374,7 +454,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/10/28/AC-DLL-Control/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/10/27/DQS%20Gate%20Training/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -388,18 +468,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/10/28/Data-Byte-DDL-Control/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2024/10/27/Basic%20Gate%20Training/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Data Byte DDL Control
+          Basic Gate Training
         
       </div>
     </a>
   
   
-    <a href="/2024/10/27/BDL-LCDL%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">BDL和LCDL的使用</div>
+    <a href="/2024/10/27/leveling/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Write Leveling</div>
       <i class="icon-circle-right"></i>
     </a>
   

@@ -199,7 +199,59 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <p><a><span id="more"></span></a></p>
+<h3 id="延迟线校准概述"><a href="#延迟线校准概述" class="headerlink" title="延迟线校准概述"></a>延迟线校准概述</h3><blockquote>
+<p>在数字电路，尤其是在高速内存控制器的设计中，延迟线校准是一个重要步骤，以确保时钟和数据之间的时序匹配。以下是对延迟线校准过程的详细解释：</p>
+</blockquote>
+<h4 id="1-PLL锁定后的校准触发"><a href="#1-PLL锁定后的校准触发" class="headerlink" title="1. PLL锁定后的校准触发"></a>1. PLL锁定后的校准触发</h4><ul>
+<li><strong>PLL锁定</strong>：<ul>
+<li>当相位锁定环（PLL）成功锁定时，意味着时钟信号已稳定，系统可以开始其他初始化任务。</li>
+</ul>
+</li>
+<li><strong>触发校准</strong>：<ul>
+<li>延迟线校准可以通过写入PIR（PHY Initialization Register）寄存器来触发。这通常在PLL锁定后进行，以确保校准的准确性。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-校准的重要性"><a href="#2-校准的重要性" class="headerlink" title="2. 校准的重要性"></a>2. 校准的重要性</h4><ul>
+<li><strong>在初始化之前</strong>：<ul>
+<li>延迟线必须在任何进一步的初始化任务之前完成校准，特别是涉及高速控制器时钟的任务。这样可以确保在访问内存或执行其他高速操作时，信号的时序是准确的。</li>
+</ul>
+</li>
+<li><strong>绕过校准</strong>：<ul>
+<li>用户可以选择通过设置PIR寄存器中的<code>DCALPSE</code>位来绕过延迟线校准。但如果选择绕过，用户必须确保在访问内存之前，延迟线在后续阶段得到了校准。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-局部校准延迟线（LCDL）"><a href="#3-局部校准延迟线（LCDL）" class="headerlink" title="3. 局部校准延迟线（LCDL）"></a>3. 局部校准延迟线（LCDL）</h4><ul>
+<li><strong>独立校准</strong>：<ul>
+<li>每个LCDL都需要针对SDRAM时钟周期进行校准。这意味着要测量延迟线的步数，以产生等于DDR时钟周期的延迟。</li>
+</ul>
+</li>
+<li><strong>校准过程</strong>：<ul>
+<li>每个LCDL的校准是独立进行的，确保每条延迟线都能精确匹配其对应的时钟信号。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-校准的执行"><a href="#4-校准的执行" class="headerlink" title="4. 校准的执行"></a>4. 校准的执行</h4><ul>
+<li><strong>初始化序列的一部分</strong>：<ul>
+<li>通常，延迟线校准是PHY初始化序列的一部分，具体过程在相应的文档中描述。这个初始化过程包括各种步骤，确保PHY和连接的内存能够正常工作。</li>
+</ul>
+</li>
+<li><strong>用户触发</strong>：<ul>
+<li>用户可以随时通过将PIR寄存器中的校准位（<code>DCAL</code>）设置为<code>1</code>来手动触发延迟线校准。这提供了灵活性，使得用户在需要时可以进行额外的校准。</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>延迟线校准是在高速内存系统中确保数据传输可靠性的重要步骤。通过在PLL锁定后触发延迟线校准，系统可以确保在执行任何内存访问或高速操作之前，所有时序都是准确的。绕过校准虽然是可选的，但必须在后续操作之前确保延迟线的校准，以避免潜在的时序问题。</p>
+</blockquote>
+
+       -->
       
+        
+
         <p><a><span id="more"></span></a></p>
 <h3 id="延迟线校准概述"><a href="#延迟线校准概述" class="headerlink" title="延迟线校准概述"></a>延迟线校准概述</h3><blockquote>
 <p>在数字电路，尤其是在高速内存控制器的设计中，延迟线校准是一个重要步骤，以确保时钟和数据之间的时序匹配。以下是对延迟线校准过程的详细解释：</p>
@@ -249,6 +301,7 @@
 </blockquote>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -310,11 +363,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -326,7 +379,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>

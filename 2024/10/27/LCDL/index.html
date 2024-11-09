@@ -202,7 +202,103 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <p><a><span id="more"></span></a></p>
+<blockquote>
+<p>LCDL校准是一种用于调整和优化延迟线（Delay Line）的技术，以确保信号的时序准确。以下是校准流程的详细步骤解释：</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2024/10/27/kiOyUTZ6Dw98gbu.png" alt="image-20241027223625640"></p>
+<h4 id="1-初始状态"><a href="#1-初始状态" class="headerlink" title="1. 初始状态"></a>1. 初始状态</h4><ul>
+<li><strong>复位状态</strong><ul>
+<li>在配置复位期间（当<code>cfg_rst_n</code>被置为有效时），LCDL状态机处于空闲状态，直到复位解除。解除复位后，状态机仍然处于空闲状态，直到从主校准状态机触发LCDL校准。</li>
+</ul>
+</li>
+<li><strong>初始延迟选择</strong><ul>
+<li>初始的延迟选择值设置为最大LCDL值的一半。这为后续的校准提供了一个起始参考点。</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-启动校准时钟"><a href="#2-启动校准时钟" class="headerlink" title="2. 启动校准时钟"></a>2. 启动校准时钟</h4><ul>
+<li><strong>校准时钟的使能</strong><ul>
+<li>首先启用校准时钟，但不启用测量。这一过程用于重置LCDL内部的校准测量触发器。校准时钟启用的时长由<code>PTR2.tCALON</code>定义。</li>
+</ul>
+</li>
+<li><strong>定时等待</strong><ul>
+<li>一旦<code>tCALON</code>时间结束，校准时钟被禁用。之后，会有一个可编程的保持时间<code>PTR2.tCALH</code>，在进入下一步之前等待。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-启用校准测量逻辑"><a href="#3-启用校准测量逻辑" class="headerlink" title="3. 启用校准测量逻辑"></a>3. 启用校准测量逻辑</h4><ul>
+<li><strong>使能校准</strong><ul>
+<li>重置完成后，发出<code>cal_en</code>信号以启用校准测量逻辑。在启用时，需等待一个可编程的设定时间<code>PTR2.tCALS</code>，以确保信号稳定。</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-等待测量完成"><a href="#4-等待测量完成" class="headerlink" title="4. 等待测量完成"></a>4. 等待测量完成</h4><ul>
+<li><strong>轮询结果</strong>：<ul>
+<li>状态机通过轮询<code>cal_en_out</code>信号来等待校准完成。信号的上升沿表示校准时钟已经通过LCDL延迟单元并注册了校准使能信号。此时表示测量操作已完成。</li>
+</ul>
+</li>
+<li><strong>信号同步</strong>：<ul>
+<li>注意，<code>cal_en_out</code>会在使用之前与PHYCTL时钟域同步，而<code>cal_out</code>信号因为其稳定性，使用时无需同步。</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-评估测量结果"><a href="#5-评估测量结果" class="headerlink" title="5. 评估测量结果"></a>5. 评估测量结果</h4><ul>
+<li><strong>延迟调整</strong>：<ul>
+<li>测量完成后，状态机根据结果决定是否需要增加或减少延迟：<ul>
+<li>如果值为<code>1</code>，说明延迟超过一个时钟周期，需减少延迟。</li>
+<li>否则，说明测量的延迟小于一个时钟周期，需增加延迟。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>搜索类型</strong>：<ul>
+<li>调整延迟的操作基于<code>PGCR8.DCALTYPE</code>中编程的搜索类型。可选择二进制搜索或线性搜索。</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-搜索完成条件"><a href="#6-搜索完成条件" class="headerlink" title="6. 搜索完成条件"></a>6. 搜索完成条件</h4><ul>
+<li><p><strong>二进制搜索</strong>：</p>
+<ul>
+<li>当添加或减去延迟选择值为<code>1</code>时，搜索完成。</li>
+</ul>
+</li>
+<li><p><strong>线性搜索</strong>：</p>
+<ul>
+<li>当检测到<code>cal_out</code>的正边沿或测试到最小或最大延迟选择值时，搜索完成。</li>
+</ul>
+</li>
+<li><p><strong>重复测量</strong>：</p>
+<ul>
+<li>否则，返回步骤2，用新的延迟选择值重复测量过程。</li>
+</ul>
+<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2></li>
+</ul>
+<p><img src="https://s2.loli.net/2024/10/27/p6yrVPGxXdoBQWq.png" alt="image-20241027223726826"></p>
+<h3 id="举例说明"><a href="#举例说明" class="headerlink" title="举例说明"></a>举例说明</h3><p>假设我们需要校准一个LCDL，其最大延迟值为100个时钟周期。</p>
+<ol>
+<li><strong>复位状态</strong>：LCDL状态机处于空闲状态，初始延迟选择设置为50个时钟周期（最大值的一半）。</li>
+<li><strong>启动校准时钟</strong>：启用校准时钟，持续5个时钟周期（<code>PTR2.tCALON</code>），然后禁用。</li>
+<li><strong>启用校准</strong>：发出<code>cal_en</code>信号以启用测量，设定稳定时间为2个时钟周期（<code>PTR2.tCALS</code>）。</li>
+<li><strong>等待完成</strong>：状态机轮询<code>cal_en_out</code>信号，直到检测到信号上升沿。</li>
+<li><strong>评估结果</strong><ul>
+<li>假设测量结果表明延迟值为<code>1</code>，则调整选择值减少1（新的选择值为49）。</li>
+</ul>
+</li>
+<li><strong>搜索完成</strong><ul>
+<li>在二进制搜索中，继续增加或减少延迟，直到找到合适的延迟选择值为止。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p> 这个过程会重复进行，直到校准完成，确保LCDL能够准确反映信号时序要求。通过这样的校准，系统可以优化其性能，确保数据传输的稳定性和可靠性。</p>
+</blockquote>
+
+       -->
       
+        
+
         <p><a><span id="more"></span></a></p>
 <blockquote>
 <p>LCDL校准是一种用于调整和优化延迟线（Delay Line）的技术，以确保信号的时序准确。以下是校准流程的详细步骤解释：</p>
@@ -296,6 +392,7 @@
 </blockquote>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -357,11 +454,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -373,7 +470,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -442,7 +539,7 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/10/27/ddl-testing/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2024/10/27/DLL%20Testing/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         

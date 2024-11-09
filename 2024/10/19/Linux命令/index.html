@@ -199,7 +199,105 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <p><a><span id="more"></span></a></p>
+<h1 id="检测服务器端口"><a href="#检测服务器端口" class="headerlink" title="检测服务器端口"></a>检测服务器端口</h1><h3 id="本地服务端查看的"><a href="#本地服务端查看的" class="headerlink" title="本地服务端查看的"></a>本地服务端查看的</h3><ul>
+<li><p>netstat -tunlp</p>
+</li>
+<li><p>ss -tunlp</p>
+</li>
+<li><p>lsof</p>
+</li>
+</ul>
+<h3 id="远程登陆查看的"><a href="#远程登陆查看的" class="headerlink" title="远程登陆查看的"></a>远程登陆查看的</h3><ul>
+<li>telnet</li>
+<li>nmap</li>
+<li>nc</li>
+</ul>
+<h2 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h2><ul>
+<li>管道命令</li>
+<li>以行为单位</li>
+<li>参数<ul>
+<li>-n：仅仅显示脚本处理之后的结果</li>
+<li>-e：使用指定脚本文件处理输入的文本文件</li>
+<li>-f：直接将sed的动作写到一个文件内，-f filename</li>
+<li>-r：支持拓展正则表达式</li>
+<li>-i：直接修改读取的文件内容，不输出到终端</li>
+<li>-v：显示版本信息</li>
+</ul>
+</li>
+<li>删除第1-2行</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ nl makefile | sed &#x27;1,2d&#x27;</span><br><span class="line">     3          for i in $$&#123;var&#125;; \</span><br><span class="line">     4          do \</span><br><span class="line">     5            echo &quot;$$i&quot;; \</span><br><span class="line">     6          done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删除第2行到文件末尾</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nl makefile | sed &#x27;2,$d&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在第二行后面加上字符，如果是<kbd>2i</kbd>的话就是在第二行的上面，不是下面了，如果是后面加上多行的话，就是另外一个引号先不给，然后给\，后面再给另外一边的引号就结束了</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ nl makefile | sed &#x27;2a linzhiwen&#x27; </span><br><span class="line">     1  all:</span><br><span class="line">     2          @read -p &quot;Input element :&quot; var; \</span><br><span class="line">linzhiwen</span><br><span class="line">     3          for i in $$&#123;var&#125;; \</span><br><span class="line">     4          do \</span><br><span class="line">     5            echo &quot;$$i&quot;; \</span><br><span class="line">     6          done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将2到5行替换成linzhiwen, 就是change</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ nl makefile | sed &#x27;2,5c linzhiwen&#x27; </span><br><span class="line">     1  all:</span><br><span class="line">linzhiwen</span><br><span class="line">     6          done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>只显示处理的结果-n，打印信息p，print，不加-n的区别就是重复显示，-n就是只显示处理的</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ nl makefile | sed -n &#x27;2,5p&#x27;</span><br><span class="line">     2          @read -p &quot;Input element :&quot; var; \</span><br><span class="line">     3          for i in $$&#123;var&#125;; \</span><br><span class="line">     4          do \</span><br><span class="line">     5            echo &quot;$$i&quot;; \</span><br><span class="line">-bash-4.2$ nl makefile | sed  &#x27;2,5p&#x27;</span><br><span class="line">     1  all:</span><br><span class="line">     2          @read -p &quot;Input element :&quot; var; \</span><br><span class="line">     2          @read -p &quot;Input element :&quot; var; \</span><br><span class="line">     3          for i in $$&#123;var&#125;; \</span><br><span class="line">     3          for i in $$&#123;var&#125;; \</span><br><span class="line">     4          do \</span><br><span class="line">     4          do \</span><br><span class="line">     5            echo &quot;$$i&quot;; \</span><br><span class="line">     5            echo &quot;$$i&quot;; \</span><br><span class="line">     6          done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>搜索匹配的信息</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ nl makefile | sed  -n &#x27;/for/p&#x27;</span><br><span class="line">     3          for i in $$&#123;var&#125;; \</span><br></pre></td></tr></table></figure>
+
+<h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2><blockquote>
+<p>文本分析工具， awk ‘{pattern+action}’ &lt;filename&gt;</p>
+</blockquote>
+<ul>
+<li>-F 来指定分隔符的，没有指定的情况下默认的是空格，或者是tab</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ cat /etc/passwd | awk -F &#x27;:&#x27; &#x27;&#123;print $1&#125;&#x27;</span><br><span class="line">root</span><br><span class="line">bin</span><br><span class="line">daemon</span><br><span class="line">adm</span><br><span class="line">lp</span><br><span class="line">sync</span><br><span class="line">shutdown</span><br><span class="line">halt</span><br><span class="line">mail</span><br><span class="line">operator</span><br><span class="line">games</span><br><span class="line">ftp</span><br><span class="line">nobody</span><br><span class="line">ods</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>$0是所有的域，$1是第一个</li>
+<li>想要多个输出的话，中间中逗号分开，空格是没有用的，要给的话中间要给双引号，” “这样的是可以的</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ cat /etc/passwd | awk -F : &#x27;&#123;print $1,$7&#125;&#x27;</span><br><span class="line">root /bin/bash</span><br><span class="line">bin /sbin/nologin</span><br><span class="line">daemon /sbin/nologin</span><br><span class="line">adm /sbin/nologin</span><br><span class="line">lp /sbin/nologin</span><br><span class="line">sync /bin/sync</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>加上开头和结尾，都要加上双引号的，这个结尾我没有加是错的</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ cat /etc/passwd | awk -F : &#x27;BEGIN &#123;print &quot;nameshell&quot;&#125; &#123;print $1,$7&#125; END&#123;print hhhh&#125;&#x27;</span><br><span class="line">nameshell</span><br><span class="line">root /bin/bash</span><br><span class="line">bin /sbin/nologin</span><br><span class="line">daemon /sbin/nologin</span><br><span class="line">adm /sbin/nologin</span><br><span class="line">lp /sbin/nologin</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>匹配字符串，在输出</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-bash-4.2$ cat /etc/passwd | awk -F : &#x27; BEGIN &#123;print &quot;nameshell&quot;&#125; /^root/ &#123;print $1,$7&#125; END&#123;print &quot;hhhh&quot;&#125;&#x27;</span><br><span class="line">nameshell</span><br><span class="line">root /bin/bash</span><br><span class="line">hhhh</span><br></pre></td></tr></table></figure>
+
+<h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><ul>
+<li><p>精确匹配 -w（就是匹配word）</p>
+</li>
+<li><p>–color&#x3D;auto，给匹配到的加上颜色</p>
+</li>
+<li><p>取反 -v，就是不匹配</p>
+</li>
+<li><p>grep -c统计行数</p>
+</li>
+<li><p>-l显示匹配的文件，就是在多个文件里面搜索</p>
+</li>
+<li><p>-i 是不区分大小的，没有这个参数默认是区分大小写的</p>
+</li>
+</ul>
+
+       -->
       
+        
+
         <p><a><span id="more"></span></a></p>
 <h1 id="检测服务器端口"><a href="#检测服务器端口" class="headerlink" title="检测服务器端口"></a>检测服务器端口</h1><h3 id="本地服务端查看的"><a href="#本地服务端查看的" class="headerlink" title="本地服务端查看的"></a>本地服务端查看的</h3><ul>
 <li><p>netstat -tunlp</p>
@@ -295,6 +393,7 @@
 </ul>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -356,11 +455,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color2">Programming</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color1">Linux</a>
         		</li>
       		
 		</ul>
@@ -372,11 +471,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Programming//" class="article-tag-list-link color2">Programming</a>
+        			<a href="/categories/Programming/" class="article-tag-list-link color2">Programming</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Programming/Linux//" class="article-tag-list-link color1">Linux</a>
+        			<a href="/categories/Programming/Linux/" class="article-tag-list-link color1">Linux</a>
         		</li>
       		
 		</ul>

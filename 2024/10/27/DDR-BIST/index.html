@@ -201,7 +201,65 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <p><a><span id="more"></span></a></p>
+<blockquote>
+<p>BIST 模块是一个可编程的内置自检引擎，它为应用程序提供了一种测试 PHY 和 I&#x2F;O 的方法，以进行高速生产测试。PHY 发送和接收路径的测试是通过环回实现的。还有一个可选功能用于测试外部存储器。</p>
+</blockquote>
+<blockquote>
+<p>字节通道预期数据、读取比较和错误计数器在读取状态块内实现，并由所有其他内部PUB模块共享。</p>
+</blockquote>
+<p><img src="https://s2.loli.net/2024/10/27/YetQxkAZNB3UpMy.png" alt="image-20241027222629770"></p>
+<h3 id="BIST（内建自测试）的操作模式"><a href="#BIST（内建自测试）的操作模式" class="headerlink" title="BIST（内建自测试）的操作模式"></a>BIST（内建自测试）的操作模式</h3><blockquote>
+<p> BIST（Built-In Self-Test）是一种用于测试和验证集成电路功能的技术。根据所述信息，BIST有两种操作模式：环回模式（Loopback Mode）和DRAM模式（DRAM Mode）。以下是对这两种模式的详细解释。</p>
+</blockquote>
+<h3 id="环回模式（Loopback-Mode）"><a href="#环回模式（Loopback-Mode）" class="headerlink" title="环回模式（Loopback Mode）"></a><strong>环回模式</strong>（Loopback Mode）</h3><ul>
+<li><strong>定义</strong>：<ul>
+<li>在环回模式下，DATXn的写路径在输入&#x2F;输出（I&#x2F;O）端口之间进行环回，即将数据写入的信号直接送回到接收路径中。同时，AC（地址和控制）输出路径也通过I&#x2F;O环回到专用的AC环回逻辑。</li>
+</ul>
+</li>
+<li><strong>功能</strong>：<ul>
+<li>这种模式允许BIST在不使用外部内存的情况下，发送数据模式并比较从PHY（物理层）环回的数据。这意味着BIST可以在整个数据通路中进行自我测试，确保各个部分之间的数据传输是正确的。</li>
+</ul>
+</li>
+<li><strong>应用</strong>：<ul>
+<li>环回模式适用于在测试阶段验证PHY的功能，特别是在没有连接外部内存的情况下。它可以帮助设计人员快速检查设计中的错误或问题。</li>
+</ul>
+</li>
+<li><strong>最小写入延迟&#x2F;读取延迟（WL&#x2F;RL）</strong>：<ul>
+<li>在环回模式下，支持的最小写入延迟和读取延迟为6，这意味着在测试过程中，数据传输的延迟最少需要达到6个时钟周期。</li>
+</ul>
+</li>
+</ul>
+<h3 id="DRAM模式（DRAM-Mode"><a href="#DRAM模式（DRAM-Mode" class="headerlink" title="DRAM模式（DRAM Mode)"></a><strong>DRAM模式（DRAM Mode)</strong></h3><ul>
+<li><strong>定义</strong>：<ul>
+<li>在DRAM模式下，BIST进行正常的写入和读取事务，将数据写入到外部DRAM中，然后比较读取回来的数据。</li>
+</ul>
+</li>
+<li><strong>功能</strong>：<ul>
+<li>这种模式允许测试外部内存的功能，确保内存的读写操作正常工作。BIST发送写入命令，然后从DRAM读取数据，并将读取的数据与发送的数据进行比较，以验证内存的正确性。</li>
+</ul>
+</li>
+<li><strong>地址&#x2F;命令通道的环回</strong>：<ul>
+<li>在DRAM模式下，地址和命令通道仍然在I&#x2F;O端口进行环回。这意味着尽管数据是在外部DRAM中传输，地址和命令仍然经过BIST进行内部测试，以确保控制信号的正确性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><blockquote>
+<p>BIST的环回模式和DRAM模式提供了两种不同的测试方法：</p>
+</blockquote>
+<ul>
+<li><strong>环回模式</strong>：用于在没有外部内存的情况下测试PHY的内部逻辑，通过环回来验证数据传输的完整性。</li>
+<li><strong>DRAM模式</strong>：用于实际测试外部DRAM的读写操作，通过发送和接收数据来验证内存的功能。</li>
+</ul>
+<blockquote>
+<p>这两种模式使得BIST能够灵活地适应不同的测试需求，帮助设计人员确保硬件的可靠性和性能。</p>
+</blockquote>
+
+       -->
       
+        
+
         <p><a><span id="more"></span></a></p>
 <blockquote>
 <p>BIST 模块是一个可编程的内置自检引擎，它为应用程序提供了一种测试 PHY 和 I&#x2F;O 的方法，以进行高速生产测试。PHY 发送和接收路径的测试是通过环回实现的。还有一个可选功能用于测试外部存储器。</p>
@@ -257,6 +315,7 @@
 </blockquote>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -318,11 +377,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -334,7 +393,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -413,7 +472,7 @@
     </a>
   
   
-    <a href="/2024/10/27/Basic-Gate-Training/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2024/10/27/Basic%20Gate%20Training/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Basic Gate Training</div>
       <i class="icon-circle-right"></i>
     </a>

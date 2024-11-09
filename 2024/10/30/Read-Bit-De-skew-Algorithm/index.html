@@ -201,7 +201,100 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <blockquote>
+<p>描述了读取比特去偏移（read bit de-skew）算法的过程<a><span id="more"></span></a></p>
+</blockquote>
+<h3 id="1-读取比特去偏移算法概述"><a href="#1-读取比特去偏移算法概述" class="headerlink" title="1. 读取比特去偏移算法概述"></a><a>1. 读取比特去偏移算法概述</a></h3><ul>
+<li>目的<ul>
+<li>读取比特去偏移算法旨在消除由于数据传输延迟而导致的比特间偏移，从而确保数据的准确接收。</li>
+</ul>
+</li>
+<li>并行执行<ul>
+<li>该算法在所有字节通道（byte lanes）上并行执行，并且需要对内存进行写入和读取访问。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-内存访问要求"><a href="#2-内存访问要求" class="headerlink" title="2. 内存访问要求"></a><a>2. 内存访问要求</a></h3><ul>
+<li><strong>单通道访问</strong>：<ul>
+<li>只能访问一个存储器通道（rank），这个通道通过寄存器 <code>DTCR.DTRANK</code> 来定义。</li>
+</ul>
+</li>
+<li><strong>可编程地址</strong>：<ul>
+<li>使用四个可编程寄存器（<code>DTAR0-3</code>）定义内存的起始地址。这些地址用于 SDRAM 的写入和读取突发（burst），要求一共需要访问 32 个地址单元。</li>
+</ul>
+</li>
+<li><strong>寄存器配置</strong>：<ul>
+<li>每个地址的列地址提供一个 BL8（Burst Length 8）或两个 BL4（Burst Length 4）命令的起始地址。</li>
+<li>所有 <code>DTARn</code> 寄存器的行和bank地址必须相同。</li>
+<li>列地址的最低三位（[2:0]）推荐为 3’b000，以便访问连续的 8 个突发地址。</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-SSO-数据模式"><a href="#3-SSO-数据模式" class="headerlink" title="3. SSO 数据模式"></a><a>3. SSO 数据模式</a></h3><ul>
+<li>减少 SSO<ul>
+<li>固定的连续写入序列旨在提供减少的 SSO（Simultaneous Switching Output）数据模式。具体来说：<ul>
+<li>在地址 <code>DTAR3</code> 和 <code>DTAR1</code> 之间，所有奇数位从 0 转换到 1。</li>
+<li>在地址 <code>DTAR3</code> 和 <code>DTAR2</code> 之间，所有偶数位从 0 转换到 1。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-写入和读取过程"><a href="#4-写入和读取过程" class="headerlink" title="4. 写入和读取过程"></a><a>4. 写入和读取过程</a></h3><ul>
+<li><strong>写入访问</strong>：<ul>
+<li>读取比特去偏移算法使用八次 BL8 写入到内存。</li>
+<li>例如，假设 DTAR0-3 的默认值分别为 x0000、x0008、x0010 和 x0018，写入访问的过程如下：<ul>
+<li>向地址 x0000 写入数据（BL8）</li>
+<li>向地址 x0008 写入数据（BL8）</li>
+<li>向地址 x0010 写入数据（BL8）</li>
+<li>向地址 x0018 写入数据（BL8）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>读取访问</strong>：<ul>
+<li>该算法使用四次 BL8 读取内存，返回 32 个比特的数据。</li>
+<li>例如，在读取过程中，假设读数据的过程如下：<ul>
+<li>从地址 x0000 读取数据（BL8）</li>
+<li>从地址 x0008 读取数据（BL8）</li>
+<li>从地址 x0010 读取数据（BL8）</li>
+<li>从地址 x0018 读取数据（BL8）</li>
+</ul>
+</li>
+<li>仅比较从 0 到 31 中的比特 4 到 11 和 20 到 27。</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-示例"><a href="#5-示例" class="headerlink" title="5. 示例"></a><a>5. 示例</a></h3><p>假设我们要使用读取比特去偏移算法对一个存储器通道进行去偏移：</p>
+<ul>
+<li><strong>配置寄存器</strong>：<ul>
+<li>DTAR0 &#x3D; x0000</li>
+<li>DTAR1 &#x3D; x0008</li>
+<li>DTAR2 &#x3D; x0010</li>
+<li>DTAR3 &#x3D; x0018</li>
+</ul>
+</li>
+<li><strong>写入过程</strong>：<ol>
+<li>向 x0000 写入数据，奇数位 0 转换为 1。</li>
+<li>向 x0008 写入数据，偶数位 0 转换为 1。</li>
+<li>向 x0010 和 x0018 写入数据，继续执行相同的模式。</li>
+</ol>
+</li>
+<li><strong>读取过程</strong>：<ol>
+<li>从 x0000 读取数据，检查比特 4 到 11 和 20 到 27 的值。</li>
+<li>从 x0008 读取数据，继续比较相关比特。</li>
+</ol>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>通过这个过程，读取比特去偏移算法能够有效地消除由于延迟引起的比特间偏移，确保数据传输的准确性。这一过程结合了写入和读取操作，通过连续访问内存来实现数据的对比和分析，从而优化数据传输。</p>
+</blockquote>
+
+       -->
       
+        
+
         <blockquote>
 <p>描述了读取比特去偏移（read bit de-skew）算法的过程<a><span id="more"></span></a></p>
 </blockquote>
@@ -292,6 +385,7 @@
 </blockquote>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -353,11 +447,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -369,7 +463,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -448,7 +542,7 @@
     </a>
   
   
-    <a href="/2024/10/28/Built-In-Self-Test/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2024/10/28/Built-In%20Self%20Test(BIST)/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Built-In Self Test(BIST)</div>
       <i class="icon-circle-right"></i>
     </a>

@@ -203,7 +203,45 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <p><a><span id="more"></span></a></p>
+<h3 id="DDR-Training概述"><a href="#DDR-Training概述" class="headerlink" title="DDR Training概述"></a><a>DDR Training概述</a></h3><blockquote>
+<p>DDR使用的是并行接口进行数据传输，这意味着多个数据位（64bits或者是128bits）同时在一组信号线上进行传输。随着总线频率的增加，信号在PCB(印刷电路板)上的传输变得更加复杂，因为PCB走线的长度差异，PVT（工艺，电压，温度）变化等因素会导致信号传播时间（即延迟）的差异。</p>
+</blockquote>
+<blockquote>
+<p>当信号时序没有被正确对齐，或者是信号质量因为上述的原因而下降的时候，DDR控制器在采样点读取的数据可能会出错，导致读写操作异常，这是因为DDR在每个时钟周期的上升沿和下降沿都会进行数据传输，任何微小的时序偏差都可能导致数据被错误地采集。</p>
+</blockquote>
+<blockquote>
+<p>为了解决上述问题，DDR系统就引入了Traning机制。Traning的主要目的是在DDR初始化过程中，动态调整DRAM与PHY之间的数据与地址命令信号线的时序关系，以确保信号在正确的时间被采样。</p>
+</blockquote>
+<h4 id="training的大致流程："><a href="#training的大致流程：" class="headerlink" title="training的大致流程："></a>training的大致流程：</h4><p><img src="https://s2.loli.net/2024/10/22/irSe9UZcqAGflL1.png" alt="image-20241022203829731"></p>
+<h4 id="记住下面几个问题"><a href="#记住下面几个问题" class="headerlink" title="记住下面几个问题"></a>记住下面几个问题</h4><blockquote>
+<ul>
+<li><a style="color: red">Traning的目的是什么</a></li>
+<li><a style="color: red">Traning调节是什么，反馈是什么</a></li>
+<li><a style="color: red">协议规定的是什么</a></li>
+<li><a style="color: red">具体的实现是什么</a></li>
+</ul>
+</blockquote>
+<h4 id="Training的对象"><a href="#Training的对象" class="headerlink" title="Training的对象"></a>Training的对象</h4><p><img src="https://s2.loli.net/2024/10/22/jsCt6QMGeIXEPUf.png" alt="image-20241022204755366"></p>
+<blockquote>
+<p>对象是DDR PHY和DRAM之间的交互信号线</p>
+</blockquote>
+<ul>
+<li>CK：时钟信号</li>
+<li>CS：片选信号，RANK选择</li>
+<li>AC：Address和Command</li>
+<li>DQS：对数据的采样信号</li>
+<li>DQ：数据线</li>
+<li>Alert：用于training过程中，反馈DCS和DCA到达RCD的回应。正式业务场景是不需要的（这个就像是上面流程图的反馈，当然反馈的功能不只是training，有时候这个信号也会作为ecc的反馈）。</li>
+</ul>
+<p><a>整理之后的training流程</a></p>
+<p><img src="https://s2.loli.net/2024/10/22/VeFAOu2iY8zNJfo.png" alt="image-20241022205033448"></p>
+
+       -->
       
+        
+
         <p><a><span id="more"></span></a></p>
 <h3 id="DDR-Training概述"><a href="#DDR-Training概述" class="headerlink" title="DDR Training概述"></a><a>DDR Training概述</a></h3><blockquote>
 <p>DDR使用的是并行接口进行数据传输，这意味着多个数据位（64bits或者是128bits）同时在一组信号线上进行传输。随着总线频率的增加，信号在PCB(印刷电路板)上的传输变得更加复杂，因为PCB走线的长度差异，PVT（工艺，电压，温度）变化等因素会导致信号传播时间（即延迟）的差异。</p>
@@ -239,6 +277,7 @@
 <p><img src="https://s2.loli.net/2024/10/22/VeFAOu2iY8zNJfo.png" alt="image-20241022205033448"></p>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -300,11 +339,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -316,7 +355,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>

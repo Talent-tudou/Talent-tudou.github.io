@@ -211,7 +211,36 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <p><a><span id="more"></span></a></p>
+<h1 id="DDR介绍"><a href="#DDR介绍" class="headerlink" title="DDR介绍"></a>DDR介绍</h1><h4 id="DDR子系统是由两个部分组成的，ddr-controller和ddr-phy。ddr-controller主要是负责承担CPU（或者说是外部）和memory系统之间进行数据交互时候的传输效率和调度的。ddr-phy主要是负责数据交换过程中的传输速度了。（如下图）"><a href="#DDR子系统是由两个部分组成的，ddr-controller和ddr-phy。ddr-controller主要是负责承担CPU（或者说是外部）和memory系统之间进行数据交互时候的传输效率和调度的。ddr-phy主要是负责数据交换过程中的传输速度了。（如下图）" class="headerlink" title="DDR子系统是由两个部分组成的，ddr controller和ddr phy。ddr controller主要是负责承担CPU（或者说是外部）和memory系统之间进行数据交互时候的传输效率和调度的。ddr phy主要是负责数据交换过程中的传输速度了。（如下图）"></a>DDR子系统是由两个部分组成的，ddr controller和ddr phy。ddr controller主要是负责承担CPU（或者说是外部）和memory系统之间进行数据交互时候的传输效率和调度的。ddr phy主要是负责数据交换过程中的传输速度了。（如下图）</h4><p><img src="https://s2.loli.net/2024/10/19/5WCbYzpnBrKU3M8.png" alt="img"></p>
+<p>ddr phy主要是由两个部分来组成的，一个pub（soft ip）和另外一个phy（hard ip）。</p>
+<p><img src="https://s2.loli.net/2024/10/19/N4Bph3x1SVvuyFr.png" alt="image-20241019182354234"></p>
+<p>其中pub的结构如下图所示：</p>
+<p><img src="https://s2.loli.net/2024/10/19/tqeWV5swdzvXAG2.png" alt="image-20241019182423919"></p>
+<p>pub具有一下特点：</p>
+<ul>
+<li>不支持SDRAM的DLL off模式</li>
+<li>数据通路的位宽以8bit的增量递增</li>
+<li>支持最多4个rank</li>
+<li>支持单数据通道或者双数据通道的配置</li>
+<li>能够完成PHY的初始化，tranning以及控制逻辑</li>
+<li>支持自动化的DQS Gate Tranning</li>
+<li>支持Delay line和VT补偿</li>
+<li>支持自动化的Write Leveing</li>
+<li>支持自动化的Write，Read的data bit deskew</li>
+<li>支持自动化的DQ&#x2F;DQS eye tranning</li>
+<li>支持apb或者其他的通用接口配置寄存器</li>
+<li>支持DFI接口</li>
+</ul>
+<h2 id="PUB模块实现初始化流程"><a href="#PUB模块实现初始化流程" class="headerlink" title="PUB模块实现初始化流程"></a>PUB模块实现初始化流程</h2><h3 id="DDR系统初始化"><a href="#DDR系统初始化" class="headerlink" title="DDR系统初始化"></a>DDR系统初始化</h3><p><img src="https://s2.loli.net/2024/10/19/M53dul89eLDIJyn.png" alt="image-20241019182857357"></p>
+<p><img src="https://s2.loli.net/2024/10/19/kZ5zbw3nlfeBqR4.png" alt="image-20241019182913841"></p>
+<p><img src="https://s2.loli.net/2024/10/19/eoq6BtyOYgSrh1j.png"><img src="https://s2.loli.net/2024/10/19/sD9fcjVyJOFwlvZ.png" alt="image-20241019182938780"><img src="https://s2.loli.net/2024/10/19/TWYxRvhF1EjzPVB.png"><img src="https://s2.loli.net/2024/10/19/bGQc4DjLaWzyqT6.png"><img src="https://s2.loli.net/2024/10/19/qXKekYH1EI4LW5r.png" alt="image-20241019183010016"><img src="https://s2.loli.net/2024/10/19/2hwVvX7fxRQDcFT.png" alt="image-20241019183016978"></p>
+
+       -->
       
+        
+
         <p><a><span id="more"></span></a></p>
 <h1 id="DDR介绍"><a href="#DDR介绍" class="headerlink" title="DDR介绍"></a>DDR介绍</h1><h4 id="DDR子系统是由两个部分组成的，ddr-controller和ddr-phy。ddr-controller主要是负责承担CPU（或者说是外部）和memory系统之间进行数据交互时候的传输效率和调度的。ddr-phy主要是负责数据交换过程中的传输速度了。（如下图）"><a href="#DDR子系统是由两个部分组成的，ddr-controller和ddr-phy。ddr-controller主要是负责承担CPU（或者说是外部）和memory系统之间进行数据交互时候的传输效率和调度的。ddr-phy主要是负责数据交换过程中的传输速度了。（如下图）" class="headerlink" title="DDR子系统是由两个部分组成的，ddr controller和ddr phy。ddr controller主要是负责承担CPU（或者说是外部）和memory系统之间进行数据交互时候的传输效率和调度的。ddr phy主要是负责数据交换过程中的传输速度了。（如下图）"></a>DDR子系统是由两个部分组成的，ddr controller和ddr phy。ddr controller主要是负责承担CPU（或者说是外部）和memory系统之间进行数据交互时候的传输效率和调度的。ddr phy主要是负责数据交换过程中的传输速度了。（如下图）</h4><p><img src="https://s2.loli.net/2024/10/19/5WCbYzpnBrKU3M8.png" alt="img"></p>
 <p>ddr phy主要是由两个部分来组成的，一个pub（soft ip）和另外一个phy（hard ip）。</p>
@@ -238,6 +267,7 @@
 <p><img src="https://s2.loli.net/2024/10/19/eoq6BtyOYgSrh1j.png"><img src="https://s2.loli.net/2024/10/19/sD9fcjVyJOFwlvZ.png" alt="image-20241019182938780"><img src="https://s2.loli.net/2024/10/19/TWYxRvhF1EjzPVB.png"><img src="https://s2.loli.net/2024/10/19/bGQc4DjLaWzyqT6.png"><img src="https://s2.loli.net/2024/10/19/qXKekYH1EI4LW5r.png" alt="image-20241019183010016"><img src="https://s2.loli.net/2024/10/19/2hwVvX7fxRQDcFT.png" alt="image-20241019183016978"></p>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -299,11 +329,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -315,7 +345,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>

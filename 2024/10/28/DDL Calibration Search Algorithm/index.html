@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="article">
 <meta property="og:title" content="DDL Calibration Search Algorithm">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/10/28/DDL-Calibration-Search-Algorithm/index.html">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/10/28/DDL%20Calibration%20Search%20Algorithm/index.html">
 <meta property="og:site_name" content="ZLIN">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-10-28T15:37:49.000Z">
@@ -180,7 +180,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-DDL-Calibration-Search-Algorithm" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-DDL Calibration Search Algorithm" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -192,14 +192,37 @@
   
 
         
-        <a href="/2024/10/28/DDL-Calibration-Search-Algorithm/" class="archive-article-date">
+        <a href="/2024/10/28/DDL%20Calibration%20Search%20Algorithm/" class="archive-article-date">
   	<time datetime="2024-10-28T15:37:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <p><a><span id="more"></span></a></p>
+<blockquote>
+<p>介绍了本地校准延迟线（LCDL）校准的搜索算法，包括如何根据DDR时钟周期进行校准。以下是逐条解析：</p>
+</blockquote>
+<h3 id="主要概念"><a href="#主要概念" class="headerlink" title="主要概念"></a>主要概念</h3><h4 id="1-LCDL校准："><a href="#1-LCDL校准：" class="headerlink" title="1. LCDL校准："></a>1. <strong>LCDL校准</strong>：</h4><ul>
+<li>每个LCDL需要为SDRAM时钟周期进行校准。这是通过测量所需的延迟线步数来实现，以产生与DDR时钟周期相等的延迟。</li>
+<li>每个LCDL都是独立校准的，校准过程中信号会通过延迟单元以测量SDRAM时钟周期。</li>
+</ul>
+<h4 id="2-校准算法："><a href="#2-校准算法：" class="headerlink" title="2. 校准算法："></a>2. <strong>校准算法</strong>：</h4><ul>
+<li>DDL校准算法使用<strong>二进制搜索</strong>或<strong>线性搜索</strong>来找到与时钟周期匹配的延迟值。</li>
+<li>通过<code>PGCR8.DCALTYPE</code>寄存器选择搜索类型，默认类型为二进制搜索。</li>
+</ul>
+<h4 id="3-起始值："><a href="#3-起始值：" class="headerlink" title="3. 起始值："></a>3. <strong>起始值</strong>：</h4><ul>
+<li>两种搜索类型的起始值可以通过<code>PGCR8.DCALSVAL</code>寄存器选择。</li>
+<li>对于未使用的延迟单元，由于高频率时不需要，可能会导致在重新校准时出现问题。<code>PGCR8.DCALSVAL</code>寄存器允许用户配置DDL校准搜索算法以缓解这个老化问题。</li>
+<li>用户可以在高频率时设置一个较小的起始值，默认起始值为256。</li>
+</ul>
+<p>4. </p>
+
+       -->
       
+        
+
         <p><a><span id="more"></span></a></p>
 <blockquote>
 <p>介绍了本地校准延迟线（LCDL）校准的搜索算法，包括如何根据DDR时钟周期进行校准。以下是逐条解析：</p>
@@ -220,6 +243,7 @@
 <p>4. </p>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -230,7 +254,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/10/28/DDL-Calibration-Search-Algorithm/" title="DDL Calibration Search Algorithm" target="_blank">https://talent-tudou.github.io/2024/10/28/DDL-Calibration-Search-Algorithm/</a>
+   <a href="https://talent-tudou.github.io/2024/10/28/DDL Calibration Search Algorithm/" title="DDL Calibration Search Algorithm" target="_blank">https://talent-tudou.github.io/2024/10/28/DDL Calibration Search Algorithm/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -281,11 +305,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -297,7 +321,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -352,7 +376,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/10/28/DDL-Calibration-Search-Algorithm/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/10/28/DDL%20Calibration%20Search%20Algorithm/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -366,7 +390,7 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/10/28/Built-In-Self-Test/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2024/10/28/Built-In%20Self%20Test(BIST)/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
@@ -376,7 +400,7 @@
     </a>
   
   
-    <a href="/2024/10/28/Data-Byte-DDL-Control/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2024/10/28/Data%20Byte%20DDL%20Control/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">Data Byte DDL Control</div>
       <i class="icon-circle-right"></i>
     </a>

@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>BIST Example Test Sequence | ZLIN</title>
+  <title>Built-In Self Test(BIST) | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="描述了如何执行 BIST（内建自检） 测试的具体步骤，包括 DDR PHY 的测试初始化、配置和错误检查">
+  <meta name="description" content="内建自测试（BIST）运行的机制、配置选项、错误计数和状态指示。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="BIST Example Test Sequence">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/11/05/BIST-Example-Test-Sequence/index.html">
+<meta property="og:title" content="Built-In Self Test(BIST)">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/10/28/Built-In%20Self%20Test(BIST)/index.html">
 <meta property="og:site_name" content="ZLIN">
-<meta property="og:description" content="描述了如何执行 BIST（内建自检） 测试的具体步骤，包括 DDR PHY 的测试初始化、配置和错误检查">
+<meta property="og:description" content="内建自测试（BIST）运行的机制、配置选项、错误计数和状态指示。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-11-05T14:59:19.000Z">
-<meta property="article:modified_time" content="2024-11-05T15:10:41.272Z">
+<meta property="article:published_time" content="2024-10-28T15:46:36.000Z">
+<meta property="article:modified_time" content="2024-11-03T13:36:49.913Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="DDR">
@@ -182,144 +182,192 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-BIST-Example-Test-Sequence" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Built-In Self Test(BIST)" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      BIST Example Test Sequence
+      Built-In Self Test(BIST)
     </h1>
   
 
         
-        <a href="/2024/11/05/BIST-Example-Test-Sequence/" class="archive-article-date">
-  	<time datetime="2024-11-05T14:59:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-11-05</time>
+        <a href="/2024/10/28/Built-In%20Self%20Test(BIST)/" class="archive-article-date">
+  	<time datetime="2024-10-28T15:46:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
-      
+      <!-- 
         <blockquote>
-<p>描述了如何执行 <strong>BIST（内建自检）</strong> 测试的具体步骤，包括 DDR PHY 的测试初始化、配置和错误检查<a><span id="more"></span></a></p>
+<p>内建自测试（BIST）运行的机制、配置选项、错误计数和状态指示。<a><span id="more"></span></a></p>
 </blockquote>
-<h3 id="BIST-示例测试序列"><a href="#BIST-示例测试序列" class="headerlink" title="BIST 示例测试序列"></a>BIST 示例测试序列</h3><p>下面是每个步骤的详细说明：</p>
-<hr>
-<h4 id="1-配置复位后-PHY-初始化"><a href="#1-配置复位后-PHY-初始化" class="headerlink" title="1. 配置复位后 PHY 初始化"></a>1. <strong>配置复位后 PHY 初始化</strong></h4><ul>
-<li><strong>操作</strong>：在配置复位解除后，系统需要等待 PHY 完成初始化。</li>
-<li><strong>方法</strong>：通过轮询 <strong>PGSR0.IDONE</strong> 位，等到它的值变为‘1’，表示初始化完成。</li>
-<li><strong>注意</strong>：在等待 PHY 初始化时，可以同时配置其他 PUB（PHY 微控制器）寄存器。</li>
-<li><strong>原因</strong>：此步骤确保 PHY 在测试前已经准备好，类似于正常运行模式下的初始化过程。</li>
+<h3 id="BIST-运行的触发与配置"><a href="#BIST-运行的触发与配置" class="headerlink" title="BIST 运行的触发与配置"></a><a>BIST 运行的触发与配置</a></h3><h4 id="1-触发-BIST-运行："><a href="#1-触发-BIST-运行：" class="headerlink" title="1. 触发 BIST 运行："></a>1. <strong>触发 BIST 运行</strong>：</h4><ul>
+<li>通过写入 BIST 运行寄存器（<code>BISTRR</code>）并选择 RUN 操作来触发 BIST 运行。</li>
 </ul>
-<h4 id="2-选择-DRAM-模式或-BIST-循环回路模式"><a href="#2-选择-DRAM-模式或-BIST-循环回路模式" class="headerlink" title="2. 选择 DRAM 模式或 BIST 循环回路模式"></a>2. <strong>选择 DRAM 模式或 BIST 循环回路模式</strong></h4><ul>
-<li><p><strong>DRAM 模式</strong>：</p>
+<h4 id="2-运行配置选项："><a href="#2-运行配置选项：" class="headerlink" title="2. 运行配置选项："></a>2. <strong>运行配置选项</strong>：</h4><ul>
+<li>无限运行<ul>
+<li>BIST 可以配置为无限期运行，直到接收到 STOP 命令为止。</li>
+</ul>
+</li>
+<li>停止条件<ul>
+<li>可以配置为在检测到失败时停止。</li>
+<li>也可以设置为在发出一定数量的测试模式后自动停止。</li>
+<li>或在达到预设的最大地址值时自动停止。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-BIST-模式选择："><a href="#3-BIST-模式选择：" class="headerlink" title="3. BIST 模式选择："></a>3. <strong>BIST 模式选择</strong>：</h4><ul>
+<li>可选择的测试模式包括：<ul>
+<li>行走1（Walking 1s）</li>
+<li>行走0（Walking 0s）</li>
+<li>伪随机（Pseudo-random）</li>
+<li>用户定义（User defined）</li>
+</ul>
+</li>
+</ul>
+<h3 id="数据字节BIST运行过程"><a href="#数据字节BIST运行过程" class="headerlink" title="数据字节BIST运行过程"></a><a>数据字节BIST运行过程</a></h3><h4 id="1-写入操作"><a href="#1-写入操作" class="headerlink" title="1. 写入操作"></a>1. <strong>写入操作</strong></h4><ul>
+<li>数据字节BIST从<code>BISTARn</code>寄存器中设置的地址开始，执行一系列写入（WR）操作，直到发送的字数达到<code>BISTWCR.BWCNT</code>。</li>
+</ul>
+<h4 id="2-地址递增"><a href="#2-地址递增" class="headerlink" title="2. 地址递增"></a>2. <strong>地址递增</strong></h4><ul>
+<li>地址根据<code>BISTAR1.BAINC</code>递增，同时自动处理<code>bank</code>的关闭或打开以及行激活。</li>
+</ul>
+<h4 id="3-回环模式"><a href="#3-回环模式" class="headerlink" title="3. 回环模式"></a>3. <strong>回环模式</strong></h4><ul>
+<li>在回环模式下，一旦发送的字数等于<code>BWCNT</code>, BIST操作结束，回环数据与写入数据进行比较，记录任何失败。</li>
+</ul>
+<h4 id="4-DRAM-模式"><a href="#4-DRAM-模式" class="headerlink" title="4. DRAM 模式"></a>4. <strong>DRAM 模式</strong></h4><ul>
+<li>BIST现在会执行一系列读取（RD）操作，从DRAM中读取之前写入的数据，并与写入的数据进行比较，记录任何失败。</li>
+</ul>
+<h3 id="无限模式"><a href="#无限模式" class="headerlink" title="无限模式"></a><a>无限模式</a></h3><ul>
+<li>在无限模式下（<code>BISTRR.BINF== 0x1</code>），写入-读取序列将无限进行，直到满足某一停止条件：<ul>
+<li>用户发出 BIST STOP（<code>BISTRR.BINST == STOP</code>）。</li>
+<li>比较失败的次数达到预设限制（<code>BISTRR.NFAIL</code>），如果 <code>BISTRR.SONF == 0x1</code>。</li>
+<li>在 RD 操作中，地址达到预设的最大值（<code>BISTRR.BSOMA == 0x1</code>），允许 BIST 通过完整的内存数组。</li>
+</ul>
+</li>
+</ul>
+<h3 id="错误状态与计数"><a href="#错误状态与计数" class="headerlink" title="错误状态与计数"></a><a>错误状态与计数</a></h3><h4 id="1-错误计数器："><a href="#1-错误计数器：" class="headerlink" title="1. 错误计数器："></a>1. <strong>错误计数器</strong>：</h4><ul>
+<li><p>位错误计数器</p>
 <ul>
-<li><strong>操作</strong>：向<code>PIR</code>（PHY 初始化寄存器）写入以下设置：<ul>
-<li>设置 <strong>PIR.INIT</strong> &#x3D; 1，表示初始化 PHY。</li>
-<li>设置 <strong>PIR.DRAMRST</strong> &#x3D; 1（仅 DDR3）以重置 DRAM。</li>
-<li>设置 <strong>PIR.DRAMINIT</strong> &#x3D; 1 来初始化 DRAM。</li>
+<li>每个 DRAM 引脚有一个位错误计数器，例如，DATX8 上有9个计数器（8个数据位和1个数据掩码位），地址&#x2F;命令通道最多可有34个计数器。</li>
+<li>位错误计数器设计较小，以限制设计尺寸，每个计数器为2位宽，因此可以记录每个引脚上的最多3个错误。</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><p><strong>循环回路模式(Loopback)</strong></p>
+<li><p>字错误计数器</p>
 <ul>
-<li><strong>操作</strong>：如果不需要 DRAM 模式，只需设置 <strong>PIR.INIT</strong> &#x3D; 1 和 <strong>PIR.CTLDINIT</strong> &#x3D; 1，表示跳过 DRAM 初始化。</li>
+<li>计数整个字的错误，如果数据字节通道或地址&#x2F;命令通道的任何位发生错误，则相应的字错误计数器会增加。</li>
+<li>字错误计数器为16位宽，可以计数最多64K个错误。</li>
 </ul>
 </li>
-<li><p><strong>原因</strong>：这一步确保选择正确的测试模式（DRAM 模式或循环回路模式）。</p>
+</ul>
+<h4 id="2-数据掩码："><a href="#2-数据掩码：" class="headerlink" title="2. 数据掩码："></a>2. <strong>数据掩码</strong>：</h4><ul>
+<li>提供数据掩码功能，以便在某个位上记录更多错误，通常在诊断阶段使用。</li>
+</ul>
+<h3 id="BIST状态与重置"><a href="#BIST状态与重置" class="headerlink" title="BIST状态与重置"></a><a>BIST状态与重置</a></h3><h4 id="1-完成状态："><a href="#1-完成状态：" class="headerlink" title="1. 完成状态："></a>1. <strong>完成状态</strong>：</h4><ul>
+<li>一旦 BIST 模式执行完毕（停止或执行最后的测试模式），完成状态位（<code>BDONE</code>）将被设置在 BIST 状态通用寄存器（<code>BISTGSR</code>）中，这是测试模式执行结束的唯一有效指示。</li>
+</ul>
+<h4 id="2-轮询状态："><a href="#2-轮询状态：" class="headerlink" title="2. 轮询状态："></a>2. <strong>轮询状态</strong>：</h4><ul>
+<li>用户必须轮询此位，确保它被设置后才能读取其他状态寄存器。</li>
+</ul>
+<h4 id="3-BIST-重置指令："><a href="#3-BIST-重置指令：" class="headerlink" title="3. BIST 重置指令："></a>3. <strong>BIST 重置指令</strong>：</h4><ul>
+<li>提供 BIST 重置指令，通过<code>BISTRR</code>寄存器，重置某些 BIST 状态寄存器位为默认值。</li>
+</ul>
+<h4 id="4-系统重置："><a href="#4-系统重置：" class="headerlink" title="4. 系统重置："></a>4. <strong>系统重置</strong>：</h4><ul>
+<li>注意，所有状态寄存器在系统重置时也会被重置为默认值。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a>总结</a></h3><blockquote>
+<p>描述了 BIST 的工作原理、测试模式、错误计数以及如何处理状态和重置。用户可以通过 BIST 进行可靠性测试，并根据需要配置各种选项，以确保设备在运行中的准确性和可靠性。</p>
+</blockquote>
+
+       -->
+      
+        
+
+        <blockquote>
+<p>内建自测试（BIST）运行的机制、配置选项、错误计数和状态指示。<a><span id="more"></span></a></p>
+</blockquote>
+<h3 id="BIST-运行的触发与配置"><a href="#BIST-运行的触发与配置" class="headerlink" title="BIST 运行的触发与配置"></a><a>BIST 运行的触发与配置</a></h3><h4 id="1-触发-BIST-运行："><a href="#1-触发-BIST-运行：" class="headerlink" title="1. 触发 BIST 运行："></a>1. <strong>触发 BIST 运行</strong>：</h4><ul>
+<li>通过写入 BIST 运行寄存器（<code>BISTRR</code>）并选择 RUN 操作来触发 BIST 运行。</li>
+</ul>
+<h4 id="2-运行配置选项："><a href="#2-运行配置选项：" class="headerlink" title="2. 运行配置选项："></a>2. <strong>运行配置选项</strong>：</h4><ul>
+<li>无限运行<ul>
+<li>BIST 可以配置为无限期运行，直到接收到 STOP 命令为止。</li>
+</ul>
+</li>
+<li>停止条件<ul>
+<li>可以配置为在检测到失败时停止。</li>
+<li>也可以设置为在发出一定数量的测试模式后自动停止。</li>
+<li>或在达到预设的最大地址值时自动停止。</li>
+</ul>
 </li>
 </ul>
-<h4 id="3-等待-PHY-初始化完成"><a href="#3-等待-PHY-初始化完成" class="headerlink" title="3. 等待 PHY 初始化完成"></a>3. <strong>等待 PHY 初始化完成</strong></h4><ul>
-<li><strong>操作</strong>：等待 PHY 完成初始化，或者通过轮询 <strong>PGSR0.IDONE</strong> 位来确认初始化是否完成。</li>
-<li><strong>原因</strong>：确保 PHY 在开始 BIST 测试之前已经完全初始化。</li>
+<h4 id="3-BIST-模式选择："><a href="#3-BIST-模式选择：" class="headerlink" title="3. BIST 模式选择："></a>3. <strong>BIST 模式选择</strong>：</h4><ul>
+<li>可选择的测试模式包括：<ul>
+<li>行走1（Walking 1s）</li>
+<li>行走0（Walking 0s）</li>
+<li>伪随机（Pseudo-random）</li>
+<li>用户定义（User defined）</li>
 </ul>
-<h4 id="4-配置读-DQS-90-度偏移和门控设置"><a href="#4-配置读-DQS-90-度偏移和门控设置" class="headerlink" title="4. 配置读 DQS 90 度偏移和门控设置"></a>4. <strong>配置读 DQS 90 度偏移和门控设置</strong></h4><ul>
-<li><p><strong>操作</strong>：可选择性地配置在 BIST 运行期间如何控制读 DQS（数据使能信号）的 90 度偏移和门控设置，通过写入 <code>PGCR1.LBDQSS</code>和 <code>PGCR1.LBGDQS</code>。</p>
+</li>
+</ul>
+<h3 id="数据字节BIST运行过程"><a href="#数据字节BIST运行过程" class="headerlink" title="数据字节BIST运行过程"></a><a>数据字节BIST运行过程</a></h3><h4 id="1-写入操作"><a href="#1-写入操作" class="headerlink" title="1. 写入操作"></a>1. <strong>写入操作</strong></h4><ul>
+<li>数据字节BIST从<code>BISTARn</code>寄存器中设置的地址开始，执行一系列写入（WR）操作，直到发送的字数达到<code>BISTWCR.BWCNT</code>。</li>
+</ul>
+<h4 id="2-地址递增"><a href="#2-地址递增" class="headerlink" title="2. 地址递增"></a>2. <strong>地址递增</strong></h4><ul>
+<li>地址根据<code>BISTAR1.BAINC</code>递增，同时自动处理<code>bank</code>的关闭或打开以及行激活。</li>
+</ul>
+<h4 id="3-回环模式"><a href="#3-回环模式" class="headerlink" title="3. 回环模式"></a>3. <strong>回环模式</strong></h4><ul>
+<li>在回环模式下，一旦发送的字数等于<code>BWCNT</code>, BIST操作结束，回环数据与写入数据进行比较，记录任何失败。</li>
+</ul>
+<h4 id="4-DRAM-模式"><a href="#4-DRAM-模式" class="headerlink" title="4. DRAM 模式"></a>4. <strong>DRAM 模式</strong></h4><ul>
+<li>BIST现在会执行一系列读取（RD）操作，从DRAM中读取之前写入的数据，并与写入的数据进行比较，记录任何失败。</li>
+</ul>
+<h3 id="无限模式"><a href="#无限模式" class="headerlink" title="无限模式"></a><a>无限模式</a></h3><ul>
+<li>在无限模式下（<code>BISTRR.BINF== 0x1</code>），写入-读取序列将无限进行，直到满足某一停止条件：<ul>
+<li>用户发出 BIST STOP（<code>BISTRR.BINST == STOP</code>）。</li>
+<li>比较失败的次数达到预设限制（<code>BISTRR.NFAIL</code>），如果 <code>BISTRR.SONF == 0x1</code>。</li>
+<li>在 RD 操作中，地址达到预设的最大值（<code>BISTRR.BSOMA == 0x1</code>），允许 BIST 通过完整的内存数组。</li>
+</ul>
+</li>
+</ul>
+<h3 id="错误状态与计数"><a href="#错误状态与计数" class="headerlink" title="错误状态与计数"></a><a>错误状态与计数</a></h3><h4 id="1-错误计数器："><a href="#1-错误计数器：" class="headerlink" title="1. 错误计数器："></a>1. <strong>错误计数器</strong>：</h4><ul>
+<li><p>位错误计数器</p>
 <ul>
-<li><strong>推荐</strong>：保持默认值，这样可以确保 DQS 信号正确对齐，并且在 BIST 循环回路测试期间 DQS 门控始终开启。</li>
+<li>每个 DRAM 引脚有一个位错误计数器，例如，DATX8 上有9个计数器（8个数据位和1个数据掩码位），地址&#x2F;命令通道最多可有34个计数器。</li>
+<li>位错误计数器设计较小，以限制设计尺寸，每个计数器为2位宽，因此可以记录每个引脚上的最多3个错误。</li>
 </ul>
 </li>
-<li><p><strong>选择回路模式</strong>：在配置PGCR1寄存器时，还需要通过写入 <code>PGCR1.IOLB</code>选择使用 pad-side还是 core-side回路。</p>
+<li><p>字错误计数器</p>
 <ul>
-<li><strong>推荐</strong>：使用 <strong>core-side</strong> 回路模式。</li>
-</ul>
-</li>
-<li><p><strong>原因</strong>：确保数据在 BIST 期间正确对齐，避免数据捕获时的对齐问题。</p>
-</li>
-</ul>
-<h4 id="5-设置-BIST-生成的测试模式数量"><a href="#5-设置-BIST-生成的测试模式数量" class="headerlink" title="5. 设置 BIST 生成的测试模式数量"></a>5. <strong>设置 BIST 生成的测试模式数量</strong></h4><ul>
-<li><p><strong>操作</strong>：通过向 BISTWCR.BWNCT写入，设置要生成的模式数量。</p>
-<ul>
-<li><strong>默认值</strong>：默认值 32 个模式通常足以覆盖大部分测试。</li>
-</ul>
-</li>
-<li><p><strong>原因</strong>：这一步是可选的，但可以根据需要配置测试模式的数量。</p>
-</li>
-</ul>
-<h4 id="6-确保地址-命令和I-O-接收器被供电"><a href="#6-确保地址-命令和I-O-接收器被供电" class="headerlink" title="6. 确保地址&#x2F;命令和I&#x2F;O 接收器被供电"></a>6. <strong>确保地址&#x2F;命令和I&#x2F;O 接收器被供电</strong></h4><ul>
-<li><strong>操作</strong>：如果计划使用 <strong>pad-side</strong> 回路，需要确保地址&#x2F;命令 I&#x2F;O 接收器已供电，可以通过向 <strong>ACIOCR0</strong> 写入 <strong>0x20000000</strong> 来确保这一点。</li>
-<li><strong>原因</strong>：地址和命令信号默认是关闭的，这一步确保它们在测试前被供电。</li>
-</ul>
-<h4 id="7-重置-PHY-FIFO"><a href="#7-重置-PHY-FIFO" class="headerlink" title="7. 重置 PHY FIFO"></a>7. <strong>重置 PHY FIFO</strong></h4><ul>
-<li><p>操作：通过写入 <code>PGCR0.PHYFRST = 0</code> 来重置 PHY FIFO。</p>
-<ul>
-<li><strong>等待</strong>：等待至少 8 个 <strong>cfg_clk 周期</strong>，以确保 FIFO 完全重置。</li>
-<li><strong>清除复位</strong>：通过写入 <strong><code>PGCR0.PHYFRST</code></strong> &#x3D; 1 清除复位状态，准备好进行测试。</li>
-</ul>
-</li>
-<li><p><strong>原因</strong>：确保 FIFO 中没有残留的坏数据或错误状态，避免影响 BIST 测试。</p>
-</li>
-</ul>
-<h4 id="8-触发-BIST-运行"><a href="#8-触发-BIST-运行" class="headerlink" title="8. 触发 BIST 运行"></a>8. <strong>触发 BIST 运行</strong></h4><ul>
-<li><p>操作：通过写入 3’b001到 BISTRR.BINST启动 BIST 测试。</p>
-<ul>
-<li><p>其他配置</p>
-<p>：在触发 BIST 时，还需要配置 </p>
-<p>BISTRR</p>
-<p> 寄存器中的其他字段，如：</p>
-<ul>
-<li>选择 <strong>循环回路模式</strong> 或 <strong>DRAM 模式</strong>。</li>
-<li>启用 <strong>地址&#x2F;命令通道</strong> 或 <strong>字节通道</strong>。</li>
-<li>启用 <strong>数据掩码</strong>。</li>
-<li>选择用于测试的具体 <strong>字节通道</strong>。</li>
+<li>计数整个字的错误，如果数据字节通道或地址&#x2F;命令通道的任何位发生错误，则相应的字错误计数器会增加。</li>
+<li>字错误计数器为16位宽，可以计数最多64K个错误。</li>
 </ul>
 </li>
 </ul>
-</li>
-<li><p><strong>原因</strong>：这一步启动了 BIST 测试，并且确保其他配置正确设置。</p>
-</li>
+<h4 id="2-数据掩码："><a href="#2-数据掩码：" class="headerlink" title="2. 数据掩码："></a>2. <strong>数据掩码</strong>：</h4><ul>
+<li>提供数据掩码功能，以便在某个位上记录更多错误，通常在诊断阶段使用。</li>
 </ul>
-<h4 id="9-等待-BIST-完成"><a href="#9-等待-BIST-完成" class="headerlink" title="9. 等待 BIST 完成"></a>9. <strong>等待 BIST 完成</strong></h4><ul>
-<li><strong>操作</strong>：通过轮询 <strong>BISTSR.BDONE</strong> 位，等待 BIST 测试完成，状态为 ‘1’。</li>
-<li><strong>原因</strong>：这一步确认 BIST 测试已成功完成。</li>
+<h3 id="BIST状态与重置"><a href="#BIST状态与重置" class="headerlink" title="BIST状态与重置"></a><a>BIST状态与重置</a></h3><h4 id="1-完成状态："><a href="#1-完成状态：" class="headerlink" title="1. 完成状态："></a>1. <strong>完成状态</strong>：</h4><ul>
+<li>一旦 BIST 模式执行完毕（停止或执行最后的测试模式），完成状态位（<code>BDONE</code>）将被设置在 BIST 状态通用寄存器（<code>BISTGSR</code>）中，这是测试模式执行结束的唯一有效指示。</li>
 </ul>
-<h4 id="10-检查是否有错误"><a href="#10-检查是否有错误" class="headerlink" title="10. 检查是否有错误"></a>10. <strong>检查是否有错误</strong></h4><ul>
-<li><p>操作：通过读取 BISTWER.ACWER地址&#x2F;命令通道错误）或 BISTWER.DXWER字节通道错误）来检查是否有错误。</p>
-<ul>
-<li>如果没有错误，测试完成。</li>
+<h4 id="2-轮询状态："><a href="#2-轮询状态：" class="headerlink" title="2. 轮询状态："></a>2. <strong>轮询状态</strong>：</h4><ul>
+<li>用户必须轮询此位，确保它被设置后才能读取其他状态寄存器。</li>
 </ul>
-</li>
-<li><p>如果发现错误，进一步读取 <strong>BIST 错误寄存器</strong>，查看具体哪些信号发生了错误。</p>
-<ul>
-<li>可选地，使用 <strong>BIST 调试模式寄存器</strong> 来帮助定位故障。</li>
+<h4 id="3-BIST-重置指令："><a href="#3-BIST-重置指令：" class="headerlink" title="3. BIST 重置指令："></a>3. <strong>BIST 重置指令</strong>：</h4><ul>
+<li>提供 BIST 重置指令，通过<code>BISTRR</code>寄存器，重置某些 BIST 状态寄存器位为默认值。</li>
 </ul>
-</li>
-<li><p><strong>原因</strong>：确保在 BIST 测试中发现并处理任何错误。</p>
-</li>
+<h4 id="4-系统重置："><a href="#4-系统重置：" class="headerlink" title="4. 系统重置："></a>4. <strong>系统重置</strong>：</h4><ul>
+<li>注意，所有状态寄存器在系统重置时也会被重置为默认值。</li>
 </ul>
-<hr>
-<h3 id="关键操作总结："><a href="#关键操作总结：" class="headerlink" title="关键操作总结："></a>关键操作总结：</h3><ol>
-<li><strong>初始化 PHY</strong> 并配置相关寄存器。</li>
-<li><strong>选择测试模式</strong>（循环回路模式或 DRAM 模式）。</li>
-<li><strong>触发 BIST 测试</strong>，等待完成并检查错误。</li>
-<li>使用 <strong>BIST 调试寄存器</strong> 定位并调试可能的错误。</li>
-</ol>
-<p>这些步骤确保 DDR PHY 的 BIST 测试能够正确运行，并在发现问题时提供调试信息。这为测试人员提供了一种灵活的方式来验证 DDR PHY 的功能，确保其在生产中的可靠性。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a>总结</a></h3><blockquote>
+<p>描述了 BIST 的工作原理、测试模式、错误计数以及如何处理状态和重置。用户可以通过 BIST 进行可靠性测试，并根据需要配置各种选项，以确保设备在运行中的准确性和可靠性。</p>
+</blockquote>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -330,7 +378,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/11/05/BIST-Example-Test-Sequence/" title="BIST Example Test Sequence" target="_blank">https://talent-tudou.github.io/2024/11/05/BIST-Example-Test-Sequence/</a>
+   <a href="https://talent-tudou.github.io/2024/10/28/Built-In Self Test(BIST)/" title="Built-In Self Test(BIST)" target="_blank">https://talent-tudou.github.io/2024/10/28/Built-In Self Test(BIST)/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -381,11 +429,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -397,7 +445,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -452,7 +500,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/11/05/BIST-Example-Test-Sequence/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/10/28/Built-In%20Self%20Test(BIST)/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -466,18 +514,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/11/05/BIST%E5%86%85%E5%BB%BA%E8%87%AA%E6%A3%80%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2024/10/30/Read-Bit-De-skew-Algorithm/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          BIST（内建自检模块简介）
+          Read Bit De-skew Algorithm
         
       </div>
     </a>
   
   
-    <a href="/2024/11/05/vim%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">vim操作</div>
+    <a href="/2024/10/28/DDL%20Calibration%20Search%20Algorithm/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DDL Calibration Search Algorithm</div>
       <i class="icon-circle-right"></i>
     </a>
   

@@ -199,7 +199,282 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <p><a><span id="more"></span></a><br>这是关于Makefile的基本用法</p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h4 id="目标：依赖"><a href="#目标：依赖" class="headerlink" title="目标：依赖"></a>目标：依赖</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先检查tb.sv和dut.sv是不是存在，以及是否有修改。如果依赖有修改或者是目标不存在得时候，就执行下面得命令</span></span><br><span class="line"><span class="section">simv:tb.sv dut.sv</span></span><br><span class="line">	vcs -full64 -sverilog tb.sv </span><br></pre></td></tr></table></figure>
+
+<h3 id="伪目标"><a href="#伪目标" class="headerlink" title="伪目标"></a>伪目标</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:sim</span></span><br><span class="line"><span class="section">sim:simv</span></span><br><span class="line">    ./simv </span><br></pre></td></tr></table></figure>
+
+<h3 id="ONESHELL"><a href="#ONESHELL" class="headerlink" title=".ONESHELL:"></a>.ONESHELL:</h3><ul>
+<li>所有的指令就会在一个shell中执行了</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">.ONESHELL:</span></span><br><span class="line"><span class="comment">#正常些指令</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="语句的回显问题"><a href="#语句的回显问题" class="headerlink" title="语句的回显问题"></a>语句的回显问题</h3><ul>
+<li>可以在语句前面用”<strong>@</strong>“就行了，但是不想每个前面都打的话，就用.SILENT</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">.SILENT: main all    # 后面是目标</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h2><h3 id="ifeq"><a href="#ifeq" class="headerlink" title="ifeq"></a>ifeq</h3><ul>
+<li>判断一个变量是不是已经定义了</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">OS = Linux</span><br><span class="line"><span class="keyword">ifdef</span> Win</span><br><span class="line">    OS = Windows</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">OS = Linux</span><br><span class="line"><span class="keyword">ifdef</span> Win</span><br><span class="line">    OS = Windows</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">ifdef</span> Mac</span><br><span class="line">    OS= MacOS</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">ifdef</span> Win</span><br><span class="line">    OS = Windows</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">ifdef</span> Mac</span><br><span class="line">    OS= MacOS</span><br><span class="line"><span class="keyword">else</span> </span><br><span class="line">    OS = Linux</span><br><span class="line"><span class="keyword">endif</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ifndef"><a href="#ifndef" class="headerlink" title="ifndef"></a>ifndef</h3><ul>
+<li>判断一个变量是不是没有定义</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">version = 3.0</span><br><span class="line"></span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(version)</span>,1.0)            <span class="comment"># ifeq后一定要一个空格</span></span><br><span class="line">    msg := 版本太旧了，请更新版本</span><br><span class="line"><span class="keyword">else</span> <span class="keyword">ifeq</span> (<span class="variable">$(version)</span>, 3.0)</span><br><span class="line">    msg := 版本太新了，也不行</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    msg := 版本可以用</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 另外的写法</span></span><br><span class="line">msg = Other</span><br><span class="line"><span class="keyword">ifeq</span> <span class="string">&quot;<span class="variable">$(OS)</span>&quot;</span> <span class="string">&quot;Windows_NT&quot;</span></span><br><span class="line">    msg = This is a Windows Platform</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ifeq</span> &#x27;<span class="variable">$(OS)</span>&#x27; &#x27;Windows_NT&#x27;</span><br><span class="line"></span><br><span class="line"><span class="keyword">ifeq</span> &#x27;<span class="variable">$(OS)</span>&#x27; <span class="string">&quot;Windows_NT&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ifneq"><a href="#ifneq" class="headerlink" title="ifneq"></a>ifneq</h3><ul>
+<li>判断两个值是不是不相等</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">和上面的一样用法</span><br></pre></td></tr></table></figure>
+
+<h2 id="变量操作"><a href="#变量操作" class="headerlink" title="变量操作"></a>变量操作</h2><h3 id="是二次展开，-是立即展开"><a href="#是二次展开，-是立即展开" class="headerlink" title="=是二次展开， :=是立即展开"></a><kbd>=</kbd>是二次展开， <kbd>:=</kbd>是立即展开</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#只需要修改文件开头就行了，&quot;:=&quot;表示变量决定于它在makefile中的位置（顺序执行的），而&quot;=&quot;是makefile最后的位置</span></span><br><span class="line">tbfile := tb.sv env_pkg.sv test_pkg.sv</span><br><span class="line">rtlfile := dut.v a.v b.v</span><br><span class="line"><span class="section">simv: <span class="variable">$(tbfile)</span> <span class="variable">$(rtlfile)</span></span></span><br><span class="line">    vcs -full64 -sverilog <span class="variable">$(tbfile)</span> <span class="variable">$(rtlfile)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="取消变量的定义"><a href="#取消变量的定义" class="headerlink" title="取消变量的定义"></a>取消变量的定义</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">undefine</span> &lt;变量名&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(USERNAME)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="shell运行赋值"><a href="#shell运行赋值" class="headerlink" title="shell运行赋值"></a>shell运行赋值</h3><ul>
+<li>使用<kbd>!=</kbd>，运行一个shell命令，返回值赋值给一个变量</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">files != ls </span><br></pre></td></tr></table></figure>
+
+<h3 id="追加"><a href="#追加" class="headerlink" title="追加"></a>追加</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">files += linzhiwen.cpp</span><br></pre></td></tr></table></figure>
+
+<h3 id="条件赋值"><a href="#条件赋值" class="headerlink" title="条件赋值"></a>条件赋值</h3><ul>
+<li>条件赋值的**<kbd>?=</kbd>**,变量如果已经赋值了，那么就保持原来的值，如果没有就把右边的赋值给左边</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var1 = 100</span><br><span class="line">var1 ?= 200</span><br><span class="line"><span class="section">all:</span></span><br><span class="line">	@echo <span class="variable">$(var1)</span> </span><br></pre></td></tr></table></figure>
+
+<h3 id="变量的替换引用"><a href="#变量的替换引用" class="headerlink" title="变量的替换引用"></a>变量的替换引用</h3><ul>
+<li>语法：$(var:a&#x3D;b)，意思是将变量var的值中每一项结尾的a替换为b</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var = main.cpp a.cpp b.cpp</span><br><span class="line">objs := $(var:.cpp=.v) </span><br><span class="line">objes := $(var:%.cpp=%.v)</span><br></pre></td></tr></table></figure>
+
+<h3 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h3><ul>
+<li>makefile中的所有的变量都可以通过终端传递，实现覆盖</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make GUI=xxx</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="字符替换函数"><a href="#字符替换函数" class="headerlink" title="字符替换函数"></a>字符替换函数</h2><h3 id="subst"><a href="#subst" class="headerlink" title="subst"></a>subst</h3><ul>
+<li>文本替换函数，返回替换后的文本</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">subst</span> target,replacement,text)</span></span><br><span class="line">        <span class="comment">#--- 用relacement替换text中的target</span></span><br><span class="line">        <span class="comment">#--- target 需要替换的内容</span></span><br><span class="line">        <span class="comment">#--- replacement 替换为的内容</span></span><br><span class="line">        <span class="comment">#--- text 需要处理的内容，可以是任意字符串</span></span><br><span class="line"></span><br><span class="line">objs = main.o hello.o</span><br><span class="line">srcs = <span class="variable">$(<span class="built_in">subst</span> .o,.cpp,<span class="variable">$(objs)</span>)</span></span><br><span class="line">headers = <span class="variable">$(<span class="built_in">subst</span> .cpp,.h,<span class="variable">$(srcs)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">    @echo <span class="variable">$(srcs)</span></span><br><span class="line">    @echo <span class="variable">$(headers)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="patsubst"><a href="#patsubst" class="headerlink" title="patsubst"></a>patsubst</h3><ul>
+<li>模式替换， 返回替换后的文本</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">patsubst</span> pattern,replacement,text)</span></span><br><span class="line">        <span class="comment">#--- pattern 需要替换的模式</span></span><br><span class="line">        <span class="comment">#--- replacement 需要替换为</span></span><br><span class="line">        <span class="comment">#--- text 待处理内容，各项内容需要用空格隔开</span></span><br><span class="line">objs = main.ohello.o</span><br><span class="line">srcs = <span class="variable">$(<span class="built_in">subst</span> %.o,%.cpp,<span class="variable">$(objs)</span>)</span></span><br><span class="line">headers = <span class="variable">$(<span class="built_in">subst</span> %.cpp,%.h,<span class="variable">$(srcs)</span>)</span>  </span><br></pre></td></tr></table></figure>
+
+<h3 id="strip"><a href="#strip" class="headerlink" title="strip"></a>strip</h3><ul>
+<li>去除字符串头部和尾部的空格，中间如果连续有多个空格，则用一个空格替换，返回去除空格后的文本</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">strip</span> string)</span></span><br><span class="line">        <span class="comment">#--- string 需要去除空格的字符串</span></span><br><span class="line">files = aa hello.cpp      main.cpp     test.cpp</span><br><span class="line">files := <span class="variable">$(<span class="built_in">subst</span> aa,        ,<span class="variable">$(files)</span>)</span></span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">strip</span> <span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="findstring"><a href="#findstring" class="headerlink" title="findstring"></a>findstring</h3><ul>
+<li>查找字符串，如果找到了，则返回对应的字符串，如果没找到，则反回空串</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">findstring</span> find,string)</span></span><br><span class="line">        <span class="comment">#--- find 需要查找的字符串</span></span><br><span class="line">        <span class="comment">#--- string 用来查找的内容</span></span><br><span class="line">files = hello.cpp main.cpp test.cpp</span><br><span class="line">find = <span class="variable">$(<span class="built_in">findstring</span> hel,<span class="variable">$(files)</span>)</span></span><br><span class="line">find = <span class="variable">$(<span class="built_in">findstring</span> HEL,<span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><ul>
+<li>从文本中筛选出符合模式的内容并返回</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">filter</span> pattern…,text)</span></span><br><span class="line">        <span class="comment">#--- pattern 模式，可以有多个，用空格隔开</span></span><br><span class="line">        <span class="comment">#--- text 用来筛选的文本，多项内容需要用空格隔开，否则只会当一项来处理</span></span><br><span class="line"></span><br><span class="line">files = hello.cpp main.cpp test.cpp main.o hello.o hello.h</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">filter</span> %.o %.h,<span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="filter-out"><a href="#filter-out" class="headerlink" title="filter-out"></a>filter-out</h3><ul>
+<li>与filter相反，过滤掉符合模式的，返回剩下的内容</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">filter</span>-out pattern…,text)</span></span><br><span class="line">        <span class="comment">#--- pattern 模式，可以有多个，用空格隔开</span></span><br><span class="line">        <span class="comment">#--- text 用来筛选的文本，多项内容需要用空格隔开，否则只会当一项来处理</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">files = hello.cpp main.cpp test.cpp main.o hello.o hello.h</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">filter</span>-out %.o %.cpp,<span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><ul>
+<li>将文本内的各项按字典顺序排列，并且移除重复项</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">sort</span> list)</span></span><br><span class="line">       <span class="comment"># --- list 需要排序内容</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">files = hello.cpp main.cpp test.cpp main.o hello.o hello.h main.cpp hello.cpp</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">sort</span> <span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="word"><a href="#word" class="headerlink" title="word"></a>word</h3><ul>
+<li>用于返回文本中第n个单词</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">word</span> n,text)</span></span><br><span class="line">        <span class="comment"># --- n 第n个单词，从1开始，如果n大于总单词数，则返回空串</span></span><br><span class="line">        <span class="comment"># --- text 待处理文本</span></span><br><span class="line"></span><br><span class="line">files = hello.cpp main.cpp test.cpp main.o hello.o hello.h main.cpp hello.cpp</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">word</span> 3,<span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="wordlist"><a href="#wordlist" class="headerlink" title="wordlist"></a>wordlist</h3><ul>
+<li>用于返回文本指定范围内的单词列表</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">wordlist</span> start,end,text)</span></span><br><span class="line">        <span class="comment">#--- start 起始位置，如果大于单词总数，则返回空串</span></span><br><span class="line">        <span class="comment">#--- end 结束位置，如果大于单词总数，则返回起始位置之后全部，如果start &gt; end，什么都不返回</span></span><br><span class="line"></span><br><span class="line">files = hello.cpp main.cpp test.cpp main.o hello.o hello.h main.cpp hello.cpp</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">wordlist</span> 3,6,<span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="words"><a href="#words" class="headerlink" title="words"></a>words</h3><ul>
+<li>返回文本中单词数</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(words text)</span></span><br><span class="line">       <span class="comment"># --- text 需要处理的文本</span></span><br><span class="line"></span><br><span class="line">files = hello.cpp main.cpp test.cpp main.o hello.o hello.h main.cpp hello.cpp</span><br><span class="line">nums = <span class="variable">$(words <span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="firstword"><a href="#firstword" class="headerlink" title="firstword"></a>firstword</h3><ul>
+<li>返回第一个单词</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">firstword</span> text)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="lastword"><a href="#lastword" class="headerlink" title="lastword"></a>lastword</h3><ul>
+<li>返回最后一个单词</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">lastword</span> text)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="文件名处理函数"><a href="#文件名处理函数" class="headerlink" title="文件名处理函数"></a>文件名处理函数</h2><h3 id="dir"><a href="#dir" class="headerlink" title="dir"></a>dir</h3><ul>
+<li>返回文件目录</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">dir</span> files)</span></span><br><span class="line">        <span class="comment">#--- files 需要返回目录的文件名，可以有多个，用空格隔开</span></span><br><span class="line"></span><br><span class="line">files = src/hello.cpp main.cpp</span><br><span class="line"></span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">dir</span> <span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="notdir"><a href="#notdir" class="headerlink" title="notdir"></a>notdir</h3><ul>
+<li>返回除了目录部分的文件名</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">notdir</span> files)</span></span><br><span class="line">        <span class="comment">#--- files 需要返回文件列表，可以有多个，用空格隔开</span></span><br><span class="line"></span><br><span class="line">files = src/hello.cpp main.cpp</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">notdir</span> <span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="suffix"><a href="#suffix" class="headerlink" title="suffix"></a>suffix</h3><ul>
+<li>返回文件后缀名，如果没有后缀返回空</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">suffix</span> files)</span></span><br><span class="line">        <span class="comment">#--- files 需要返回后缀的文件名，可以有多个，用空格隔开</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">files = src/hello.cpp main.cpp hello.o hello.hpp hello</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">suffix</span> <span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="basename"><a href="#basename" class="headerlink" title="basename"></a>basename</h3><ul>
+<li>返回除了文件名字后缀的部分</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">basename</span> files)</span></span><br><span class="line">       <span class="comment"># --- files 需要返回的文件名，可以有多个，用空格隔开</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">files = src/hello.cpp main.cpp hello.o hello.hpp hello</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">basename</span> <span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="addsuffix"><a href="#addsuffix" class="headerlink" title="addsuffix"></a>addsuffix</h3><ul>
+<li>给文件名字添加后缀</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">addsuffix</span> <span class="built_in">suffix</span>,files)</span></span><br><span class="line">        <span class="comment">#--- suffix 需要添加的后缀</span></span><br><span class="line">        <span class="comment">#--- files 需要添加后缀的文件名，可以有多个，用空格隔开</span></span><br><span class="line"></span><br><span class="line">files = src/hello.cpp main.cpp hello.o hello.hpp hello</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">addsuffix</span> .exe,<span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="addprefix"><a href="#addprefix" class="headerlink" title="addprefix"></a>addprefix</h3><ul>
+<li>给文件名字添加前缀</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">addprefix</span> prefix,files)</span></span><br><span class="line">        <span class="comment">#--- prefix 需要添加的前缀</span></span><br><span class="line">        <span class="comment">#--- files 需要添加前缀的文件名，可以有多个，用空格隔开</span></span><br><span class="line"></span><br><span class="line">files = src/hello.cpp main.cpp hello.o hello.hpp hello</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">addprefix</span> make/,<span class="variable">$(files)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="join"><a href="#join" class="headerlink" title="join"></a>join</h3><ul>
+<li>将两个列表中的内容一对一连接，如果两个列表内容数量不相等，则多出来的部分原样返回</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">join</span> list1,list2)</span></span><br><span class="line">        <span class="comment">#--- list1 第一个列表</span></span><br><span class="line">        <span class="comment">#--- list2 需要连接的第二个列表</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">f1 = hello main test</span><br><span class="line">f2 = .cpp .hpp</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">join</span> <span class="variable">$(f1)</span>,<span class="variable">$(f2)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="wildcard"><a href="#wildcard" class="headerlink" title="wildcard"></a>wildcard</h3><ul>
+<li>返回符合通配符号的文件列表</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">wildcard</span> pattern)</span></span><br><span class="line">        <span class="comment">#--- pattern 通配符</span></span><br><span class="line"></span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">wildcard</span> *.cpp)</span></span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">wildcard</span> *)</span></span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">wildcard</span> src/*.cpp)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="realpath"><a href="#realpath" class="headerlink" title="realpath"></a>realpath</h3><ul>
+<li>返回文件的绝对路径</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">realpath</span> files)</span></span><br><span class="line">       <span class="comment"># --- files 需要返回绝对路径的文件，可以有多个，用空格隔开</span></span><br><span class="line"></span><br><span class="line">f3 = <span class="variable">$(<span class="built_in">wildcard</span> src/*)</span></span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">realpath</span> <span class="variable">$(f3)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="abspath"><a href="#abspath" class="headerlink" title="abspath"></a>abspath</h3><ul>
+<li>返回绝对路径，用法同realpath，如果一个文件名不存在，realpath不会返回内容，abspath则会返回一个当前文件夹一下的绝对路径</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">abspath</span> files)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="条件函数"><a href="#条件函数" class="headerlink" title="条件函数"></a>条件函数</h2><h3 id="if"><a href="#if" class="headerlink" title="if"></a>if</h3><ul>
+<li>条件判断，如果条件展开不是空串，则反回真的部分，否则返回假的部分</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">if</span> condition,then-part[,else-part])</span></span><br><span class="line">        <span class="comment">#--- condition 条件部分</span></span><br><span class="line">        <span class="comment">#--- then-part 条件为真时执行的部分</span></span><br><span class="line">        <span class="comment">#--- else-part 条件为假时执行的部分，如果省略则为假时返回空串</span></span><br><span class="line"></span><br><span class="line">files = src/hello.cpp main.cpp hello.o hello.hpp hello</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">if</span> <span class="variable">$(files)</span>,有文件,没有文件)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="or"><a href="#or" class="headerlink" title="or"></a>or</h3><ul>
+<li>返回条件中第一个不为空的部分</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">or</span> condition1[,condition2[,condition3…]])</span></span><br><span class="line"></span><br><span class="line">f1 = </span><br><span class="line">f2 = </span><br><span class="line">f3 = hello.cpp</span><br><span class="line">f4 = main.cpp</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">or</span> <span class="variable">$(f1)</span>,<span class="variable">$(f2)</span>,<span class="variable">$(f3)</span>,<span class="variable">$(f4)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="and"><a href="#and" class="headerlink" title="and"></a>and</h3><ul>
+<li>如果条件中有一个为空串，则返回空，如果全都不为空，则返回最后一个条件</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">and</span> condition1[,condition2[,condition3…]])</span></span><br><span class="line"></span><br><span class="line">f1 = 12</span><br><span class="line">f2 = 34</span><br><span class="line">f3 = hello.cpp</span><br><span class="line">f4 = main.cpp</span><br><span class="line">files2 = <span class="variable">$(<span class="built_in">and</span> <span class="variable">$(f1)</span>,<span class="variable">$(f2)</span>,<span class="variable">$(f3)</span>,<span class="variable">$(f4)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="intcomp"><a href="#intcomp" class="headerlink" title="intcomp"></a>intcomp</h3><ul>
+<li>比较两个整数大小，并返回对应操作结果（GNU make 4.4以上版本）</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(intcmp lhs,rhs[,lt-part[,eq-part[,gt-part]]])</span> </span><br><span class="line">        <span class="comment">#--- lhs 第一个数</span></span><br><span class="line">        <span class="comment">#--- rhs 第二个数</span></span><br><span class="line">        <span class="comment">#--- lt-part  lhs &lt; rhs时执行</span></span><br><span class="line">        <span class="comment">#--- eq-part  lhs = rhs时执行</span></span><br><span class="line">        <span class="comment">#--- gt-part  lhs &gt; rhs时执行</span></span><br><span class="line">        <span class="comment">#--- 如果只提供前两个参数，则lhs == rhs时返回数值，否则返回空串 </span></span><br><span class="line">        <span class="comment">#    参数为lhs,rhs,lt-part时，当lhs &lt; rhs时返回lt-part结果，否则返回空</span></span><br><span class="line">        <span class="comment">#    参数为lhs,rhs,lt-part,eq-part，lhs &lt; rhs返回lt-part结果，否则都返回eq-part结果</span></span><br><span class="line">        <span class="comment">#    参数全时，lhs &lt; rhs返回lt-part，lhs == rhs返回eq-part, lhs &gt; rhs返回gt-part</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@echo <span class="variable">$(intcmp 2,2,-1,0,1)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="makefile常用函数"><a href="#makefile常用函数" class="headerlink" title="makefile常用函数"></a>makefile常用函数</h2><h3 id="file"><a href="#file" class="headerlink" title="file"></a>file</h3><ul>
+<li>读写文件</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">file</span> op filename[,text])</span></span><br><span class="line">        <span class="comment">#--- op 操作</span></span><br><span class="line">        <span class="comment">#        &gt; 覆盖</span></span><br><span class="line">        <span class="comment">#        &gt;&gt; 追加</span></span><br><span class="line">        <span class="comment">#        &lt; 读</span></span><br><span class="line">        <span class="comment">#--- filename 需要操作的文件名</span></span><br><span class="line">        <span class="comment">#--- text 写入的文本内容，读取是不需要这个参数</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">files = src/hello.cpp main.cpp hello.o hello.hpp hello</span><br><span class="line">write = <span class="variable">$(<span class="built_in">file</span> &gt; makewrite.txt,<span class="variable">$(files)</span>)</span></span><br><span class="line">read = <span class="variable">$(<span class="built_in">file</span> &lt; makewrite.txt)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a>foreach</h3><ul>
+<li>对一列用空格隔开的字符序列中每一项进行处理，并返回处理后的列表</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">foreach</span> each,list,process)</span></span><br><span class="line">        <span class="comment">#--- each list中的每一项</span></span><br><span class="line">        <span class="comment">#--- list 需要处理的字符串序列，用空格隔开</span></span><br><span class="line">        <span class="comment">#--- process 需要对每一项进行的处理</span></span><br><span class="line"></span><br><span class="line">list = 1 2 3 4 5</span><br><span class="line">result = <span class="variable">$(<span class="built_in">foreach</span> each,<span class="variable">$(list)</span>,$(<span class="built_in">addprefix</span> cpp,$(<span class="built_in">addsuffix</span> .cpp,<span class="variable">$(each)</span>)</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><ul>
+<li>将一些复杂的表达式写成一个变量，用call可以像调用函数一样进行调用。类似于编程语言中的自定义函数。在函数中可以用$(n)来访问第n个参数</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">call</span> funcname,param1,param2,…)</span></span><br><span class="line">       <span class="comment"># --- funcname 自定义函数（变量名）</span></span><br><span class="line">       <span class="comment"># --- 参数至少一个，可以有多个，用逗号隔开</span></span><br><span class="line"></span><br><span class="line">dirof =  <span class="variable">$(<span class="built_in">dir</span> $(<span class="built_in">realpath</span> $(1)</span>)) <span class="variable">$(<span class="built_in">dir</span> $(<span class="built_in">realpath</span> $(2)</span>))</span><br><span class="line">result = <span class="variable">$(<span class="built_in">call</span> dirof,main.cpp,src/hello.cpp)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="value"><a href="#value" class="headerlink" title="value"></a>value</h3><ul>
+<li>对于不是立即展开的变量，可以查看变量的原始定义；对于立即展开的变量，直接返回变量值</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">value</span> variable)</span></span><br><span class="line"></span><br><span class="line">var = value function test</span><br><span class="line">var2 = <span class="variable">$(var)</span></span><br><span class="line">var3 := <span class="variable">$(var)</span></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">    @echo <span class="variable">$(<span class="built_in">value</span> var2)</span></span><br><span class="line">    @echo <span class="variable">$(<span class="built_in">value</span> var3)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="origin"><a href="#origin" class="headerlink" title="origin"></a>origin</h3><ul>
+<li>查看一个变量定义的来源</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">origin</span> variable)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var2 = origin function </span><br><span class="line"><span class="section">all:</span></span><br><span class="line">    @echo <span class="variable">$(<span class="built_in">origin</span> var1)</span>    <span class="comment"># undefined 未定义</span></span><br><span class="line">    @echo <span class="variable">$(<span class="built_in">origin</span> CC)</span>        <span class="comment"># default 默认变量</span></span><br><span class="line">    @echo <span class="variable">$(<span class="built_in">origin</span> JAVA_HOME)</span> <span class="comment"># environment 环境变量</span></span><br><span class="line">    @echo <span class="variable">$(<span class="built_in">origin</span> var2)</span>    <span class="comment"># file 在Makefile文件中定义的变量</span></span><br><span class="line">    @echo <span class="variable">$(<span class="built_in">origin</span> @)</span>        <span class="comment"># automatic 自动变量</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="flavor"><a href="#flavor" class="headerlink" title="flavor"></a>flavor</h3><ul>
+<li>查看一个变量的赋值方式</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">flavor</span> variable)</span></span><br><span class="line"></span><br><span class="line">var2 = flavor function</span><br><span class="line">var3 := flavor funciton</span><br><span class="line"><span class="section">all:</span></span><br><span class="line">    @echo <span class="variable">$(<span class="built_in">flavor</span> var1)</span>    <span class="comment"># undefined 未定义</span></span><br><span class="line">    @echo <span class="variable">$(<span class="built_in">flavor</span> var2)</span>    <span class="comment"># recursive 递归展开赋值</span></span><br><span class="line">    @echo <span class="variable">$(<span class="built_in">flavor</span> var3)</span>    <span class="comment"># simple 简单赋值</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="eval"><a href="#eval" class="headerlink" title="eval"></a>eval</h3><ul>
+<li>可以将一段文本生成Makefile的内容</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">eval</span> text)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">define</span> eval_target = </span><br><span class="line"><span class="section">eval:</span></span><br><span class="line">    @echo Target Eval Test</span><br><span class="line"><span class="keyword">endef</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$(<span class="built_in">eval</span> <span class="variable">$(eval_target)</span>)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h3><ul>
+<li>用来执行shell的命令的</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">files = <span class="variable">$(<span class="built_in">shell</span> ls *.cpp)</span></span><br><span class="line"><span class="variable">$(<span class="built_in">shell</span> echo This is from <span class="built_in">shell</span> function)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="let"><a href="#let" class="headerlink" title="let"></a>let</h3><ul>
+<li>将一个字符串序列中的项拆开放入多个变量中，并对各个变量进行操作（GNU make 4.4以上版本）</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(let var1 [var2 ...],[list],proc)</span></span><br><span class="line">       <span class="comment"># --- var 变量，可以有多个，用空格隔开</span></span><br><span class="line">       <span class="comment"># --- list 待处理字符串，各项之间空格隔开</span></span><br><span class="line">       <span class="comment"># --- proc 对变量进行的操作，结果为let的返回值</span></span><br><span class="line">            将list中的值依次一项一项放到var中，如果var的个数多于list项数，那多出来的var是空串。如果</span><br><span class="line">            var的个数小于list项数，则先依次把前而的项放入var中，剩下的list所有项都放入最后一个var中</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">list = a b c d</span><br><span class="line">letfirst = <span class="variable">$(let first second rest,<span class="variable">$(list)</span>,<span class="variable">$(first)</span>)</span></span><br><span class="line">letrest = <span class="variable">$(let first second rest,<span class="variable">$(list)</span>,<span class="variable">$(rest)</span>)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 结合call可以对所有项进行递归处理</span></span><br><span class="line">reverse = <span class="variable">$(let first rest,$(1)</span>,<span class="variable">$(<span class="built_in">if</span> <span class="variable">$(rest)</span>,$(<span class="built_in">call</span> reverse,<span class="variable">$(rest)</span>)</span> )<span class="variable">$(first)</span>)</span><br><span class="line"><span class="section">all: ; @echo $(call reverse,d c b a)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="信息提示函数"><a href="#信息提示函数" class="headerlink" title="信息提示函数"></a>信息提示函数</h2><h3 id="error"><a href="#error" class="headerlink" title="error"></a>error</h3><ul>
+<li>用来提示错误信息并终止make执行</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">error</span> text)</span></span><br><span class="line">        <span class="comment">#--- text 提示信息</span></span><br><span class="line"></span><br><span class="line">EXIT_STATUS = -1</span><br><span class="line"><span class="keyword">ifneq</span> (0, <span class="variable">$(EXIT_STATUS)</span>)</span><br><span class="line">    <span class="variable">$(<span class="built_in">error</span> An <span class="built_in">error</span> occured! make stopped!)</span></span><br><span class="line"><span class="keyword">endif</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="warning"><a href="#warning" class="headerlink" title="warning"></a>warning</h3><ul>
+<li>提示警告信息，make不会终止</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">warning</span> text)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ifneq</span> (0, <span class="variable">$(EXIT_STATUS)</span>)</span><br><span class="line">    <span class="variable">$(<span class="built_in">warning</span> This is a <span class="built_in">warning</span> message)</span></span><br><span class="line"><span class="keyword">endif</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="info"><a href="#info" class="headerlink" title="info"></a>info</h3><ul>
+<li>输出一些信息</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(info text…)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$(info 编译开始.......)</span></span><br><span class="line"><span class="variable">$(info 编译结束)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="多个makefile文件"><a href="#多个makefile文件" class="headerlink" title="多个makefile文件"></a>多个makefile文件</h2><h3 id="include"><a href="#include" class="headerlink" title="include"></a>include</h3><ul>
+<li>可以读入其他makefile文件的内容，效果就如同在include的位置用对应的文件内容替换一样。</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include</span> mkf1 mkf2 <span class="comment"># 可以引入多个文件，用空格隔开</span></span><br><span class="line"><span class="keyword">include</span> *.mk    <span class="comment"># 可以用通配符，表示引入所有以.mk结尾的文件</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果找不到对应文件，则会报错，如果要忽略错误，可以在<code>include</code>前加<code>-</code></li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">-include</span> mkf1 mkf2</span><br></pre></td></tr></table></figure>
+
+<h3 id="export"><a href="#export" class="headerlink" title="export"></a>export</h3><ul>
+<li>可以通过export指令向子项目传递变量</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> var  <span class="comment"># 传递var</span></span><br><span class="line"><span class="keyword">export</span>         <span class="comment"># 传递所有变量</span></span><br><span class="line"><span class="keyword">unexport</span>    <span class="comment"># 取消传递</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="C"><a href="#C" class="headerlink" title="-C"></a>-C</h3><ul>
+<li>去到另一个文件夹里面执行make命令</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(MAKE)</span> -C dir_name</span><br></pre></td></tr></table></figure>
+
+
+       -->
       
+        
+
         <p><a><span id="more"></span></a><br>这是关于Makefile的基本用法</p>
 <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h4 id="目标：依赖"><a href="#目标：依赖" class="headerlink" title="目标：依赖"></a>目标：依赖</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先检查tb.sv和dut.sv是不是存在，以及是否有修改。如果依赖有修改或者是目标不存在得时候，就执行下面得命令</span></span><br><span class="line"><span class="section">simv:tb.sv dut.sv</span></span><br><span class="line">	vcs -full64 -sverilog tb.sv </span><br></pre></td></tr></table></figure>
 
@@ -472,6 +747,7 @@
 
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -533,11 +809,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color2">Programming</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Makefile</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">Makefile</a>
         		</li>
       		
 		</ul>
@@ -549,11 +825,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Programming//" class="article-tag-list-link color2">Programming</a>
+        			<a href="/categories/Programming/" class="article-tag-list-link color2">Programming</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Programming/Makefile//" class="article-tag-list-link color4">Makefile</a>
+        			<a href="/categories/Programming/Makefile/" class="article-tag-list-link color4">Makefile</a>
         		</li>
       		
 		</ul>

@@ -201,7 +201,39 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <blockquote>
+<p>写入比特去偏移（Write Bit De-skew）算法的工作原理和步骤。<a><span id="more"></span></a></p>
+</blockquote>
+<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a><a>目标</a></h3><ul>
+<li>确保在写入路径中的每个数据位都能够正确对齐，特别是在0到1的转换时，确保数据传输的可靠性和准确性。</li>
+</ul>
+<h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a><a>算法步骤</a></h3><h4 id="1-初始写入操作："><a href="#1-初始写入操作：" class="headerlink" title="1. 初始写入操作："></a>1. <strong>初始写入操作</strong>：</h4><ul>
+<li>算法首先执行一系列写入操作，以确保数据正确写入指定的地址，包括DTAR0（x0000）、DTAR1（x0008）和DTAR2（x0010）。这些地址是用于后续的数据对齐和错误检测的基础。</li>
+</ul>
+<h4 id="2-执行顺序："><a href="#2-执行顺序：" class="headerlink" title="2. 执行顺序："></a>2. <strong>执行顺序</strong>：</h4><ul>
+<li>写入比特去偏移必须在写入均衡（write leveling）和写入均衡调整（write leveling adjustment，若适用）之后进行。通常建议在执行读取比特去偏移（read bit deskew）或读取比特去偏移和读取眼中心化（read eye centering）之后执行写入比特去偏移。这并不是强制要求，尤其是在已知读取操作正常的情况下。</li>
+</ul>
+<h4 id="3-检测数据眼的左边缘："><a href="#3-检测数据眼的左边缘：" class="headerlink" title="3. 检测数据眼的左边缘："></a>3. <strong>检测数据眼的左边缘</strong>：</h4><ul>
+<li>算法首先尝试检测数据眼（data eye）的左边缘，即至少有一个写入数据位发生故障的位置。数据眼是描述数据传输中有效信号的时序窗口。DQS和DQS#信号在这一位置的最新的0到1的转换会被检测到。</li>
+</ul>
+<h4 id="4-逐位右移检测："><a href="#4-逐位右移检测：" class="headerlink" title="4. 逐位右移检测："></a>4. <strong>逐位右移检测</strong>：</h4><ul>
+<li>每个数据位将被逐个右移，直到检测到相应位的读取故障。比较失败的次数由寄存器“DTCR.DTRPT”定义。当达到这一失败次数时，表明该数据位的时序可能需要调整。</li>
+</ul>
+<h4 id="5-数据掩码对齐："><a href="#5-数据掩码对齐：" class="headerlink" title="5. 数据掩码对齐："></a>5. <strong>数据掩码对齐</strong>：</h4><ul>
+<li>在完成每个写入数据位的去偏移之后，算法可以选择定位数据掩码（data mask）相对于数据位的位置，并随后进行掩码的去偏移。这有助于确保掩码信号与数据信号的同步。</li>
+</ul>
+<h4 id="6-定位数据眼的右边缘："><a href="#6-定位数据眼的右边缘：" class="headerlink" title="6. 定位数据眼的右边缘："></a>6. <strong>定位数据眼的右边缘</strong>：</h4><ul>
+<li>在去偏移掩码之后，算法还可以选择进一步定位数据眼的右边缘。当右边缘被检测到后，算法会计算数据眼的中心位置，并将DQS&#x2F;DQS#信号定位在数据眼的中心。这是为了确保数据的稳定性和正确性，使得信号在其最佳时机内被读取。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a>总结</a></h3><blockquote>
+<p>总的来说，这段文字描述了写入比特去偏移算法的目的和步骤，通过精确的时序调整和检测，确保数据在DDR内存中的写入操作是可靠的。通过对数据位和掩码的同步管理，算法能够优化数据传输的完整性，减少错误发生的可能性。</p>
+</blockquote>
+
+       -->
       
+        
+
         <blockquote>
 <p>写入比特去偏移（Write Bit De-skew）算法的工作原理和步骤。<a><span id="more"></span></a></p>
 </blockquote>
@@ -231,6 +263,7 @@
 </blockquote>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -292,11 +325,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -308,7 +341,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>

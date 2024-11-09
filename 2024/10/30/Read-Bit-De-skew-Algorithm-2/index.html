@@ -201,7 +201,42 @@
       </header>
     
     <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <blockquote>
+<p>描述了PUB（物理控制单元）中的读取比特去偏移（de-skew）算法的目标和过程<a><span id="more"></span></a></p>
+</blockquote>
+<h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a><a>目标</a></h3><ul>
+<li>确保在读取路径中，数据比特的0到1的转换是对齐的。这是为了优化数据的传输可靠性，确保数据能够被准确读取。</li>
+</ul>
+<h3 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a><a>算法过程</a></h3><h4 id="1-写入数据："><a href="#1-写入数据：" class="headerlink" title="1. 写入数据："></a>1. <strong>写入数据</strong>：</h4><ul>
+<li>算法开始时，会向指定地址（DTAR0: x0000、DTAR1: x0008、DTAR2: x0010）发出一系列写入命令，确保数据正确写入。这一步骤是算法的基础。</li>
+</ul>
+<h4 id="2-可选的写入延长："><a href="#2-可选的写入延长：" class="headerlink" title="2. 可选的写入延长："></a>2. <strong>可选的写入延长</strong>：</h4><ul>
+<li>在写入序列之前，可以选择执行写入定级（Write Leveling Adjustment）。为此，DQS（数据选通信号）可以通过寄存器DTCR.DTEXD延长一个额外的周期。</li>
+</ul>
+<h4 id="3-读取数据："><a href="#3-读取数据：" class="headerlink" title="3. 读取数据："></a>3. <strong>读取数据</strong>：</h4><ul>
+<li>数据写入后，算法进入读取阶段，开始进行读取比特去偏移操作。</li>
+</ul>
+<h4 id="4-检测数据眼的左边缘："><a href="#4-检测数据眼的左边缘：" class="headerlink" title="4. 检测数据眼的左边缘："></a>4. <strong>检测数据眼的左边缘</strong>：</h4><ul>
+<li>读取比特去偏移算法的关键步骤是检测数据眼（data eye）的左边缘，即在这个位置上，至少有一个读取数据比特的故障被检测到。这可以理解为找到数据信号从0到1变化的第一个位置。</li>
+</ul>
+<h4 id="5-右移比特："><a href="#5-右移比特：" class="headerlink" title="5. 右移比特："></a>5. <strong>右移比特</strong>：</h4><ul>
+<li>一旦检测到左边缘，算法将对每个比特进行右移，直到检测到相应比特的读取故障，并且比较失败的次数达到寄存器DTCR.DTRPT中定义的次数n。</li>
+</ul>
+<h4 id="6-扫掠读取数据眼："><a href="#6-扫掠读取数据眼：" class="headerlink" title="6. 扫掠读取数据眼："></a>6. <strong>扫掠读取数据眼</strong>：</h4><ul>
+<li>完成所有比特的去偏移后，算法将扫掠读取数据眼，以定位右边缘。</li>
+</ul>
+<h4 id="7-计算眼中心："><a href="#7-计算眼中心：" class="headerlink" title="7. 计算眼中心："></a>7. <strong>计算眼中心</strong>：</h4><ul>
+<li>一旦检测到右边缘，算法将计算数据眼的中心，并将读取的DQS信号置于该中心位置。这样可以确保在读取数据时，DQS信号与数据的中心对齐，从而提高读取的成功率和准确性。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>整个算法的目标是通过精确定位和调整数据眼的边缘，确保读取过程中的数据比特在时间上是对齐的，从而减少读取错误。这在高速数据传输（如DDR内存）中尤为重要，因为任何微小的偏差都可能导致数据损坏。</p>
+</blockquote>
+
+       -->
       
+        
+
         <blockquote>
 <p>描述了PUB（物理控制单元）中的读取比特去偏移（de-skew）算法的目标和过程<a><span id="more"></span></a></p>
 </blockquote>
@@ -234,6 +269,7 @@
 </blockquote>
 
       
+
  <!-- 添加版权声明 -->
  
 
@@ -295,11 +331,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
+        			<a href="www.baidu.com" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -311,7 +347,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DDR//" class="article-tag-list-link color4">DDR</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
