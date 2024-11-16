@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/11/16/cUY6sTmnyQdZoXR.png">
 <meta property="article:published_time" content="2024-11-16T04:44:34.000Z">
-<meta property="article:modified_time" content="2024-11-16T05:52:18.813Z">
+<meta property="article:modified_time" content="2024-11-16T12:23:51.043Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="DV">
@@ -78,7 +78,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数58
+			总文章数59
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -206,7 +206,7 @@
     <div class="article-entry" itemprop="articleBody">
       <!-- 
         <blockquote>
-<p>在实际验证过程中，仿真效率是我们常常面临的挑战之一。尤其是在修改代码时，明明只改动了一个文件（例如，在testcase中增加了一行打印），但编译却需要重新编译整个工程中的所有文件。这种情况不仅浪费了大量时间，还显著降低了仿真效率。为了应对这种问题，常用的解决方法有两种：充分利用UVM的runtime cmdline传递参数机制和增量编译。然而，即使采用了增量编译，仿真效率仍然受到一定影响，因为仿真器无法准确识别哪些文件已经被修改。那么，是否有其他方法可以进一步提高仿真效率呢？答案是：分块编译（Partition Compile）。本文将详细介绍这两种方法及其优缺点，特别是分块编译如何作为增量编译的一种有效补充。<a><span id="more"></span></a></p>
+<p>在实际验证过程中，仿真效率是我们常常面临的挑战之一。尤其是在修改代码时，明明只改动了一个文件（例如，在testcase中增加了一行打印），但编译却需要重新编译整个工程中的所有文件。这种情况不仅浪费了大量时间，还显著降低了仿真效率。为了应对这种问题，常用的解决方法有两种：充分利用UVM的runtime cmdline传递参数机制和增量编译。然而，即使采用了增量编译，仿真效率仍然受到一定影响，因为仿真器无法准确识别哪些文件已经被修改。那么，是否有其他方法可以进一步提高仿真效率呢？答案是：[分块编译（Partition Compile）]。本文将详细介绍这两种方法及其优缺点，特别是分块编译如何作为增量编译的一种有效补充。<a><span id="more"></span></a></p>
 </blockquote>
 <h2 id="1-充分利用UVM的runtime-cmdline传递参数机制"><a href="#1-充分利用UVM的runtime-cmdline传递参数机制" class="headerlink" title="1. 充分利用UVM的runtime cmdline传递参数机制"></a><a>1. 充分利用UVM的runtime cmdline传递参数机制</a></h2><p>在UVM中，我们可以通过命令行动态地传递参数，而不必重新编译代码。这对于提高仿真效率非常重要，因为每次修改UVM相关参数时，都可以避免重新编译整个项目。</p>
 <p>比如，在测试过程中，我们可以使用命令行来动态修改UVM的相关参数，如<code>UVM_TESTNAME</code>、<code>UVM_VERBOSITY</code>等，这样就能在运行时直接影响UVM环境的行为，而不需要重新编译源代码。具体来说，只需在仿真启动时通过命令行传递这些参数，例如：</p>
@@ -226,8 +226,10 @@
 
 <p>这三个选项分别对应不同的分块粒度（低、中、高），一般情况下可以使用<a>默认设置</a>，不必手动调整。</p>
 <ul>
-<li>添加<code>-pcmakeprof</code>把编译过程中的每一步所花费的时间做分析打印，并在编译日志的结尾进行输出，这样方便比较不同编译参数所花费的编译时间的区别。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcs -pcmakeprof</span><br></pre></td></tr></table></figure></li>
+<li>添加<code>-pcmakeprof</code>把编译过程中的每一步所花费的时间做分析打印，并在编译日志的结尾进行输出，这样方便比较不同编译参数所花费的编译时间的区别。</li>
 </ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcs -pcmakeprof</span><br></pre></td></tr></table></figure>
+
 <h4 id="纵向分析：VCS仿真流程"><a href="#纵向分析：VCS仿真流程" class="headerlink" title="纵向分析：VCS仿真流程"></a>纵向分析：VCS仿真流程</h4><table>
 <thead>
 <tr>
@@ -296,24 +298,21 @@
 <td>仿真程序占用的共享内存区域，多个进程可能会访问这些内存。</td>
 </tr>
 </tbody></table>
-<h3 id="手动指定Partition"><a href="#手动指定Partition" class="headerlink" title="手动指定Partition"></a>手动指定Partition</h3><p>如果需要更精细的控制，我们还可以手动指定Partition。通过在VCS编译命令中指定<code>-topcfg</code>选项，可以指定特定的配置文件，并在该配置文件中定义Partition。示例如下：</p>
+<h3 id="手动指定Partition"><a href="#手动指定Partition" class="headerlink" title="手动指定Partition"></a>手动指定Partition</h3><p>如果需要更精细的控制，我们还可以手动指定Partition。通过在VCS编译命令中指定<code>-top topcfg</code>选项，可以指定特定的配置文件，并在该配置文件中定义Partition。示例如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcs -partcomp -top topcfg topcfg.v</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://s2.loli.net/2024/11/16/cUY6sTmnyQdZoXR.png" alt="image-20241116134607941"></p>
 <ul>
 <li><code>-top</code>后面跟的topcfg根据我的实测是topcfg中的<code>config_name</code></li>
 </ul>
 <p>在<code>topcfg.v</code>文件中，我们可以定义具体的Partition，示例如下：</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">config</span> topcfg;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">design</span>    apb_tb;</span><br><span class="line">  partition <span class="keyword">package</span> uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> svt_amba_uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> svt_uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> apb_pkg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">endconfig</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">config</span> topcfg;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">design</span>    apb_tb;</span><br><span class="line">  partition <span class="keyword">package</span> uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> svt_amba_uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> svt_uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> apb_pkg;</span><br><span class="line">  <span class="comment">// partition instance apb_tb.u_dut;</span></span><br><span class="line">  <span class="comment">// default liblist DEFAULT;</span></span><br><span class="line">  <span class="comment">// partition cell module_name;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">endconfig</span></span><br></pre></td></tr></table></figure>
 
-<p>在这个例子中，我们将<code>apb_tb</code>、<code>uvm_pkg</code>、<code>svt_amba_uvm_pkg</code>、<code>svt_uvm_pkg</code>和<code>apb_pkg</code>分别定义为独立的Partition，当其中的文件发生变化时，仿真器只会重新编译相应的Partition。(其中apb_tb是我顶层的tb)</p>
+<p>在这个例子中，我们将<code>apb_tb</code>、<code>uvm_pkg</code>、<code>svt_amba_uvm_pkg</code>、<code>svt_uvm_pkg</code>和<code>apb_pkg</code>分别定义为独立的Partition，当其中的文件发生变化时，仿真器只会重新编译相应的Partition。(其中apb_tb是我顶层的tb, instance是例化的dut, cell是module_name)</p>
 <h3 id="Partition并行参数"><a href="#Partition并行参数" class="headerlink" title="Partition并行参数"></a>Partition并行参数</h3><ul>
-<li><code>-fastpartcomp=j4 </code>中的 <code>j4</code> 表示使用 4 个并行作业来执行编译任务。并行处理的优势在于，它可以同时处理多个部分，大大提高编译效率（j和4之间没有空白字符）。</li>
+<li><code>-fastpartcomp=j4</code>中的 <code>j4</code> 表示使用 4 个并行作业来执行编译任务。并行处理的优势在于，它可以同时处理多个部分，大大提高编译效率（j和4之间没有空白字符）。</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-fastpartcomp=j4</span><br></pre></td></tr></table></figure>
-
-
-
-
 
 <h2 id="避免在-unit空间导入package：增量编译效率的陷阱"><a href="#避免在-unit空间导入package：增量编译效率的陷阱" class="headerlink" title="避免在$unit空间导入package：增量编译效率的陷阱"></a><a>避免在$unit空间导入package：增量编译效率的陷阱</a></h2><p>在进行Verilog&#x2F;SystemVerilog的设计和验证时，增量编译是一项至关重要的技术，它能够有效减少编译时间，提高仿真效率。然而，在实际使用过程中，我们需要注意一些常见的陷阱，特别是在项目的$unit空间中导入package（包）这一做法。</p>
 <h3 id="什么是-unit空间？"><a href="#什么是-unit空间？" class="headerlink" title="什么是$unit空间？"></a>什么是$unit空间？</h3><p>在Verilog&#x2F;SystemVerilog中，<code>$unit</code>空间指的是<strong>顶层全局空间</strong>，通常是<code>package...endpackage</code>、<code>module...endmodule</code>、<code>interface...endinterface</code>之外的部分。简单来说，$unit层次是指那些不属于具体模块、接口或包的地方。它包括了定义文件级别的各种设置或行为的区域。</p>
@@ -337,7 +336,7 @@
         
 
         <blockquote>
-<p>在实际验证过程中，仿真效率是我们常常面临的挑战之一。尤其是在修改代码时，明明只改动了一个文件（例如，在testcase中增加了一行打印），但编译却需要重新编译整个工程中的所有文件。这种情况不仅浪费了大量时间，还显著降低了仿真效率。为了应对这种问题，常用的解决方法有两种：充分利用UVM的runtime cmdline传递参数机制和增量编译。然而，即使采用了增量编译，仿真效率仍然受到一定影响，因为仿真器无法准确识别哪些文件已经被修改。那么，是否有其他方法可以进一步提高仿真效率呢？答案是：分块编译（Partition Compile）。本文将详细介绍这两种方法及其优缺点，特别是分块编译如何作为增量编译的一种有效补充。<a><span id="more"></span></a></p>
+<p>在实际验证过程中，仿真效率是我们常常面临的挑战之一。尤其是在修改代码时，明明只改动了一个文件（例如，在testcase中增加了一行打印），但编译却需要重新编译整个工程中的所有文件。这种情况不仅浪费了大量时间，还显著降低了仿真效率。为了应对这种问题，常用的解决方法有两种：充分利用UVM的runtime cmdline传递参数机制和增量编译。然而，即使采用了增量编译，仿真效率仍然受到一定影响，因为仿真器无法准确识别哪些文件已经被修改。那么，是否有其他方法可以进一步提高仿真效率呢？答案是：[分块编译（Partition Compile）]。本文将详细介绍这两种方法及其优缺点，特别是分块编译如何作为增量编译的一种有效补充。<a><span id="more"></span></a></p>
 </blockquote>
 <h2 id="1-充分利用UVM的runtime-cmdline传递参数机制"><a href="#1-充分利用UVM的runtime-cmdline传递参数机制" class="headerlink" title="1. 充分利用UVM的runtime cmdline传递参数机制"></a><a>1. 充分利用UVM的runtime cmdline传递参数机制</a></h2><p>在UVM中，我们可以通过命令行动态地传递参数，而不必重新编译代码。这对于提高仿真效率非常重要，因为每次修改UVM相关参数时，都可以避免重新编译整个项目。</p>
 <p>比如，在测试过程中，我们可以使用命令行来动态修改UVM的相关参数，如<code>UVM_TESTNAME</code>、<code>UVM_VERBOSITY</code>等，这样就能在运行时直接影响UVM环境的行为，而不需要重新编译源代码。具体来说，只需在仿真启动时通过命令行传递这些参数，例如：</p>
@@ -357,8 +356,10 @@
 
 <p>这三个选项分别对应不同的分块粒度（低、中、高），一般情况下可以使用<a>默认设置</a>，不必手动调整。</p>
 <ul>
-<li>添加<code>-pcmakeprof</code>把编译过程中的每一步所花费的时间做分析打印，并在编译日志的结尾进行输出，这样方便比较不同编译参数所花费的编译时间的区别。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcs -pcmakeprof</span><br></pre></td></tr></table></figure></li>
+<li>添加<code>-pcmakeprof</code>把编译过程中的每一步所花费的时间做分析打印，并在编译日志的结尾进行输出，这样方便比较不同编译参数所花费的编译时间的区别。</li>
 </ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcs -pcmakeprof</span><br></pre></td></tr></table></figure>
+
 <h4 id="纵向分析：VCS仿真流程"><a href="#纵向分析：VCS仿真流程" class="headerlink" title="纵向分析：VCS仿真流程"></a>纵向分析：VCS仿真流程</h4><table>
 <thead>
 <tr>
@@ -427,24 +428,21 @@
 <td>仿真程序占用的共享内存区域，多个进程可能会访问这些内存。</td>
 </tr>
 </tbody></table>
-<h3 id="手动指定Partition"><a href="#手动指定Partition" class="headerlink" title="手动指定Partition"></a>手动指定Partition</h3><p>如果需要更精细的控制，我们还可以手动指定Partition。通过在VCS编译命令中指定<code>-topcfg</code>选项，可以指定特定的配置文件，并在该配置文件中定义Partition。示例如下：</p>
+<h3 id="手动指定Partition"><a href="#手动指定Partition" class="headerlink" title="手动指定Partition"></a>手动指定Partition</h3><p>如果需要更精细的控制，我们还可以手动指定Partition。通过在VCS编译命令中指定<code>-top topcfg</code>选项，可以指定特定的配置文件，并在该配置文件中定义Partition。示例如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcs -partcomp -top topcfg topcfg.v</span><br></pre></td></tr></table></figure>
+
 <p><img src="https://s2.loli.net/2024/11/16/cUY6sTmnyQdZoXR.png" alt="image-20241116134607941"></p>
 <ul>
 <li><code>-top</code>后面跟的topcfg根据我的实测是topcfg中的<code>config_name</code></li>
 </ul>
 <p>在<code>topcfg.v</code>文件中，我们可以定义具体的Partition，示例如下：</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">config</span> topcfg;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">design</span>    apb_tb;</span><br><span class="line">  partition <span class="keyword">package</span> uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> svt_amba_uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> svt_uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> apb_pkg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">endconfig</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">config</span> topcfg;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">design</span>    apb_tb;</span><br><span class="line">  partition <span class="keyword">package</span> uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> svt_amba_uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> svt_uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> apb_pkg;</span><br><span class="line">  <span class="comment">// partition instance apb_tb.u_dut;</span></span><br><span class="line">  <span class="comment">// default liblist DEFAULT;</span></span><br><span class="line">  <span class="comment">// partition cell module_name;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">endconfig</span></span><br></pre></td></tr></table></figure>
 
-<p>在这个例子中，我们将<code>apb_tb</code>、<code>uvm_pkg</code>、<code>svt_amba_uvm_pkg</code>、<code>svt_uvm_pkg</code>和<code>apb_pkg</code>分别定义为独立的Partition，当其中的文件发生变化时，仿真器只会重新编译相应的Partition。(其中apb_tb是我顶层的tb)</p>
+<p>在这个例子中，我们将<code>apb_tb</code>、<code>uvm_pkg</code>、<code>svt_amba_uvm_pkg</code>、<code>svt_uvm_pkg</code>和<code>apb_pkg</code>分别定义为独立的Partition，当其中的文件发生变化时，仿真器只会重新编译相应的Partition。(其中apb_tb是我顶层的tb, instance是例化的dut, cell是module_name)</p>
 <h3 id="Partition并行参数"><a href="#Partition并行参数" class="headerlink" title="Partition并行参数"></a>Partition并行参数</h3><ul>
-<li><code>-fastpartcomp=j4 </code>中的 <code>j4</code> 表示使用 4 个并行作业来执行编译任务。并行处理的优势在于，它可以同时处理多个部分，大大提高编译效率（j和4之间没有空白字符）。</li>
+<li><code>-fastpartcomp=j4</code>中的 <code>j4</code> 表示使用 4 个并行作业来执行编译任务。并行处理的优势在于，它可以同时处理多个部分，大大提高编译效率（j和4之间没有空白字符）。</li>
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-fastpartcomp=j4</span><br></pre></td></tr></table></figure>
-
-
-
-
 
 <h2 id="避免在-unit空间导入package：增量编译效率的陷阱"><a href="#避免在-unit空间导入package：增量编译效率的陷阱" class="headerlink" title="避免在$unit空间导入package：增量编译效率的陷阱"></a><a>避免在$unit空间导入package：增量编译效率的陷阱</a></h2><p>在进行Verilog&#x2F;SystemVerilog的设计和验证时，增量编译是一项至关重要的技术，它能够有效减少编译时间，提高仿真效率。然而，在实际使用过程中，我们需要注意一些常见的陷阱，特别是在项目的$unit空间中导入package（包）这一做法。</p>
 <h3 id="什么是-unit空间？"><a href="#什么是-unit空间？" class="headerlink" title="什么是$unit空间？"></a>什么是$unit空间？</h3><p>在Verilog&#x2F;SystemVerilog中，<code>$unit</code>空间指的是<strong>顶层全局空间</strong>，通常是<code>package...endpackage</code>、<code>module...endmodule</code>、<code>interface...endinterface</code>之外的部分。简单来说，$unit层次是指那些不属于具体模块、接口或包的地方。它包括了定义文件级别的各种设置或行为的区域。</p>
@@ -777,22 +775,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags" style="display: block;">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">IC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DDR</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DLL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
@@ -809,6 +791,30 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DDR</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DLL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Data Training</a>
               </li>
              
@@ -821,27 +827,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -849,15 +835,27 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">SV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
               </li>
             
             <div class="clearfix"></div>
