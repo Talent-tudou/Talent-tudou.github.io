@@ -4,6 +4,99 @@
   
     
     <entry>
+      <title>VCS-Ucli命令汇总</title>
+      <link href="/2024/11/16/VCS-ucli%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/"/>
+      <url>/2024/11/16/VCS-ucli%E5%91%BD%E4%BB%A4%E6%B1%87%E6%80%BB/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>以下是一些常用的 VCS 调试命令，帮助更高效地进行仿真调试。<a><span id="more"></span></a></p></blockquote><table><thead><tr><th>命令</th><th>描述</th><th>备注</th></tr></thead><tbody><tr><td><strong>scope</strong></td><td>显示当前的顶层模块</td><td></td></tr><tr><td><strong>scope xxx</strong></td><td>进入 <code>xxx</code> 模块</td><td></td></tr><tr><td><strong>scope -up</strong></td><td>回到上一层模块</td><td></td></tr><tr><td><strong>show</strong></td><td>显示当前模块的信号及子模块</td><td></td></tr><tr><td><strong>show xxx -value -radix hex&#x2F;bin&#x2F;dec</strong></td><td>以特定进制（十六进制、二进制或十进制）显示信号值</td><td><code>xxx</code> 为信号名称</td></tr><tr><td><strong>run</strong></td><td>运行仿真，直到遇到 <code>$stop</code> 或设置的断点</td><td></td></tr><tr><td><strong>run xx</strong></td><td>运行仿真，持续 <code>xx</code> 时间后停止（不推荐使用）</td><td></td></tr><tr><td><strong>run -posedge xx</strong></td><td>运行仿真，直到信号 <code>xx</code> 的上升沿</td><td></td></tr><tr><td><strong>run -negedge xx</strong></td><td>运行仿真，直到信号 <code>xx</code> 的下降沿</td><td></td></tr><tr><td><strong>run -change xx</strong></td><td>运行仿真，直到信号 <code>xx</code> 变化时停止</td><td></td></tr><tr><td><strong>stop</strong></td><td>显示当前已经设置的断点</td><td></td></tr><tr><td><strong>stop -posedge xx</strong></td><td>在信号 <code>xx</code> 的上升沿设置断点</td><td></td></tr><tr><td><strong>stop -negedge xx</strong></td><td>在信号 <code>xx</code> 的下降沿设置断点</td><td></td></tr><tr><td><strong>stop -condition {信号表达式}</strong></td><td>在信号表达式为真时设置断点</td><td>例如：<code>stop -condition &#123;a == 1&#125;</code></td></tr><tr><td><strong>stop -delete xx</strong></td><td>删除编号为 <code>xx</code> 的断点</td><td><code>xx</code> 为断点编号</td></tr><tr><td><strong>restart</strong></td><td>重新启动 UCLI 调试</td><td></td></tr><tr><td><strong>&lt;cmd&gt; -h</strong></td><td>查询某个命令的帮助信息</td><td><code>&lt;cmd&gt;</code> 为具体的命令，例如 <code>run -h</code></td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> VCS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DV </tag>
+            
+            <tag> VCS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VCS动态加载DPI共享库(.so)</title>
+      <link href="/2024/11/16/VCS%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BDDPI%E5%85%B1%E4%BA%AB%E5%BA%93(.so)/"/>
+      <url>/2024/11/16/VCS%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BDDPI%E5%85%B1%E4%BA%AB%E5%BA%93(.so)/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>在使用Verilog&#x2F;SystemVerilog进行硬件验证时，动态加载DPI（Direct Programming Interface）共享库是一个常见且强大的功能。通过这种方式，我们可以将C或C++代码与Verilog代码结合起来，以实现更复杂的验证任务。本文将介绍如何在VCS仿真环境中动态加载DPI共享库，以及如何高效地管理这些库文件。<a><span id="more"></span></a></p></blockquote><h2 id="VCS编译与DPI共享库"><a href="#VCS编译与DPI共享库" class="headerlink" title="VCS编译与DPI共享库"></a><a>VCS编译与DPI共享库</a></h2><p>在VCS中，我们通常先进行VCS的编译（<code>vcs compile</code>），然后通过调用GCC编译器生成C语言的<code>.so</code>文件（共享库）。这些<code>.so</code>文件包含了C&#x2F;C++代码，可以在仿真时与SystemVerilog代码进行交互。</p><h3 id="动态加载DPI共享库"><a href="#动态加载DPI共享库" class="headerlink" title="动态加载DPI共享库"></a>动态加载DPI共享库</h3><p>在仿真运行时（<code>vcs run</code>），需要手动加载这些<code>.so</code>文件。VCS提供了两种命令行选项来加载DPI共享库，具体方式如下：</p><ul><li><strong>使用<code>-sv_liblist</code>指定.so的列表文件（Bootstrap file）</strong><br>这种方式需要提供一个列表文件，其中列出了所有需要加载的<code>.so</code>文件（不需要加文件后缀名）。这个文件将包含所有依赖的共享库路径，VCS会根据这些信息动态加载相关的库。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sv_liblist Bootstrap.file</span><br></pre></td></tr></table></figure><ul><li><strong>使用<code>-sv_lib</code>逐个指定共享库</strong><br>你也可以通过<code>-sv_lib</code>选项手动指定每个<code>.so</code>库。注意，库名不需要加<code>.so</code>后缀。</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sv_lib libname</span><br></pre></td></tr></table></figure><h3 id="配置DPI共享库根目录"><a href="#配置DPI共享库根目录" class="headerlink" title="配置DPI共享库根目录"></a>配置DPI共享库根目录</h3><p><code>-sv_root</code>选项用于指定DPI共享库的根目录。这个目录是共享库查找的起始路径。通过设置这个选项，我们可以确保仿真器在正确的位置查找和加载共享库。特别是，这个路径还支持环境变量<code>$ENV</code>，使得路径设置更加灵活。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-sv_root /home/user</span><br></pre></td></tr></table></figure><h2 id="示例配置"><a href="#示例配置" class="headerlink" title="示例配置"></a><a>示例配置</a></h2><p>假设我们有一组共享库文件，分别位于不同的目录。可以通过以下两种方式进行配置：</p><h4 id="使用-sv-liblist"><a href="#使用-sv-liblist" class="headerlink" title="使用-sv_liblist"></a>使用<code>-sv_liblist</code></h4><p>首先，设置DPI共享库根目录，然后指定包含共享库路径的列表文件（<code>Bootstrap.file</code>）：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-sv_root /home/user</span><br><span class="line">-sv_liblist Bootstrap.file</span><br></pre></td></tr></table></figure><h4 id="使用-sv-lib"><a href="#使用-sv-lib" class="headerlink" title="使用-sv_lib"></a>使用<code>-sv_lib</code></h4><p>另外一种方式是直接指定每个共享库的路径：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-sv_root /home/user</span><br><span class="line">-sv_lib myclibs/lib1</span><br><span class="line">-sv_lib myclibs/lib3</span><br><span class="line">-sv_lib proj1/clibs/lib4</span><br></pre></td></tr></table></figure><p>这会加载以下路径的共享库：</p><ul><li><code>/home/user/myclibs/lib1.so</code></li><li><code>/home/user/myclibs/lib3.so</code></li><li><code>/home/user/proj1/clibs/lib4.so</code></li></ul><h3 id="sv-liblist示例"><a href="#sv-liblist示例" class="headerlink" title="sv_liblist示例"></a>sv_liblist示例</h3><p>在<code>Bootstrap.file</code>文件中，你可以列出所有需要加载的共享库。文件内容可能类似如下：</p><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myclibs/lib1</span><br><span class="line">myclibs/lib3</span><br><span class="line">proj1/clibs/lib4</span><br></pre></td></tr></table></figure><p>这些库的完整路径将在仿真过程中被解析为：</p><ul><li><code>/home/user/myclibs/lib1.so</code></li><li><code>/home/user/myclibs/lib3.so</code></li><li><code>/home/user/proj1/clibs/lib4.so</code></li></ul><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a>总结</a></h2><p>动态加载DPI共享库是一种强大的技术，能够帮助我们在VCS仿真过程中将C&#x2F;C++代码与Verilog代码无缝集成。通过使用<code>-sv_liblist</code>或<code>-sv_lib</code>选项，我们可以灵活地加载多个共享库，而<code>-sv_root</code>选项则允许我们指定共享库的根目录。这些功能不仅提高了仿真效率，还增加了配置的灵活性。</p><p>如果你正在进行复杂的硬件验证，尤其是需要与C&#x2F;C++代码交互时，掌握这些DPI共享库加载技巧将大大提高你的工作效率。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> VCS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DV </tag>
+            
+            <tag> VCS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>提高VCS仿真效率-UVM Runtime Cmdline和VCS分块编译</title>
+      <link href="/2024/11/16/%E6%8F%90%E9%AB%98VCS%E4%BB%BF%E7%9C%9F%E6%95%88%E7%8E%87-UVM%20Runtime%20Cmdline%E5%92%8CVCS%E5%88%86%E5%9D%97%E7%BC%96%E8%AF%91/"/>
+      <url>/2024/11/16/%E6%8F%90%E9%AB%98VCS%E4%BB%BF%E7%9C%9F%E6%95%88%E7%8E%87-UVM%20Runtime%20Cmdline%E5%92%8CVCS%E5%88%86%E5%9D%97%E7%BC%96%E8%AF%91/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>在实际验证过程中，仿真效率是我们常常面临的挑战之一。尤其是在修改代码时，明明只改动了一个文件（例如，在testcase中增加了一行打印），但编译却需要重新编译整个工程中的所有文件。这种情况不仅浪费了大量时间，还显著降低了仿真效率。为了应对这种问题，常用的解决方法有两种：充分利用UVM的runtime cmdline传递参数机制和增量编译。然而，即使采用了增量编译，仿真效率仍然受到一定影响，因为仿真器无法准确识别哪些文件已经被修改。那么，是否有其他方法可以进一步提高仿真效率呢？答案是：分块编译（Partition Compile）。本文将详细介绍这两种方法及其优缺点，特别是分块编译如何作为增量编译的一种有效补充。<a><span id="more"></span></a></p></blockquote><h2 id="1-充分利用UVM的runtime-cmdline传递参数机制"><a href="#1-充分利用UVM的runtime-cmdline传递参数机制" class="headerlink" title="1. 充分利用UVM的runtime cmdline传递参数机制"></a><a>1. 充分利用UVM的runtime cmdline传递参数机制</a></h2><p>在UVM中，我们可以通过命令行动态地传递参数，而不必重新编译代码。这对于提高仿真效率非常重要，因为每次修改UVM相关参数时，都可以避免重新编译整个项目。</p><p>比如，在测试过程中，我们可以使用命令行来动态修改UVM的相关参数，如<code>UVM_TESTNAME</code>、<code>UVM_VERBOSITY</code>等，这样就能在运行时直接影响UVM环境的行为，而不需要重新编译源代码。具体来说，只需在仿真启动时通过命令行传递这些参数，例如：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcs +UVM_TESTNAME=test1 +UVM_VERBOSITY=UVM_LOW</span><br></pre></td></tr></table></figure><p>这种方式不仅避免了不必要的重新编译，还能更灵活地调整仿真设置，提高工作效率。</p><h2 id="2-增量编译"><a href="#2-增量编译" class="headerlink" title="2. 增量编译"></a><a>2. 增量编译</a></h2><p>增量编译是提升仿真效率的另一种常用方法。它的理想情况是：只有修改过的文件需要重新编译，而未修改的文件则跳过编译。通过这种方式，我们可以显著减少编译时间。</p><p>在VCS中，增量编译可以通过添加<code>-Mupdate</code>参数来启用。该参数允许仿真器检测文件是否发生了修改，只有修改过的文件才会被重新编译。然而，实际使用中，我们发现即使启用了增量编译，仿真器依然会重新编译一些未修改的文件。这是因为仿真器的优化能力还不够，无法准确识别哪些文件被修改了。</p><h2 id="3-VCS分块编译（Partition-Compile）"><a href="#3-VCS分块编译（Partition-Compile）" class="headerlink" title="3. VCS分块编译（Partition Compile）"></a><a>3. VCS分块编译（Partition Compile）</a></h2><p>为了进一步提高仿真效率，VCS提供了一种名为<strong>分块编译（Partition Compile）</strong>的方法。分块编译的核心思想是将整个工程中的文件划分为多个独立的“块”，只有当某个块中的文件被修改时，才会重新编译该块中的文件。通过这种方式，我们可以减少每次编译所需处理的文件数量，从而提高仿真效率。</p><h3 id="分块编译的基本原理"><a href="#分块编译的基本原理" class="headerlink" title="分块编译的基本原理"></a>分块编译的基本原理</h3><p>分块编译的本质是将代码拆分成若干个独立的块，每个块都包含一组相关的文件。只有当某个块中的文件发生变化时，仿真器才会重新编译该块。而在其他块中没有修改的文件则不会被重新编译。因此，通过合理划分这些块，我们可以减少编译的范围，从而提高效率。</p><p>然而，分块编译的精细程度需要在“精细”和“高效”之间找到一个平衡。如果将文件拆分得过细，仿真器需要处理的块会增多，从而消耗更多的系统时间；如果块划分过粗，又可能导致重新编译的文件过多。因此，在块分割的粒度上，需要根据实际情况进行调节。</p><h3 id="VCS分块编译的实现"><a href="#VCS分块编译的实现" class="headerlink" title="VCS分块编译的实现"></a>VCS分块编译的实现</h3><p>在VCS中，我们可以通过添加<code>-partcomp</code>参数来启用分块编译功能。具体的命令如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcs -partcomp</span><br></pre></td></tr></table></figure><p>此外，VCS还支持自动划分Partition的大小和数量，可以通过以下选项来指定：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcs -partcomp=autopart_[low|medium|high]</span><br></pre></td></tr></table></figure><p>这三个选项分别对应不同的分块粒度（低、中、高），一般情况下可以使用<a>默认设置</a>，不必手动调整。</p><ul><li>添加<code>-pcmakeprof</code>把编译过程中的每一步所花费的时间做分析打印，并在编译日志的结尾进行输出，这样方便比较不同编译参数所花费的编译时间的区别。<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcs -pcmakeprof</span><br></pre></td></tr></table></figure></li></ul><h4 id="纵向分析：VCS仿真流程"><a href="#纵向分析：VCS仿真流程" class="headerlink" title="纵向分析：VCS仿真流程"></a>纵向分析：VCS仿真流程</h4><table><thead><tr><th>阶段</th><th>描述</th><th>作用&#x2F;功能</th></tr></thead><tbody><tr><td><strong>Parsing</strong></td><td>解析过程，读取文件并进行语法分析。</td><td>将Verilog&#x2F;SystemVerilog源代码转换为仿真器可以理解的格式，检查语法和结构的正确性。</td></tr><tr><td><strong>_Elabcom</strong></td><td>编译文件生成过程，生成提供给Verdi解析的编译文件（需要<code>-kdb</code>选项）。</td><td>生成仿真器调试信息，供Verdi等工具解析和调试。</td></tr><tr><td><strong>Compiling</strong></td><td>编译过程，检查语法错误并生成中间二进制文件。</td><td>检查Verilog&#x2F;SystemVerilog代码中的语法错误，并生成Elaboration阶段可以识别的二进制文件。</td></tr><tr><td><strong>Elaboration</strong></td><td>精化过程，计算模块的参数值，处理模块的绑定关系，生成最终可执行文件<code>simv</code>。</td><td>根据设计层次结构计算参数，处理模块绑定关系，生成最终的可执行仿真文件<code>simv</code>。</td></tr></tbody></table><h4 id="横向分析：VCS仿真性能指标"><a href="#横向分析：VCS仿真性能指标" class="headerlink" title="横向分析：VCS仿真性能指标"></a>横向分析：VCS仿真性能指标</h4><table><thead><tr><th>性能指标</th><th>描述</th><th>说明</th></tr></thead><tbody><tr><td><strong>Real time</strong></td><td>程序从开始到结束的总时间。</td><td>仿真程序执行的真实时间，包括所有计算、I&#x2F;O操作等。</td></tr><tr><td><strong>User time</strong></td><td>程序在用户模式下的CPU耗时。</td><td>仿真程序在执行用户代码时消耗的CPU时间。通常与程序逻辑的复杂度相关。</td></tr><tr><td><strong>Sys time</strong></td><td>程序在内核模式下的CPU耗时。</td><td>仿真程序在执行系统调用、I&#x2F;O操作等内核级任务时消耗的CPU时间。</td></tr><tr><td><strong>Virt</strong></td><td>程序的虚拟内存空间大小。</td><td>仿真程序的虚拟内存空间大小，包括所有可访问的内存地址空间。</td></tr><tr><td><strong>Res</strong></td><td>程序已映射到物理内存的部分。</td><td>程序在物理内存中占用的实际空间。</td></tr><tr><td><strong>Shr</strong></td><td>程序占用的共享内存大小。</td><td>仿真程序占用的共享内存区域，多个进程可能会访问这些内存。</td></tr></tbody></table><h3 id="手动指定Partition"><a href="#手动指定Partition" class="headerlink" title="手动指定Partition"></a>手动指定Partition</h3><p>如果需要更精细的控制，我们还可以手动指定Partition。通过在VCS编译命令中指定<code>-topcfg</code>选项，可以指定特定的配置文件，并在该配置文件中定义Partition。示例如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vcs -partcomp -top topcfg topcfg.v</span><br></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2024/11/16/cUY6sTmnyQdZoXR.png" alt="image-20241116134607941"></p><ul><li><code>-top</code>后面跟的topcfg根据我的实测是topcfg中的<code>config_name</code></li></ul><p>在<code>topcfg.v</code>文件中，我们可以定义具体的Partition，示例如下：</p><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">config</span> topcfg;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">design</span>    apb_tb;</span><br><span class="line">  partition <span class="keyword">package</span> uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> svt_amba_uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> svt_uvm_pkg;</span><br><span class="line">  partition <span class="keyword">package</span> apb_pkg;</span><br><span class="line"></span><br><span class="line"><span class="keyword">endconfig</span></span><br></pre></td></tr></table></figure><p>在这个例子中，我们将<code>apb_tb</code>、<code>uvm_pkg</code>、<code>svt_amba_uvm_pkg</code>、<code>svt_uvm_pkg</code>和<code>apb_pkg</code>分别定义为独立的Partition，当其中的文件发生变化时，仿真器只会重新编译相应的Partition。(其中apb_tb是我顶层的tb)</p><h3 id="Partition并行参数"><a href="#Partition并行参数" class="headerlink" title="Partition并行参数"></a>Partition并行参数</h3><ul><li><code>-fastpartcomp=j4 </code>中的 <code>j4</code> 表示使用 4 个并行作业来执行编译任务。并行处理的优势在于，它可以同时处理多个部分，大大提高编译效率（j和4之间没有空白字符）。</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-fastpartcomp=j4</span><br></pre></td></tr></table></figure><h2 id="避免在-unit空间导入package：增量编译效率的陷阱"><a href="#避免在-unit空间导入package：增量编译效率的陷阱" class="headerlink" title="避免在$unit空间导入package：增量编译效率的陷阱"></a><a>避免在$unit空间导入package：增量编译效率的陷阱</a></h2><p>在进行Verilog&#x2F;SystemVerilog的设计和验证时，增量编译是一项至关重要的技术，它能够有效减少编译时间，提高仿真效率。然而，在实际使用过程中，我们需要注意一些常见的陷阱，特别是在项目的$unit空间中导入package（包）这一做法。</p><h3 id="什么是-unit空间？"><a href="#什么是-unit空间？" class="headerlink" title="什么是$unit空间？"></a>什么是$unit空间？</h3><p>在Verilog&#x2F;SystemVerilog中，<code>$unit</code>空间指的是<strong>顶层全局空间</strong>，通常是<code>package...endpackage</code>、<code>module...endmodule</code>、<code>interface...endinterface</code>之外的部分。简单来说，$unit层次是指那些不属于具体模块、接口或包的地方。它包括了定义文件级别的各种设置或行为的区域。</p><h3 id="为什么避免在-unit空间导入package？"><a href="#为什么避免在-unit空间导入package？" class="headerlink" title="为什么避免在$unit空间导入package？"></a>为什么避免在$unit空间导入package？</h3><p>导入<code>package</code>的本意是为了共享其中的定义、类型、函数等，避免重复编写相同的代码。但如果我们在$unit空间导入<code>package</code>，会带来以下几个问题：</p><ol><li><strong>增量编译失效</strong>： 当我们在$unit空间导入一个<code>package</code>时，这个<code>package</code>的变动将直接影响到所有使用它的模块和文件。假设这个<code>package</code>被多次导入，那么在后续修改<code>package</code>中的内容时，仿真器无法精确识别哪些文件发生了变化，进而会导致整个项目的重新编译。这使得增量编译失效，浪费大量编译时间。</li><li><strong>影响编译效率</strong>： 增量编译的核心优势是<strong>仅编译修改过的部分文件</strong>，但如果我们在$unit空间导入<code>package</code>，会使得修改<code>package</code>文件后，所有依赖它的模块都会被重新编译。对于大型项目来说，这种情况会显著降低编译效率，特别是当<code>package</code>较为庞大或被多个模块依赖时，编译时间会显著增加。</li><li><strong>影响项目的可维护性</strong>： 在$unit空间中随意导入<code>package</code>，可能导致代码结构混乱，依赖关系复杂，难以追溯具体依赖了哪些文件，增加了调试和维护的难度。</li></ol><h3 id="如何避免这个问题？"><a href="#如何避免这个问题？" class="headerlink" title="如何避免这个问题？"></a>如何避免这个问题？</h3><p>为了避免在$unit空间导入<code>package</code>带来的问题，我们可以采取以下策略：</p><ol><li><strong>局部导入<code>package</code></strong><br> 最好将<code>package</code>的导入限制在具体的模块、接口或包内部。这样只有在需要的地方才会导入，而不会影响到整个项目的编译。</li><li><strong>合理划分文件结构</strong><br> 尽量将公共包和模块隔离开来，在独立的文件夹中进行管理，避免包的导入影响到顶层全局空间。</li><li><strong>避免频繁修改核心<code>package</code></strong><br> 如果<code>package</code>中包含了多个常用的定义或函数，尽量减少对其结构的修改。若确实需要修改，尽量使这些修改局部化，避免频繁改动全局影响。</li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a>总结</a></h2><p>提高仿真效率是每个验证工程师都希望解决的问题，尤其是在大型项目中，避免不必要的全量编译可以显著节省时间。通过UVM的runtime cmdline参数机制，我们可以避免重新编译整个项目，只通过命令行传递参数来修改UVM环境；通过增量编译，我们可以减少不必要的文件编译，但仍会遇到仿真器无法精确识别文件修改的情况；而VCS的分块编译则是一种有效的补充方法，它通过将文件划分为多个独立的块，减少每次需要重新编译的文件数量，从而提高仿真效率。</p><p>在实际工作中，我们可以根据项目的需求和仿真器的表现来选择合适的优化方式。分块编译作为增量编译的补充，将会在提高效率和缩短仿真时间方面发挥重要作用。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> VCS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DV </tag>
+            
+            <tag> VCS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Git</title>
       <link href="/2024/11/10/Git/"/>
       <url>/2024/11/10/Git/</url>
@@ -653,7 +746,7 @@
       <link href="/2024/10/30/Write-Bit-De-skew-Algorithm/"/>
       <url>/2024/10/30/Write-Bit-De-skew-Algorithm/</url>
       
-        <content type="html"><![CDATA[<blockquote><p>写入比特去偏移（Write Bit De-skew）算法的工作原理和步骤。<a><span id="more"></span></a></p></blockquote><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a><a>目标</a></h3><ul><li>确保在写入路径中的每个数据位都能够正确对齐，特别是在0到1的转换时，确保数据传输的可靠性和准确性。</li></ul><h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a><a>算法步骤</a></h3><h4 id="1-初始写入操作："><a href="#1-初始写入操作：" class="headerlink" title="1. 初始写入操作："></a>1. <strong>初始写入操作</strong>：</h4><ul><li>算法首先执行一系列写入操作，以确保数据正确写入指定的地址，包括DTAR0（x0000）、DTAR1（x0008）和DTAR2（x0010）。这些地址是用于后续的数据对齐和错误检测的基础。</li></ul><h4 id="2-执行顺序："><a href="#2-执行顺序：" class="headerlink" title="2. 执行顺序："></a>2. <strong>执行顺序</strong>：</h4><ul><li>写入比特去偏移必须在写入均衡（write leveling）和写入均衡调整（write leveling adjustment，若适用）之后进行。通常建议在执行读取比特去偏移（read bit deskew）或读取比特去偏移和读取眼中心化（read eye centering）之后执行写入比特去偏移。这并不是强制要求，尤其是在已知读取操作正常的情况下。</li></ul><h4 id="3-检测数据眼的左边缘："><a href="#3-检测数据眼的左边缘：" class="headerlink" title="3. 检测数据眼的左边缘："></a>3. <strong>检测数据眼的左边缘</strong>：</h4><ul><li>算法首先尝试检测数据眼（data eye）的左边缘，即至少有一个写入数据位发生故障的位置。数据眼是描述数据传输中有效信号的时序窗口。DQS和DQS#信号在这一位置的最新的0到1的转换会被检测到。</li></ul><h4 id="4-逐位右移检测："><a href="#4-逐位右移检测：" class="headerlink" title="4. 逐位右移检测："></a>4. <strong>逐位右移检测</strong>：</h4><ul><li>每个数据位将被逐个右移，直到检测到相应位的读取故障。比较失败的次数由寄存器“DTCR.DTRPT”定义。当达到这一失败次数时，表明该数据位的时序可能需要调整。</li></ul><h4 id="5-数据掩码对齐："><a href="#5-数据掩码对齐：" class="headerlink" title="5. 数据掩码对齐："></a>5. <strong>数据掩码对齐</strong>：</h4><ul><li>在完成每个写入数据位的去偏移之后，算法可以选择定位数据掩码（data mask）相对于数据位的位置，并随后进行掩码的去偏移。这有助于确保掩码信号与数据信号的同步。</li></ul><h4 id="6-定位数据眼的右边缘："><a href="#6-定位数据眼的右边缘：" class="headerlink" title="6. 定位数据眼的右边缘："></a>6. <strong>定位数据眼的右边缘</strong>：</h4><ul><li>在去偏移掩码之后，算法还可以选择进一步定位数据眼的右边缘。当右边缘被检测到后，算法会计算数据眼的中心位置，并将DQS&#x2F;DQS#信号定位在数据眼的中心。这是为了确保数据的稳定性和正确性，使得信号在其最佳时机内被读取。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a>总结</a></h3><blockquote><p>总的来说，这段文字描述了写入比特去偏移算法的目的和步骤，通过精确的时序调整和检测，确保数据在DDR内存中的写入操作是可靠的。通过对数据位和掩码的同步管理，算法能够优化数据传输的完整性，减少错误发生的可能性。</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>写入比特去偏移（Write Bit De-skew）算法的工作原理和步骤。<a><span id="more"></span></a></p></blockquote><h3 id="目标"><a href="#目标" class="headerlink" title="目标"></a><a>目标</a></h3><ul><li>确保在写入路径中的每个数据位都能够正确对齐，特别是在0到1的转换时，确保数据传输的可靠性和准确性。</li></ul><h3 id="算法步骤"><a href="#算法步骤" class="headerlink" title="算法步骤"></a><a>算法步骤</a></h3><h4 id="1-初始写入操作"><a href="#1-初始写入操作" class="headerlink" title="1. 初始写入操作"></a>1. <strong>初始写入操作</strong></h4><ul><li>算法首先执行一系列写入操作，以确保数据正确写入指定的地址，包括DTAR0（x0000）、DTAR1（x0008）和DTAR2（x0010）。这些地址是用于后续的数据对齐和错误检测的基础。</li></ul><h4 id="2-执行顺序"><a href="#2-执行顺序" class="headerlink" title="2. 执行顺序"></a>2. <strong>执行顺序</strong></h4><ul><li>写入比特去偏移必须在写入均衡（write leveling）和写入均衡调整（write leveling adjustment，若适用）之后进行。通常建议在执行读取比特去偏移（read bit deskew）或读取比特去偏移和读取眼中心化（read eye centering）之后执行写入比特去偏移。这并不是强制要求，尤其是在已知读取操作正常的情况下。</li></ul><h4 id="3-检测数据眼的左边缘"><a href="#3-检测数据眼的左边缘" class="headerlink" title="3. 检测数据眼的左边缘"></a>3. <strong>检测数据眼的左边缘</strong></h4><ul><li>算法首先尝试检测数据眼（data eye）的左边缘，即至少有一个写入数据位发生故障的位置。数据眼是描述数据传输中有效信号的时序窗口。DQS和DQS#信号在这一位置的最新的0到1的转换会被检测到。</li></ul><h4 id="4-逐位右移检测"><a href="#4-逐位右移检测" class="headerlink" title="4. 逐位右移检测"></a>4. <strong>逐位右移检测</strong></h4><ul><li>每个数据位将被逐个右移，直到检测到相应位的读取故障。比较失败的次数由寄存器“DTCR.DTRPT”定义。当达到这一失败次数时，表明该数据位的时序可能需要调整。</li></ul><h4 id="5-数据掩码对齐"><a href="#5-数据掩码对齐" class="headerlink" title="5. 数据掩码对齐"></a>5. <strong>数据掩码对齐</strong></h4><ul><li>在完成每个写入数据位的去偏移之后，算法可以选择定位数据掩码（data mask）相对于数据位的位置，并随后进行掩码的去偏移。这有助于确保掩码信号与数据信号的同步。</li></ul><h4 id="6-定位数据眼的右边缘"><a href="#6-定位数据眼的右边缘" class="headerlink" title="6. 定位数据眼的右边缘"></a>6. <strong>定位数据眼的右边缘</strong></h4><ul><li>在去偏移掩码之后，算法还可以选择进一步定位数据眼的右边缘。当右边缘被检测到后，算法会计算数据眼的中心位置，并将DQS&#x2F;DQS#信号定位在数据眼的中心。这是为了确保数据的稳定性和正确性，使得信号在其最佳时机内被读取。</li></ul><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><a>总结</a></h3><blockquote><p>总的来说，这段文字描述了写入比特去偏移算法的目的和步骤，通过精确的时序调整和检测，确保数据在DDR内存中的写入操作是可靠的。通过对数据位和掩码的同步管理，算法能够优化数据传输的完整性，减少错误发生的可能性。</p></blockquote>]]></content>
       
       
       <categories>
@@ -1455,9 +1548,9 @@
           
           <category> Programming </category>
           
-          <category> SystemVerilog </category>
-          
           <category> IC </category>
+          
+          <category> SystemVerilog </category>
           
       </categories>
       
