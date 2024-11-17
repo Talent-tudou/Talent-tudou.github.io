@@ -4,6 +4,64 @@
   
     
     <entry>
+      <title>AXI总线协议的深入解析：从Burst传输到Outstanding, Out-of-Order与Interleaving</title>
+      <link href="/2024/11/17/AXI%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90%EF%BC%9A%E4%BB%8EBurst%E4%BC%A0%E8%BE%93%E5%88%B0Outstanding-Out-of-Order%E4%B8%8EInterleaving/"/>
+      <url>/2024/11/17/AXI%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE%E7%9A%84%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90%EF%BC%9A%E4%BB%8EBurst%E4%BC%A0%E8%BE%93%E5%88%B0Outstanding-Out-of-Order%E4%B8%8EInterleaving/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>AXI协议中的几个关键特性，包括Burst传输、Outstanding、Out-of-Order以及Interleaving，并解释它们如何在系统中协同工作，以提升数据传输效率。<a><span id="more"></span></a></p></blockquote><h4 id="1-AXI总线上的正常Burst传输"><a href="#1-AXI总线上的正常Burst传输" class="headerlink" title="1. AXI总线上的正常Burst传输"></a><a>1. AXI总线上的正常Burst传输</a></h4><p>AXI协议是基于事务（Transaction）的，其中事务传输通常采用Burst模式。一个正常的Burst传输过程如下图所示：</p><ul><li><strong>读操作</strong>：主机（Master）向从机（Slave）发送读地址，并等待从机返回数据，之后主机继续发送下一个读地址，依此类推。</li><li><strong>写操作</strong>：主机发送写地址和数据，从机返回响应信号，完成当前事务，主机继续发送下一个写地址和数据。</li></ul><p>在这个过程中，AXI总线采用了较为简单的顺序传输方式，即数据的传输和地址的发送是紧密绑定的，主机必须等待上一次的传输完成后，才能开始下一次的传输。</p><h4 id="2-Outstanding（超前传输）"><a href="#2-Outstanding（超前传输）" class="headerlink" title="2. Outstanding（超前传输）"></a><a>2. Outstanding（超前传输）</a></h4><p><strong>Outstanding</strong>是AXI协议中非常重要的特性，它允许主机在等待上一笔事务完成之前，发起下一笔事务的请求，从而实现“超前传输”或“并行处理”。这一机制大大提高了系统的吞吐量，减少了总线空闲时间。</p><h5 id="2-1-Outstanding的含义"><a href="#2-1-Outstanding的含义" class="headerlink" title="2.1 Outstanding的含义"></a>2.1 Outstanding的含义</h5><p>从字面上理解，Outstanding指的是“在途”的事务。即使上一笔事务尚未完成，主机也可以继续发起新的请求，这为系统提供了更高的并行性和效率。这样，多个事务可以并行处理，从而提升数据传输的速度。</p><h5 id="2-2-如果Slave不支持Outstanding，如何响应？"><a href="#2-2-如果Slave不支持Outstanding，如何响应？" class="headerlink" title="2.2 如果Slave不支持Outstanding，如何响应？"></a>2.2 如果Slave不支持Outstanding，如何响应？</h5><p>在AXI协议中，若从机（Slave）不支持Outstanding，它会通过在接收到事务后，设置AxREADY信号为低，来阻止主机进行超前传输。只有等到当前事务的数据返回并将AxREADY信号设置为高时，主机才能发起下一个事务。</p><h5 id="2-3-Outstanding的实现"><a href="#2-3-Outstanding的实现" class="headerlink" title="2.3 Outstanding的实现"></a>2.3 Outstanding的实现</h5><p>AXI协议通过读写通道（AR&#x2F;AW channel）和响应通道（response channel）上的信号来管理Outstanding的实现。每个事务通过这些通道的信号来标识其是否完成，主机可以根据这些信号来判断是否继续发起新事务。</p><p>如图所示，当地址A11发出后，主机并未等待数据D11~D14的传输完成，便继续发出了A21地址请求。这就是Outstanding的典型应用场景。</p><h5 id="2-4-Outstanding能力"><a href="#2-4-Outstanding能力" class="headerlink" title="2.4 Outstanding能力"></a>2.4 Outstanding能力</h5><p>当AXI的Outstanding能力为1时，主机必须等待每一笔事务的完成才能发起下一个事务，这样的系统吞吐量较低。而当Outstanding能力大于1时，主机可以并行发起多个事务，提高了系统的整体性能。</p><p>例如，当Outstanding能力为2时，主机可以连续发送2个读地址命令，并等待数据返回后，再继续发起更多的请求。此时，如果数据返回较慢，系统可能需要等待，但在其他事务的数据传输进行时，系统的整体效率仍然能够得到提升。</p><h4 id="3-Out-of-Order（乱序）"><a href="#3-Out-of-Order（乱序）" class="headerlink" title="3. Out-of-Order（乱序）"></a><a>3. Out-of-Order（乱序）</a></h4><p><strong>Out-of-Order</strong>（乱序）是AXI协议中的另一个重要特性，它允许不同事务的响应数据在顺序上有所不同。换句话说，主机发出的请求可能并不会按照请求顺序依次返回数据，而是根据数据准备情况“乱序”返回。</p><h5 id="3-1-Out-of-Order的含义"><a href="#3-1-Out-of-Order的含义" class="headerlink" title="3.1 Out-of-Order的含义"></a>3.1 Out-of-Order的含义</h5><p>当多个事务在途时，它们的返回数据并不一定按发送顺序返回。例如，在数据传输过程中，较慢的事务可能会被更快的事务超越，这就是乱序操作。AXI通过事务ID（AWID、ARID、WID、RID）来标识和区分不同的事务，从而使得主机能够正确地将返回的数据匹配到对应的请求。</p><h5 id="3-2-Out-of-Order的应用"><a href="#3-2-Out-of-Order的应用" class="headerlink" title="3.2 Out-of-Order的应用"></a>3.2 Out-of-Order的应用</h5><p>乱序操作通常用于提高系统的吞吐量。例如，如果多个存储区域的访问速度不同，可以让较快的存储区域优先返回数据，而不必等待慢速区域的数据传输完成，这样就减少了延迟，提升了整体性能。</p><h4 id="4-Interleaving（交织）"><a href="#4-Interleaving（交织）" class="headerlink" title="4. Interleaving（交织）"></a><a>4. Interleaving（交织）</a></h4><p><strong>Interleaving</strong>（交织）指的是在多个事务的数据传输中，不同事务的数据可以交替进行。例如，主机可以同时发出两个事务的不同数据，并将这些数据交织在一起进行传输。</p><h5 id="4-1-交织的定义"><a href="#4-1-交织的定义" class="headerlink" title="4.1 交织的定义"></a>4.1 交织的定义</h5><p>交织指的是不同事务的数据能够“交错”传输。例如，事务1的数据是0a和0b，事务2的数据是1a和1b。如果支持交织，数据的传输顺序可能是0a、1a、0b、1b，而不是按事务顺序依次传输0a、0b、1a、1b。</p><h5 id="4-2-交织的实现"><a href="#4-2-交织的实现" class="headerlink" title="4.2 交织的实现"></a>4.2 交织的实现</h5><p>交织操作通过读数据和写数据的ID（RID和WID）来区分不同事务的数据。对于写交织来说，WID提供了标识不同事务的数据传输顺序；对于读交织，RID起到了类似的作用。通过这些标识，AXI协议能够在数据传输时保持正确的顺序。</p><h4 id="5-Outstanding、Out-of-Order与Interleaving的区别与联系"><a href="#5-Outstanding、Out-of-Order与Interleaving的区别与联系" class="headerlink" title="5. Outstanding、Out-of-Order与Interleaving的区别与联系"></a>5. Outstanding、Out-of-Order与Interleaving的区别与联系</h4><p>这三者是AXI协议中重要的特性，它们之间既有区别也有联系：</p><ul><li><strong>Outstanding</strong>：允许主机在等待数据返回之前发起新的事务，提升了系统的并行性。</li><li><strong>Out-of-Order</strong>：事务的响应顺序不一定与发送顺序一致，提高了系统的吞吐量。</li><li><strong>Interleaving</strong>：同一时刻可以交替传输来自不同事务的数据，减少了传输延迟。</li></ul><p>虽然这三者都能提升系统性能，但它们的实现机制有所不同。Outstanding关注的是地址的传输，而Out-of-Order和Interleaving则侧重于事务的响应顺序和数据的交织传输。通过合理的设计和配置，可以大幅提升AXI总线的带宽利用率和系统吞吐量。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> AMBA </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> AMBA </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>VCS常用编译和仿真选项</title>
+      <link href="/2024/11/17/IC/VCS%E5%B8%B8%E7%94%A8%E7%BC%96%E8%AF%91%E5%92%8C%E4%BB%BF%E7%9C%9F%E9%80%89%E9%A1%B9/"/>
+      <url>/2024/11/17/IC/VCS%E5%B8%B8%E7%94%A8%E7%BC%96%E8%AF%91%E5%92%8C%E4%BB%BF%E7%9C%9F%E9%80%89%E9%A1%B9/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>VCS编译和仿真过程中的常用参数 <a><span id="more"></span></a></p></blockquote><h2 id="编译选项-Compile"><a href="#编译选项-Compile" class="headerlink" title="编译选项 (Compile)"></a>编译选项 (Compile)</h2><table><thead><tr><th><strong>选项</strong></th><th><strong>描述</strong></th></tr></thead><tbody><tr><td><code>-full64</code></td><td>在64bit模式下编译、仿真，用于64位操作系统</td></tr><tr><td><code>-j8</code></td><td>指定编译器可以并行编译的进程数为8</td></tr><tr><td><code>-timescale=1ns/1ps</code></td><td>指定仿真时间和精度</td></tr><tr><td><code>-y &lt;dir_pathname&gt;</code></td><td>指定Verilog库路径</td></tr><tr><td><code>+libext+.v+.V+.sv+.svh</code></td><td>识别多种格式文件，如 <code>.v</code>, <code>.sv</code>, <code>.svh</code> 等</td></tr><tr><td><code>-sverilog</code></td><td>支持SystemVerilog语法的编译选项</td></tr><tr><td><code>-f xxx.lisf</code></td><td>指定包含所有设计文件列表的文件名</td></tr><tr><td><code>-top test</code></td><td>设置顶层模块为 <code>test</code></td></tr><tr><td><code>-l xx.log</code></td><td>编译log输出到指定的文件 <code>xx.log</code></td></tr><tr><td><code>+define+XX_MACRO</code></td><td>定义一个宏变量 <code>XX_MACRO</code>，也可以定义具体的值，如 <code>+define+XX_MACRO=9</code></td></tr><tr><td><code>+incdir+/xx/xx/</code></td><td>指定 <code>include</code> 指令使用的包含文件的目录，可以指定多个</td></tr><tr><td><code>-M</code></td><td>启用增量编译，只编译修改过的文件</td></tr><tr><td><code>-Mdir=&lt;directory&gt;</code></td><td>指定目录存储编译产生的文件，默认是 <code>csrc</code></td></tr><tr><td><code>-Mlib=&lt;directory&gt;</code></td><td>指定目录让VCS搜索某个模块是否需要重新编译，配合 <code>-Mdir</code> 实现不同模块的增量编译</td></tr><tr><td><code>-Mupdate[=0]</code></td><td>保留上次的makefile，避免覆盖，默认为覆盖上次的makefile</td></tr><tr><td><code>-noIncrComp</code></td><td>关闭增量编译</td></tr><tr><td><code>-notice</code></td><td>显示更多的编译过程警告信息，有助于调试和优化设计</td></tr><tr><td><code>-R</code></td><td>编译完成后立即执行 <code>simv</code> 命令进行仿真</td></tr><tr><td><code>+memcbk</code></td><td>启用多维数组变量的回调，便于查看波形中的多维数组或memory型变量</td></tr><tr><td><code>+warn=none</code></td><td>忽略所有警告信息</td></tr><tr><td><code>+warn=all</code></td><td>显示所有警告信息</td></tr><tr><td><code>-debug_access+all</code></td><td>启用所有debug信息，保留波形文件等</td></tr><tr><td><code>-debug_all</code></td><td>启用UCLI命令行调试</td></tr><tr><td><code>-kdb</code></td><td>启动KDB调试模式，支持命令行交互式调试操作</td></tr><tr><td><code>-cm &lt;options&gt;</code></td><td>指定覆盖率类型，支持：行覆盖（line）、条件覆盖（cond）、状态机覆盖（fsm）等</td></tr><tr><td><code>-cm_assert_hier &lt;filename&gt;</code></td><td>限定SVA覆盖率统计在指定的module层次</td></tr><tr><td><code>-cm_cond &lt;arguments&gt;</code></td><td>进一步细化条件覆盖率的统计方式</td></tr><tr><td><code>-cm_count</code></td><td>统计覆盖次数</td></tr><tr><td><code>-cm_dir &lt;directory_path_name&gt;</code></td><td>指定覆盖率统计结果存放路径，默认为 <code>simv.cm</code></td></tr><tr><td><code>-cm_hier &lt;filename&gt;</code></td><td>指定覆盖率统计的范围，可以指定模块名、层次名等</td></tr><tr><td><code>-cm_log &lt;filename&gt;</code></td><td>指定覆盖率日志文件名</td></tr><tr><td><code>-cm_name &lt;filename&gt;</code></td><td>指定保存覆盖率结果的文本文件名</td></tr><tr><td><code>-o &lt;name&gt;</code></td><td>指定编译生成的可执行文件的名称，默认是 <code>simv</code></td></tr><tr><td><code>+v2k</code></td><td>支持Verilog-2001标准</td></tr><tr><td><code>+vcs+initmem+0/1/x/z</code></td><td>初始化设计中所有存储器的值</td></tr><tr><td><code>+vcs+initreg+0/1/x/z</code></td><td>初始化设计中所有寄存器的值</td></tr><tr><td><code>+vcs+lic+wait</code></td><td>等待license</td></tr><tr><td><code>+nospecify</code></td><td>忽略 <code>specify</code> 块，仿真时只关注设计逻辑行为，不执行时序约束</td></tr><tr><td><code>+notimecheck</code></td><td>跳过时序约束检查，加快仿真速度，重点仿真设计逻辑</td></tr></tbody></table><h2 id="仿真选项-Simulation"><a href="#仿真选项-Simulation" class="headerlink" title="仿真选项 (Simulation)"></a>仿真选项 (Simulation)</h2><table><thead><tr><th><strong>选项</strong></th><th><strong>描述</strong></th></tr></thead><tbody><tr><td><code>+ntb_random_seed</code></td><td>设置NTB（Native TestBench）随机种子</td></tr><tr><td><code>-line</code></td><td>启用VriSim单步运行</td></tr><tr><td><code>-ntb</code></td><td>启用NTB，支持OpenVera验证平台语言结构</td></tr><tr><td><code>-timescale=&lt;time_unit&gt;/&lt;time_precision&gt;</code></td><td>设置源文件中的timescale选项，如果文件没有定义timescale时使用此选项</td></tr><tr><td><code>-override_timescale=&lt;time_unit&gt;/&lt;time_precision&gt;</code></td><td>统一源文件的timescale设置</td></tr><tr><td><code>-pvalues+&lt;parameter_name&gt;=&lt;value&gt;</code></td><td>改变指定参数的值</td></tr><tr><td><code>-parameters &lt;filename&gt;</code></td><td>通过文件改变参数的值，文件中指定了参数路径和新值</td></tr><tr><td><code>+error+&lt;n&gt;</code></td><td>将编译时运行的NTB错误增加到N</td></tr><tr><td><code>-vcd &lt;filename&gt;</code></td><td>指定VCD波形文件名，默认为 <code>verilog.dump</code></td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> VCS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DV </tag>
+            
+            <tag> VCS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>uvm_sequence_item类的identification方法总结</title>
       <link href="/2024/11/17/uvm-sequence-item%E7%B1%BB%E7%9A%84identification%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/"/>
       <url>/2024/11/17/uvm-sequence-item%E7%B1%BB%E7%9A%84identification%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93/</url>
@@ -1390,9 +1448,9 @@
       
       <categories>
           
-          <category> Programming </category>
-          
           <category> UVM </category>
+          
+          <category> Programming </category>
           
           <category> SystemVerilog </category>
           
@@ -1401,9 +1459,9 @@
       
         <tags>
             
-            <tag> Programming </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> Programming </tag>
             
             <tag> SystemVerilog </tag>
             
@@ -1458,9 +1516,9 @@
             
             <tag> IC </tag>
             
-            <tag> Programming </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> Programming </tag>
             
             <tag> VIP </tag>
             
@@ -1487,9 +1545,9 @@
       
         <tags>
             
-            <tag> Programming </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> Programming </tag>
             
             <tag> VIP </tag>
             
@@ -1518,9 +1576,9 @@
             
             <tag> IC </tag>
             
-            <tag> Programming </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> Programming </tag>
             
             <tag> VIP </tag>
             
