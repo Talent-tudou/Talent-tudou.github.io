@@ -1374,9 +1374,9 @@
       
       <categories>
           
-          <category> Programming </category>
-          
           <category> UVM </category>
+          
+          <category> Programming </category>
           
           <category> SystemVerilog </category>
           
@@ -1385,9 +1385,9 @@
       
         <tags>
             
-            <tag> Programming </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> Programming </tag>
             
             <tag> SystemVerilog </tag>
             
@@ -1440,11 +1440,11 @@
       
         <tags>
             
-            <tag> Programming </tag>
-            
             <tag> IC </tag>
             
             <tag> UVM </tag>
+            
+            <tag> Programming </tag>
             
             <tag> VIP </tag>
             
@@ -1471,9 +1471,9 @@
       
         <tags>
             
-            <tag> Programming </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> Programming </tag>
             
             <tag> VIP </tag>
             
@@ -1500,11 +1500,11 @@
       
         <tags>
             
-            <tag> Programming </tag>
-            
             <tag> IC </tag>
             
             <tag> UVM </tag>
+            
+            <tag> Programming </tag>
             
             <tag> VIP </tag>
             
@@ -1589,9 +1589,9 @@
       
         <tags>
             
-            <tag> Programming </tag>
-            
             <tag> Linux </tag>
+            
+            <tag> Programming </tag>
             
         </tags>
       
