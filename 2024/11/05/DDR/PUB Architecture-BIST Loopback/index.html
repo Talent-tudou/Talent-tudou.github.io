@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2024/11/05/KVoF7RqgQZnbhmH.png">
 <meta property="article:published_time" content="2024-11-05T15:14:15.000Z">
-<meta property="article:modified_time" content="2024-11-17T09:58:15.568Z">
+<meta property="article:modified_time" content="2024-11-25T13:32:36.831Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="DDR">
@@ -114,7 +114,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数64
+			总文章数69
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -410,8 +410,8 @@
 <hr>
 <h3 id="NOTE"><a href="#NOTE" class="headerlink" title="NOTE"></a>NOTE</h3><h3 id="1-AC-I-O-接收器默认关闭"><a href="#1-AC-I-O-接收器默认关闭" class="headerlink" title="1. AC I&#x2F;O 接收器默认关闭"></a>1. <strong>AC I&#x2F;O 接收器默认关闭</strong></h3><ul>
 <li><strong>AC I&#x2F;O 接收器</strong>：在 AC（地址&#x2F;命令）通道中，接收器用于接收来自外部的地址和命令信号（例如，SDRAM 地址、命令信号）。这些接收器通常在系统初始化时处于关闭状态，以节省功耗。</li>
-<li><strong>必须启用接收器</strong>：在进行 <strong>AC 环回测试</strong> 时，必须确保接收器已被启用，否则环回信号将无法被正确接收。因此，需要通过配置 <strong>ACIOCR0[*PDR] 寄存器</strong> 来启用 AC I&#x2F;O 接收器。<ul>
-<li>**ACIOCR0[*PDR]**：这是一个配置寄存器，用于控制 <strong>AC I&#x2F;O 接收器的电源管理</strong>。通过设置该寄存器，可以启用这些接收器。</li>
+<li><strong>必须启用接收器</strong>：在进行 <strong>AC 环回测试</strong> 时，必须确保接收器已被启用，否则环回信号将无法被正确接收。因此，需要通过配置 <strong>ACIOCR0[PDR] 寄存器</strong> 来启用 AC I&#x2F;O 接收器。<ul>
+<li><code>ACIOCR0[PDR]</code>：这是一个配置寄存器，用于控制 <strong>AC I&#x2F;O 接收器的电源管理</strong>。通过设置该寄存器，可以启用这些接收器。</li>
 </ul>
 </li>
 </ul>
@@ -429,7 +429,7 @@
 </ul>
 <h3 id="3-环回测试的步骤总结"><a href="#3-环回测试的步骤总结" class="headerlink" title="3. 环回测试的步骤总结"></a>3. <strong>环回测试的步骤总结</strong></h3><ul>
 <li>AC 环回测试前：<ul>
-<li>启用 <strong>AC I&#x2F;O 接收器</strong>，通过配置 <strong>ACIOCR0[*PDR]</strong> 寄存器。</li>
+<li>启用 <strong>AC I&#x2F;O 接收器</strong>，通过配置 <strong>ACIOCR0[PDR]</strong> 寄存器。</li>
 </ul>
 </li>
 <li>DATX8 环回测试前：<ul>
@@ -609,8 +609,8 @@
 <hr>
 <h3 id="NOTE"><a href="#NOTE" class="headerlink" title="NOTE"></a>NOTE</h3><h3 id="1-AC-I-O-接收器默认关闭"><a href="#1-AC-I-O-接收器默认关闭" class="headerlink" title="1. AC I&#x2F;O 接收器默认关闭"></a>1. <strong>AC I&#x2F;O 接收器默认关闭</strong></h3><ul>
 <li><strong>AC I&#x2F;O 接收器</strong>：在 AC（地址&#x2F;命令）通道中，接收器用于接收来自外部的地址和命令信号（例如，SDRAM 地址、命令信号）。这些接收器通常在系统初始化时处于关闭状态，以节省功耗。</li>
-<li><strong>必须启用接收器</strong>：在进行 <strong>AC 环回测试</strong> 时，必须确保接收器已被启用，否则环回信号将无法被正确接收。因此，需要通过配置 <strong>ACIOCR0[*PDR] 寄存器</strong> 来启用 AC I&#x2F;O 接收器。<ul>
-<li>**ACIOCR0[*PDR]**：这是一个配置寄存器，用于控制 <strong>AC I&#x2F;O 接收器的电源管理</strong>。通过设置该寄存器，可以启用这些接收器。</li>
+<li><strong>必须启用接收器</strong>：在进行 <strong>AC 环回测试</strong> 时，必须确保接收器已被启用，否则环回信号将无法被正确接收。因此，需要通过配置 <strong>ACIOCR0[PDR] 寄存器</strong> 来启用 AC I&#x2F;O 接收器。<ul>
+<li><code>ACIOCR0[PDR]</code>：这是一个配置寄存器，用于控制 <strong>AC I&#x2F;O 接收器的电源管理</strong>。通过设置该寄存器，可以启用这些接收器。</li>
 </ul>
 </li>
 </ul>
@@ -628,7 +628,7 @@
 </ul>
 <h3 id="3-环回测试的步骤总结"><a href="#3-环回测试的步骤总结" class="headerlink" title="3. 环回测试的步骤总结"></a>3. <strong>环回测试的步骤总结</strong></h3><ul>
 <li>AC 环回测试前：<ul>
-<li>启用 <strong>AC I&#x2F;O 接收器</strong>，通过配置 <strong>ACIOCR0[*PDR]</strong> 寄存器。</li>
+<li>启用 <strong>AC I&#x2F;O 接收器</strong>，通过配置 <strong>ACIOCR0[PDR]</strong> 寄存器。</li>
 </ul>
 </li>
 <li>DATX8 环回测试前：<ul>
@@ -976,10 +976,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -988,15 +984,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">IC</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1036,11 +1036,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
+                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
+                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1064,11 +1064,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
             
             <div class="clearfix"></div>
