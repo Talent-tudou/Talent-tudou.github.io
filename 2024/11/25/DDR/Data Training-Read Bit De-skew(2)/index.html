@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
   <title>Data Training-Read Bit De-skew(2) | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1. 初始写入和读取操作首先，这一部分列出了向SDRAM发出的写入（write）和读取（read）命令的步骤。这些步骤用于测试DDR内存的读写稳定性，特别是在信号延迟（skew）方面。 a. 向 SDRAM 发出以下命令写入命令（Write Commands）这部分包含了多个“写突发”命令（write burst），每个命令会将一组数据写入到SDRAM的不同目标寄存器（DTAR，即Data Tar">
+  <meta name="description" content="详细算法步骤">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Data Training-Read Bit De-skew(2)">
 <meta property="og:url" content="https://talent-tudou.github.io/2024/11/25/DDR/Data%20Training-Read%20Bit%20De-skew(2)/index.html">
 <meta property="og:site_name" content="ZLIN">
-<meta property="og:description" content="1. 初始写入和读取操作首先，这一部分列出了向SDRAM发出的写入（write）和读取（read）命令的步骤。这些步骤用于测试DDR内存的读写稳定性，特别是在信号延迟（skew）方面。 a. 向 SDRAM 发出以下命令写入命令（Write Commands）这部分包含了多个“写突发”命令（write burst），每个命令会将一组数据写入到SDRAM的不同目标寄存器（DTAR，即Data Tar">
+<meta property="og:description" content="详细算法步骤">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-11-25T14:56:04.000Z">
-<meta property="article:modified_time" content="2024-11-25T15:14:20.494Z">
+<meta property="article:modified_time" content="2024-11-25T15:17:54.683Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="DDR">
@@ -112,7 +112,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数69
+			总文章数68
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -246,7 +246,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       <!-- 
-        <h2 id="1-初始写入和读取操作"><a href="#1-初始写入和读取操作" class="headerlink" title="1. 初始写入和读取操作"></a>1. <strong>初始写入和读取操作</strong></h2><p>首先，这一部分列出了向SDRAM发出的写入（write）和读取（read）命令的步骤。这些步骤用于测试DDR内存的读写稳定性，特别是在信号延迟（skew）方面。</p>
+        <blockquote>
+<p>详细算法步骤<a><span id="more"></span></a></p>
+</blockquote>
+<h2 id="1-初始写入和读取操作"><a href="#1-初始写入和读取操作" class="headerlink" title="1. 初始写入和读取操作"></a>1. <strong>初始写入和读取操作</strong></h2><p>首先，这一部分列出了向SDRAM发出的写入（write）和读取（read）命令的步骤。这些步骤用于测试DDR内存的读写稳定性，特别是在信号延迟（skew）方面。</p>
 <h3 id="a-向-SDRAM-发出以下命令"><a href="#a-向-SDRAM-发出以下命令" class="headerlink" title="a. 向 SDRAM 发出以下命令"></a>a. 向 SDRAM 发出以下命令</h3><h4 id="写入命令（Write-Commands）"><a href="#写入命令（Write-Commands）" class="headerlink" title="写入命令（Write Commands）"></a><strong>写入命令（Write Commands）</strong></h4><p>这部分包含了多个“写突发”命令（write burst），每个命令会将一组数据写入到SDRAM的不同目标寄存器（DTAR，即Data Target Register）。以下是各个写入命令的具体描述：</p>
 <ol>
 <li><strong>Write burst of 8 to DTAR3 with data&#x3D;x00&#x2F;x00&#x2F;x00&#x2F;x00&#x2F;x00&#x2F;x00&#x2F;x00&#x2F;x00</strong><ul>
@@ -441,7 +444,10 @@
       
         
 
-        <h2 id="1-初始写入和读取操作"><a href="#1-初始写入和读取操作" class="headerlink" title="1. 初始写入和读取操作"></a>1. <strong>初始写入和读取操作</strong></h2><p>首先，这一部分列出了向SDRAM发出的写入（write）和读取（read）命令的步骤。这些步骤用于测试DDR内存的读写稳定性，特别是在信号延迟（skew）方面。</p>
+        <blockquote>
+<p>详细算法步骤<a><span id="more"></span></a></p>
+</blockquote>
+<h2 id="1-初始写入和读取操作"><a href="#1-初始写入和读取操作" class="headerlink" title="1. 初始写入和读取操作"></a>1. <strong>初始写入和读取操作</strong></h2><p>首先，这一部分列出了向SDRAM发出的写入（write）和读取（read）命令的步骤。这些步骤用于测试DDR内存的读写稳定性，特别是在信号延迟（skew）方面。</p>
 <h3 id="a-向-SDRAM-发出以下命令"><a href="#a-向-SDRAM-发出以下命令" class="headerlink" title="a. 向 SDRAM 发出以下命令"></a>a. 向 SDRAM 发出以下命令</h3><h4 id="写入命令（Write-Commands）"><a href="#写入命令（Write-Commands）" class="headerlink" title="写入命令（Write Commands）"></a><strong>写入命令（Write Commands）</strong></h4><p>这部分包含了多个“写突发”命令（write burst），每个命令会将一组数据写入到SDRAM的不同目标寄存器（DTAR，即Data Target Register）。以下是各个写入命令的具体描述：</p>
 <ol>
 <li><strong>Write burst of 8 to DTAR3 with data&#x3D;x00&#x2F;x00&#x2F;x00&#x2F;x00&#x2F;x00&#x2F;x00&#x2F;x00&#x2F;x00</strong><ul>
@@ -949,11 +955,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags" style="display: block;">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+                <a href="javascript:void(0)" class="js-tag color3">IC</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Shell</a>
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -969,23 +975,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">IC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DDR</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DLL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1017,10 +1023,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">MDL</a>
               </li>
              
@@ -1033,6 +1035,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VIP</a>
               </li>
              
@@ -1041,15 +1047,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
               </li>
             
             <div class="clearfix"></div>
