@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://s2.loli.net/2024/11/29/uJIHyz93twngLrQ.png">
 <meta property="og:image" content="https://s2.loli.net/2024/11/29/x8ZXATusdh641tJ.png">
 <meta property="article:published_time" content="2024-11-29T13:47:43.000Z">
-<meta property="article:modified_time" content="2024-11-29T14:59:29.984Z">
+<meta property="article:modified_time" content="2024-11-29T15:44:13.732Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="DMA">
@@ -366,8 +366,7 @@
 <li><strong>公式</strong>：</li>
 </ul>
 <p>$$<br>\text { dst_burst_size_bytes &#x3D; CTLx.DEST_MSIZE × dst_single_size_bytes }<br>$$</p>
-<pre><code> 例如，如果`CTLx.DEST_MSIZE = 4`且`dst_single_size_bytes = 4`字节，那么目标突发传输大小就是16字节。
-</code></pre>
+<p>​	例如，如果<code>CTLx.DEST_MSIZE = 4</code>且<code>dst_single_size_bytes = 4</code>字节，那么目标突发传输大小就是16字节。</p>
 <h3 id="5-块大小（Block-size-in-bytes）"><a href="#5-块大小（Block-size-in-bytes）" class="headerlink" title="5. 块大小（Block size in bytes）"></a>5. <strong>块大小（Block size in bytes）</strong></h3><ul>
 <li>块大小定义了DMA一次传输中要处理的数据量，可以根据不同的流控制器角色来计算：</li>
 </ul>
@@ -388,8 +387,7 @@
 <li><strong>公式</strong>：</li>
 </ul>
 <p>$$<br>\text { blk_size_bytes_dst }&#x3D;\text { (Number of destination burst transactions in block } \times \text { dst_burst_size_bytes })+ \text { (Number of destination single transactions in block } \times \text { dst_single_size_bytes) }<br>$$</p>
-<pre><code> 这表示块大小由目标突发事务和目标单次事务的数量来决定。
-</code></pre>
+<p>​	这表示块大小由目标突发事务和目标单次事务的数量来决定。</p>
 <h2 id="内存外设"><a href="#内存外设" class="headerlink" title="内存外设"></a><a>内存外设</a></h2><h3 id="1-内存外设与DMA传输的特点"><a href="#1-内存外设与DMA传输的特点" class="headerlink" title="1. 内存外设与DMA传输的特点"></a>1. <strong>内存外设与DMA传输的特点</strong></h3><ul>
 <li><strong>没有握手接口（No handshaking interface）</strong>：内存外设通常不具有像外设那样的握手接口（handshaking interface）。这意味着，内存外设无法直接告知DMA控制器何时准备好进行数据传输。因此，当DMA通道被启用后，数据传输会立即开始，而无需等待任何事务请求或信号。</li>
 <li><strong>DMA控制器为流控制器（DMA controller as flow controller）</strong>：在内存外设的情况下，DMA控制器总是充当流控制器。流控制器负责管理数据传输的调度，控制每个块的传输，而不依赖外设来控制流量。因此，对于内存外设，DMA控制器直接控制数据的读取和写入过程，不需要外设插入等待状态。</li>
@@ -460,7 +458,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="单事务区"><a href="#单事务区" class="headerlink" title="单事务区"></a>单事务区</h2><h3 id="1-什么是单事务区（Single-Transaction-Region）？"><a href="#1-什么是单事务区（Single-Transaction-Region）？" class="headerlink" title="1. 什么是单事务区（Single Transaction Region）？"></a>1. <strong>什么是单事务区（Single Transaction Region）？</strong></h3><ul>
+<h2 id="单事务区"><a href="#单事务区" class="headerlink" title="单事务区"></a><a>单事务区</a></h2><h3 id="1-什么是单事务区（Single-Transaction-Region）？"><a href="#1-什么是单事务区（Single-Transaction-Region）？" class="headerlink" title="1. 什么是单事务区（Single Transaction Region）？"></a>1. <strong>什么是单事务区（Single Transaction Region）？</strong></h3><ul>
 <li><strong>单事务区</strong> 是指在某些情况下，当数据块的大小不足以完全通过突发事务来传输时，DMA控制器会使用单事务（Single Transaction）来完成剩余的数据传输。</li>
 <li>在 DMA 数据传输过程中，如果剩余的数据量小于一个完整的突发事务所能传输的大小（即小于 <code>src_burst_size_bytes</code> 或 <code>dst_burst_size_bytes</code>），DMA控制器就会切换到单事务模式，使用单个事务来完成剩余的数据传输。</li>
 </ul>
@@ -490,7 +488,7 @@
 <li><strong>如果源或目的地外设是流控制器</strong>（即外设负责数据传输控制），则当外设发送信号指示最后一次事务时（例如，表示数据块的最后一部分需要传输时），DMA控制器会进入单事务区，传输剩余的数据。</li>
 <li>这时，进入单事务区的条件是<strong>外设发出“最后事务”的信号</strong>，并且剩余的数据量少于突发事务的大小（即小于 <code>src_burst_size_bytes</code> 或 <code>dst_burst_size_bytes</code>）。</li>
 </ul>
-<h2 id="硬件握手接口（外设不是流控制器）"><a href="#硬件握手接口（外设不是流控制器）" class="headerlink" title="硬件握手接口（外设不是流控制器）"></a>硬件握手接口（外设不是流控制器）</h2><h3 id="1-dma-ack（输出）"><a href="#1-dma-ack（输出）" class="headerlink" title="1. dma_ack（输出）"></a>1. <strong>dma_ack（输出）</strong></h3><ul>
+<h2 id="硬件握手接口（外设不是流控制器）"><a href="#硬件握手接口（外设不是流控制器）" class="headerlink" title="硬件握手接口（外设不是流控制器）"></a><a>硬件握手接口（外设不是流控制器）</a></h2><h3 id="1-dma-ack（输出）"><a href="#1-dma-ack（输出）" class="headerlink" title="1. dma_ack（输出）"></a>1. <strong>dma_ack（输出）</strong></h3><ul>
 <li><strong>描述</strong>：<code>dma_ack</code> 是来自DMA控制器到外设的确认信号。它在当前事务（单事务或突发事务）的数据传输完成后被激活。</li>
 <li>工作原理：<ul>
 <li>对于 <strong>单事务</strong>：<code>dma_ack</code> 在数据传输结束后保持激活，直到外设解除激活 <code>dma_single</code> 信号，然后 <code>dma_ack</code> 会在一个时钟周期后被取消。</li>
@@ -654,8 +652,7 @@
 <li><strong>公式</strong>：</li>
 </ul>
 <p>$$<br>\text { dst_burst_size_bytes &#x3D; CTLx.DEST_MSIZE × dst_single_size_bytes }<br>$$</p>
-<pre><code> 例如，如果`CTLx.DEST_MSIZE = 4`且`dst_single_size_bytes = 4`字节，那么目标突发传输大小就是16字节。
-</code></pre>
+<p>​	例如，如果<code>CTLx.DEST_MSIZE = 4</code>且<code>dst_single_size_bytes = 4</code>字节，那么目标突发传输大小就是16字节。</p>
 <h3 id="5-块大小（Block-size-in-bytes）"><a href="#5-块大小（Block-size-in-bytes）" class="headerlink" title="5. 块大小（Block size in bytes）"></a>5. <strong>块大小（Block size in bytes）</strong></h3><ul>
 <li>块大小定义了DMA一次传输中要处理的数据量，可以根据不同的流控制器角色来计算：</li>
 </ul>
@@ -676,8 +673,7 @@
 <li><strong>公式</strong>：</li>
 </ul>
 <p>$$<br>\text { blk_size_bytes_dst }&#x3D;\text { (Number of destination burst transactions in block } \times \text { dst_burst_size_bytes })+ \text { (Number of destination single transactions in block } \times \text { dst_single_size_bytes) }<br>$$</p>
-<pre><code> 这表示块大小由目标突发事务和目标单次事务的数量来决定。
-</code></pre>
+<p>​	这表示块大小由目标突发事务和目标单次事务的数量来决定。</p>
 <h2 id="内存外设"><a href="#内存外设" class="headerlink" title="内存外设"></a><a>内存外设</a></h2><h3 id="1-内存外设与DMA传输的特点"><a href="#1-内存外设与DMA传输的特点" class="headerlink" title="1. 内存外设与DMA传输的特点"></a>1. <strong>内存外设与DMA传输的特点</strong></h3><ul>
 <li><strong>没有握手接口（No handshaking interface）</strong>：内存外设通常不具有像外设那样的握手接口（handshaking interface）。这意味着，内存外设无法直接告知DMA控制器何时准备好进行数据传输。因此，当DMA通道被启用后，数据传输会立即开始，而无需等待任何事务请求或信号。</li>
 <li><strong>DMA控制器为流控制器（DMA controller as flow controller）</strong>：在内存外设的情况下，DMA控制器总是充当流控制器。流控制器负责管理数据传输的调度，控制每个块的传输，而不依赖外设来控制流量。因此，对于内存外设，DMA控制器直接控制数据的读取和写入过程，不需要外设插入等待状态。</li>
@@ -748,7 +744,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="单事务区"><a href="#单事务区" class="headerlink" title="单事务区"></a>单事务区</h2><h3 id="1-什么是单事务区（Single-Transaction-Region）？"><a href="#1-什么是单事务区（Single-Transaction-Region）？" class="headerlink" title="1. 什么是单事务区（Single Transaction Region）？"></a>1. <strong>什么是单事务区（Single Transaction Region）？</strong></h3><ul>
+<h2 id="单事务区"><a href="#单事务区" class="headerlink" title="单事务区"></a><a>单事务区</a></h2><h3 id="1-什么是单事务区（Single-Transaction-Region）？"><a href="#1-什么是单事务区（Single-Transaction-Region）？" class="headerlink" title="1. 什么是单事务区（Single Transaction Region）？"></a>1. <strong>什么是单事务区（Single Transaction Region）？</strong></h3><ul>
 <li><strong>单事务区</strong> 是指在某些情况下，当数据块的大小不足以完全通过突发事务来传输时，DMA控制器会使用单事务（Single Transaction）来完成剩余的数据传输。</li>
 <li>在 DMA 数据传输过程中，如果剩余的数据量小于一个完整的突发事务所能传输的大小（即小于 <code>src_burst_size_bytes</code> 或 <code>dst_burst_size_bytes</code>），DMA控制器就会切换到单事务模式，使用单个事务来完成剩余的数据传输。</li>
 </ul>
@@ -778,7 +774,7 @@
 <li><strong>如果源或目的地外设是流控制器</strong>（即外设负责数据传输控制），则当外设发送信号指示最后一次事务时（例如，表示数据块的最后一部分需要传输时），DMA控制器会进入单事务区，传输剩余的数据。</li>
 <li>这时，进入单事务区的条件是<strong>外设发出“最后事务”的信号</strong>，并且剩余的数据量少于突发事务的大小（即小于 <code>src_burst_size_bytes</code> 或 <code>dst_burst_size_bytes</code>）。</li>
 </ul>
-<h2 id="硬件握手接口（外设不是流控制器）"><a href="#硬件握手接口（外设不是流控制器）" class="headerlink" title="硬件握手接口（外设不是流控制器）"></a>硬件握手接口（外设不是流控制器）</h2><h3 id="1-dma-ack（输出）"><a href="#1-dma-ack（输出）" class="headerlink" title="1. dma_ack（输出）"></a>1. <strong>dma_ack（输出）</strong></h3><ul>
+<h2 id="硬件握手接口（外设不是流控制器）"><a href="#硬件握手接口（外设不是流控制器）" class="headerlink" title="硬件握手接口（外设不是流控制器）"></a><a>硬件握手接口（外设不是流控制器）</a></h2><h3 id="1-dma-ack（输出）"><a href="#1-dma-ack（输出）" class="headerlink" title="1. dma_ack（输出）"></a>1. <strong>dma_ack（输出）</strong></h3><ul>
 <li><strong>描述</strong>：<code>dma_ack</code> 是来自DMA控制器到外设的确认信号。它在当前事务（单事务或突发事务）的数据传输完成后被激活。</li>
 <li>工作原理：<ul>
 <li>对于 <strong>单事务</strong>：<code>dma_ack</code> 在数据传输结束后保持激活，直到外设解除激活 <code>dma_single</code> 信号，然后 <code>dma_ack</code> 会在一个时钟周期后被取消。</li>
@@ -1132,11 +1128,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Shell</a>
+                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Shell</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1145,6 +1145,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VIM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1160,14 +1164,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DDR</a>
               </li>
              
@@ -1176,7 +1172,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
+                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1212,7 +1208,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DCU</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">uMCTL2</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1220,19 +1224,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VCS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">uMCTL2</a>
+                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
               </li>
              
               <li class="article-tag-list-item">
