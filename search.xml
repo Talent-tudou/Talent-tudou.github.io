@@ -558,9 +558,9 @@
       
         <tags>
             
-            <tag> UVM </tag>
-            
             <tag> IC </tag>
+            
+            <tag> UVM </tag>
             
             <tag> DV </tag>
             
@@ -587,9 +587,9 @@
       
         <tags>
             
-            <tag> UVM </tag>
-            
             <tag> IC </tag>
+            
+            <tag> UVM </tag>
             
             <tag> DV </tag>
             
@@ -1206,9 +1206,9 @@
       
         <tags>
             
-            <tag> Programming </tag>
-            
             <tag> C </tag>
+            
+            <tag> Programming </tag>
             
         </tags>
       
@@ -1753,9 +1753,9 @@
       
         <tags>
             
-            <tag> Programming </tag>
-            
             <tag> C </tag>
+            
+            <tag> Programming </tag>
             
         </tags>
       
@@ -1854,7 +1854,7 @@
       <link href="/2024/10/19/DV/svt-axi-vip/"/>
       <url>/2024/10/19/DV/svt-axi-vip/</url>
       
-        <content type="html"><![CDATA[<p><a><span id="more"></span></a></p>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>Synopsys AXI VIP的一些使用心得<a><span id="more"></span></a></p></blockquote><ul><li><p>配置一些axi信号的默认值</p><ul><li>read_addr_chan_idle_val</li><li>read_data_chan_idle_val</li><li>write_addr_chan_idle_val</li><li>write_data_chan_idle_val</li><li>write_resp_chan_idle_val</li></ul></li><li><p>配置id的宽度</p><ul><li>id_width</li></ul></li><li><p>配置数据和地址宽度</p><ul><li>addr_width</li><li>data_width</li></ul></li><li><p>bus_inactivity_timeout</p></li><li><p>system_monitor_enable</p></li><li><p>enable_xml_gen</p></li><li><p>当配置成axi4的时候，数据和地址的id我感觉是分开的，需要下面的参数</p><ul><li>wid_for_non_axi3_enable</li></ul></li><li><p>使能其他的信号</p><ul><li><p>arqos_enable</p></li><li><p>awqos_enable</p></li></ul></li></ul>]]></content>
       
       
       <categories>
@@ -1866,11 +1866,11 @@
       
         <tags>
             
+            <tag> IC </tag>
+            
             <tag> Programming </tag>
             
             <tag> UVM </tag>
-            
-            <tag> IC </tag>
             
             <tag> VIP </tag>
             
@@ -1926,11 +1926,11 @@
       
         <tags>
             
+            <tag> IC </tag>
+            
             <tag> Programming </tag>
             
             <tag> UVM </tag>
-            
-            <tag> IC </tag>
             
             <tag> VIP </tag>
             
@@ -2073,9 +2073,9 @@
       
         <tags>
             
-            <tag> SystemVerilog </tag>
-            
             <tag> IC </tag>
+            
+            <tag> SystemVerilog </tag>
             
         </tags>
       

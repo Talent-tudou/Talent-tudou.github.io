@@ -8,17 +8,19 @@
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
   <title>svt_axi_vip | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="Synopsys AXI VIP的一些使用心得">
+<meta property="og:type" content="article">
 <meta property="og:title" content="svt_axi_vip">
 <meta property="og:url" content="https://talent-tudou.github.io/2024/10/19/DV/svt-axi-vip/index.html">
 <meta property="og:site_name" content="ZLIN">
+<meta property="og:description" content="Synopsys AXI VIP的一些使用心得">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-10-19T10:53:12.000Z">
-<meta property="article:modified_time" content="2024-11-16T07:24:24.309Z">
+<meta property="article:modified_time" content="2024-12-01T03:52:27.402Z">
 <meta property="article:author" content="ICXNM-ZLin">
+<meta property="article:tag" content="IC">
 <meta property="article:tag" content="Programming">
 <meta property="article:tag" content="UVM">
-<meta property="article:tag" content="IC">
 <meta property="article:tag" content="VIP">
 <meta name="twitter:card" content="summary">
   
@@ -244,13 +246,99 @@
     
     <div class="article-entry" itemprop="articleBody">
       <!-- 
-        <p><a><span id="more"></span></a></p>
+        <blockquote>
+<p>Synopsys AXI VIP的一些使用心得<a><span id="more"></span></a></p>
+</blockquote>
+<ul>
+<li><p>配置一些axi信号的默认值</p>
+<ul>
+<li>read_addr_chan_idle_val</li>
+<li>read_data_chan_idle_val</li>
+<li>write_addr_chan_idle_val</li>
+<li>write_data_chan_idle_val</li>
+<li>write_resp_chan_idle_val</li>
+</ul>
+</li>
+<li><p>配置id的宽度</p>
+<ul>
+<li>id_width</li>
+</ul>
+</li>
+<li><p>配置数据和地址宽度</p>
+<ul>
+<li>addr_width</li>
+<li>data_width</li>
+</ul>
+</li>
+<li><p>bus_inactivity_timeout</p>
+</li>
+<li><p>system_monitor_enable</p>
+</li>
+<li><p>enable_xml_gen</p>
+</li>
+<li><p>当配置成axi4的时候，数据和地址的id我感觉是分开的，需要下面的参数</p>
+<ul>
+<li>wid_for_non_axi3_enable</li>
+</ul>
+</li>
+<li><p>使能其他的信号</p>
+<ul>
+<li><p>arqos_enable</p>
+</li>
+<li><p>awqos_enable</p>
+</li>
+</ul>
+</li>
+</ul>
 
        -->
       
         
 
-        <p><a><span id="more"></span></a></p>
+        <blockquote>
+<p>Synopsys AXI VIP的一些使用心得<a><span id="more"></span></a></p>
+</blockquote>
+<ul>
+<li><p>配置一些axi信号的默认值</p>
+<ul>
+<li>read_addr_chan_idle_val</li>
+<li>read_data_chan_idle_val</li>
+<li>write_addr_chan_idle_val</li>
+<li>write_data_chan_idle_val</li>
+<li>write_resp_chan_idle_val</li>
+</ul>
+</li>
+<li><p>配置id的宽度</p>
+<ul>
+<li>id_width</li>
+</ul>
+</li>
+<li><p>配置数据和地址宽度</p>
+<ul>
+<li>addr_width</li>
+<li>data_width</li>
+</ul>
+</li>
+<li><p>bus_inactivity_timeout</p>
+</li>
+<li><p>system_monitor_enable</p>
+</li>
+<li><p>enable_xml_gen</p>
+</li>
+<li><p>当配置成axi4的时候，数据和地址的id我感觉是分开的，需要下面的参数</p>
+<ul>
+<li>wid_for_non_axi3_enable</li>
+</ul>
+</li>
+<li><p>使能其他的信号</p>
+<ul>
+<li><p>arqos_enable</p>
+</li>
+<li><p>awqos_enable</p>
+</li>
+</ul>
+</li>
+</ul>
 
       
 
@@ -315,15 +403,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">UVM</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -578,15 +666,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags" style="display: block;">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -606,15 +694,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">IC</a>
+                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
+                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
+                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -626,7 +714,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
+                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -662,6 +750,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
               </li>
              
@@ -670,15 +762,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">uMCTL2</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VCS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">uMCTL2</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -686,11 +774,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
             
             <div class="clearfix"></div>
