@@ -4,6 +4,124 @@
   
     
     <entry>
+      <title>svt axi vip的使用心得-1</title>
+      <link href="/2024/12/12/svt-axi-vip%E7%9A%84%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97-1/"/>
+      <url>/2024/12/12/svt-axi-vip%E7%9A%84%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97-1/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Synopsys AXI VIP的一些使用心得<a><span id="more"></span></a></p></blockquote><ul><li>关于配置bvaild delay，以及其他的delay配置，可以查阅transaction中的相关信息</li></ul><p><img src="https://s2.loli.net/2024/12/12/MbXdGQhmLIFcfEv.png" alt="image-20241212231536129"></p><ul><li>如果使用了协议分析，那么建议就开到both，因为我测试下来，如果开了，但是选择了xml的，那么会默认dump novas.fsdb出来，目前还没有分析原因，建议直接文档中的推荐配置（直接用both）</li></ul><p><img src="https://s2.loli.net/2024/12/12/KS9iR8C5v6a7mYT.png" alt="image-20241212231325757"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> UVM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Programming </tag>
+            
+            <tag> VIP </tag>
+            
+            <tag> UVM </tag>
+            
+            <tag> IC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Verdi常用参数</title>
+      <link href="/2024/12/11/IC/Verdi%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0/"/>
+      <url>/2024/12/11/IC/Verdi%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>以下是一些常用的Verdi参数，帮助更高效地进行仿真调试。<a><span id="more"></span></a></p></blockquote><h1 id="General-nTrace-Options"><a href="#General-nTrace-Options" class="headerlink" title="General&#x2F;nTrace Options"></a><a>General&#x2F;nTrace Options</a></h1><table><thead><tr><th>选项</th><th>描述</th></tr></thead><tbody><tr><td>-2001&#x2F;+v2k</td><td>支持Verilog IEEE 1364-2001命名风格生成块(覆盖语言选项)。不应用IEEE 1364-2005 sec12.4.3 unnamed genblk naming。这个选项只和-sv或-2005使用，它只应用于VCS用户。</td></tr><tr><td>-2001genblk</td><td>使用Verilog IEEE 1364-2001标准</td></tr><tr><td>-2005</td><td>支持Verilog IEEE 1364-2005标准。默认应用IEEE 1364-2005 sec12.4.3 unnamed genblk naming</td></tr><tr><td>-2009</td><td>支持SystemVerilog IEEE 1800-2009标准</td></tr><tr><td>-2012</td><td>支持SystemVerilog IEEE 1800-2012标准</td></tr><tr><td>-h&#x2F;-hep</td><td>打印帮助信息</td></tr><tr><td>-nogui</td><td>以批量模式运行。要求有效的DISPLAY环境变量。如果没有更多的tcl命令以这种模式执行，Verdi平台自动在三十秒内退出。</td></tr><tr><td>-nologo</td><td>抑制启动时的欢迎界面，默认到硬件调试界面。欢迎界面通过Help-&gt;Welcome命令显示。</td></tr><tr><td>-ssc licenseFile</td><td>指定license文件的名字</td></tr><tr><td>-ssf fastFile(s)&#x2F;dumpFile(s)&#x2F;fastFile list(s)</td><td>加载FSDB(*.fsdb)，virtual FSDB(*.vf), gzipped FSDB(*.fsdb.gz), bzip2 FSDB(*.fsdb.bz2), waveform dump(*.vcd,*.vcd.gz) files 或FSDB file lists(*.flst)。对单一的fsdb文件，一次可以指定1-16个文件。例子：verdi -f run.f -ssf file1.fsdb file2.fsdb…file16.fsdb或verdi -nWave -ssf demo1.fsdb demo2.fsdb demo3.fsdb。对于一个文件清单，必须在这个文件中列出每一个具有绝对路径或相对路径的FSDB或virtual文件在文件中单独的一行。文件数量没有限制。#和；被用来做注释，但是必须将他们放在单独的一行。当使用-ssf指定一个FSDB文件，并且仿真器的类型使在FSDB中指定，仿真器类型是自动设定。</td></tr><tr><td>-ssr sessionFile</td><td>加载session文件(*.ses)</td></tr><tr><td>-ssv</td><td>不推荐自动标识在库文件(-v)的库模块作为库cell。注意：在import期间，在Verdi命令行的-ssv规范重写了在每个用vericom预编译的设计库中-v的规范。(取消-v指定的library为lib cell)</td></tr><tr><td>-ssy</td><td>不推荐自动标识在库目录(-y)的库模块作为库cell。注意：在import期间，在Verdi命令行的-ssy规范重写了在每个用vericom预编译的设计库中-y的规范。(取消-y指定的library为lib cell)</td></tr><tr><td>-ssz</td><td>忽略’celldefine编译指令。注意：在import期间，在Verdi命令行的-ssz规范忽略在每个用vericom预编译的设计库中’celldefine编译指令。(忽略&#96;celldefine的compiler指令)</td></tr><tr><td>-sswr</td><td>加载波形恢复文件(*.rc)</td></tr><tr><td>-sv</td><td>支持SystemVerilog IEEE 1800-2005标准。默认应用IEEE 1800-2005 sec12.4.3 unnamed genblk naming。</td></tr><tr><td>-top topModule| “top1 top2…topN”</td><td>指定导入设计的top模块。注意：Verilog模块是大小写敏感。top模块的名字可以使用Cadence NC仿真器命令格式指定来详述指定的设计单元，例如ncelab[library.]cell[:view]</td></tr><tr><td>-v95</td><td>支持Verilog IEEE 1364-1995标准</td></tr><tr><td>-vc</td><td>支持DirectC语法</td></tr><tr><td>-vcs simulator</td><td>指定VCS仿真可执行，启动交互模式</td></tr></tbody></table><h1 id="Verilog-SystemVerilog语法和语义分析"><a href="#Verilog-SystemVerilog语法和语义分析" class="headerlink" title="Verilog&#x2F;SystemVerilog语法和语义分析"></a><a>Verilog&#x2F;SystemVerilog语法和语义分析</a></h1><ol><li>如果指定了以下一个或多个选项，整个设计的语法和语义分析用最新的语言类型解决同时具有-sv，-2001，+v2k，-95的这些选项。<br>例如：vericom -v95 +v2k -sv a.v<br>a.v文件用SystemVerilog语言进行分析。</li><li>如果没有一个选项在第一步中指定，则整个设计的语法语义分析用Verilog 2001。<br>Verilog&#x2F;SystemVerilog语言关键词设置检查</li><li>如果+verilog1995ext，+verilog2001ext, +systemverilogext选项任意指定一个，通过+{language}ext检查{language}中的关键词集合。<br>2.如果以上选项都没有指定，但是在命令行中指定了-sv，-2005，-2001，+v2k，-v95任意一个，则用给定的语言选项集检查整个设计。<br>3.如果1和2的选项都没有指定，则用Verilog-2001集检查整个设计。</li></ol><h1 id="Environment-Options-Simulator-Options"><a href="#Environment-Options-Simulator-Options" class="headerlink" title="Environment Options&amp;Simulator Options"></a><a>Environment Options&amp;Simulator Options</a></h1><p>Verdi平台接受所有的仿真器选项。关于编译设计的选项会被Verdi使用，其他的选项被忽略。查看完整列表和详细信息，参考仿真器文件。以下仿真器命令行选项也被Verdi平台共同使用。</p><table><thead><tr><th>选项</th><th>描述</th></tr></thead><tbody><tr><td>+define+&lt;macro&gt;</td><td>+define选项被用来指定宏。如果宏也被定义在源代码中，它被这个选项覆盖。</td></tr><tr><td>+incdir+&lt;directoryname&gt;</td><td>指定通过include语句声明的文件的搜索路径</td></tr><tr><td>+libext+&lt;extensionname&gt;</td><td>对Verilog库文件指定文件扩展名，也可以参看-y选项</td></tr><tr><td>-f &lt;filename&gt;.f</td><td>加载一个包含设计源文件和仿真器选项的ASCII文件</td></tr><tr><td>-ntb_opts uvm[-&lt;version&gt;]</td><td>对编译加载UVM库。+define+VCS选项被自动添加在Verdi命令行上。</td></tr><tr><td>-uvm[-&lt;version&gt;]</td><td>加载默认的Verdi UVM库。如果-uvm和-uvmhome同时指定，-uvm选项将被忽略。</td></tr><tr><td>-uvmhome &lt;path&gt;</td><td>指定UVM安装目录。+define+INCA选项被自动添加在Verdi命令行。在以下例子中，例子1等同于例子2。例1：verdi -sv -uvmhome $MyUVM test.sv。例2：verdi -sv +define_INCA +$MyUVM&#x2F;src $MyUVM&#x2F;src&#x2F;uvm.sv test.sv</td></tr><tr><td>-v &lt;filename&gt;</td><td>在指定文件中模块被当做库cell。如果制定了-ssv选项，这个选项被覆盖。</td></tr><tr><td>-y &lt;directoryname&gt;</td><td>在指定目录中的模块被当做库cell。如果指定了-ssy选项，这个选项被覆盖。在这个目录中，库文件的名字假定和模块的名字一样。+libext选项被用来检查库文件扩展名，从而确保库文件匹配。</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> IC </category>
+          
+          <category> Verdi </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DV </tag>
+            
+            <tag> Verdi </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>DDR心得-hif接口使能</title>
+      <link href="/2024/12/09/DDR/DDR%E5%BF%83%E5%BE%97-hif%E6%8E%A5%E5%8F%A3%E4%BD%BF%E8%83%BD/"/>
+      <url>/2024/12/09/DDR/DDR%E5%BF%83%E5%BE%97-hif%E6%8E%A5%E5%8F%A3%E4%BD%BF%E8%83%BD/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>在DDR验证中发现现象。<a><span id="more"></span></a></p></blockquote><ul><li>今天在DDR的验证中发现了，phy的初始化，颗粒的初始化以及data training都没有问题，但是axi的读写激励一来就没有反应，写响应一直没有应答。</li><li>先是检查了dfi接口那边，发现dfi接口都没有动静</li><li>所以定位问题到了控制器uMCTL2那边。</li><li>经过排查发现了是DBG1（0x304）配置位了0x2，这种配置会导致HIF接口不使能，命令就不会往下面传递了，需要在读写命令之前打开HIF接口（配置位0x0即可）。</li></ul><p><img src="https://s2.loli.net/2024/12/09/qwygIruRcWjnTld.png" alt="image-20241209185704128"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> DDR </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DDR </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>283题-移动零</title>
+      <link href="/2024/12/07/LeetCode/283%E9%A2%98-%E7%A7%BB%E5%8A%A8%E9%9B%B6/"/>
+      <url>/2024/12/07/LeetCode/283%E9%A2%98-%E7%A7%BB%E5%8A%A8%E9%9B%B6/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>LeetCode第283题 <a><span id="more"></span></a></p></blockquote><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">moveZeroes</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> length = nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> rigth=<span class="number">0</span>, left=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(rigth &lt; length)&#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[rigth] != <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="built_in">swap</span>(nums[rigth], nums[left]);</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            rigth++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> algorithm </category>
+          
+          <category> C++ </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> algorithm </tag>
+            
+            <tag> C++ </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>AHB-DMAC</title>
       <link href="/2024/11/29/DWC/AHB-DMAC/"/>
       <url>/2024/11/29/DWC/AHB-DMAC/</url>
@@ -558,9 +676,9 @@
       
         <tags>
             
-            <tag> IC </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> IC </tag>
             
             <tag> DV </tag>
             
@@ -587,9 +705,9 @@
       
         <tags>
             
-            <tag> IC </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> IC </tag>
             
             <tag> DV </tag>
             
@@ -1868,11 +1986,11 @@
             
             <tag> Programming </tag>
             
-            <tag> IC </tag>
-            
             <tag> VIP </tag>
             
             <tag> UVM </tag>
+            
+            <tag> IC </tag>
             
         </tags>
       
@@ -1928,11 +2046,11 @@
             
             <tag> Programming </tag>
             
-            <tag> IC </tag>
-            
             <tag> VIP </tag>
             
             <tag> UVM </tag>
+            
+            <tag> IC </tag>
             
         </tags>
       
