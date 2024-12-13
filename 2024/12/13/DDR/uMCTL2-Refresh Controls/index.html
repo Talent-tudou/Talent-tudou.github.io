@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>uMTL2-Data Bus Inversion(DBI) | ZLIN</title>
+  <title>uMCTL2-Refresh Controls | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="uMCTL2手册2.24，数据总线反转功能">
+  <meta name="description" content="uMCTL2手册2.17，DDR控制器中的刷新（Refresh）控制机制">
 <meta property="og:type" content="article">
-<meta property="og:title" content="uMTL2-Data Bus Inversion(DBI)">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/11/27/DDR/uMTL2-Data%20Bus%20Inversion(DBI)/index.html">
+<meta property="og:title" content="uMCTL2-Refresh Controls">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/12/13/DDR/uMCTL2-Refresh%20Controls/index.html">
 <meta property="og:site_name" content="ZLIN">
-<meta property="og:description" content="uMCTL2手册2.24，数据总线反转功能">
+<meta property="og:description" content="uMCTL2手册2.17，DDR控制器中的刷新（Refresh）控制机制">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-11-27T14:55:12.000Z">
-<meta property="article:modified_time" content="2024-11-27T15:02:27.897Z">
+<meta property="article:published_time" content="2024-12-13T13:55:42.000Z">
+<meta property="article:modified_time" content="2024-12-13T14:03:12.810Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="DDR">
@@ -111,7 +111,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数76
+			总文章数80
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -219,14 +219,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-DDR/uMTL2-Data Bus Inversion(DBI)" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-DDR/uMCTL2-Refresh Controls" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      uMTL2-Data Bus Inversion(DBI)
+      uMCTL2-Refresh Controls
     </h1>
   
 
@@ -237,8 +237,8 @@
 		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
 	</span>
 
-<a href="/2024/11/27/DDR/uMTL2-Data%20Bus%20Inversion(DBI)/" class="archive-article-date">
-  	<time datetime="2024-11-27T14:55:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-11-27</time>
+<a href="/2024/12/13/DDR/uMCTL2-Refresh%20Controls/" class="archive-article-date">
+  	<time datetime="2024-12-13T13:55:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-13</time>
 </a>
         
       </header>
@@ -246,151 +246,133 @@
     <div class="article-entry" itemprop="articleBody">
       <!-- 
         <blockquote>
-<p>uMCTL2手册2.24，数据总线反转功能<a><span id="more"></span></a></p>
+<p>uMCTL2手册2.17，DDR控制器中的刷新（Refresh）控制机制<a><span id="more"></span></a></p>
 </blockquote>
-<h2 id="1-DBI-功能介绍"><a href="#1-DBI-功能介绍" class="headerlink" title="1. DBI 功能介绍"></a><strong>1. DBI 功能介绍</strong></h2><ul>
-<li>在 DDR4 中，逻辑 0 比逻辑 1 消耗更多的功耗，而在 LPDDR4 中，逻辑 1 比逻辑 0 消耗更多的功耗。</li>
-<li>DBI 通过对每个数据字节进行反转来减少功耗。如果某个字节中 0 的数量（对于 DDR4）或 1 的数量（对于 LPDDR4）超过 4，那么该字节的数据将被反转。</li>
-<li>使用一个 DBI 信号（每个数据字节 1 位）来指示是否进行了数据反转。</li>
-</ul>
-<h2 id="2-写操作和读操作中的DBI"><a href="#2-写操作和读操作中的DBI" class="headerlink" title="2. 写操作和读操作中的DBI"></a><strong>2. 写操作和读操作中的DBI</strong></h2><ul>
-<li>对于写操作，DBI 信号与 DFI 接口的 <code>dfi_wrdata_mask</code> 信号共享。</li>
-<li>对于读操作，有一个专用的信号 <code>dfi_rddata_dbi</code> 来指示数据是否需要反转。</li>
-</ul>
-<h3 id="支持的设备类型"><a href="#支持的设备类型" class="headerlink" title="支持的设备类型"></a><strong>支持的设备类型</strong></h3><ul>
-<li>DBI 功能只支持 x8 和 x16 的设备，不支持 x4 设备。</li>
-</ul>
-<h2 id="3-DDR4-与-LPDDR4-的差异"><a href="#3-DDR4-与-LPDDR4-的差异" class="headerlink" title="3. DDR4 与 LPDDR4 的差异"></a><strong>3. DDR4 与 LPDDR4 的差异</strong></h2><ul>
-<li>在 DDR4 中，写操作的 DBI 和数据掩码（Data Mask）不能同时启用。而在 LPDDR4 中，写操作的 DBI 和数据掩码是可以同时启用的。</li>
-<li>在 DBI 模式下，DDR4 不允许带掩码的写操作，但 LPDDR4 允许带掩码的写操作。在这种情况下，uMCTL2（内存控制器）通过将 <code>dfi_wrdata</code> 字节设置为 0xFF，并将 <code>dfi_wrdata_mask</code> 设置为 0 来指示掩码字节。</li>
-</ul>
-<h2 id="4-DBI控制的实现"><a href="#4-DBI控制的实现" class="headerlink" title="4. DBI控制的实现"></a>4. <strong>DBI控制的实现</strong></h2><ul>
-<li>DBI 的实现可以在控制器（uMCTL2）或 PHY（物理层）中进行。在 uMCTL2 中，DBI 的控制由 <code>DFIMISC.phy_dbi_mode</code>位控制。<ul>
-<li>如果 <code>phy_dbi_mode</code> 设置为 1，则 DBI 的生成和数据反转在 PHY 中完成，DFI 接口上的读写数据与 DBI 禁用时一样，<code>dfi_rddata_dbi</code> 信号将被忽略。</li>
-<li>如果 <code>phy_dbi_mode</code> 设置为 0，则 DBI 生成和数据反转在 uMCTL2 中完成。在写操作时，DBI 值会被放在 <code>dfi_wrdata_mask</code> 信号上；在读操作时，<code>dfi_rddata_dbi</code> 信号决定是否需要反转读数据的极性。</li>
-</ul>
-</li>
-</ul>
-<h2 id="5-DBI-控制寄存器"><a href="#5-DBI-控制寄存器" class="headerlink" title="5. DBI 控制寄存器"></a><strong>5. DBI 控制寄存器</strong></h2><ul>
-<li><code>DBICTL</code> 寄存器包含三个字段：<ul>
-<li><code>rd_dbi_en</code>：启用读 DBI。</li>
-<li><code>wr_dbi_en</code>：启用写 DBI。</li>
-<li><code>dm_en</code>：启用数据掩码。</li>
-</ul>
-</li>
-<li>软件必须确保这些值与写入模式寄存器的值一致。</li>
-</ul>
-<h2 id="6-启用读-DBI时，延迟增加"><a href="#6-启用读-DBI时，延迟增加" class="headerlink" title="6. 启用读 DBI时，延迟增加"></a><strong>6. 启用读 DBI时，延迟增加</strong></h2><ul>
-<li>如果启用读 DBI（<code>rd_dbi_en</code>），JEDEC规范要求 DDR4 的 CAS 延迟（CL）或 LPDDR4 的读取延迟（RL）必须增加。因此，在启用 DBI 时，必须根据增加的延迟调整相关的寄存器。</li>
-</ul>
-<h3 id="需要调整的寄存器"><a href="#需要调整的寄存器" class="headerlink" title="需要调整的寄存器"></a><strong>需要调整的寄存器</strong></h3><p>启用读 DBI时，以下寄存器需要根据 CL（或 RL）调整：</p>
+<h2 id="2-17-1-刷新控制概述"><a href="#2-17-1-刷新控制概述" class="headerlink" title="2.17.1 刷新控制概述"></a>2.17.1 刷新控制概述</h2><h3 id="1-刷新控制的两种方式"><a href="#1-刷新控制的两种方式" class="headerlink" title="1. 刷新控制的两种方式"></a>1. <strong>刷新控制的两种方式</strong></h3><p>刷新操作可以通过以下两种方式进行：</p>
 <ul>
-<li><code>DFITMG0.dfi_t_rddata_en</code></li>
-<li><code>DRAMTMG2.read_latency</code></li>
-<li><code>DRAMTMG2.rd2wr</code></li>
-<li><code>DFITMG2.dfi_tphy_rdcslat</code></li>
-<li><code>INIT4.emr2</code>（仅限 LPDDR4）</li>
-<li><code>INIT6.mr5</code>（仅限 DDR4）</li>
+<li><strong>自动刷新（Auto-Refresh）</strong>：这是一种由uMCTL2内部自动执行的刷新方式。</li>
+<li><strong>直接软件请求（Direct Software Request）</strong>：这是一种由软件直接请求的刷新方式。</li>
 </ul>
-<h3 id="添加延迟（Additive-Latency，AL）与-DDR4"><a href="#添加延迟（Additive-Latency，AL）与-DDR4" class="headerlink" title="添加延迟（Additive Latency，AL）与 DDR4"></a><strong>添加延迟（Additive Latency，AL）与 DDR4</strong></h3><ul>
-<li>如果选择了非零的添加延迟（AL）用于 DDR4，则也与 CL 相关。因此，以下寄存器也可能需要更新。在这种情况下，需要先进入自刷新模式，然后更新这些寄存器，因为 <code>DFITMG0.dfi_tphy_wrlat</code> 是一个“组 2”的准动态寄存器。</li>
-<li>需要更新的寄存器包括：<ul>
-<li><code>DFITMG0.dfi_tphy_wrlat</code></li>
-<li><code>DRAMTMG0.wr2pre</code></li>
-<li><code>DRAMTMG1.rd2pre</code></li>
-<li><code>DRAMTMG2.write_latency</code></li>
-<li><code>DRAMTMG4.t_rcd</code></li>
+<p>在uMCTL2中，选择刷新方式的控制是通过寄存器 <code>RFSHCTL3.dis_auto_refresh</code> 来配置的。具体行为如下：</p>
+<ul>
+<li>当 <code>RFSHCTL3.dis_auto_refresh</code> 设置为 <code>1</code> 时，控制器使用 <strong>直接软件请求刷新</strong>，也就是说，刷新操作需要由软件手动发起。</li>
+<li>当 <code>RFSHCTL3.dis_auto_refresh</code> 设置为 <code>0</code> 时，控制器将使用 <strong>自动刷新</strong> 功能，即uMCTL2会根据内部的机制自动发起刷新操作。</li>
+</ul>
+<h3 id="2-刷新机制与电源管理"><a href="#2-刷新机制与电源管理" class="headerlink" title="2. 刷新机制与电源管理"></a>2. <strong>刷新机制与电源管理</strong></h3><p>尽管在某些情况下不需要保留DRAM内容，但有些设备仍然可能要求在特定的电源状态下执行刷新操作。这包括当：</p>
+<ul>
+<li><strong>VDDQ</strong>, <strong>VDD</strong>, 和 <strong>VPP</strong> 电源被激活时（即电源仍然存在），</li>
+<li><strong>DRAM处于空闲或断电状态（IDLE 或 Powerdown）</strong> 时。</li>
+</ul>
+<p>换句话说，即使在不需要保留数据的情况下，某些设备仍需要周期性地执行刷新操作，以确保DRAM的内容不会因为长时间未访问而丢失。具体要求可以查看DRAM的相关文档。</p>
+<h3 id="3-刷新控制的目的"><a href="#3-刷新控制的目的" class="headerlink" title="3. 刷新控制的目的"></a>3. <strong>刷新控制的目的</strong></h3><p>刷新控制有几个主要的目的：</p>
+<ul>
+<li><strong>减少刷新周期对带宽的影响</strong>：刷新周期会占用一定的内存带宽，因此需要通过优化刷新控制来减少这一影响，避免不必要的带宽浪费。</li>
+<li><strong>提高在空闲期执行刷新的可能性</strong>：理想情况下，当系统处于空闲状态时，刷新操作可以在这段时间内完成，从而不会干扰正常的数据访问。</li>
+<li><strong>精细控制刷新与延迟的权衡</strong>：刷新操作需要消耗一定的时间和带宽，因此有时候必须在“收集刷新”的优势（尽量将刷新操作集中执行以减少带宽浪费）和“最坏情况下的延迟”之间进行权衡。通过细粒度的控制，能够根据系统的需求做出合适的选择。</li>
+<li><strong>允许在进行单个rank的刷新时，其他rank可以继续访问</strong>：对于多rank配置的uMCTL2，刷新操作通常会对某一个rank进行，而其他rank可以继续进行正常的数据读写。这有助于提高系统的并行性和效率。</li>
+</ul>
+<h2 id="2-17-2-Refresh-Using-Direct-Software-Request-of-Refresh-Command"><a href="#2-17-2-Refresh-Using-Direct-Software-Request-of-Refresh-Command" class="headerlink" title="2.17.2 Refresh Using Direct Software Request of Refresh Command"></a>2.17.2 Refresh Using Direct Software Request of Refresh Command</h2><h3 id="关于DDR4模式和细粒度刷新（FGR）的注意事项"><a href="#关于DDR4模式和细粒度刷新（FGR）的注意事项" class="headerlink" title="关于DDR4模式和细粒度刷新（FGR）的注意事项"></a><strong>关于DDR4模式和细粒度刷新（FGR）的注意事项</strong></h3><p>在DDR4模式下，如果启用了细粒度刷新（Fine Granularity Refresh, FGR），那么当采用直接软件请求的方式进行刷新时，需要确保刷新命令的总数符合特定的倍数要求：</p>
+<ul>
+<li>在<strong>固定2x模式</strong>下，总刷新命令数必须是2的倍数。</li>
+<li>在<strong>固定4x模式</strong>下，总刷新命令数必须是4的倍数。</li>
+</ul>
+<p>这种要求是为了确保在进入自刷新模式（Self Refresh）之前，刷新命令的数量能够正确地满足硬件的要求。</p>
+<h3 id="步骤：将uMCTL2设置为直接软件请求刷新模式"><a href="#步骤：将uMCTL2设置为直接软件请求刷新模式" class="headerlink" title="步骤：将uMCTL2设置为直接软件请求刷新模式"></a><strong>步骤：将uMCTL2设置为直接软件请求刷新模式</strong></h3><p>为了将uMCTL2设置为通过软件直接请求刷新命令的模式，需按以下步骤操作：</p>
+<ul>
+<li><strong>步骤1：设置RFSHCTL3寄存器的 <code>dis_auto_refresh</code> 位</strong><ul>
+<li>将寄存器 <code>RFSHCTL3.dis_auto_refresh</code> 设置为 1 时，uMCTL2会检查是否有待处理的刷新请求。如果有，它会立即使用内部的“关键刷新（critical refresh）”功能发出这些刷新命令。刷新命令发出后，uMCTL2的所有刷新定时器将被重置为0，只有当自动刷新功能重新启用时，定时器才会被重新激活。</li>
+</ul>
+</li>
+<li><strong>步骤2：系统需要跟踪SDRAM的刷新需求</strong><ul>
+<li>系统（SoC）需要管理和跟踪内存的刷新需求，包括刷新间隔等信息。</li>
+</ul>
+</li>
+<li><strong>步骤3：发出刷新命令</strong><ul>
+<li>通过设置 <code>DBGCMD.rank*_refresh</code> 寄存器位为 1，可以发起刷新命令。每个rank的刷新请求会被存储在uMCTL2的寄存器中，控制器在 <code>DBGSTAT.rank*_refresh_busy</code> 位为低电平时，才能发出刷新命令。uMCTL2会尽早地向SDRAM发出刷新命令。</li>
+<li>如果DIMM的控制器（DIMMCTL.dimm_stagger_cs_en）启用了且 <code>MSTR.ddr4 == 0</code>，并且刷新命令目标是偶数和奇数rank时，uMCTL2会分别向偶数rank和奇数rank发出两条刷新命令。</li>
+</ul>
+</li>
+<li><strong>步骤4：软件驱动的刷新命令</strong><ul>
+<li>每个rank的刷新命令会被加载到一个9个条目的缓冲区中。当uMCTL2认为合法时，它会通过DFI（DRAM接口）发出这些命令。刷新请求之间必须遵守最小刷新间隔 <code>tRFC(min)</code>。如果刷新命令的缓冲区被填满，<code>DBGSTAT.rank*_refresh_busy</code> 会被置为高电平，这样软件就无法再发起新的刷新命令，直到缓冲区有空闲空间。</li>
 </ul>
 </li>
 </ul>
-<h3 id="启用或禁用-DBI-的步骤"><a href="#启用或禁用-DBI-的步骤" class="headerlink" title="启用或禁用 DBI 的步骤"></a><strong>启用或禁用 DBI 的步骤</strong></h3><p>启用或禁用 DBI 时，必须按照以下顺序操作：</p>
-<ol>
-<li><strong>进入准动态寄存器写入模式</strong>：如果 DDR4 选择了非零的 AL，则需要进入自刷新模式。在没有非零 AL 的情况下，参照手册中的 “Group 1” 模式，禁用读写流量。</li>
-<li>设置 <code>DBICTL.rd_dbi_en</code> 和 <code>DBICTL.wr_dbi_en</code>：根据需要启用或禁用读写DBI。</li>
-<li><strong>设置 DRAM 模式寄存器</strong>：使其与先前的设置匹配。</li>
-<li><strong>调整 DDR4 的 CL（在 MR0 中）</strong>：LPDDR4 不需要更改 CL。</li>
-<li><strong>根据 CL（或 RL）和 AL 调整寄存器</strong>：根据需要调整上述相关寄存器。</li>
-<li><strong>退出准动态模式</strong>：退出自刷新模式或重新启用读写流量。</li>
-</ol>
-<h2 id="7-准动态寄存器"><a href="#7-准动态寄存器" class="headerlink" title="7. 准动态寄存器"></a><strong>7. 准动态寄存器</strong></h2><ul>
-<li>准动态寄存器是指那些在某些模式下（如自刷新、深度睡眠模式等）仍然可以写入的寄存器。在进入或退出这些模式时，需要特别注意寄存器的写入顺序。</li>
+<h3 id="关于刷新命令的批量操作"><a href="#关于刷新命令的批量操作" class="headerlink" title="关于刷新命令的批量操作"></a><strong>关于刷新命令的批量操作</strong></h3><ul>
+<li>你可以发出一系列连续的刷新命令，而不需要每次都轮询 <code>DBGSTAT.rank*_refresh_busy</code> 寄存器字段。这种做法可以将刷新命令之间的时间间隔缩短到最小，但存在一定的风险：<ul>
+<li>如果刷新缓冲区在开始批量刷新时已经满了，或者刷新命令的数量超过了9个命令，刷新缓冲区将会饱和，此时 <code>DBGSTAT.rank*_refresh_busy</code> 会被置为高电平，意味着一些命令将无法添加到缓冲区。这样，实际发出的刷新命令数量就可能少于软件请求的数量。</li>
 </ul>
-
+</li>
+</ul>
+<h3 id="LPDDR3-LPDDR4配置的限制"><a href="#LPDDR3-LPDDR4配置的限制" class="headerlink" title="LPDDR3&#x2F;LPDDR4配置的限制"></a><strong>LPDDR3&#x2F;LPDDR4配置的限制</strong></h3><ul>
+<li>对于LPDDR3&#x2F;LPDDR4配置，如果启用了PHY主接口（<code>DFIPHYMSTR.dfi_phymstr_en = 1</code>），则无法使用手动刷新控制（即设置 <code>RFSHCTL3.dis_auto_refresh = 1</code>）。</li>
+</ul>
+<h2 id="后面跟新（2-17-3）"><a href="#后面跟新（2-17-3）" class="headerlink" title="后面跟新（2.17.3）"></a>后面跟新（2.17.3）</h2>
        -->
       
         
 
         <blockquote>
-<p>uMCTL2手册2.24，数据总线反转功能<a><span id="more"></span></a></p>
+<p>uMCTL2手册2.17，DDR控制器中的刷新（Refresh）控制机制<a><span id="more"></span></a></p>
 </blockquote>
-<h2 id="1-DBI-功能介绍"><a href="#1-DBI-功能介绍" class="headerlink" title="1. DBI 功能介绍"></a><strong>1. DBI 功能介绍</strong></h2><ul>
-<li>在 DDR4 中，逻辑 0 比逻辑 1 消耗更多的功耗，而在 LPDDR4 中，逻辑 1 比逻辑 0 消耗更多的功耗。</li>
-<li>DBI 通过对每个数据字节进行反转来减少功耗。如果某个字节中 0 的数量（对于 DDR4）或 1 的数量（对于 LPDDR4）超过 4，那么该字节的数据将被反转。</li>
-<li>使用一个 DBI 信号（每个数据字节 1 位）来指示是否进行了数据反转。</li>
-</ul>
-<h2 id="2-写操作和读操作中的DBI"><a href="#2-写操作和读操作中的DBI" class="headerlink" title="2. 写操作和读操作中的DBI"></a><strong>2. 写操作和读操作中的DBI</strong></h2><ul>
-<li>对于写操作，DBI 信号与 DFI 接口的 <code>dfi_wrdata_mask</code> 信号共享。</li>
-<li>对于读操作，有一个专用的信号 <code>dfi_rddata_dbi</code> 来指示数据是否需要反转。</li>
-</ul>
-<h3 id="支持的设备类型"><a href="#支持的设备类型" class="headerlink" title="支持的设备类型"></a><strong>支持的设备类型</strong></h3><ul>
-<li>DBI 功能只支持 x8 和 x16 的设备，不支持 x4 设备。</li>
-</ul>
-<h2 id="3-DDR4-与-LPDDR4-的差异"><a href="#3-DDR4-与-LPDDR4-的差异" class="headerlink" title="3. DDR4 与 LPDDR4 的差异"></a><strong>3. DDR4 与 LPDDR4 的差异</strong></h2><ul>
-<li>在 DDR4 中，写操作的 DBI 和数据掩码（Data Mask）不能同时启用。而在 LPDDR4 中，写操作的 DBI 和数据掩码是可以同时启用的。</li>
-<li>在 DBI 模式下，DDR4 不允许带掩码的写操作，但 LPDDR4 允许带掩码的写操作。在这种情况下，uMCTL2（内存控制器）通过将 <code>dfi_wrdata</code> 字节设置为 0xFF，并将 <code>dfi_wrdata_mask</code> 设置为 0 来指示掩码字节。</li>
-</ul>
-<h2 id="4-DBI控制的实现"><a href="#4-DBI控制的实现" class="headerlink" title="4. DBI控制的实现"></a>4. <strong>DBI控制的实现</strong></h2><ul>
-<li>DBI 的实现可以在控制器（uMCTL2）或 PHY（物理层）中进行。在 uMCTL2 中，DBI 的控制由 <code>DFIMISC.phy_dbi_mode</code>位控制。<ul>
-<li>如果 <code>phy_dbi_mode</code> 设置为 1，则 DBI 的生成和数据反转在 PHY 中完成，DFI 接口上的读写数据与 DBI 禁用时一样，<code>dfi_rddata_dbi</code> 信号将被忽略。</li>
-<li>如果 <code>phy_dbi_mode</code> 设置为 0，则 DBI 生成和数据反转在 uMCTL2 中完成。在写操作时，DBI 值会被放在 <code>dfi_wrdata_mask</code> 信号上；在读操作时，<code>dfi_rddata_dbi</code> 信号决定是否需要反转读数据的极性。</li>
-</ul>
-</li>
-</ul>
-<h2 id="5-DBI-控制寄存器"><a href="#5-DBI-控制寄存器" class="headerlink" title="5. DBI 控制寄存器"></a><strong>5. DBI 控制寄存器</strong></h2><ul>
-<li><code>DBICTL</code> 寄存器包含三个字段：<ul>
-<li><code>rd_dbi_en</code>：启用读 DBI。</li>
-<li><code>wr_dbi_en</code>：启用写 DBI。</li>
-<li><code>dm_en</code>：启用数据掩码。</li>
-</ul>
-</li>
-<li>软件必须确保这些值与写入模式寄存器的值一致。</li>
-</ul>
-<h2 id="6-启用读-DBI时，延迟增加"><a href="#6-启用读-DBI时，延迟增加" class="headerlink" title="6. 启用读 DBI时，延迟增加"></a><strong>6. 启用读 DBI时，延迟增加</strong></h2><ul>
-<li>如果启用读 DBI（<code>rd_dbi_en</code>），JEDEC规范要求 DDR4 的 CAS 延迟（CL）或 LPDDR4 的读取延迟（RL）必须增加。因此，在启用 DBI 时，必须根据增加的延迟调整相关的寄存器。</li>
-</ul>
-<h3 id="需要调整的寄存器"><a href="#需要调整的寄存器" class="headerlink" title="需要调整的寄存器"></a><strong>需要调整的寄存器</strong></h3><p>启用读 DBI时，以下寄存器需要根据 CL（或 RL）调整：</p>
+<h2 id="2-17-1-刷新控制概述"><a href="#2-17-1-刷新控制概述" class="headerlink" title="2.17.1 刷新控制概述"></a>2.17.1 刷新控制概述</h2><h3 id="1-刷新控制的两种方式"><a href="#1-刷新控制的两种方式" class="headerlink" title="1. 刷新控制的两种方式"></a>1. <strong>刷新控制的两种方式</strong></h3><p>刷新操作可以通过以下两种方式进行：</p>
 <ul>
-<li><code>DFITMG0.dfi_t_rddata_en</code></li>
-<li><code>DRAMTMG2.read_latency</code></li>
-<li><code>DRAMTMG2.rd2wr</code></li>
-<li><code>DFITMG2.dfi_tphy_rdcslat</code></li>
-<li><code>INIT4.emr2</code>（仅限 LPDDR4）</li>
-<li><code>INIT6.mr5</code>（仅限 DDR4）</li>
+<li><strong>自动刷新（Auto-Refresh）</strong>：这是一种由uMCTL2内部自动执行的刷新方式。</li>
+<li><strong>直接软件请求（Direct Software Request）</strong>：这是一种由软件直接请求的刷新方式。</li>
 </ul>
-<h3 id="添加延迟（Additive-Latency，AL）与-DDR4"><a href="#添加延迟（Additive-Latency，AL）与-DDR4" class="headerlink" title="添加延迟（Additive Latency，AL）与 DDR4"></a><strong>添加延迟（Additive Latency，AL）与 DDR4</strong></h3><ul>
-<li>如果选择了非零的添加延迟（AL）用于 DDR4，则也与 CL 相关。因此，以下寄存器也可能需要更新。在这种情况下，需要先进入自刷新模式，然后更新这些寄存器，因为 <code>DFITMG0.dfi_tphy_wrlat</code> 是一个“组 2”的准动态寄存器。</li>
-<li>需要更新的寄存器包括：<ul>
-<li><code>DFITMG0.dfi_tphy_wrlat</code></li>
-<li><code>DRAMTMG0.wr2pre</code></li>
-<li><code>DRAMTMG1.rd2pre</code></li>
-<li><code>DRAMTMG2.write_latency</code></li>
-<li><code>DRAMTMG4.t_rcd</code></li>
+<p>在uMCTL2中，选择刷新方式的控制是通过寄存器 <code>RFSHCTL3.dis_auto_refresh</code> 来配置的。具体行为如下：</p>
+<ul>
+<li>当 <code>RFSHCTL3.dis_auto_refresh</code> 设置为 <code>1</code> 时，控制器使用 <strong>直接软件请求刷新</strong>，也就是说，刷新操作需要由软件手动发起。</li>
+<li>当 <code>RFSHCTL3.dis_auto_refresh</code> 设置为 <code>0</code> 时，控制器将使用 <strong>自动刷新</strong> 功能，即uMCTL2会根据内部的机制自动发起刷新操作。</li>
+</ul>
+<h3 id="2-刷新机制与电源管理"><a href="#2-刷新机制与电源管理" class="headerlink" title="2. 刷新机制与电源管理"></a>2. <strong>刷新机制与电源管理</strong></h3><p>尽管在某些情况下不需要保留DRAM内容，但有些设备仍然可能要求在特定的电源状态下执行刷新操作。这包括当：</p>
+<ul>
+<li><strong>VDDQ</strong>, <strong>VDD</strong>, 和 <strong>VPP</strong> 电源被激活时（即电源仍然存在），</li>
+<li><strong>DRAM处于空闲或断电状态（IDLE 或 Powerdown）</strong> 时。</li>
+</ul>
+<p>换句话说，即使在不需要保留数据的情况下，某些设备仍需要周期性地执行刷新操作，以确保DRAM的内容不会因为长时间未访问而丢失。具体要求可以查看DRAM的相关文档。</p>
+<h3 id="3-刷新控制的目的"><a href="#3-刷新控制的目的" class="headerlink" title="3. 刷新控制的目的"></a>3. <strong>刷新控制的目的</strong></h3><p>刷新控制有几个主要的目的：</p>
+<ul>
+<li><strong>减少刷新周期对带宽的影响</strong>：刷新周期会占用一定的内存带宽，因此需要通过优化刷新控制来减少这一影响，避免不必要的带宽浪费。</li>
+<li><strong>提高在空闲期执行刷新的可能性</strong>：理想情况下，当系统处于空闲状态时，刷新操作可以在这段时间内完成，从而不会干扰正常的数据访问。</li>
+<li><strong>精细控制刷新与延迟的权衡</strong>：刷新操作需要消耗一定的时间和带宽，因此有时候必须在“收集刷新”的优势（尽量将刷新操作集中执行以减少带宽浪费）和“最坏情况下的延迟”之间进行权衡。通过细粒度的控制，能够根据系统的需求做出合适的选择。</li>
+<li><strong>允许在进行单个rank的刷新时，其他rank可以继续访问</strong>：对于多rank配置的uMCTL2，刷新操作通常会对某一个rank进行，而其他rank可以继续进行正常的数据读写。这有助于提高系统的并行性和效率。</li>
+</ul>
+<h2 id="2-17-2-Refresh-Using-Direct-Software-Request-of-Refresh-Command"><a href="#2-17-2-Refresh-Using-Direct-Software-Request-of-Refresh-Command" class="headerlink" title="2.17.2 Refresh Using Direct Software Request of Refresh Command"></a>2.17.2 Refresh Using Direct Software Request of Refresh Command</h2><h3 id="关于DDR4模式和细粒度刷新（FGR）的注意事项"><a href="#关于DDR4模式和细粒度刷新（FGR）的注意事项" class="headerlink" title="关于DDR4模式和细粒度刷新（FGR）的注意事项"></a><strong>关于DDR4模式和细粒度刷新（FGR）的注意事项</strong></h3><p>在DDR4模式下，如果启用了细粒度刷新（Fine Granularity Refresh, FGR），那么当采用直接软件请求的方式进行刷新时，需要确保刷新命令的总数符合特定的倍数要求：</p>
+<ul>
+<li>在<strong>固定2x模式</strong>下，总刷新命令数必须是2的倍数。</li>
+<li>在<strong>固定4x模式</strong>下，总刷新命令数必须是4的倍数。</li>
+</ul>
+<p>这种要求是为了确保在进入自刷新模式（Self Refresh）之前，刷新命令的数量能够正确地满足硬件的要求。</p>
+<h3 id="步骤：将uMCTL2设置为直接软件请求刷新模式"><a href="#步骤：将uMCTL2设置为直接软件请求刷新模式" class="headerlink" title="步骤：将uMCTL2设置为直接软件请求刷新模式"></a><strong>步骤：将uMCTL2设置为直接软件请求刷新模式</strong></h3><p>为了将uMCTL2设置为通过软件直接请求刷新命令的模式，需按以下步骤操作：</p>
+<ul>
+<li><strong>步骤1：设置RFSHCTL3寄存器的 <code>dis_auto_refresh</code> 位</strong><ul>
+<li>将寄存器 <code>RFSHCTL3.dis_auto_refresh</code> 设置为 1 时，uMCTL2会检查是否有待处理的刷新请求。如果有，它会立即使用内部的“关键刷新（critical refresh）”功能发出这些刷新命令。刷新命令发出后，uMCTL2的所有刷新定时器将被重置为0，只有当自动刷新功能重新启用时，定时器才会被重新激活。</li>
+</ul>
+</li>
+<li><strong>步骤2：系统需要跟踪SDRAM的刷新需求</strong><ul>
+<li>系统（SoC）需要管理和跟踪内存的刷新需求，包括刷新间隔等信息。</li>
+</ul>
+</li>
+<li><strong>步骤3：发出刷新命令</strong><ul>
+<li>通过设置 <code>DBGCMD.rank*_refresh</code> 寄存器位为 1，可以发起刷新命令。每个rank的刷新请求会被存储在uMCTL2的寄存器中，控制器在 <code>DBGSTAT.rank*_refresh_busy</code> 位为低电平时，才能发出刷新命令。uMCTL2会尽早地向SDRAM发出刷新命令。</li>
+<li>如果DIMM的控制器（DIMMCTL.dimm_stagger_cs_en）启用了且 <code>MSTR.ddr4 == 0</code>，并且刷新命令目标是偶数和奇数rank时，uMCTL2会分别向偶数rank和奇数rank发出两条刷新命令。</li>
+</ul>
+</li>
+<li><strong>步骤4：软件驱动的刷新命令</strong><ul>
+<li>每个rank的刷新命令会被加载到一个9个条目的缓冲区中。当uMCTL2认为合法时，它会通过DFI（DRAM接口）发出这些命令。刷新请求之间必须遵守最小刷新间隔 <code>tRFC(min)</code>。如果刷新命令的缓冲区被填满，<code>DBGSTAT.rank*_refresh_busy</code> 会被置为高电平，这样软件就无法再发起新的刷新命令，直到缓冲区有空闲空间。</li>
 </ul>
 </li>
 </ul>
-<h3 id="启用或禁用-DBI-的步骤"><a href="#启用或禁用-DBI-的步骤" class="headerlink" title="启用或禁用 DBI 的步骤"></a><strong>启用或禁用 DBI 的步骤</strong></h3><p>启用或禁用 DBI 时，必须按照以下顺序操作：</p>
-<ol>
-<li><strong>进入准动态寄存器写入模式</strong>：如果 DDR4 选择了非零的 AL，则需要进入自刷新模式。在没有非零 AL 的情况下，参照手册中的 “Group 1” 模式，禁用读写流量。</li>
-<li>设置 <code>DBICTL.rd_dbi_en</code> 和 <code>DBICTL.wr_dbi_en</code>：根据需要启用或禁用读写DBI。</li>
-<li><strong>设置 DRAM 模式寄存器</strong>：使其与先前的设置匹配。</li>
-<li><strong>调整 DDR4 的 CL（在 MR0 中）</strong>：LPDDR4 不需要更改 CL。</li>
-<li><strong>根据 CL（或 RL）和 AL 调整寄存器</strong>：根据需要调整上述相关寄存器。</li>
-<li><strong>退出准动态模式</strong>：退出自刷新模式或重新启用读写流量。</li>
-</ol>
-<h2 id="7-准动态寄存器"><a href="#7-准动态寄存器" class="headerlink" title="7. 准动态寄存器"></a><strong>7. 准动态寄存器</strong></h2><ul>
-<li>准动态寄存器是指那些在某些模式下（如自刷新、深度睡眠模式等）仍然可以写入的寄存器。在进入或退出这些模式时，需要特别注意寄存器的写入顺序。</li>
+<h3 id="关于刷新命令的批量操作"><a href="#关于刷新命令的批量操作" class="headerlink" title="关于刷新命令的批量操作"></a><strong>关于刷新命令的批量操作</strong></h3><ul>
+<li>你可以发出一系列连续的刷新命令，而不需要每次都轮询 <code>DBGSTAT.rank*_refresh_busy</code> 寄存器字段。这种做法可以将刷新命令之间的时间间隔缩短到最小，但存在一定的风险：<ul>
+<li>如果刷新缓冲区在开始批量刷新时已经满了，或者刷新命令的数量超过了9个命令，刷新缓冲区将会饱和，此时 <code>DBGSTAT.rank*_refresh_busy</code> 会被置为高电平，意味着一些命令将无法添加到缓冲区。这样，实际发出的刷新命令数量就可能少于软件请求的数量。</li>
 </ul>
-
+</li>
+</ul>
+<h3 id="LPDDR3-LPDDR4配置的限制"><a href="#LPDDR3-LPDDR4配置的限制" class="headerlink" title="LPDDR3&#x2F;LPDDR4配置的限制"></a><strong>LPDDR3&#x2F;LPDDR4配置的限制</strong></h3><ul>
+<li>对于LPDDR3&#x2F;LPDDR4配置，如果启用了PHY主接口（<code>DFIPHYMSTR.dfi_phymstr_en = 1</code>），则无法使用手动刷新控制（即设置 <code>RFSHCTL3.dis_auto_refresh = 1</code>）。</li>
+</ul>
+<h2 id="后面跟新（2-17-3）"><a href="#后面跟新（2-17-3）" class="headerlink" title="后面跟新（2.17.3）"></a>后面跟新（2.17.3）</h2>
       
 
  <!-- 添加版权声明 -->
@@ -403,7 +385,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/11/27/DDR/uMTL2-Data Bus Inversion(DBI)/" title="uMTL2-Data Bus Inversion(DBI)" target="_blank">https://talent-tudou.github.io/2024/11/27/DDR/uMTL2-Data Bus Inversion(DBI)/</a>
+   <a href="https://talent-tudou.github.io/2024/12/13/DDR/uMCTL2-Refresh Controls/" title="uMCTL2-Refresh Controls" target="_blank">https://talent-tudou.github.io/2024/12/13/DDR/uMCTL2-Refresh Controls/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -529,7 +511,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/11/27/DDR/uMTL2-Data%20Bus%20Inversion(DBI)/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/12/13/DDR/uMCTL2-Refresh%20Controls/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -543,18 +525,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/11/29/DWC/AHB-DMAC/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          AHB-DMAC
-        
-      </div>
-    </a>
   
-  
-    <a href="/2024/11/26/DDR/Design%20For%20Test-DDL%20TEST/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Design For Test-DDL TEST</div>
+    <a href="/2024/12/13/DDR/uMCTL2-ECC-Support/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">uMCTL2-ECC Support</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -721,6 +694,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -729,23 +710,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">IC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -781,15 +746,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DDL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BIST</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
+                <a href="javascript:void(0)" class="js-tag color4">DDL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -797,7 +758,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">uMCTL2</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -805,11 +774,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DMA</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">uMCTL2</a>
+                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -825,11 +798,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
+                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
               </li>
              
               <li class="article-tag-list-item">
