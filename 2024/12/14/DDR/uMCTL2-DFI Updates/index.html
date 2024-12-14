@@ -6,28 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>uMCTL2-ECC Support | ZLIN</title>
+  <title>uMCTL2-DFI Updates | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="uMCTL2手册2.39，ECC（错误校验码）支持">
+  <meta name="description" content="uMCTL2手册2.7，DFI更新接口">
 <meta property="og:type" content="article">
-<meta property="og:title" content="uMCTL2-ECC Support">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/12/13/DDR/uMCTL2-ECC-Support/index.html">
+<meta property="og:title" content="uMCTL2-DFI Updates">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/12/14/DDR/uMCTL2-DFI%20Updates/index.html">
 <meta property="og:site_name" content="ZLIN">
-<meta property="og:description" content="uMCTL2手册2.39，ECC（错误校验码）支持">
+<meta property="og:description" content="uMCTL2手册2.7，DFI更新接口">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/12/13/Zp4IaPntsiLNh7F.png">
-<meta property="og:image" content="https://s2.loli.net/2024/12/13/5QkZyUK3VXo6NqP.png">
-<meta property="og:image" content="https://s2.loli.net/2024/12/13/2O6pzvGXmMjJPgE.png">
-<meta property="og:image" content="https://s2.loli.net/2024/12/13/vjwZGIUXidL3OyH.png">
-<meta property="og:image" content="https://s2.loli.net/2024/12/13/a5eNDApYfLKiUs2.png">
-<meta property="article:published_time" content="2024-12-13T13:25:52.000Z">
-<meta property="article:modified_time" content="2024-12-13T13:55:23.181Z">
+<meta property="og:image" content="https://s2.loli.net/2024/12/14/q7QwDbXVOydUGBJ.png">
+<meta property="article:published_time" content="2024-12-14T02:33:11.000Z">
+<meta property="article:modified_time" content="2024-12-14T02:45:02.338Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="DDR">
 <meta property="article:tag" content="uMCTL2">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2024/12/13/Zp4IaPntsiLNh7F.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/14/q7QwDbXVOydUGBJ.png">
   
     <link rel="alternative" href="/atom.xml" title="ZLIN" type="application/atom+xml">
   
@@ -117,7 +113,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数80
+			总文章数82
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -225,14 +221,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-DDR/uMCTL2-ECC-Support" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-DDR/uMCTL2-DFI Updates" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      uMCTL2-ECC Support
+      uMCTL2-DFI Updates
     </h1>
   
 
@@ -243,8 +239,8 @@
 		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
 	</span>
 
-<a href="/2024/12/13/DDR/uMCTL2-ECC-Support/" class="archive-article-date">
-  	<time datetime="2024-12-13T13:25:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-13</time>
+<a href="/2024/12/14/DDR/uMCTL2-DFI%20Updates/" class="archive-article-date">
+  	<time datetime="2024-12-14T02:33:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-14</time>
 </a>
         
       </header>
@@ -252,475 +248,215 @@
     <div class="article-entry" itemprop="articleBody">
       <!-- 
         <blockquote>
-<p>uMCTL2手册2.39，ECC（错误校验码）支持<a><span id="more"></span></a></p>
+<p>uMCTL2手册2.7，DFI更新接口<a><span id="more"></span></a></p>
 </blockquote>
-<h2 id="2-39-1-ECC-支持概述（Overview-of-ECC-Support）"><a href="#2-39-1-ECC-支持概述（Overview-of-ECC-Support）" class="headerlink" title="2.39.1 ECC 支持概述（Overview of ECC Support）"></a><strong>2.39.1 ECC 支持概述（Overview of ECC Support）</strong></h2><h4 id="1-ECC-支持的配置要求"><a href="#1-ECC-支持的配置要求" class="headerlink" title="1. ECC 支持的配置要求"></a>1. <strong>ECC 支持的配置要求</strong></h4><ul>
-<li><strong>MEMC_ECC_SUPPORT</strong> 参数必须设置为 <code>1</code>，才能启用 ECC 功能。</li>
-<li><strong>MEMC_SIDEBAND_ECC</strong> 参数也必须设置为 <code>1</code>。</li>
-<li>如果 <strong>MEMC_SIDEBAND_ECC &#x3D; 1</strong> 和 <strong>MEMC_INLINE_ECC &#x3D; 1</strong>，则此节描述的是 <strong>Sideband ECC 模式</strong>，该模式由 <code>ECCCFG0.ecc_type</code> 配置选择。</li>
-</ul>
-<h4 id="2-ECC-Lane-的定义"><a href="#2-ECC-Lane-的定义" class="headerlink" title="2. ECC Lane 的定义"></a>2. <strong>ECC Lane 的定义</strong></h4><ul>
-<li><strong>ECC Lane</strong> 被定义为一个数据字（word），其宽度等于 SDRAM 宽度，ECC 计算在这些数据字上进行。</li>
-<li><strong>DFI 接口</strong>（DDR接口）每个时钟周期传输两个或四个 ECC lane 数据，具体数量取决于控制器的频率配置 <strong>MEMC_FREQ_RATIO</strong>。</li>
-</ul>
-<h4 id="3-支持的-ECC-类型：SEC-DED（单比特单错误校正-双比特检测错误）"><a href="#3-支持的-ECC-类型：SEC-DED（单比特单错误校正-双比特检测错误）" class="headerlink" title="3. 支持的 ECC 类型：SEC&#x2F;DED（单比特单错误校正 &#x2F; 双比特检测错误）"></a>3. <strong>支持的 ECC 类型：SEC&#x2F;DED（单比特单错误校正 &#x2F; 双比特检测错误）</strong></h4><ul>
-<li><p>控制器支持 <strong>SEC&#x2F;DED ECC</strong>，这是 <strong>Single Bit Single Error Correction &#x2F; Double Error Detection</strong>（单比特单错误校正 &#x2F; 双比特错误检测）。</p>
-</li>
-<li><p>支持的配置包括：</p>
+<h2 id="2-7-1-DFI更新概述"><a href="#2-7-1-DFI更新概述" class="headerlink" title="2.7.1 DFI更新概述"></a>2.7.1 DFI更新概述</h2><p><strong>DFI（内存控制器接口）更新接口</strong>用于传输内部设置的更新，这些更新是为了补偿环境条件的变化，主要是处理<strong>PVT（工艺&#x2F;电压&#x2F;温度）变化</strong>对延迟线等设置的影响。这个接口涉及信号和时序参数，确保在更新过程中不会干扰到<strong>DRAM接口</strong>的信号传输。为了避免更新时对信号产生干扰，DFI支持更新模式，在这些模式下，DFI总线必须处于<strong>空闲状态</strong>，即不进行任何数据传输。</p>
+<h2 id="2-7-2-DFI控制器发起的更新请求"><a href="#2-7-2-DFI控制器发起的更新请求" class="headerlink" title="2.7.2 DFI控制器发起的更新请求"></a>2.7.2 DFI控制器发起的更新请求</h2><p><strong>DFI控制器发起的更新请求（dfi_ctrlupd_req）是由uMCTL2</strong>（内存控制器）在DFI接口上发出的信号，目的是让<strong>PHY（物理层）</strong>更新延迟线的值。延迟线用于调整信号的时序，确保数据在正确的时间被读取或写入。</p>
 <ul>
-<li><strong>SDRAM 数据宽度</strong>：16、32 或 64 位。</li>
-<li><strong>MEMC_DRAM_DATA_WIDTH</strong>：必须设置为 16、32 或 64。</li>
+<li><strong>dfi_ctrlupd_req</strong>：这是一个请求信号，发出后会触发PHY更新延迟线。为了应对环境变化（如温度变化、电压波动等），控制器需要定期发出这个信号，确保延迟线能够适应这些变化。</li>
+<li><strong>phy_dfi_ctrlupd_ack</strong>：这是一个确认信号，表示PHY完成了延迟线更新的操作。只有在收到这个确认信号后，控制器才知道延迟线更新已经完成。</li>
 </ul>
-</li>
-<li><p><strong>支持的内存宽度</strong>：控制器支持 16 位、32 位和 64 位数据宽度的 ECC 校验。如果配置为其他宽度（如 8 位），则不支持 ECC。</p>
-</li>
-</ul>
-<h4 id="4-ECC-支持的内存类型"><a href="#4-ECC-支持的内存类型" class="headerlink" title="4. ECC 支持的内存类型"></a>4. <strong>ECC 支持的内存类型</strong></h4><ul>
-<li><strong>ECC 支持所有 DDR 协议</strong>，但对于 <strong>mDDR、LPDDR3 和 LPDDR4</strong>，其最小设备宽度为 16 位。</li>
-<li>对于 <strong>LPDDR3&#x2F;4</strong>，ECC 不一定在所有 PHY（物理层）上都得到支持，因为 PHY 可能要求总数据宽度为 16 的倍数。</li>
-</ul>
-<h2 id="2-39-2-配置和基本操作（Configuration-and-Basic-Operation）"><a href="#2-39-2-配置和基本操作（Configuration-and-Basic-Operation）" class="headerlink" title="2.39.2 配置和基本操作（Configuration and Basic Operation）"></a><strong>2.39.2 配置和基本操作（Configuration and Basic Operation）</strong></h2><h4 id="1-数据位宽的变化"><a href="#1-数据位宽的变化" class="headerlink" title="1. 数据位宽的变化"></a>1. <strong>数据位宽的变化</strong></h4><ul>
-<li><strong>MEMC_ECC_SUPPORT &#x3D; 1</strong> 和 <strong>MEMC_SIDEBAND_ECC &#x3D; 1</strong> 会扩展 DFI（DDR 接口）数据位宽，以容纳额外的 ECC 字节。</li>
-<li>每个 ECC lane 会增加一个 ECC 字节。<ul>
-<li>在 <strong>1:1 配置模式</strong>（<strong>MEMC_FREQ_RATIO &#x3D; 1</strong>）中，假设 <strong>SDRAM 宽度</strong> 为 64 位（<strong>MEMC_DRAM_DATA_WIDTH &#x3D; 64</strong>），则 DFI 数据宽度从 128 位增加到 144 位。</li>
-<li>在 <strong>1:2 配置模式</strong>（<strong>MEMC_FREQ_RATIO &#x3D; 2</strong>）中，假设 <strong>SDRAM 宽度</strong> 为 64 位，DFI 数据宽度从 256 位增加到 288 位。</li>
+<p><strong>延迟线更新</strong>必须小心处理，不能在<strong>读</strong>或<strong>写</strong>操作期间进行，因为这样可能会破坏<strong>数据眼</strong>（数据有效区域的稳定性）。因此，在进行延迟线更新时，必须确保读写操作不会受到影响。</p>
+<p>如果PHY正在进行更新（即<strong>dfi_phyupd_ack &#x3D; 1</strong>），uMCTL2会延迟发出<strong>dfi_ctrlupd_req</strong>请求，以避免冲突。</p>
+<h3 id="两种DFI更新方法"><a href="#两种DFI更新方法" class="headerlink" title="两种DFI更新方法"></a>两种DFI更新方法</h3><ol>
+<li><strong>自动MC发起的更新请求（Automatic MC-Initiated Update Request）</strong>：这意味着内存控制器自动定期发起更新请求，而不需要外部干预。</li>
+<li><strong>MC发起的更新请求的直接软件请求（Direct Software Request of MC-initiated Update Request）</strong>：在这种方法下，软件（如操作系统或固件）直接发起更新请求，控制更新过程。</li>
+</ol>
+<h3 id="2-7-2-1-自动MC发起的更新请求"><a href="#2-7-2-1-自动MC发起的更新请求" class="headerlink" title="2.7.2.1 自动MC发起的更新请求"></a>2.7.2.1 自动MC发起的更新请求</h3><ul>
+<li><strong>DFIUPD0.dis_auto_ctrlupd &#x3D; 0</strong>：如果这个配置项被设置为0，那么就启用<strong>自动MC发起的更新请求</strong>。这意味着内存控制器（uMCTL2）会在特定时机自动发起更新请求，而不需要外部软件的干预。</li>
+<li><strong>uMCTL2控制dfi_ctrlupd_req信号</strong>：uMCTL2必须小心地控制<code>dfi_ctrlupd_req</code>信号的触发。这个信号的作用是请求PHY（物理层）进行延迟线更新。uMCTL2会在<strong>空闲状态</strong>时发出<code>dfi_ctrlupd_req</code>信号。<strong>空闲状态</strong>被定义为：<ul>
+<li>没有<strong>读取</strong>或<strong>写入</strong>操作正在进行（即在CAMs中没有读取或写入周期）；</li>
+<li>没有<strong>读取响应</strong>在RT（响应追踪器）块中缓存；</li>
+<li>没有<strong>写入数据</strong>在MR（内存读取）块中等待。</li>
 </ul>
 </li>
+<li><strong>强制DFI更新请求</strong>：如果uMCTL2长时间没有进入空闲状态（即没有空闲的时刻发出更新请求），则它会使用<strong>超时机制</strong>。当发生DFI MC发起更新超时时，uMCTL2会暂停读写操作，直到MR和RT块都进入空闲状态，此时才会发出<code>dfi_ctrlupd_req</code>信号。</li>
 </ul>
-<p><strong>解释：</strong></p>
+<h4 id="特定配置下的行为"><a href="#特定配置下的行为" class="headerlink" title="特定配置下的行为"></a>特定配置下的行为</h4><ul>
+<li><p>对于<strong>单排配置</strong>（即只有一个内存rank）且只有读写流量的情况，特别是：</p>
 <ul>
-<li><strong>ECC lane</strong>：在 ECC 校验中，数据被划分为多个“ECC lane”（数据块），每个 ECC lane 宽度与内存数据宽度相同。</li>
-<li><strong>DFI 数据位宽</strong>：在启用 ECC 后，DFI 接口的数据传输宽度会增加，因为需要额外传输每个 ECC lane 的 ECC 校验字节。这个增加的宽度取决于内存配置和频率设置。</li>
-<li><strong>MEMC_FREQ_RATIO</strong>：控制器的频率比，决定了数据传输的速率。频率比为 1:1 或 1:2 会影响 DFI 数据位宽的变化。</li>
+<li><code>DFIUPD1.dfi_t_ctrlupd_interval_max_x1024 = 255</code></li>
+<li><code>DFIUPD0.dis_auto_ctrlupd_srx = 1</code></li>
+<li>禁用每bank的刷新操作（<code>RFSHCTL0.per_bank_refresh = 0</code>）</li>
 </ul>
-<p><img src="https://s2.loli.net/2024/12/13/Zp4IaPntsiLNh7F.png" alt="image-20241213213052407"></p>
-<h4 id="2-ECC-配置"><a href="#2-ECC-配置" class="headerlink" title="2. ECC 配置"></a>2. <strong>ECC 配置</strong></h4><ul>
-<li>如果控制器已配置为支持 ECC，则通过软件使能寄存器 <strong>ECCCFG0.ecc_mode</strong> 来启用或禁用 ECC。</li>
-<li>如果 <strong>ECCCFG0.ecc_mode &#x3D; “100”</strong>，则启用 <strong>单比特单错误校正 &#x2F; 双比特错误检测</strong>（SEC&#x2F;DED ECC）模式。</li>
+<p>这种配置下，uMCTL2只有在刷新命令之后才会发送<code>dfi_ctrlupd_req</code>信号。</p>
+</li>
+<li><p><strong>触发频率设置</strong>：<code>DFIUPD1.dfi_t_ctrlupd_interval_min_x1024</code>字段设置了<code>dfi_ctrlupd_req</code>信号的触发频率。如果这个值设置得较小，那么<code>dfi_ctrlupd_req</code>会在每次刷新命令后触发；如果设置得较大，则<code>dfi_ctrlupd_req</code>会在每<code>n</code>次刷新命令后触发。</p>
+</li>
+<li><p><strong>自刷新退出命令</strong>：如果<code>DFIUPD0.dis_auto_ctrlupd_srx = 0</code>，则<code>dfi_ctrlupd_req</code>信号会在每次自刷新退出命令之前或之后触发，具体取决于<code>DFIUPD0.ctrlupd_pre_srx</code>的设置。</p>
+</li>
 </ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>ECCCFG0.ecc_mode</strong>：该寄存器用于控制是否启用 ECC 校验。如果设置为 <code>100</code>，则启用单比特单错误校正（SEC）和双比特错误检测（DED）。这意味着数据传输时会进行错误校正和错误检测。</li>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li>如果启用了每<strong>bank</strong>的刷新功能，或者<code>DFIUPD1.dfi_t_ctrlupd_interval_min_x1024</code>设置得较高，并且使用了刷新突发（refresh bursts），那么<code>dfi_ctrlupd_req</code>信号可能会在刷新命令以外的命令后被触发。</li>
 </ul>
-<h4 id="3-写入操作中的-ECC"><a href="#3-写入操作中的-ECC" class="headerlink" title="3. 写入操作中的 ECC"></a>3. <strong>写入操作中的 ECC</strong></h4><ul>
-<li>在写入操作时，ECC 会在每个 <strong>ECC lane</strong> 上计算，并将结果的 ECC 码作为额外的字节与数据一起写入 SDRAM。</li>
-<li>这个额外的 ECC 字节总是写入 SDRAM 的最高字节位置：对于 16 位 SDRAM 是第 2 字节，对于 32 位 SDRAM 是第 4 字节，对于 64 位 SDRAM 是第 8 字节。</li>
+<h3 id="2-7-2-2-直接软件请求MC发起的更新请求"><a href="#2-7-2-2-直接软件请求MC发起的更新请求" class="headerlink" title="2.7.2.2 直接软件请求MC发起的更新请求"></a>2.7.2.2 直接软件请求MC发起的更新请求</h3><ul>
+<li><strong>DFIUPD0.dis_auto_ctrlupd &#x3D; 1</strong>：当这个配置项被设置为1时，意味着禁用了自动控制更新请求，转而由<strong>SoC</strong>来决定何时发起更新请求。这样做的目的是在某些特殊场景下，比如<strong>内存带宽</strong>利用率至关重要的情况下，避免更新请求打断正常的读写事务。</li>
+<li><strong>SoC控制更新请求</strong>：在这种模式下，<strong>SoC</strong>可以决定何时执行DFI MC发起的更新请求。这对于那些对内存带宽要求非常严格的应用尤为重要，特别是当uMCTL2希望保持连续的内存操作，而不希望任何中断时。</li>
 </ul>
-<p><img src="https://s2.loli.net/2024/12/13/5QkZyUK3VXo6NqP.png" alt="image-20241213213123885"></p>
-<p><img src="https://s2.loli.net/2024/12/13/2O6pzvGXmMjJPgE.png" alt="image-20241213213211484"></p>
-<p><img src="https://s2.loli.net/2024/12/13/vjwZGIUXidL3OyH.png" alt="image-20241213213233357"></p>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>写入数据</strong>：在写入数据时，ECC 校验码会与数据一起写入内存。这个 ECC 校验码会覆盖内存中的特定字节，通常是内存地址的最高字节，以确保 ECC 校验能够正确应用。</li>
+<h4 id="执行更新请求的方式"><a href="#执行更新请求的方式" class="headerlink" title="执行更新请求的方式"></a>执行更新请求的方式</h4><ul>
+<li><strong>设置DBGCMD.ctrlupd &#x3D; 1</strong>：为了发起更新请求，SoC需要通过设置<strong>DBGCMD.ctrlupd</strong>寄存器位为1，告知uMCTL2发起DFI更新请求。这个请求会被存储在uMCTL2中，一旦请求被接受，DBGCMD.ctrlupd寄存器位会被自动清除。</li>
+<li><strong>条件：DBGSTAT.ctrlupd_busy</strong>：SoC只有在<strong>DBGSTAT.ctrlupd_busy</strong>信号为低电平（low）时，才可以执行更新请求。这个信号表示uMCTL2是否正在忙于处理更新请求。当uMCTL2接受到请求后，<code>ctrlupd_busy</code>会变为高电平（high），表示uMCTL2正在处理这个请求。处理完成后，信号会恢复为低电平，表示可以接受新的更新请求。</li>
 </ul>
-<h4 id="4-读取操作中的-ECC"><a href="#4-读取操作中的-ECC" class="headerlink" title="4. 读取操作中的 ECC"></a>4. <strong>读取操作中的 ECC</strong></h4><ul>
-<li>在读取操作时，包含 ECC 字节的 <strong>ECC lane</strong> 会从 SDRAM 中读取，并进行 <strong>解码</strong>。</li>
-<li>控制器会验证读取到的 ECC 字节是否正确，即与数据在 ECC lane 中的期望值匹配。如果匹配，数据将被正常发送到系统（SoC）。</li>
-<li>如果 ECC 校验发现错误，控制器会根据错误的类型（例如单比特错误或双比特错误）采取相应的处理措施（详见“ECC 错误时的控制器行为”部分）。</li>
+<h4 id="DFI更新与刷新操作的协调"><a href="#DFI更新与刷新操作的协调" class="headerlink" title="DFI更新与刷新操作的协调"></a>DFI更新与刷新操作的协调</h4><ul>
+<li><strong>同时发起DFI更新和刷新</strong>：uMCTL2可以在<strong>刷新</strong>命令和<strong>DFI更新请求</strong>同时进行时发起<code>dfi_ctrlupd_req</code>信号。对于刷新操作和DFI更新请求，uMCTL2会确保这两者按正确的顺序发生，不会发生功能上的冲突。</li>
+<li><strong>时机的选择</strong>：SoC需要在控制器能够容忍<strong>读写调度</strong>中断的时刻发起DFI更新请求。虽然SoC有控制的权限，但更新请求仍然会受到uMCTL2的调度约束，以确保不影响系统的正常操作。SoC的逻辑需要确保更新请求被合理频繁地调度，并且在合适的时机发起。</li>
 </ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>读取数据</strong>：当控制器从内存中读取数据时，除了数据外，还会读取 ECC 校验字节。然后控制器会检查该 ECC 校验字节是否与数据一致，以确认数据是否在传输过程中没有出错。如果 ECC 校验通过，数据就可以正常返回给系统。如果检测到错误，系统会根据设定的错误处理机制进行处理。</li>
-</ul>
-<h4 id="5-读修改写（RMW）操作中的-ECC"><a href="#5-读修改写（RMW）操作中的-ECC" class="headerlink" title="5. 读修改写（RMW）操作中的 ECC"></a>5. <strong>读修改写（RMW）操作中的 ECC</strong></h4><ul>
-<li>在 <strong>读修改写</strong> 操作中，首先会执行读取操作，如前所述，读取的数据和 ECC 校验字节。</li>
-<li>然后，读取的数据与从 <strong>HIF（主机接口）</strong> 接收到的写数据合并，使用 HIF 提供的写掩码来覆盖读取数据中的特定字节。</li>
-<li>对于合并后的数据，控制器会重新计算 ECC 校验，并将其写回内存。</li>
-</ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>读修改写（RMW）操作</strong>：这种操作涉及先读取数据，再对数据进行修改并写回内存。在执行 RMW 时，控制器需要首先读取数据并进行 ECC 校验。然后，新的数据与原有数据合并，ECC 校验码会基于更新后的数据重新计算，并与数据一起写回内存。</li>
-</ul>
-<h2 id="2-39-3-全总线宽-半总线宽-四分总线宽模式（Full-Half-Quarter-Bus-Width-Mode）"><a href="#2-39-3-全总线宽-半总线宽-四分总线宽模式（Full-Half-Quarter-Bus-Width-Mode）" class="headerlink" title="2.39.3 全总线宽&#x2F;半总线宽&#x2F;四分总线宽模式（Full &#x2F; Half &#x2F; Quarter Bus Width Mode）"></a><strong>2.39.3 全总线宽&#x2F;半总线宽&#x2F;四分总线宽模式（Full &#x2F; Half &#x2F; Quarter Bus Width Mode）</strong></h2><h4 id="1-ECC-的计算和解码"><a href="#1-ECC-的计算和解码" class="headerlink" title="1. ECC 的计算和解码"></a>1. <strong>ECC 的计算和解码</strong></h4><ul>
-<li>在 <strong>ECC 引擎</strong> 中计算和解码的数据会通过 DQ 总线的单边传输（单边指数据仅在 DQ 总线的一个时钟边缘进行传输）。</li>
-<li>当 <strong>MEMC_DRAM_DATA_WIDTH &#x3D; 64</strong> 时，如果输入到 ECC 引擎的数据宽度小于 64 位，控制器会填充零（<strong>padding zeros</strong>）使其对齐为 64 位数据，之后再传送到 ECC 引擎进行编码或解码。</li>
-</ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>ECC 引擎</strong>：用于执行错误校正和错误检测的硬件单元。</li>
-<li><strong>MEMC_DRAM_DATA_WIDTH &#x3D; 64</strong>：表示内存的数据总线宽度为 64 位。</li>
-<li><strong>填充零</strong>（padding zeros）：如果输入数据宽度小于 64 位，控制器会在数据中添加零，确保数据总宽度为 64 位，从而能够与内存总线对齐进行传输。</li>
-</ul>
-<h4 id="2-半总线宽和四分总线宽的处理"><a href="#2-半总线宽和四分总线宽的处理" class="headerlink" title="2. 半总线宽和四分总线宽的处理"></a>2. <strong>半总线宽和四分总线宽的处理</strong></h4><ul>
-<li>在 <strong>半总线宽模式</strong>（HBW）或 <strong>四分总线宽模式</strong>（QBW）下，数据在 <strong>ECC 编码阶段</strong> 会被拆分成多个周期进行处理。</li>
-<li>数据会被分割成多个周期，并根据需要添加填充位（padding），然后送入 <strong>ECC 引擎</strong> 进行编码。</li>
-<li>在解码阶段，从 <strong>PHY</strong>（物理层接口）接收到的数据会送入 <strong>ECC 解码器</strong>，并根据需要进行填充。</li>
-<li>在 <strong>半总线宽模式</strong>（HBW）和 <strong>四分总线宽模式</strong>（QBW）下，数据的收集是在数据通过 <strong>ECC 解码器</strong> 之后进行的。</li>
-</ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>半总线宽模式（HBW）</strong> 和 <strong>四分总线宽模式（QBW）</strong>：这两种模式下，内存的数据总线宽度会小于 64 位（可能是 32 位或 16 位）。为了能够进行 ECC 校验，控制器会将数据分割成多个小周期进行处理。</li>
-<li><strong>编码和解码阶段</strong>：在编码阶段，数据被拆分成多个周期并进行填充，然后传送给 ECC 引擎；在解码阶段，数据会经过 ECC 解码器，并根据需要填充，确保数据完整性。</li>
-</ul>
-<h4 id="3-ECC-字节的位置"><a href="#3-ECC-字节的位置" class="headerlink" title="3. ECC 字节的位置"></a>3. <strong>ECC 字节的位置</strong></h4><ul>
-<li>在启用 ECC 的 半总线宽模式（HBW）或 四分总线宽模式（QBW）下，ECC 字节总是会被写入到 SDRAM 接口的最显著字节（最高字节），以及 DFI 接口的每一个阶段。<ul>
-<li><strong>HBW</strong> 和 <strong>QBW</strong> 模式下，ECC 字节总是写入到最显著字节，确保数据的 ECC 校验可以在传输过程中正确应用。</li>
+<h2 id="2-7-3-DFI-PHY-initiated-Update-Request"><a href="#2-7-3-DFI-PHY-initiated-Update-Request" class="headerlink" title="2.7.3 DFI PHY-initiated Update Request"></a>2.7.3 DFI PHY-initiated Update Request</h2><p><strong>DFI PHY-initiated Update Request</strong> 是由PHY（物理层）发起的更新请求，目的是为了让PHY更新一些参数，比如延迟线的调整等。uMCTL2（内存控制器）需要响应这些请求并进行相应的处理。</p>
+<h3 id="1-DFI-PHY-initiated-Update-Request的应答"><a href="#1-DFI-PHY-initiated-Update-Request的应答" class="headerlink" title="1. DFI PHY-initiated Update Request的应答"></a>1. <strong>DFI PHY-initiated Update Request的应答</strong></h3><ul>
+<li>DFI规定了4种不同的PHY发起更新请求模式，每种模式的不同之处在于更新发生时，DFI接口需要被暂停的周期数。这意味着在处理PHY发起的更新请求时，DFI的命令、读数据和写数据通道会被暂停一段时间。</li>
+<li><strong>启用PHY发起的更新</strong>：通过设置<strong>DFIUPD2.dfi_phyupd_en</strong>寄存器位来启用或禁用此功能。如果该功能被启用（由软件控制），当PHY发起更新请求时，uMCTL2会尽快将DFI命令、读数据和写数据通道挂起，并在处理过程中驱动<code>dfi_phyupd_ack</code>信号为高电平，表示uMCTL2已接收到PHY的更新请求并正在处理。<ul>
+<li>在<strong>1:2频率比模式</strong>下，最多暂停64个时钟周期。</li>
+<li>在<strong>1:1频率比模式</strong>下，最多暂停128个时钟周期。</li>
 </ul>
 </li>
 </ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>最显著字节（Most Significant Byte）</strong>：在多字节数据中，最显著字节是数据中值最大的字节，即数字中位数最高的部分。在内存存储中，ECC 校验通常存储在这些字节中，以便在出现错误时进行检测和修复。</li>
-<li><strong>DFI 接口</strong>：即 DDR 接口，控制器和内存之间的数据传输通道。</li>
-<li><strong>ECC 字节的存储</strong>：无论是 HBW 还是 QBW 模式，ECC 字节都会被存储在内存的最高字节，确保 ECC 校验覆盖整个数据。</li>
+<h3 id="2-冲突避免机制"><a href="#2-冲突避免机制" class="headerlink" title="2. 冲突避免机制"></a>2. <strong>冲突避免机制</strong></h3><ul>
+<li><strong>dfi_ctrlupd_req和dfi_phyupd_req冲突</strong>：有一种情况是<strong>dfi_ctrlupd_req</strong>（由uMCTL2发起的更新请求）和<strong>dfi_phyupd_req</strong>（由PHY发起的更新请求）同时被驱动，这可能会导致uMCTL2和PHY同时响应对方的请求，从而违反DFI协议。</li>
+<li>为了避免这种情况，当<strong>dfi_ctrlupd_req</strong>和<strong>dfi_phyupd_req</strong>同时被驱动时，uMCTL2不会对<strong>dfi_phyupd_req</strong>发出应答（即不驱动<code>dfi_phyupd_ack</code>为高电平），直到<strong>dfi_ctrlupd_req</strong>被撤销或完成。这是为了确保uMCTL2不会与PHY同时做出响应，从而防止协议冲突。</li>
 </ul>
-<h4 id="4-表格和数据宽度"><a href="#4-表格和数据宽度" class="headerlink" title="4. 表格和数据宽度"></a>4. <strong>表格和数据宽度</strong></h4><ul>
-<li>手册中提到的表格（表 2-93）显示了在不同总线宽模式下，<strong>ECC 字节</strong>和 <strong>填充字节</strong> 的数量。</li>
+<h3 id="3-刷新与PHY更新的协调"><a href="#3-刷新与PHY更新的协调" class="headerlink" title="3. 刷新与PHY更新的协调"></a>3. <strong>刷新与PHY更新的协调</strong></h3><ul>
+<li>如果系统正在使用<strong>突发刷新</strong>（burst refresh），而同时发生了PHY发起的更新请求，可能会导致<strong>tRFCmax</strong>（刷新间隔最大时间）违反。这种情况发生在PHY更新请求被发出时，恰好在刷新突发周期之前。为了避免这种情况，uMCTL2会延迟刷新突发的执行，直到PHY更新完成。</li>
+<li><strong>解决方法</strong>：可以通过降低<strong>RFSHCTL0.refresh_burst</strong>的值来避免这种冲突，这样可以减少刷新突发和PHY更新之间的时间冲突。</li>
 </ul>
-<p><img src="https://s2.loli.net/2024/12/13/a5eNDApYfLKiUs2.png" alt="image-20241213213553635"></p>
-<p><strong>解释：</strong></p>
-<ul>
-<li>表格提供了在不同模式下，ECC 字节和填充字节的具体数量，帮助开发者理解在不同配置下 ECC 校验和数据传输的实际宽度。</li>
-</ul>
-<h2 id="2-39-4-使用-ECC-时的数据掩码限制"><a href="#2-39-4-使用-ECC-时的数据掩码限制" class="headerlink" title="2.39.4 使用 ECC 时的数据掩码限制"></a><strong>2.39.4 使用 ECC 时的数据掩码限制</strong></h2><h4 id="1-ECC-操作与写操作粒度"><a href="#1-ECC-操作与写操作粒度" class="headerlink" title="1. ECC 操作与写操作粒度"></a>1. <strong>ECC 操作与写操作粒度</strong></h4><ul>
-<li>每个 <strong>ECC lane</strong>（ECC 处理的数据通道）的宽度可以是 16 位、32 位或 64 位。如果启用 ECC 功能，<strong>uMCTL2 控制器</strong> 会根据写操作的数据粒度（即写入的数据字节数）来判断如何进行写操作。</li>
-<li>写操作粒度要求：<ul>
-<li>如果写入数据的字节数是 2 字节、4 字节或 8 字节对齐的，控制器可以直接执行写操作。</li>
-<li>如果写入数据的字节数小于 2 字节、4 字节或 8 字节对齐的（即不是按照这些字节数对齐），控制器会执行一个 <strong>RMW（Read-Modify-Write）操作</strong>。</li>
+<h3 id="4-时钟移除与PHY更新的时序"><a href="#4-时钟移除与PHY更新的时序" class="headerlink" title="4. 时钟移除与PHY更新的时序"></a>4. <strong>时钟移除与PHY更新的时序</strong></h3><ul>
+<li><strong>时钟移除</strong>（clock removal）功能：当<strong>core_ddrc_core_clk</strong>（控制器时钟）从uMCTL2中移除时，DFI接口的时序要求（特别是<code>tphyupd_resp</code>）可能无法满足。这是因为<strong>dfi_phyupd_req &#x3D; 1</strong>信号只有在时钟重新启用后才能被观察到。<ul>
+<li><strong>tphyupd_resp要求</strong>：这意味着在时钟被移除时，<strong>dfi_phyupd_req</strong>从1到0的过渡及再转回1的过程中，控制器可能无法保证对这些信号的响应。因此，在时钟移除期间，这些PHY发起的更新请求可能无法正确响应。</li>
 </ul>
 </li>
 </ul>
-<h4 id="2-RMW-操作的处理方式"><a href="#2-RMW-操作的处理方式" class="headerlink" title="2. RMW 操作的处理方式"></a>2. <strong>RMW 操作的处理方式</strong></h4><ul>
-<li>在 RMW 操作中，控制器会首先从 <strong>DRAM</strong> 读取当前的数据，之后将从控制器传送来的写数据与已读数据合并，再写回内存。</li>
-<li>在进行 RMW 操作时，控制器会执行 <strong>无掩码写入</strong>，意味着没有对数据字节进行掩码（即不跳过任何字节，所有字节都会被写入）。这避免了由于数据掩码造成的潜在错误。</li>
-</ul>
-<p><strong>总结</strong>：当数据粒度不满足对齐要求时，控制器会通过读取当前内存中的数据并与写入的数据合并，进行 RMW 操作，以确保数据的一致性。</p>
-<h2 id="2-39-5-ECC-错误处理机制"><a href="#2-39-5-ECC-错误处理机制" class="headerlink" title="2.39.5 ECC 错误处理机制"></a><strong>2.39.5 ECC 错误处理机制</strong></h2><h4 id="1-可纠正的-ECC-错误"><a href="#1-可纠正的-ECC-错误" class="headerlink" title="1. 可纠正的 ECC 错误"></a>1. <strong>可纠正的 ECC 错误</strong></h4><p>当 <strong>uMCTL2</strong> 检测到一个 <strong>可纠正的 ECC 错误</strong> 时，控制器会执行以下操作：</p>
-<ul>
-<li>将 <strong>已修正的数据</strong> 作为读数据返回给 <strong>SoC</strong>。</li>
-<li>将 <strong>ECC 错误信息</strong> 发送到 <strong>APB 寄存器模块</strong>。</li>
-<li>执行 <strong>RMW 操作</strong>，修正存在于 <strong>SDRAM</strong> 中的错误数据（只有在启用 ECC 清理功能时，<strong>ECCCFG0.dis_scrub &#x3D; 0</strong>）。该 RMW 操作对于控制器是 <strong>透明的</strong>，即控制器不会感知到这个操作的具体细节。</li>
-</ul>
-<p><strong>总结</strong>：当可纠正的 ECC 错误被检测到时，控制器会先修正数据并将修正后的数据发送给 SoC，随后对 SDRAM 中的错误数据进行修复。</p>
-<h4 id="2-不可纠正的-ECC-错误"><a href="#2-不可纠正的-ECC-错误" class="headerlink" title="2. 不可纠正的 ECC 错误"></a>2. <strong>不可纠正的 ECC 错误</strong></h4><p>当控制器检测到一个 <strong>不可纠正的 ECC 错误</strong> 时，执行以下操作：</p>
-<ul>
-<li>将 <strong>出错的数据</strong> 作为读数据发送给 <strong>SoC</strong>。</li>
-<li>将 <strong>ECC 错误信息</strong> 发送到 <strong>APB 寄存器模块</strong>。</li>
-<li>生成一个错误响应，在 <strong>AHB 接口</strong> 或 <strong>AXI 接口</strong> 上生成 <strong>SLVERR 响应</strong>。</li>
-</ul>
-<h4 id="3-RMW-操作中的不可纠正错误处理"><a href="#3-RMW-操作中的不可纠正错误处理" class="headerlink" title="3. RMW 操作中的不可纠正错误处理"></a>3. <strong>RMW 操作中的不可纠正错误处理</strong></h4><p>如果在正常的 RMW 操作的 <strong>读部分</strong>（而非 ECC 清理操作）中检测到不可纠正的错误，控制器将：</p>
-<ul>
-<li>在随后的写操作部分，故意 <strong>破坏 2 位</strong>（2-bit corruption）到重新计算的 <strong>ECC 字段</strong>中。</li>
-<li>这种故意破坏的操作确保了 <strong>不会发生自动修复</strong>，避免了由于 ECC 校验失败的错误数据被误修正。</li>
-</ul>
-<p><strong>总结</strong>：对于不可纠正的 ECC 错误，控制器不会修复数据，而是将错误数据发送给 SoC，并确保没有因自动 ECC 修复机制而错误地修正这些错误。</p>
-<h4 id="4-ECC-错误的报告"><a href="#4-ECC-错误的报告" class="headerlink" title="4. ECC 错误的报告"></a>4. <strong>ECC 错误的报告</strong></h4><ul>
-<li>ECC 错误报告基于 <strong>DFI 读数据</strong>。对于小而不对齐的 AXI 事务，可能有部分数据不会传播到 AXI 接口，但即使这些数据没有使用，ECC 错误仍会被标记。特别是对于未初始化的内存区域，可能会发生这种情况。</li>
-<li>为了避免此类错误，推荐在初始化时将整个内存空间进行初始化。</li>
-</ul>
-<p><strong>总结</strong>：ECC 错误报告会基于整个 DFI 读数据进行，确保即使是未使用的部分数据也能标记 ECC 错误。为了避免未初始化内存导致的问题，建议在初始化时对内存进行完全初始化。</p>
-<h3 id="2-39-5-1-ECC-错误报告寄存器"><a href="#2-39-5-1-ECC-错误报告寄存器" class="headerlink" title="2.39.5.1 ECC 错误报告寄存器"></a><strong>2.39.5.1 ECC 错误报告寄存器</strong></h3><ul>
-<li>控制器提供了一系列的寄存器，用于 <strong>ECC 错误报告</strong>。通过读取这些寄存器，可以获得关于已检测错误的详细信息。</li>
-<li>控制器还提供了 <strong>两个中断</strong>：<code>ecc_corrected_err_intr</code> 和 <code>ecc_uncorrected_err_intr</code>，当检测到纠正或未纠正的错误时，这些中断会被触发。</li>
-<li><strong>ECC 错误日志寄存器</strong> 用于捕捉 <strong>第一次 ECC 可纠正错误</strong> 和 <strong>第一次 ECC 不可纠正错误</strong>，并存储相关的日志信息，直到相关中断被清除。</li>
-</ul>
-<h4 id="2-39-5-1-1-ECCSTAT-corrected-bit-num-字段"><a href="#2-39-5-1-1-ECCSTAT-corrected-bit-num-字段" class="headerlink" title="2.39.5.1.1 ECCSTAT.corrected_bit_num 字段"></a><strong>2.39.5.1.1 ECCSTAT.corrected_bit_num 字段</strong></h4><ul>
-<li><code>ECCSTAT</code> 是一个寄存器，它用于保存 <strong>ECC 错误的状态信息</strong>。当 ECC 错误被检测到时，这个寄存器会记录有关错误的详细信息。</li>
-<li>在 <code>ECCSTAT</code> 中，<code>corrected_bit_num</code> 是一个字段，用来表示已经被修正的 <strong>ECC 错误位</strong>。这个字段的值指示了在 ECC 检测到错误后，具体是哪个位出现了错误并被修正。（详细看表）</li>
-</ul>
-<h2 id="2-39-6-ECC-Scrub（ECC-清理）和-ECC-Scrubber（ECC-清理器）"><a href="#2-39-6-ECC-Scrub（ECC-清理）和-ECC-Scrubber（ECC-清理器）" class="headerlink" title="2.39.6 ECC Scrub（ECC 清理）和 ECC Scrubber（ECC 清理器）"></a><strong>2.39.6 ECC Scrub（ECC 清理）和 ECC Scrubber（ECC 清理器）</strong></h2><p>在 DRAM 操作中，错误是不可避免的，尤其是单比特错误，这些错误通常是由环境因素（如辐射）引起的。<strong>ECC Scrub</strong> 和 <strong>ECC Scrubber</strong> 的目标是定期修复这些单比特错误，以防止它们演变成更严重的不可修复的错误（如双比特错误）。</p>
-<h4 id="1-ECC-Scrub-特性"><a href="#1-ECC-Scrub-特性" class="headerlink" title="1. ECC Scrub 特性"></a>1. <strong>ECC Scrub 特性</strong></h4><ul>
-<li><strong>ECC Scrub</strong> 是一种自动修正机制，用于修复 DRAM 中的单比特错误。它可以在读取时触发修复过程。</li>
-<li><strong>启用 ECC Scrub</strong> 需要满足以下条件：<ul>
-<li><code>MEMC_USE_RMW = 1</code>：必须启用 <strong>RMW</strong>（读取-修改-写入）操作。</li>
-<li><code>MEMC_ECC_SUPPORT &gt; 0</code>：必须启用 <strong>ECC</strong> 支持。</li>
-</ul>
-</li>
-<li>在 <strong>ECC Scrub</strong> 启用时，任何接收到的 <strong>读取命令</strong>，如果发现其中包含单比特错误，将触发自动 <strong>ECC Scrub</strong> 操作，修复这些错误。</li>
-<li><strong>ECC Scrub</strong> 的启用和禁用：<ul>
-<li>通过设置 <code>ECCCFG0.dis_scrub = 0</code> 来启用 <strong>ECC Scrub</strong>，此参数与 <strong>ECC Scrubber</strong> 是否启用无关。</li>
-<li>如果使用 <strong>Sideband ECC</strong> 配置（即 <code>MEMC_ECC_SUPPORT &gt; 0</code> 且 <code>MEMC_SIDEBAND_ECC == 1</code>），则可以通过将 <code>ECCCFG0.dis_scrub = 0</code> 来启用 <strong>ECC Scrub</strong>。</li>
-<li>在 <strong>Inline ECC</strong> 配置下（即 <code>MEMC_ECC_SUPPORT &gt; 0</code> 且 <code>MEMC_INLINE_ECC == 1</code>），<strong>ECC Scrub</strong> 功能不可用，始终通过 <code>ECCCFG0.dis_scrub = 1</code> 禁用。但如果同时设置了 <code>MEMC_INLINE_ECC == 1</code> 和 <code>MEMC_SIDEBAND_ECC == 1</code>，且 <code>ECCCFG0.ecc_type = 0</code> 时，<strong>ECC Scrub</strong> 可以在软件禁用 <strong>Inline ECC</strong> 时启用。</li>
+<h3 id="5-PHY不支持PHY-initiated-Updates时的处理"><a href="#5-PHY不支持PHY-initiated-Updates时的处理" class="headerlink" title="5. PHY不支持PHY-initiated Updates时的处理"></a>5. <strong>PHY不支持PHY-initiated Updates时的处理</strong></h3><ul>
+<li>如果PHY不支持PHY发起的更新请求，推荐将以下输入设置为0，以禁用该功能：<ul>
+<li><strong>DFIUPD2.dfi_phyupd_en &#x3D; 0</strong>，即禁用PHY发起的更新请求。</li>
+<li><strong>phy_ddrc_dfi_phyupd_req &#x3D; 0</strong>，即PHY发起的更新请求信号应为低电平。</li>
+<li><strong>phy_ddrc_dfi_phyupd_type &#x3D; 00</strong>，指定PHY发起的更新类型为“无更新”。</li>
 </ul>
 </li>
 </ul>
-<h4 id="2-ECC-Scrubber（清理器）"><a href="#2-ECC-Scrubber（清理器）" class="headerlink" title="2. ECC Scrubber（清理器）"></a>2. <strong>ECC Scrubber（清理器）</strong></h4><ul>
-<li><strong>ECC Scrubber</strong> 是一个外部于 DDR 控制器的硬件模块，它可以定期生成后台读取命令。这些命令的目的是在单比特错误成为不可修复的双比特错误之前，及时纠正这些单比特错误，从而提高系统的可靠性。</li>
-<li><strong>启用 ECC Scrubber</strong> 需要以下硬件参数设置为 <code>1</code>：<ul>
-<li><code>UMCTL2_SBR_EN</code>：启用 ECC Scrubber。</li>
-<li><code>UMCTL2_INCL_ARB</code>：包括在内的仲裁。</li>
-<li><code>MEMC_USE_RMW</code>：启用读取-修改-写入操作。</li>
-<li><code>MEMC_ECC_SUPPORT &gt; 0</code>：启用 ECC 支持。</li>
+<h3 id="6-tPHYUPD-RESP"><a href="#6-tPHYUPD-RESP" class="headerlink" title="6. tPHYUPD_RESP"></a>6. <strong>tPHYUPD_RESP</strong></h3><ul>
+<li>控制器支持<strong>tPHYUPD_RESP</strong>值的不同设置，具体来说，这个值是以<strong>DFI时钟</strong>（控制器时钟）为单位的，表明更新请求的响应时间。</li>
 </ul>
-</li>
-<li>在 <strong>Inline ECC 模式</strong> 下，ECC Scrubber 模块仍会生成定期的后台读取命令，并对导致单比特错误的读取命令执行 <strong>ECC Scrub</strong> 操作。</li>
+<p><img src="https://s2.loli.net/2024/12/14/q7QwDbXVOydUGBJ.png" alt="image-20241214104311490"></p>
+<h2 id="2-7-4-相关寄存器"><a href="#2-7-4-相关寄存器" class="headerlink" title="2.7.4 相关寄存器"></a>2.7.4 相关寄存器</h2><h3 id="1-DFIUPD2-dfi-phyupd-en"><a href="#1-DFIUPD2-dfi-phyupd-en" class="headerlink" title="1. DFIUPD2.dfi_phyupd_en"></a>1. <strong>DFIUPD2.dfi_phyupd_en</strong></h3><ul>
+<li><strong>功能</strong>：这个寄存器位 (<code>dfi_phyupd_en</code>) 控制是否启用 <strong>DFI PHY-initiated Update Request</strong>（由PHY发起的DFI更新请求）。</li>
+<li><strong>工作原理</strong>：如果这个寄存器被设置为<code>1</code>，则允许PHY发起更新请求，并且uMCTL2需要响应这些请求。当PHY发起更新时，DFI接口的命令、读数据和写数据通道将会被暂停，直到更新完成。这是为了确保PHY更新操作能顺利进行，不会和数据传输产生冲突。</li>
+<li><strong>用途</strong>：在某些情况下，可能希望禁用PHY发起的更新请求（例如，如果控制器和PHY之间有时序或带宽冲突）。在这种情况下，可以将这个寄存器位设置为<code>0</code>，以禁用PHY发起的更新请求。</li>
 </ul>
-<h3 id="2-39-6-1-ECC-Scrub-功能概述"><a href="#2-39-6-1-ECC-Scrub-功能概述" class="headerlink" title="2.39.6.1 ECC Scrub 功能概述"></a><strong>2.39.6.1 ECC Scrub 功能概述</strong></h3><p><strong>ECC Scrub</strong> 是 DDR 控制器中的一项功能，旨在自动修复 DRAM 中的单比特错误。当检测到单比特错误时，ECC Scrub 会通过 <strong>读取-修改-写入（RMW）</strong> 操作来修正这个错误。这个功能仅在启用了 <strong>Sideband ECC</strong> 配置时有效。</p>
-<h4 id="1-Sideband-ECC-配置"><a href="#1-Sideband-ECC-配置" class="headerlink" title="1. Sideband ECC 配置"></a><strong>1. Sideband ECC 配置</strong></h4><ul>
-<li><strong>Sideband ECC</strong> 是一种错误检测机制，它将 ECC 校验信息通过额外的通道（sideband）传输给控制器，而不直接嵌入到数据流中。只有在 <strong>Sideband ECC</strong> 配置下，ECC Scrub 功能才会被启用。</li>
-<li><strong>配置要求：</strong><ul>
-<li><code>MEMC_ECC_SUPPORT &gt; 0</code>：必须启用 ECC 支持。</li>
-<li><code>MEMC_SIDEBAND_ECC == 1</code>：启用 Sideband ECC。</li>
-<li><code>MEMC_USE_RMW == 1</code>：启用读取-修改-写入（RMW）操作。</li>
+<h3 id="2-DFITMG0-dfi-ctrl-delay"><a href="#2-DFITMG0-dfi-ctrl-delay" class="headerlink" title="2. DFITMG0.dfi_ctrl_delay"></a>2. <strong>DFITMG0.dfi_ctrl_delay</strong></h3><ul>
+<li><strong>功能</strong>：这个寄存器位 (<code>dfi_ctrl_delay</code>) 用来设置DFI接口的延迟控制。具体来说，它用于配置 <strong>控制器</strong> 到 <strong>PHY</strong> 之间信号的延迟，以确保正确的时序。</li>
+<li><strong>工作原理</strong>：DFI接口需要在适当的时间点进行更新，以确保数据传输的稳定性和准确性。通过设置 <code>dfi_ctrl_delay</code>，可以调整控制器发送信号到PHY的时间延迟，从而优化信号传输的时序，避免出现时序错误或冲突。</li>
+<li><strong>用途</strong>：此寄存器常常用于调整和优化时序，特别是在控制器和PHY之间的信号传递存在时延的情况下。它有助于确保控制信号和数据传输在适当的时刻同步，从而保证系统的稳定性和性能。</li>
 </ul>
-</li>
+<h3 id="3-参考资料"><a href="#3-参考资料" class="headerlink" title="3. 参考资料"></a>3. <strong>参考资料</strong></h3><ul>
+<li>手册中提到，关于这些寄存器的更多详细信息可以在 <strong>“Register Descriptions”</strong> 部分找到，具体位置是在第717页。在这部分内容中，会对这些寄存器的位字段、默认值、设置范围以及它们的影响等进行更详细的说明。</li>
 </ul>
-<h4 id="2-启用和禁用-ECC-Scrub"><a href="#2-启用和禁用-ECC-Scrub" class="headerlink" title="2. 启用和禁用 ECC Scrub"></a><strong>2. 启用和禁用 ECC Scrub</strong></h4><ul>
-<li>通过设置 <code>ECCCFG0.dis_scrub = 0</code> 来启用 ECC Scrub 功能，<code>dis_scrub</code> 是一个控制寄存器字段。当这个字段被设置为 <code>0</code> 时，表示启用 <strong>ECC Scrub</strong>。</li>
-<li>通过将 <code>ECCCFG0.dis_scrub</code> 设置为 <code>1</code> 可以禁用此功能。</li>
-</ul>
-<h4 id="3-ECC-Scrub-操作流程"><a href="#3-ECC-Scrub-操作流程" class="headerlink" title="3. ECC Scrub 操作流程"></a><strong>3. ECC Scrub 操作流程</strong></h4><ul>
-<li><strong>检测到单比特错误时：</strong><ul>
-<li>当 <strong>ECC 解码器</strong> 检测到一个单比特错误时，uMCTL2 控制器会调度一个 <strong>ECC Scrub 操作</strong>。</li>
-<li>这个操作会作为一个新的 RMW 操作被执行，作用于检测到单比特错误的地址。</li>
-</ul>
-</li>
-<li><strong>RMW 操作的执行：</strong><ul>
-<li>ECC Scrub 是通过 <strong>读取-修改-写入</strong>（RMW）操作来进行修复的。首先，控制器会发出一个读取请求，读取出错误数据。接着，错误数据会被 ECC 解码器修正，然后将修正后的数据写入到正确的地址。</li>
-<li>在执行 <strong>ECC Scrub</strong> 时，<strong>读取</strong> 操作必须在 <strong>写入</strong> 操作之前完成。这个顺序是为了确保读取的数据已经经过 ECC 解码器修正，再写入到适当的存储位置。</li>
-</ul>
-</li>
-</ul>
-<h4 id="4-CAM（Content-Addressable-Memory）条目"><a href="#4-CAM（Content-Addressable-Memory）条目" class="headerlink" title="4. CAM（Content Addressable Memory）条目"></a><strong>4. CAM（Content Addressable Memory）条目</strong></h4><ul>
-<li>在 ECC Scrub 操作中，<strong>读取</strong> 和 <strong>写入</strong> CAM 各有一个条目被保留，用于存储 <strong>ECC Scrub</strong> 请求的地址。</li>
-<li>每次当检测到单比特错误时，uMCTL2 会从 CAM 中分配一个 <strong>读取</strong> 和一个 <strong>写入</strong> 条目，用于执行 ECC Scrub 操作。</li>
-</ul>
-<h4 id="5-关于单一-ECC-Scrub-操作"><a href="#5-关于单一-ECC-Scrub-操作" class="headerlink" title="5. 关于单一 ECC Scrub 操作"></a><strong>5. 关于单一 ECC Scrub 操作</strong></h4><ul>
-<li><strong>限制：</strong> 在 uMCTL2 中，任何时候只能有一个 <strong>ECC Scrub 操作</strong>。这意味着当一个 <strong>ECC Scrub 操作</strong> 正在执行时，系统不会响应其他单比特错误，直到当前的 Scrub 操作完成。</li>
-<li><strong>何时完成：</strong> 当写入 CAM 条目被释放后，表示当前的 Scrub 操作完成。这时，系统才能开始处理新的 Scrub 请求。</li>
-</ul>
-<h4 id="6-在-Inline-ECC-模式下的行为"><a href="#6-在-Inline-ECC-模式下的行为" class="headerlink" title="6. 在 Inline ECC 模式下的行为"></a><strong>6. 在 Inline ECC 模式下的行为</strong></h4><ul>
-<li>如果 <strong>Inline ECC</strong> 模式启用（即 <code>MEMC_INLINE_ECC == 1</code>），<strong>ECC Scrub</strong> 功能不可用。无论 <code>MEMC_SIDEBAND_ECC</code> 是否设置为 <code>1</code>，都不会启用 <strong>ECC Scrub</strong>。</li>
-<li>在 <strong>Inline ECC 模式</strong> 下，<code>ECCCFG0.dis_scrub</code> 必须设置为 <code>1</code>，并且系统不会自动进行每次可修正的读取错误的清理（scrubbing）。</li>
-</ul>
-<h2 id="后面的没有整理（2-39-6-2）"><a href="#后面的没有整理（2-39-6-2）" class="headerlink" title="后面的没有整理（2.39.6.2）"></a>后面的没有整理（2.39.6.2）</h2>
+
        -->
       
         
 
         <blockquote>
-<p>uMCTL2手册2.39，ECC（错误校验码）支持<a><span id="more"></span></a></p>
+<p>uMCTL2手册2.7，DFI更新接口<a><span id="more"></span></a></p>
 </blockquote>
-<h2 id="2-39-1-ECC-支持概述（Overview-of-ECC-Support）"><a href="#2-39-1-ECC-支持概述（Overview-of-ECC-Support）" class="headerlink" title="2.39.1 ECC 支持概述（Overview of ECC Support）"></a><strong>2.39.1 ECC 支持概述（Overview of ECC Support）</strong></h2><h4 id="1-ECC-支持的配置要求"><a href="#1-ECC-支持的配置要求" class="headerlink" title="1. ECC 支持的配置要求"></a>1. <strong>ECC 支持的配置要求</strong></h4><ul>
-<li><strong>MEMC_ECC_SUPPORT</strong> 参数必须设置为 <code>1</code>，才能启用 ECC 功能。</li>
-<li><strong>MEMC_SIDEBAND_ECC</strong> 参数也必须设置为 <code>1</code>。</li>
-<li>如果 <strong>MEMC_SIDEBAND_ECC &#x3D; 1</strong> 和 <strong>MEMC_INLINE_ECC &#x3D; 1</strong>，则此节描述的是 <strong>Sideband ECC 模式</strong>，该模式由 <code>ECCCFG0.ecc_type</code> 配置选择。</li>
-</ul>
-<h4 id="2-ECC-Lane-的定义"><a href="#2-ECC-Lane-的定义" class="headerlink" title="2. ECC Lane 的定义"></a>2. <strong>ECC Lane 的定义</strong></h4><ul>
-<li><strong>ECC Lane</strong> 被定义为一个数据字（word），其宽度等于 SDRAM 宽度，ECC 计算在这些数据字上进行。</li>
-<li><strong>DFI 接口</strong>（DDR接口）每个时钟周期传输两个或四个 ECC lane 数据，具体数量取决于控制器的频率配置 <strong>MEMC_FREQ_RATIO</strong>。</li>
-</ul>
-<h4 id="3-支持的-ECC-类型：SEC-DED（单比特单错误校正-双比特检测错误）"><a href="#3-支持的-ECC-类型：SEC-DED（单比特单错误校正-双比特检测错误）" class="headerlink" title="3. 支持的 ECC 类型：SEC&#x2F;DED（单比特单错误校正 &#x2F; 双比特检测错误）"></a>3. <strong>支持的 ECC 类型：SEC&#x2F;DED（单比特单错误校正 &#x2F; 双比特检测错误）</strong></h4><ul>
-<li><p>控制器支持 <strong>SEC&#x2F;DED ECC</strong>，这是 <strong>Single Bit Single Error Correction &#x2F; Double Error Detection</strong>（单比特单错误校正 &#x2F; 双比特错误检测）。</p>
-</li>
-<li><p>支持的配置包括：</p>
+<h2 id="2-7-1-DFI更新概述"><a href="#2-7-1-DFI更新概述" class="headerlink" title="2.7.1 DFI更新概述"></a>2.7.1 DFI更新概述</h2><p><strong>DFI（内存控制器接口）更新接口</strong>用于传输内部设置的更新，这些更新是为了补偿环境条件的变化，主要是处理<strong>PVT（工艺&#x2F;电压&#x2F;温度）变化</strong>对延迟线等设置的影响。这个接口涉及信号和时序参数，确保在更新过程中不会干扰到<strong>DRAM接口</strong>的信号传输。为了避免更新时对信号产生干扰，DFI支持更新模式，在这些模式下，DFI总线必须处于<strong>空闲状态</strong>，即不进行任何数据传输。</p>
+<h2 id="2-7-2-DFI控制器发起的更新请求"><a href="#2-7-2-DFI控制器发起的更新请求" class="headerlink" title="2.7.2 DFI控制器发起的更新请求"></a>2.7.2 DFI控制器发起的更新请求</h2><p><strong>DFI控制器发起的更新请求（dfi_ctrlupd_req）是由uMCTL2</strong>（内存控制器）在DFI接口上发出的信号，目的是让<strong>PHY（物理层）</strong>更新延迟线的值。延迟线用于调整信号的时序，确保数据在正确的时间被读取或写入。</p>
 <ul>
-<li><strong>SDRAM 数据宽度</strong>：16、32 或 64 位。</li>
-<li><strong>MEMC_DRAM_DATA_WIDTH</strong>：必须设置为 16、32 或 64。</li>
+<li><strong>dfi_ctrlupd_req</strong>：这是一个请求信号，发出后会触发PHY更新延迟线。为了应对环境变化（如温度变化、电压波动等），控制器需要定期发出这个信号，确保延迟线能够适应这些变化。</li>
+<li><strong>phy_dfi_ctrlupd_ack</strong>：这是一个确认信号，表示PHY完成了延迟线更新的操作。只有在收到这个确认信号后，控制器才知道延迟线更新已经完成。</li>
 </ul>
-</li>
-<li><p><strong>支持的内存宽度</strong>：控制器支持 16 位、32 位和 64 位数据宽度的 ECC 校验。如果配置为其他宽度（如 8 位），则不支持 ECC。</p>
-</li>
-</ul>
-<h4 id="4-ECC-支持的内存类型"><a href="#4-ECC-支持的内存类型" class="headerlink" title="4. ECC 支持的内存类型"></a>4. <strong>ECC 支持的内存类型</strong></h4><ul>
-<li><strong>ECC 支持所有 DDR 协议</strong>，但对于 <strong>mDDR、LPDDR3 和 LPDDR4</strong>，其最小设备宽度为 16 位。</li>
-<li>对于 <strong>LPDDR3&#x2F;4</strong>，ECC 不一定在所有 PHY（物理层）上都得到支持，因为 PHY 可能要求总数据宽度为 16 的倍数。</li>
-</ul>
-<h2 id="2-39-2-配置和基本操作（Configuration-and-Basic-Operation）"><a href="#2-39-2-配置和基本操作（Configuration-and-Basic-Operation）" class="headerlink" title="2.39.2 配置和基本操作（Configuration and Basic Operation）"></a><strong>2.39.2 配置和基本操作（Configuration and Basic Operation）</strong></h2><h4 id="1-数据位宽的变化"><a href="#1-数据位宽的变化" class="headerlink" title="1. 数据位宽的变化"></a>1. <strong>数据位宽的变化</strong></h4><ul>
-<li><strong>MEMC_ECC_SUPPORT &#x3D; 1</strong> 和 <strong>MEMC_SIDEBAND_ECC &#x3D; 1</strong> 会扩展 DFI（DDR 接口）数据位宽，以容纳额外的 ECC 字节。</li>
-<li>每个 ECC lane 会增加一个 ECC 字节。<ul>
-<li>在 <strong>1:1 配置模式</strong>（<strong>MEMC_FREQ_RATIO &#x3D; 1</strong>）中，假设 <strong>SDRAM 宽度</strong> 为 64 位（<strong>MEMC_DRAM_DATA_WIDTH &#x3D; 64</strong>），则 DFI 数据宽度从 128 位增加到 144 位。</li>
-<li>在 <strong>1:2 配置模式</strong>（<strong>MEMC_FREQ_RATIO &#x3D; 2</strong>）中，假设 <strong>SDRAM 宽度</strong> 为 64 位，DFI 数据宽度从 256 位增加到 288 位。</li>
+<p><strong>延迟线更新</strong>必须小心处理，不能在<strong>读</strong>或<strong>写</strong>操作期间进行，因为这样可能会破坏<strong>数据眼</strong>（数据有效区域的稳定性）。因此，在进行延迟线更新时，必须确保读写操作不会受到影响。</p>
+<p>如果PHY正在进行更新（即<strong>dfi_phyupd_ack &#x3D; 1</strong>），uMCTL2会延迟发出<strong>dfi_ctrlupd_req</strong>请求，以避免冲突。</p>
+<h3 id="两种DFI更新方法"><a href="#两种DFI更新方法" class="headerlink" title="两种DFI更新方法"></a>两种DFI更新方法</h3><ol>
+<li><strong>自动MC发起的更新请求（Automatic MC-Initiated Update Request）</strong>：这意味着内存控制器自动定期发起更新请求，而不需要外部干预。</li>
+<li><strong>MC发起的更新请求的直接软件请求（Direct Software Request of MC-initiated Update Request）</strong>：在这种方法下，软件（如操作系统或固件）直接发起更新请求，控制更新过程。</li>
+</ol>
+<h3 id="2-7-2-1-自动MC发起的更新请求"><a href="#2-7-2-1-自动MC发起的更新请求" class="headerlink" title="2.7.2.1 自动MC发起的更新请求"></a>2.7.2.1 自动MC发起的更新请求</h3><ul>
+<li><strong>DFIUPD0.dis_auto_ctrlupd &#x3D; 0</strong>：如果这个配置项被设置为0，那么就启用<strong>自动MC发起的更新请求</strong>。这意味着内存控制器（uMCTL2）会在特定时机自动发起更新请求，而不需要外部软件的干预。</li>
+<li><strong>uMCTL2控制dfi_ctrlupd_req信号</strong>：uMCTL2必须小心地控制<code>dfi_ctrlupd_req</code>信号的触发。这个信号的作用是请求PHY（物理层）进行延迟线更新。uMCTL2会在<strong>空闲状态</strong>时发出<code>dfi_ctrlupd_req</code>信号。<strong>空闲状态</strong>被定义为：<ul>
+<li>没有<strong>读取</strong>或<strong>写入</strong>操作正在进行（即在CAMs中没有读取或写入周期）；</li>
+<li>没有<strong>读取响应</strong>在RT（响应追踪器）块中缓存；</li>
+<li>没有<strong>写入数据</strong>在MR（内存读取）块中等待。</li>
 </ul>
 </li>
+<li><strong>强制DFI更新请求</strong>：如果uMCTL2长时间没有进入空闲状态（即没有空闲的时刻发出更新请求），则它会使用<strong>超时机制</strong>。当发生DFI MC发起更新超时时，uMCTL2会暂停读写操作，直到MR和RT块都进入空闲状态，此时才会发出<code>dfi_ctrlupd_req</code>信号。</li>
 </ul>
-<p><strong>解释：</strong></p>
+<h4 id="特定配置下的行为"><a href="#特定配置下的行为" class="headerlink" title="特定配置下的行为"></a>特定配置下的行为</h4><ul>
+<li><p>对于<strong>单排配置</strong>（即只有一个内存rank）且只有读写流量的情况，特别是：</p>
 <ul>
-<li><strong>ECC lane</strong>：在 ECC 校验中，数据被划分为多个“ECC lane”（数据块），每个 ECC lane 宽度与内存数据宽度相同。</li>
-<li><strong>DFI 数据位宽</strong>：在启用 ECC 后，DFI 接口的数据传输宽度会增加，因为需要额外传输每个 ECC lane 的 ECC 校验字节。这个增加的宽度取决于内存配置和频率设置。</li>
-<li><strong>MEMC_FREQ_RATIO</strong>：控制器的频率比，决定了数据传输的速率。频率比为 1:1 或 1:2 会影响 DFI 数据位宽的变化。</li>
+<li><code>DFIUPD1.dfi_t_ctrlupd_interval_max_x1024 = 255</code></li>
+<li><code>DFIUPD0.dis_auto_ctrlupd_srx = 1</code></li>
+<li>禁用每bank的刷新操作（<code>RFSHCTL0.per_bank_refresh = 0</code>）</li>
 </ul>
-<p><img src="https://s2.loli.net/2024/12/13/Zp4IaPntsiLNh7F.png" alt="image-20241213213052407"></p>
-<h4 id="2-ECC-配置"><a href="#2-ECC-配置" class="headerlink" title="2. ECC 配置"></a>2. <strong>ECC 配置</strong></h4><ul>
-<li>如果控制器已配置为支持 ECC，则通过软件使能寄存器 <strong>ECCCFG0.ecc_mode</strong> 来启用或禁用 ECC。</li>
-<li>如果 <strong>ECCCFG0.ecc_mode &#x3D; “100”</strong>，则启用 <strong>单比特单错误校正 &#x2F; 双比特错误检测</strong>（SEC&#x2F;DED ECC）模式。</li>
+<p>这种配置下，uMCTL2只有在刷新命令之后才会发送<code>dfi_ctrlupd_req</code>信号。</p>
+</li>
+<li><p><strong>触发频率设置</strong>：<code>DFIUPD1.dfi_t_ctrlupd_interval_min_x1024</code>字段设置了<code>dfi_ctrlupd_req</code>信号的触发频率。如果这个值设置得较小，那么<code>dfi_ctrlupd_req</code>会在每次刷新命令后触发；如果设置得较大，则<code>dfi_ctrlupd_req</code>会在每<code>n</code>次刷新命令后触发。</p>
+</li>
+<li><p><strong>自刷新退出命令</strong>：如果<code>DFIUPD0.dis_auto_ctrlupd_srx = 0</code>，则<code>dfi_ctrlupd_req</code>信号会在每次自刷新退出命令之前或之后触发，具体取决于<code>DFIUPD0.ctrlupd_pre_srx</code>的设置。</p>
+</li>
 </ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>ECCCFG0.ecc_mode</strong>：该寄存器用于控制是否启用 ECC 校验。如果设置为 <code>100</code>，则启用单比特单错误校正（SEC）和双比特错误检测（DED）。这意味着数据传输时会进行错误校正和错误检测。</li>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li>如果启用了每<strong>bank</strong>的刷新功能，或者<code>DFIUPD1.dfi_t_ctrlupd_interval_min_x1024</code>设置得较高，并且使用了刷新突发（refresh bursts），那么<code>dfi_ctrlupd_req</code>信号可能会在刷新命令以外的命令后被触发。</li>
 </ul>
-<h4 id="3-写入操作中的-ECC"><a href="#3-写入操作中的-ECC" class="headerlink" title="3. 写入操作中的 ECC"></a>3. <strong>写入操作中的 ECC</strong></h4><ul>
-<li>在写入操作时，ECC 会在每个 <strong>ECC lane</strong> 上计算，并将结果的 ECC 码作为额外的字节与数据一起写入 SDRAM。</li>
-<li>这个额外的 ECC 字节总是写入 SDRAM 的最高字节位置：对于 16 位 SDRAM 是第 2 字节，对于 32 位 SDRAM 是第 4 字节，对于 64 位 SDRAM 是第 8 字节。</li>
+<h3 id="2-7-2-2-直接软件请求MC发起的更新请求"><a href="#2-7-2-2-直接软件请求MC发起的更新请求" class="headerlink" title="2.7.2.2 直接软件请求MC发起的更新请求"></a>2.7.2.2 直接软件请求MC发起的更新请求</h3><ul>
+<li><strong>DFIUPD0.dis_auto_ctrlupd &#x3D; 1</strong>：当这个配置项被设置为1时，意味着禁用了自动控制更新请求，转而由<strong>SoC</strong>来决定何时发起更新请求。这样做的目的是在某些特殊场景下，比如<strong>内存带宽</strong>利用率至关重要的情况下，避免更新请求打断正常的读写事务。</li>
+<li><strong>SoC控制更新请求</strong>：在这种模式下，<strong>SoC</strong>可以决定何时执行DFI MC发起的更新请求。这对于那些对内存带宽要求非常严格的应用尤为重要，特别是当uMCTL2希望保持连续的内存操作，而不希望任何中断时。</li>
 </ul>
-<p><img src="https://s2.loli.net/2024/12/13/5QkZyUK3VXo6NqP.png" alt="image-20241213213123885"></p>
-<p><img src="https://s2.loli.net/2024/12/13/2O6pzvGXmMjJPgE.png" alt="image-20241213213211484"></p>
-<p><img src="https://s2.loli.net/2024/12/13/vjwZGIUXidL3OyH.png" alt="image-20241213213233357"></p>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>写入数据</strong>：在写入数据时，ECC 校验码会与数据一起写入内存。这个 ECC 校验码会覆盖内存中的特定字节，通常是内存地址的最高字节，以确保 ECC 校验能够正确应用。</li>
+<h4 id="执行更新请求的方式"><a href="#执行更新请求的方式" class="headerlink" title="执行更新请求的方式"></a>执行更新请求的方式</h4><ul>
+<li><strong>设置DBGCMD.ctrlupd &#x3D; 1</strong>：为了发起更新请求，SoC需要通过设置<strong>DBGCMD.ctrlupd</strong>寄存器位为1，告知uMCTL2发起DFI更新请求。这个请求会被存储在uMCTL2中，一旦请求被接受，DBGCMD.ctrlupd寄存器位会被自动清除。</li>
+<li><strong>条件：DBGSTAT.ctrlupd_busy</strong>：SoC只有在<strong>DBGSTAT.ctrlupd_busy</strong>信号为低电平（low）时，才可以执行更新请求。这个信号表示uMCTL2是否正在忙于处理更新请求。当uMCTL2接受到请求后，<code>ctrlupd_busy</code>会变为高电平（high），表示uMCTL2正在处理这个请求。处理完成后，信号会恢复为低电平，表示可以接受新的更新请求。</li>
 </ul>
-<h4 id="4-读取操作中的-ECC"><a href="#4-读取操作中的-ECC" class="headerlink" title="4. 读取操作中的 ECC"></a>4. <strong>读取操作中的 ECC</strong></h4><ul>
-<li>在读取操作时，包含 ECC 字节的 <strong>ECC lane</strong> 会从 SDRAM 中读取，并进行 <strong>解码</strong>。</li>
-<li>控制器会验证读取到的 ECC 字节是否正确，即与数据在 ECC lane 中的期望值匹配。如果匹配，数据将被正常发送到系统（SoC）。</li>
-<li>如果 ECC 校验发现错误，控制器会根据错误的类型（例如单比特错误或双比特错误）采取相应的处理措施（详见“ECC 错误时的控制器行为”部分）。</li>
+<h4 id="DFI更新与刷新操作的协调"><a href="#DFI更新与刷新操作的协调" class="headerlink" title="DFI更新与刷新操作的协调"></a>DFI更新与刷新操作的协调</h4><ul>
+<li><strong>同时发起DFI更新和刷新</strong>：uMCTL2可以在<strong>刷新</strong>命令和<strong>DFI更新请求</strong>同时进行时发起<code>dfi_ctrlupd_req</code>信号。对于刷新操作和DFI更新请求，uMCTL2会确保这两者按正确的顺序发生，不会发生功能上的冲突。</li>
+<li><strong>时机的选择</strong>：SoC需要在控制器能够容忍<strong>读写调度</strong>中断的时刻发起DFI更新请求。虽然SoC有控制的权限，但更新请求仍然会受到uMCTL2的调度约束，以确保不影响系统的正常操作。SoC的逻辑需要确保更新请求被合理频繁地调度，并且在合适的时机发起。</li>
 </ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>读取数据</strong>：当控制器从内存中读取数据时，除了数据外，还会读取 ECC 校验字节。然后控制器会检查该 ECC 校验字节是否与数据一致，以确认数据是否在传输过程中没有出错。如果 ECC 校验通过，数据就可以正常返回给系统。如果检测到错误，系统会根据设定的错误处理机制进行处理。</li>
-</ul>
-<h4 id="5-读修改写（RMW）操作中的-ECC"><a href="#5-读修改写（RMW）操作中的-ECC" class="headerlink" title="5. 读修改写（RMW）操作中的 ECC"></a>5. <strong>读修改写（RMW）操作中的 ECC</strong></h4><ul>
-<li>在 <strong>读修改写</strong> 操作中，首先会执行读取操作，如前所述，读取的数据和 ECC 校验字节。</li>
-<li>然后，读取的数据与从 <strong>HIF（主机接口）</strong> 接收到的写数据合并，使用 HIF 提供的写掩码来覆盖读取数据中的特定字节。</li>
-<li>对于合并后的数据，控制器会重新计算 ECC 校验，并将其写回内存。</li>
-</ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>读修改写（RMW）操作</strong>：这种操作涉及先读取数据，再对数据进行修改并写回内存。在执行 RMW 时，控制器需要首先读取数据并进行 ECC 校验。然后，新的数据与原有数据合并，ECC 校验码会基于更新后的数据重新计算，并与数据一起写回内存。</li>
-</ul>
-<h2 id="2-39-3-全总线宽-半总线宽-四分总线宽模式（Full-Half-Quarter-Bus-Width-Mode）"><a href="#2-39-3-全总线宽-半总线宽-四分总线宽模式（Full-Half-Quarter-Bus-Width-Mode）" class="headerlink" title="2.39.3 全总线宽&#x2F;半总线宽&#x2F;四分总线宽模式（Full &#x2F; Half &#x2F; Quarter Bus Width Mode）"></a><strong>2.39.3 全总线宽&#x2F;半总线宽&#x2F;四分总线宽模式（Full &#x2F; Half &#x2F; Quarter Bus Width Mode）</strong></h2><h4 id="1-ECC-的计算和解码"><a href="#1-ECC-的计算和解码" class="headerlink" title="1. ECC 的计算和解码"></a>1. <strong>ECC 的计算和解码</strong></h4><ul>
-<li>在 <strong>ECC 引擎</strong> 中计算和解码的数据会通过 DQ 总线的单边传输（单边指数据仅在 DQ 总线的一个时钟边缘进行传输）。</li>
-<li>当 <strong>MEMC_DRAM_DATA_WIDTH &#x3D; 64</strong> 时，如果输入到 ECC 引擎的数据宽度小于 64 位，控制器会填充零（<strong>padding zeros</strong>）使其对齐为 64 位数据，之后再传送到 ECC 引擎进行编码或解码。</li>
-</ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>ECC 引擎</strong>：用于执行错误校正和错误检测的硬件单元。</li>
-<li><strong>MEMC_DRAM_DATA_WIDTH &#x3D; 64</strong>：表示内存的数据总线宽度为 64 位。</li>
-<li><strong>填充零</strong>（padding zeros）：如果输入数据宽度小于 64 位，控制器会在数据中添加零，确保数据总宽度为 64 位，从而能够与内存总线对齐进行传输。</li>
-</ul>
-<h4 id="2-半总线宽和四分总线宽的处理"><a href="#2-半总线宽和四分总线宽的处理" class="headerlink" title="2. 半总线宽和四分总线宽的处理"></a>2. <strong>半总线宽和四分总线宽的处理</strong></h4><ul>
-<li>在 <strong>半总线宽模式</strong>（HBW）或 <strong>四分总线宽模式</strong>（QBW）下，数据在 <strong>ECC 编码阶段</strong> 会被拆分成多个周期进行处理。</li>
-<li>数据会被分割成多个周期，并根据需要添加填充位（padding），然后送入 <strong>ECC 引擎</strong> 进行编码。</li>
-<li>在解码阶段，从 <strong>PHY</strong>（物理层接口）接收到的数据会送入 <strong>ECC 解码器</strong>，并根据需要进行填充。</li>
-<li>在 <strong>半总线宽模式</strong>（HBW）和 <strong>四分总线宽模式</strong>（QBW）下，数据的收集是在数据通过 <strong>ECC 解码器</strong> 之后进行的。</li>
-</ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>半总线宽模式（HBW）</strong> 和 <strong>四分总线宽模式（QBW）</strong>：这两种模式下，内存的数据总线宽度会小于 64 位（可能是 32 位或 16 位）。为了能够进行 ECC 校验，控制器会将数据分割成多个小周期进行处理。</li>
-<li><strong>编码和解码阶段</strong>：在编码阶段，数据被拆分成多个周期并进行填充，然后传送给 ECC 引擎；在解码阶段，数据会经过 ECC 解码器，并根据需要填充，确保数据完整性。</li>
-</ul>
-<h4 id="3-ECC-字节的位置"><a href="#3-ECC-字节的位置" class="headerlink" title="3. ECC 字节的位置"></a>3. <strong>ECC 字节的位置</strong></h4><ul>
-<li>在启用 ECC 的 半总线宽模式（HBW）或 四分总线宽模式（QBW）下，ECC 字节总是会被写入到 SDRAM 接口的最显著字节（最高字节），以及 DFI 接口的每一个阶段。<ul>
-<li><strong>HBW</strong> 和 <strong>QBW</strong> 模式下，ECC 字节总是写入到最显著字节，确保数据的 ECC 校验可以在传输过程中正确应用。</li>
+<h2 id="2-7-3-DFI-PHY-initiated-Update-Request"><a href="#2-7-3-DFI-PHY-initiated-Update-Request" class="headerlink" title="2.7.3 DFI PHY-initiated Update Request"></a>2.7.3 DFI PHY-initiated Update Request</h2><p><strong>DFI PHY-initiated Update Request</strong> 是由PHY（物理层）发起的更新请求，目的是为了让PHY更新一些参数，比如延迟线的调整等。uMCTL2（内存控制器）需要响应这些请求并进行相应的处理。</p>
+<h3 id="1-DFI-PHY-initiated-Update-Request的应答"><a href="#1-DFI-PHY-initiated-Update-Request的应答" class="headerlink" title="1. DFI PHY-initiated Update Request的应答"></a>1. <strong>DFI PHY-initiated Update Request的应答</strong></h3><ul>
+<li>DFI规定了4种不同的PHY发起更新请求模式，每种模式的不同之处在于更新发生时，DFI接口需要被暂停的周期数。这意味着在处理PHY发起的更新请求时，DFI的命令、读数据和写数据通道会被暂停一段时间。</li>
+<li><strong>启用PHY发起的更新</strong>：通过设置<strong>DFIUPD2.dfi_phyupd_en</strong>寄存器位来启用或禁用此功能。如果该功能被启用（由软件控制），当PHY发起更新请求时，uMCTL2会尽快将DFI命令、读数据和写数据通道挂起，并在处理过程中驱动<code>dfi_phyupd_ack</code>信号为高电平，表示uMCTL2已接收到PHY的更新请求并正在处理。<ul>
+<li>在<strong>1:2频率比模式</strong>下，最多暂停64个时钟周期。</li>
+<li>在<strong>1:1频率比模式</strong>下，最多暂停128个时钟周期。</li>
 </ul>
 </li>
 </ul>
-<p><strong>解释：</strong></p>
-<ul>
-<li><strong>最显著字节（Most Significant Byte）</strong>：在多字节数据中，最显著字节是数据中值最大的字节，即数字中位数最高的部分。在内存存储中，ECC 校验通常存储在这些字节中，以便在出现错误时进行检测和修复。</li>
-<li><strong>DFI 接口</strong>：即 DDR 接口，控制器和内存之间的数据传输通道。</li>
-<li><strong>ECC 字节的存储</strong>：无论是 HBW 还是 QBW 模式，ECC 字节都会被存储在内存的最高字节，确保 ECC 校验覆盖整个数据。</li>
+<h3 id="2-冲突避免机制"><a href="#2-冲突避免机制" class="headerlink" title="2. 冲突避免机制"></a>2. <strong>冲突避免机制</strong></h3><ul>
+<li><strong>dfi_ctrlupd_req和dfi_phyupd_req冲突</strong>：有一种情况是<strong>dfi_ctrlupd_req</strong>（由uMCTL2发起的更新请求）和<strong>dfi_phyupd_req</strong>（由PHY发起的更新请求）同时被驱动，这可能会导致uMCTL2和PHY同时响应对方的请求，从而违反DFI协议。</li>
+<li>为了避免这种情况，当<strong>dfi_ctrlupd_req</strong>和<strong>dfi_phyupd_req</strong>同时被驱动时，uMCTL2不会对<strong>dfi_phyupd_req</strong>发出应答（即不驱动<code>dfi_phyupd_ack</code>为高电平），直到<strong>dfi_ctrlupd_req</strong>被撤销或完成。这是为了确保uMCTL2不会与PHY同时做出响应，从而防止协议冲突。</li>
 </ul>
-<h4 id="4-表格和数据宽度"><a href="#4-表格和数据宽度" class="headerlink" title="4. 表格和数据宽度"></a>4. <strong>表格和数据宽度</strong></h4><ul>
-<li>手册中提到的表格（表 2-93）显示了在不同总线宽模式下，<strong>ECC 字节</strong>和 <strong>填充字节</strong> 的数量。</li>
+<h3 id="3-刷新与PHY更新的协调"><a href="#3-刷新与PHY更新的协调" class="headerlink" title="3. 刷新与PHY更新的协调"></a>3. <strong>刷新与PHY更新的协调</strong></h3><ul>
+<li>如果系统正在使用<strong>突发刷新</strong>（burst refresh），而同时发生了PHY发起的更新请求，可能会导致<strong>tRFCmax</strong>（刷新间隔最大时间）违反。这种情况发生在PHY更新请求被发出时，恰好在刷新突发周期之前。为了避免这种情况，uMCTL2会延迟刷新突发的执行，直到PHY更新完成。</li>
+<li><strong>解决方法</strong>：可以通过降低<strong>RFSHCTL0.refresh_burst</strong>的值来避免这种冲突，这样可以减少刷新突发和PHY更新之间的时间冲突。</li>
 </ul>
-<p><img src="https://s2.loli.net/2024/12/13/a5eNDApYfLKiUs2.png" alt="image-20241213213553635"></p>
-<p><strong>解释：</strong></p>
-<ul>
-<li>表格提供了在不同模式下，ECC 字节和填充字节的具体数量，帮助开发者理解在不同配置下 ECC 校验和数据传输的实际宽度。</li>
-</ul>
-<h2 id="2-39-4-使用-ECC-时的数据掩码限制"><a href="#2-39-4-使用-ECC-时的数据掩码限制" class="headerlink" title="2.39.4 使用 ECC 时的数据掩码限制"></a><strong>2.39.4 使用 ECC 时的数据掩码限制</strong></h2><h4 id="1-ECC-操作与写操作粒度"><a href="#1-ECC-操作与写操作粒度" class="headerlink" title="1. ECC 操作与写操作粒度"></a>1. <strong>ECC 操作与写操作粒度</strong></h4><ul>
-<li>每个 <strong>ECC lane</strong>（ECC 处理的数据通道）的宽度可以是 16 位、32 位或 64 位。如果启用 ECC 功能，<strong>uMCTL2 控制器</strong> 会根据写操作的数据粒度（即写入的数据字节数）来判断如何进行写操作。</li>
-<li>写操作粒度要求：<ul>
-<li>如果写入数据的字节数是 2 字节、4 字节或 8 字节对齐的，控制器可以直接执行写操作。</li>
-<li>如果写入数据的字节数小于 2 字节、4 字节或 8 字节对齐的（即不是按照这些字节数对齐），控制器会执行一个 <strong>RMW（Read-Modify-Write）操作</strong>。</li>
+<h3 id="4-时钟移除与PHY更新的时序"><a href="#4-时钟移除与PHY更新的时序" class="headerlink" title="4. 时钟移除与PHY更新的时序"></a>4. <strong>时钟移除与PHY更新的时序</strong></h3><ul>
+<li><strong>时钟移除</strong>（clock removal）功能：当<strong>core_ddrc_core_clk</strong>（控制器时钟）从uMCTL2中移除时，DFI接口的时序要求（特别是<code>tphyupd_resp</code>）可能无法满足。这是因为<strong>dfi_phyupd_req &#x3D; 1</strong>信号只有在时钟重新启用后才能被观察到。<ul>
+<li><strong>tphyupd_resp要求</strong>：这意味着在时钟被移除时，<strong>dfi_phyupd_req</strong>从1到0的过渡及再转回1的过程中，控制器可能无法保证对这些信号的响应。因此，在时钟移除期间，这些PHY发起的更新请求可能无法正确响应。</li>
 </ul>
 </li>
 </ul>
-<h4 id="2-RMW-操作的处理方式"><a href="#2-RMW-操作的处理方式" class="headerlink" title="2. RMW 操作的处理方式"></a>2. <strong>RMW 操作的处理方式</strong></h4><ul>
-<li>在 RMW 操作中，控制器会首先从 <strong>DRAM</strong> 读取当前的数据，之后将从控制器传送来的写数据与已读数据合并，再写回内存。</li>
-<li>在进行 RMW 操作时，控制器会执行 <strong>无掩码写入</strong>，意味着没有对数据字节进行掩码（即不跳过任何字节，所有字节都会被写入）。这避免了由于数据掩码造成的潜在错误。</li>
-</ul>
-<p><strong>总结</strong>：当数据粒度不满足对齐要求时，控制器会通过读取当前内存中的数据并与写入的数据合并，进行 RMW 操作，以确保数据的一致性。</p>
-<h2 id="2-39-5-ECC-错误处理机制"><a href="#2-39-5-ECC-错误处理机制" class="headerlink" title="2.39.5 ECC 错误处理机制"></a><strong>2.39.5 ECC 错误处理机制</strong></h2><h4 id="1-可纠正的-ECC-错误"><a href="#1-可纠正的-ECC-错误" class="headerlink" title="1. 可纠正的 ECC 错误"></a>1. <strong>可纠正的 ECC 错误</strong></h4><p>当 <strong>uMCTL2</strong> 检测到一个 <strong>可纠正的 ECC 错误</strong> 时，控制器会执行以下操作：</p>
-<ul>
-<li>将 <strong>已修正的数据</strong> 作为读数据返回给 <strong>SoC</strong>。</li>
-<li>将 <strong>ECC 错误信息</strong> 发送到 <strong>APB 寄存器模块</strong>。</li>
-<li>执行 <strong>RMW 操作</strong>，修正存在于 <strong>SDRAM</strong> 中的错误数据（只有在启用 ECC 清理功能时，<strong>ECCCFG0.dis_scrub &#x3D; 0</strong>）。该 RMW 操作对于控制器是 <strong>透明的</strong>，即控制器不会感知到这个操作的具体细节。</li>
-</ul>
-<p><strong>总结</strong>：当可纠正的 ECC 错误被检测到时，控制器会先修正数据并将修正后的数据发送给 SoC，随后对 SDRAM 中的错误数据进行修复。</p>
-<h4 id="2-不可纠正的-ECC-错误"><a href="#2-不可纠正的-ECC-错误" class="headerlink" title="2. 不可纠正的 ECC 错误"></a>2. <strong>不可纠正的 ECC 错误</strong></h4><p>当控制器检测到一个 <strong>不可纠正的 ECC 错误</strong> 时，执行以下操作：</p>
-<ul>
-<li>将 <strong>出错的数据</strong> 作为读数据发送给 <strong>SoC</strong>。</li>
-<li>将 <strong>ECC 错误信息</strong> 发送到 <strong>APB 寄存器模块</strong>。</li>
-<li>生成一个错误响应，在 <strong>AHB 接口</strong> 或 <strong>AXI 接口</strong> 上生成 <strong>SLVERR 响应</strong>。</li>
-</ul>
-<h4 id="3-RMW-操作中的不可纠正错误处理"><a href="#3-RMW-操作中的不可纠正错误处理" class="headerlink" title="3. RMW 操作中的不可纠正错误处理"></a>3. <strong>RMW 操作中的不可纠正错误处理</strong></h4><p>如果在正常的 RMW 操作的 <strong>读部分</strong>（而非 ECC 清理操作）中检测到不可纠正的错误，控制器将：</p>
-<ul>
-<li>在随后的写操作部分，故意 <strong>破坏 2 位</strong>（2-bit corruption）到重新计算的 <strong>ECC 字段</strong>中。</li>
-<li>这种故意破坏的操作确保了 <strong>不会发生自动修复</strong>，避免了由于 ECC 校验失败的错误数据被误修正。</li>
-</ul>
-<p><strong>总结</strong>：对于不可纠正的 ECC 错误，控制器不会修复数据，而是将错误数据发送给 SoC，并确保没有因自动 ECC 修复机制而错误地修正这些错误。</p>
-<h4 id="4-ECC-错误的报告"><a href="#4-ECC-错误的报告" class="headerlink" title="4. ECC 错误的报告"></a>4. <strong>ECC 错误的报告</strong></h4><ul>
-<li>ECC 错误报告基于 <strong>DFI 读数据</strong>。对于小而不对齐的 AXI 事务，可能有部分数据不会传播到 AXI 接口，但即使这些数据没有使用，ECC 错误仍会被标记。特别是对于未初始化的内存区域，可能会发生这种情况。</li>
-<li>为了避免此类错误，推荐在初始化时将整个内存空间进行初始化。</li>
-</ul>
-<p><strong>总结</strong>：ECC 错误报告会基于整个 DFI 读数据进行，确保即使是未使用的部分数据也能标记 ECC 错误。为了避免未初始化内存导致的问题，建议在初始化时对内存进行完全初始化。</p>
-<h3 id="2-39-5-1-ECC-错误报告寄存器"><a href="#2-39-5-1-ECC-错误报告寄存器" class="headerlink" title="2.39.5.1 ECC 错误报告寄存器"></a><strong>2.39.5.1 ECC 错误报告寄存器</strong></h3><ul>
-<li>控制器提供了一系列的寄存器，用于 <strong>ECC 错误报告</strong>。通过读取这些寄存器，可以获得关于已检测错误的详细信息。</li>
-<li>控制器还提供了 <strong>两个中断</strong>：<code>ecc_corrected_err_intr</code> 和 <code>ecc_uncorrected_err_intr</code>，当检测到纠正或未纠正的错误时，这些中断会被触发。</li>
-<li><strong>ECC 错误日志寄存器</strong> 用于捕捉 <strong>第一次 ECC 可纠正错误</strong> 和 <strong>第一次 ECC 不可纠正错误</strong>，并存储相关的日志信息，直到相关中断被清除。</li>
-</ul>
-<h4 id="2-39-5-1-1-ECCSTAT-corrected-bit-num-字段"><a href="#2-39-5-1-1-ECCSTAT-corrected-bit-num-字段" class="headerlink" title="2.39.5.1.1 ECCSTAT.corrected_bit_num 字段"></a><strong>2.39.5.1.1 ECCSTAT.corrected_bit_num 字段</strong></h4><ul>
-<li><code>ECCSTAT</code> 是一个寄存器，它用于保存 <strong>ECC 错误的状态信息</strong>。当 ECC 错误被检测到时，这个寄存器会记录有关错误的详细信息。</li>
-<li>在 <code>ECCSTAT</code> 中，<code>corrected_bit_num</code> 是一个字段，用来表示已经被修正的 <strong>ECC 错误位</strong>。这个字段的值指示了在 ECC 检测到错误后，具体是哪个位出现了错误并被修正。（详细看表）</li>
-</ul>
-<h2 id="2-39-6-ECC-Scrub（ECC-清理）和-ECC-Scrubber（ECC-清理器）"><a href="#2-39-6-ECC-Scrub（ECC-清理）和-ECC-Scrubber（ECC-清理器）" class="headerlink" title="2.39.6 ECC Scrub（ECC 清理）和 ECC Scrubber（ECC 清理器）"></a><strong>2.39.6 ECC Scrub（ECC 清理）和 ECC Scrubber（ECC 清理器）</strong></h2><p>在 DRAM 操作中，错误是不可避免的，尤其是单比特错误，这些错误通常是由环境因素（如辐射）引起的。<strong>ECC Scrub</strong> 和 <strong>ECC Scrubber</strong> 的目标是定期修复这些单比特错误，以防止它们演变成更严重的不可修复的错误（如双比特错误）。</p>
-<h4 id="1-ECC-Scrub-特性"><a href="#1-ECC-Scrub-特性" class="headerlink" title="1. ECC Scrub 特性"></a>1. <strong>ECC Scrub 特性</strong></h4><ul>
-<li><strong>ECC Scrub</strong> 是一种自动修正机制，用于修复 DRAM 中的单比特错误。它可以在读取时触发修复过程。</li>
-<li><strong>启用 ECC Scrub</strong> 需要满足以下条件：<ul>
-<li><code>MEMC_USE_RMW = 1</code>：必须启用 <strong>RMW</strong>（读取-修改-写入）操作。</li>
-<li><code>MEMC_ECC_SUPPORT &gt; 0</code>：必须启用 <strong>ECC</strong> 支持。</li>
-</ul>
-</li>
-<li>在 <strong>ECC Scrub</strong> 启用时，任何接收到的 <strong>读取命令</strong>，如果发现其中包含单比特错误，将触发自动 <strong>ECC Scrub</strong> 操作，修复这些错误。</li>
-<li><strong>ECC Scrub</strong> 的启用和禁用：<ul>
-<li>通过设置 <code>ECCCFG0.dis_scrub = 0</code> 来启用 <strong>ECC Scrub</strong>，此参数与 <strong>ECC Scrubber</strong> 是否启用无关。</li>
-<li>如果使用 <strong>Sideband ECC</strong> 配置（即 <code>MEMC_ECC_SUPPORT &gt; 0</code> 且 <code>MEMC_SIDEBAND_ECC == 1</code>），则可以通过将 <code>ECCCFG0.dis_scrub = 0</code> 来启用 <strong>ECC Scrub</strong>。</li>
-<li>在 <strong>Inline ECC</strong> 配置下（即 <code>MEMC_ECC_SUPPORT &gt; 0</code> 且 <code>MEMC_INLINE_ECC == 1</code>），<strong>ECC Scrub</strong> 功能不可用，始终通过 <code>ECCCFG0.dis_scrub = 1</code> 禁用。但如果同时设置了 <code>MEMC_INLINE_ECC == 1</code> 和 <code>MEMC_SIDEBAND_ECC == 1</code>，且 <code>ECCCFG0.ecc_type = 0</code> 时，<strong>ECC Scrub</strong> 可以在软件禁用 <strong>Inline ECC</strong> 时启用。</li>
+<h3 id="5-PHY不支持PHY-initiated-Updates时的处理"><a href="#5-PHY不支持PHY-initiated-Updates时的处理" class="headerlink" title="5. PHY不支持PHY-initiated Updates时的处理"></a>5. <strong>PHY不支持PHY-initiated Updates时的处理</strong></h3><ul>
+<li>如果PHY不支持PHY发起的更新请求，推荐将以下输入设置为0，以禁用该功能：<ul>
+<li><strong>DFIUPD2.dfi_phyupd_en &#x3D; 0</strong>，即禁用PHY发起的更新请求。</li>
+<li><strong>phy_ddrc_dfi_phyupd_req &#x3D; 0</strong>，即PHY发起的更新请求信号应为低电平。</li>
+<li><strong>phy_ddrc_dfi_phyupd_type &#x3D; 00</strong>，指定PHY发起的更新类型为“无更新”。</li>
 </ul>
 </li>
 </ul>
-<h4 id="2-ECC-Scrubber（清理器）"><a href="#2-ECC-Scrubber（清理器）" class="headerlink" title="2. ECC Scrubber（清理器）"></a>2. <strong>ECC Scrubber（清理器）</strong></h4><ul>
-<li><strong>ECC Scrubber</strong> 是一个外部于 DDR 控制器的硬件模块，它可以定期生成后台读取命令。这些命令的目的是在单比特错误成为不可修复的双比特错误之前，及时纠正这些单比特错误，从而提高系统的可靠性。</li>
-<li><strong>启用 ECC Scrubber</strong> 需要以下硬件参数设置为 <code>1</code>：<ul>
-<li><code>UMCTL2_SBR_EN</code>：启用 ECC Scrubber。</li>
-<li><code>UMCTL2_INCL_ARB</code>：包括在内的仲裁。</li>
-<li><code>MEMC_USE_RMW</code>：启用读取-修改-写入操作。</li>
-<li><code>MEMC_ECC_SUPPORT &gt; 0</code>：启用 ECC 支持。</li>
+<h3 id="6-tPHYUPD-RESP"><a href="#6-tPHYUPD-RESP" class="headerlink" title="6. tPHYUPD_RESP"></a>6. <strong>tPHYUPD_RESP</strong></h3><ul>
+<li>控制器支持<strong>tPHYUPD_RESP</strong>值的不同设置，具体来说，这个值是以<strong>DFI时钟</strong>（控制器时钟）为单位的，表明更新请求的响应时间。</li>
 </ul>
-</li>
-<li>在 <strong>Inline ECC 模式</strong> 下，ECC Scrubber 模块仍会生成定期的后台读取命令，并对导致单比特错误的读取命令执行 <strong>ECC Scrub</strong> 操作。</li>
+<p><img src="https://s2.loli.net/2024/12/14/q7QwDbXVOydUGBJ.png" alt="image-20241214104311490"></p>
+<h2 id="2-7-4-相关寄存器"><a href="#2-7-4-相关寄存器" class="headerlink" title="2.7.4 相关寄存器"></a>2.7.4 相关寄存器</h2><h3 id="1-DFIUPD2-dfi-phyupd-en"><a href="#1-DFIUPD2-dfi-phyupd-en" class="headerlink" title="1. DFIUPD2.dfi_phyupd_en"></a>1. <strong>DFIUPD2.dfi_phyupd_en</strong></h3><ul>
+<li><strong>功能</strong>：这个寄存器位 (<code>dfi_phyupd_en</code>) 控制是否启用 <strong>DFI PHY-initiated Update Request</strong>（由PHY发起的DFI更新请求）。</li>
+<li><strong>工作原理</strong>：如果这个寄存器被设置为<code>1</code>，则允许PHY发起更新请求，并且uMCTL2需要响应这些请求。当PHY发起更新时，DFI接口的命令、读数据和写数据通道将会被暂停，直到更新完成。这是为了确保PHY更新操作能顺利进行，不会和数据传输产生冲突。</li>
+<li><strong>用途</strong>：在某些情况下，可能希望禁用PHY发起的更新请求（例如，如果控制器和PHY之间有时序或带宽冲突）。在这种情况下，可以将这个寄存器位设置为<code>0</code>，以禁用PHY发起的更新请求。</li>
 </ul>
-<h3 id="2-39-6-1-ECC-Scrub-功能概述"><a href="#2-39-6-1-ECC-Scrub-功能概述" class="headerlink" title="2.39.6.1 ECC Scrub 功能概述"></a><strong>2.39.6.1 ECC Scrub 功能概述</strong></h3><p><strong>ECC Scrub</strong> 是 DDR 控制器中的一项功能，旨在自动修复 DRAM 中的单比特错误。当检测到单比特错误时，ECC Scrub 会通过 <strong>读取-修改-写入（RMW）</strong> 操作来修正这个错误。这个功能仅在启用了 <strong>Sideband ECC</strong> 配置时有效。</p>
-<h4 id="1-Sideband-ECC-配置"><a href="#1-Sideband-ECC-配置" class="headerlink" title="1. Sideband ECC 配置"></a><strong>1. Sideband ECC 配置</strong></h4><ul>
-<li><strong>Sideband ECC</strong> 是一种错误检测机制，它将 ECC 校验信息通过额外的通道（sideband）传输给控制器，而不直接嵌入到数据流中。只有在 <strong>Sideband ECC</strong> 配置下，ECC Scrub 功能才会被启用。</li>
-<li><strong>配置要求：</strong><ul>
-<li><code>MEMC_ECC_SUPPORT &gt; 0</code>：必须启用 ECC 支持。</li>
-<li><code>MEMC_SIDEBAND_ECC == 1</code>：启用 Sideband ECC。</li>
-<li><code>MEMC_USE_RMW == 1</code>：启用读取-修改-写入（RMW）操作。</li>
+<h3 id="2-DFITMG0-dfi-ctrl-delay"><a href="#2-DFITMG0-dfi-ctrl-delay" class="headerlink" title="2. DFITMG0.dfi_ctrl_delay"></a>2. <strong>DFITMG0.dfi_ctrl_delay</strong></h3><ul>
+<li><strong>功能</strong>：这个寄存器位 (<code>dfi_ctrl_delay</code>) 用来设置DFI接口的延迟控制。具体来说，它用于配置 <strong>控制器</strong> 到 <strong>PHY</strong> 之间信号的延迟，以确保正确的时序。</li>
+<li><strong>工作原理</strong>：DFI接口需要在适当的时间点进行更新，以确保数据传输的稳定性和准确性。通过设置 <code>dfi_ctrl_delay</code>，可以调整控制器发送信号到PHY的时间延迟，从而优化信号传输的时序，避免出现时序错误或冲突。</li>
+<li><strong>用途</strong>：此寄存器常常用于调整和优化时序，特别是在控制器和PHY之间的信号传递存在时延的情况下。它有助于确保控制信号和数据传输在适当的时刻同步，从而保证系统的稳定性和性能。</li>
 </ul>
-</li>
+<h3 id="3-参考资料"><a href="#3-参考资料" class="headerlink" title="3. 参考资料"></a>3. <strong>参考资料</strong></h3><ul>
+<li>手册中提到，关于这些寄存器的更多详细信息可以在 <strong>“Register Descriptions”</strong> 部分找到，具体位置是在第717页。在这部分内容中，会对这些寄存器的位字段、默认值、设置范围以及它们的影响等进行更详细的说明。</li>
 </ul>
-<h4 id="2-启用和禁用-ECC-Scrub"><a href="#2-启用和禁用-ECC-Scrub" class="headerlink" title="2. 启用和禁用 ECC Scrub"></a><strong>2. 启用和禁用 ECC Scrub</strong></h4><ul>
-<li>通过设置 <code>ECCCFG0.dis_scrub = 0</code> 来启用 ECC Scrub 功能，<code>dis_scrub</code> 是一个控制寄存器字段。当这个字段被设置为 <code>0</code> 时，表示启用 <strong>ECC Scrub</strong>。</li>
-<li>通过将 <code>ECCCFG0.dis_scrub</code> 设置为 <code>1</code> 可以禁用此功能。</li>
-</ul>
-<h4 id="3-ECC-Scrub-操作流程"><a href="#3-ECC-Scrub-操作流程" class="headerlink" title="3. ECC Scrub 操作流程"></a><strong>3. ECC Scrub 操作流程</strong></h4><ul>
-<li><strong>检测到单比特错误时：</strong><ul>
-<li>当 <strong>ECC 解码器</strong> 检测到一个单比特错误时，uMCTL2 控制器会调度一个 <strong>ECC Scrub 操作</strong>。</li>
-<li>这个操作会作为一个新的 RMW 操作被执行，作用于检测到单比特错误的地址。</li>
-</ul>
-</li>
-<li><strong>RMW 操作的执行：</strong><ul>
-<li>ECC Scrub 是通过 <strong>读取-修改-写入</strong>（RMW）操作来进行修复的。首先，控制器会发出一个读取请求，读取出错误数据。接着，错误数据会被 ECC 解码器修正，然后将修正后的数据写入到正确的地址。</li>
-<li>在执行 <strong>ECC Scrub</strong> 时，<strong>读取</strong> 操作必须在 <strong>写入</strong> 操作之前完成。这个顺序是为了确保读取的数据已经经过 ECC 解码器修正，再写入到适当的存储位置。</li>
-</ul>
-</li>
-</ul>
-<h4 id="4-CAM（Content-Addressable-Memory）条目"><a href="#4-CAM（Content-Addressable-Memory）条目" class="headerlink" title="4. CAM（Content Addressable Memory）条目"></a><strong>4. CAM（Content Addressable Memory）条目</strong></h4><ul>
-<li>在 ECC Scrub 操作中，<strong>读取</strong> 和 <strong>写入</strong> CAM 各有一个条目被保留，用于存储 <strong>ECC Scrub</strong> 请求的地址。</li>
-<li>每次当检测到单比特错误时，uMCTL2 会从 CAM 中分配一个 <strong>读取</strong> 和一个 <strong>写入</strong> 条目，用于执行 ECC Scrub 操作。</li>
-</ul>
-<h4 id="5-关于单一-ECC-Scrub-操作"><a href="#5-关于单一-ECC-Scrub-操作" class="headerlink" title="5. 关于单一 ECC Scrub 操作"></a><strong>5. 关于单一 ECC Scrub 操作</strong></h4><ul>
-<li><strong>限制：</strong> 在 uMCTL2 中，任何时候只能有一个 <strong>ECC Scrub 操作</strong>。这意味着当一个 <strong>ECC Scrub 操作</strong> 正在执行时，系统不会响应其他单比特错误，直到当前的 Scrub 操作完成。</li>
-<li><strong>何时完成：</strong> 当写入 CAM 条目被释放后，表示当前的 Scrub 操作完成。这时，系统才能开始处理新的 Scrub 请求。</li>
-</ul>
-<h4 id="6-在-Inline-ECC-模式下的行为"><a href="#6-在-Inline-ECC-模式下的行为" class="headerlink" title="6. 在 Inline ECC 模式下的行为"></a><strong>6. 在 Inline ECC 模式下的行为</strong></h4><ul>
-<li>如果 <strong>Inline ECC</strong> 模式启用（即 <code>MEMC_INLINE_ECC == 1</code>），<strong>ECC Scrub</strong> 功能不可用。无论 <code>MEMC_SIDEBAND_ECC</code> 是否设置为 <code>1</code>，都不会启用 <strong>ECC Scrub</strong>。</li>
-<li>在 <strong>Inline ECC 模式</strong> 下，<code>ECCCFG0.dis_scrub</code> 必须设置为 <code>1</code>，并且系统不会自动进行每次可修正的读取错误的清理（scrubbing）。</li>
-</ul>
-<h2 id="后面的没有整理（2-39-6-2）"><a href="#后面的没有整理（2-39-6-2）" class="headerlink" title="后面的没有整理（2.39.6.2）"></a>后面的没有整理（2.39.6.2）</h2>
+
       
 
  <!-- 添加版权声明 -->
@@ -733,7 +469,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/12/13/DDR/uMCTL2-ECC-Support/" title="uMCTL2-ECC Support" target="_blank">https://talent-tudou.github.io/2024/12/13/DDR/uMCTL2-ECC-Support/</a>
+   <a href="https://talent-tudou.github.io/2024/12/14/DDR/uMCTL2-DFI Updates/" title="uMCTL2-DFI Updates" target="_blank">https://talent-tudou.github.io/2024/12/14/DDR/uMCTL2-DFI Updates/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -859,7 +595,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/12/13/DDR/uMCTL2-ECC-Support/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/12/14/DDR/uMCTL2-DFI%20Updates/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -873,18 +609,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/12/13/DDR/uMCTL2-Refresh%20Controls/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2024/12/14/DDR/uMCTL2-SDRAM%20Power%20Saving%20Features/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          uMCTL2-Refresh Controls
+          uMCTL2-SDRAM Power Saving Features
         
       </div>
     </a>
   
   
-    <a href="/2024/12/13/DDR/uMCTL2-On-chip%20Parity%20(OCPAR)/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">uMCTL2-On-chip Parity (OCPAR)</div>
+    <a href="/2024/12/13/DDR/uMCTL2-Refresh%20Controls/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">uMCTL2-Refresh Controls</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -1059,11 +795,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VIM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1076,10 +820,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DLL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1115,11 +855,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
+                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
+                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1139,7 +879,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
+                <a href="javascript:void(0)" class="js-tag color3">DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1151,23 +899,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
               </li>
             
             <div class="clearfix"></div>
