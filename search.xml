@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>uMCTL2-Read Data Interface</title>
+      <link href="/2024/12/17/DDR/uMCTL2-Read%20Data%20Interface/"/>
+      <url>/2024/12/17/DDR/uMCTL2-Read%20Data%20Interface/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>uMCTL2手册2.6.7，Read Data Interface<a><span id="more"></span></a></p></blockquote><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>这段描述主要涉及 DFI 接口中的读取数据部分，说明了如何通过 DFI 接口处理从内存返回的读取数据。DFI 规范定义了相关的信号和时间关系，以确保内存控制器和内存 PHY 之间能够有效和正确地传输数据。</p><h3 id="具体内容解释"><a href="#具体内容解释" class="headerlink" title="具体内容解释"></a>具体内容解释</h3><ol><li><strong>读取数据接口</strong>：<ul><li>读取数据接口主要负责处理从内存返回的数据，并通过 DFI 接口进行传输。</li></ul></li><li><strong>信号和时间关系的定义</strong>：<ul><li>DFI 规范详细定义了在读取数据过程中的信号形态及其时序关系。这是确保在不同的内存和控制器架构之间能够兼容和可靠工作的基础。</li></ul></li><li><strong>可配置的时序</strong>：<ul><li>该接口的时序是可配置的，这意味着开发者可以根据需要调整配置，以支持所有符合 DFI 标准的 PHY。这一调整是通过注册 <code>DFITMG0.t_rddata_en</code> 来实现的。</li></ul></li><li><strong>DFI 1:2 和时钟周期选择</strong>：<ul><li>在 DFI 1:2 结构中，<code>DFITMG0.dfi_rddata_use_dfi_phy_clk</code>决定了<code>DFITMG0.dfi_t_rddata_en</code>是基于 SDR（单数据速率）时钟周期还是 HDR（高数据率）时钟周期设置的。<ul><li><strong>HDR</strong>：如果选择 HDR 时钟，<code>dfi_rddata_en</code> 信号的生成时序对于读取命令的相位 0&#x2F;相位 1 是相同的，并且 <code>dfi_rddata*</code> 信号与 HDR 时钟对齐。</li><li><strong>SDR</strong>：如果选择 SDR 时钟，读取命令在相位 0 和相位 1 的 <code>dfi_rddata*</code> 信号生成是分开处理的，因此这些信号与 HDR 时钟不一定对齐。这种情况需要注意，以确保信号的正确性和同步。需要根据具体 PHY 的要求进行正确的配置。</li></ul></li></ul></li><li><strong>DDR4 配置中的 DBI 信号</strong>：<ul><li>在 DDR4 配置下（当设置 <code>MEMC_DDR4</code> 时），<code>dfi_rddata_dbi</code> 是读取数据的 DBI（数据总线反转）信号。有关 DBI 的更多信息请参考手册中的相关内容。</li></ul></li><li><strong>与 PHY 的兼容性验证</strong>：<ul><li>uMCTL2 控制器已与 Synopsys 的 PHY 进行了验证。它假定 DFI 参数 <code>tphy_rdlat</code>（PHY 读取延迟）不会超过 48 个周期。在使用 mDDR（多数据率的 DDR 存储类型）且预取长度为 2（BL2）的情况下，它假定 <code>tphy_rdlat</code> 不会超过 26 个周期。此外，对于这两种情况，还要求 DFI 参数 <code>trddata_en</code> 不超过 SDRAM 的读取延迟（RL）。</li></ul></li></ol><h3 id="示例场景"><a href="#示例场景" class="headerlink" title="示例场景"></a>示例场景</h3><p>假设我们有一个 DDR4 内存控制器（例如 uMCTL2）和一个 DFI PHY（物理层接口），我们希望从内存中读取一个数据块。以下是这个过程中的关键步骤：</p><ol><li><strong>发出读取命令</strong>：<ul><li>系统在 DFI 接口上发出一个读取命令，控制器会 assert 相关的控制信号（例如 <code>dfi_rddata_en</code>）来标记读取操作的开始。</li></ul></li><li><strong>设置时钟和时序</strong>：<ul><li>在我们的例子中，假设我们有一个 DFI（数据总线接口）配置为 1:2。我们需要决定使用 HDR 时钟或 SDR 时钟。</li><li>根据上面的描述，我们选择 HDR 时钟（高数据速率时钟）。这意味着 <code>dfi_rddata_en</code> 的生成时序相同，用于相位 0 和相位 1，并且与 HDR 时钟对齐。</li></ul></li><li><strong>配置 <code>dfi_t_rddata_en</code></strong> ：<ul><li>设定寄存器 <code>DFITMG0.dfi_t_rddata_en</code> 的值（假设它被设置为 3），表示从断言读取命令到 <code>dfi_rddata_en</code> 信号的延迟为 3 个 HDR 时钟周期。</li><li>这意味着，当读取命令被发出后，控制器会在 3 个 HDR 时钟周期之后将 <code>dfi_rddata_en</code> 信号上升，指示 PHY 可以开始准备数据。</li></ul></li><li><strong>数据传输</strong>：<ul><li>随着 <code>dfi_rddata_en</code> 的断言，PHY 接口开始准备读取数据。此时，读取数据的有效信号（如 <code>dfi_rddata</code> 和 <code>dfi_rddata_valid</code>）将在后续的时钟周期中被发送出去。</li><li>在 SDR 模式下，可能会有不同的时序处理，读取的数据可能无法与 HDR 时钟对齐。而在这里，由于我们使用的是 HDR，这意味着接下来通过 DFI 返回的 <code>dfi_rddata</code> 信号将与 HDR 时钟同步。</li></ul></li><li><strong>DBI 信号</strong>：<ul><li>如果是在 DDR4 配置中，读取操作的过程中，<code>dfi_rddata_dbi</code> 可能会被同时断言来提供数据总线反转功能，以减少数据传输中的错误。</li></ul></li><li><strong>时间要求</strong>：<ul><li>按照前面的描述，uMCTL2 控制器假设 <code>tphy_rdlat</code> 不超过 48 个时钟周期。假设实际延迟为 40 个周期，这样控制器会在满足条件的情况下正确处理数据。</li></ul></li></ol><h3 id="DFI相关寄存器域"><a href="#DFI相关寄存器域" class="headerlink" title="DFI相关寄存器域"></a>DFI相关寄存器域</h3><h4 id="dfi-t-ctrl-delay"><a href="#dfi-t-ctrl-delay" class="headerlink" title="dfi_t_ctrl_delay"></a>dfi_t_ctrl_delay</h4><p><code>dfi_t_ctrl_delay</code> 是一个寄存器用来设定 DFI（DRAM Fabric Interface）控制信号改变后的延迟，确保在控制信号被断言（assert）或去断言（de-assert）之后，PHY（物理层）与 DRAM（动态随机存取存储器）接口之间的控制信号能够在期望的时间内正确反映出来。</p><ol><li><strong>DFI时钟周期</strong>：<ul><li>这个寄存器值以 DFI 时钟周期为单位。也就是说，如果这个值设定为 1，那么 DFI 控制信号的变化会在一个 DFI 时钟周期后体现在 PHY-DRAM 接口上。</li></ul></li><li><strong>信号变化后的延迟</strong>：<ul><li>当 DFI 控制信号被设为“高”（或“低”），<code>dfi_t_ctrl_delay</code> 指定了在多少个时钟周期后，PHY-DRAM 接口的相应信号才会反映这个变化。这是为了确保各个信号之间有足够的时间来稳定。</li></ul></li><li><strong>时钟不同步</strong>：<ul><li>如果 DFI 时钟和内存时钟没有相位对齐（也就是说，它们的相位不同步），你需要将这个参数向上取整到下一个整数值。这是因为不同步可能导致信号在预期的时间内无法稳定，因此需要适当延长延迟。</li></ul></li><li><strong>针对 RDIMM&#x2F;LRDIMM 的特殊处理</strong>：<ul><li>如果使用 RDIMM（注册DIMM）或 LRDIMM（负载减少DIMM），还需要在此参数的基础上增加一个额外的时钟周期作为延迟。这是因为 RDIMM 和 LRDIMM 在信号传输中会引入额外的延迟。</li></ul></li><li><strong>默认值和编程模式</strong>：<ul><li>默认值是 <code>0x7</code>，这意味着在复位后，默认的延迟设置为 7 个 DFI 时钟周期。</li><li>“编程模式：Quasi-dynamic Group 4” 表示这个寄存器可以在运行时调整，但调整的具体操作和上下文可能因设计和实现而异。</li></ul></li></ol><h4 id="dfi-rddata-use-dfi-phy-clk"><a href="#dfi-rddata-use-dfi-phy-clk" class="headerlink" title="dfi_rddata_use_dfi_phy_clk"></a>dfi_rddata_use_dfi_phy_clk</h4><p><code>dfi_rddata_use_dfi_phy_clk</code> 是一个控制寄存器，用于定义在读取数据时，控制信号（如 <code>dfi_rddata_en</code>、<code>dfi_rddata</code> 和 <code>dfi_rddata_valid</code>）是基于 HDR（高数据速率，DFI 时钟）还是 SDR（单数据速率，DFI PHY 时钟）来生成的。这种选择关系到内存控制器和 PHY（物理层）之间的数据同步。</p><ol><li><strong>信号生成基准时钟</strong>：<ul><li>这个寄存器定义了是否在信号的生成过程中使用 HDR 时钟（DFI clock）或者 SDR 时钟（DFI PHY clock）作为基准。DFI clock 通常用于高频环境，而 DFI PHY clock 则可能用于相对较低频的操作。</li></ul></li><li><strong>DFITMG0.dfi_t_rddata_en 的时钟选择</strong>：<ul><li><code>dfi_rddata_use_dfi_phy_clk</code> 决定了在 <code>DFITMG0</code> 寄存器中的 <code>dfi_t_rddata_en</code> 值是基于 HDR 时钟周期还是 SDR 时钟周期来解读。这意味着在设置时钟周期时，必须明确选择基础时钟，因为这将影响内存数据的时序和稳定性。</li></ul></li><li><strong>PHY 规范</strong>：<ul><li>在具体使用时，必须参考 PHY 规范以确定适当的值。这是因为不同的 PHY 实现可能对时钟信号有不同的要求和约束。</li></ul></li><li><strong>特定情况的设置要求</strong>：<ul><li>如果使用的是 Synopsys DWC DDR3&#x2F;2 PHY 或其他相关的 PHY，<code>dfi_rddata_use_dfi_phy_clk</code> 必须设置为 0（HDR Cycle）。</li><li>如果 <code>MEMC_PROG_FREQ_RATIO=1</code>（内存控制器频率比例）和 <code>MSTR.frequency_ratio=1</code>（主设置频率比例），此寄存器同样需要设置为 0。</li><li>否则，<code>dfi_rddata_use_dfi_phy_clk</code> 应设置为 1，表示使用 SDR 时钟循环。</li></ul></li><li><strong>可选值</strong>：<ul><li>0x0 (HDRCycles)：表示生成控制信号时使用的是 HDR（DFI clock）时钟周期。</li><li>0x1 (SDRCycles)：表示生成控制信号时使用的是 SDR（DFI PHY clock）时钟周期。</li></ul></li><li><strong>默认值和编程模式</strong>：<ul><li>在复位后，此寄存器的默认值是 0x0，表示使用 HDR 时钟。</li><li>编程模式为静态（Static），这意味着在运行时可能不需要频繁更改此设置。</li></ul></li></ol><h4 id="dfi-t-rddata-en"><a href="#dfi-t-rddata-en" class="headerlink" title="dfi_t_rddata_en"></a>dfi_t_rddata_en</h4><p><code>dfi_t_rddata_en</code> 是一个寄存器字段，定义了从在 DFI 接口上发出读取命令到 <code>dfi_rddata_en</code> 信号被断言（assert）之间的时间延迟。该信号的断言表示控制器准备好读取数据，并可以向内存中的数据传输系统发送读取请求。</p><ol><li><strong>延迟时间的定义</strong>：<ul><li><code>dfi_t_rddata_en</code> 的值表示从 DFI 界面 assert（断言）一个读取命令开始，到 <code>dfi_rddata_en</code> 信号被 assert 之间的时间延迟。这是控制器内部和内存之间同步的重要参数。</li></ul></li><li><strong>参考 PHY 规范</strong>：<ul><li>在配置这个寄存器的时候，需要参考 PHY 规范来确定正确的值，因为不同 PHY 实现可能会有不同的时间要求。</li></ul></li><li><strong>与 DFI 参数的对应关系</strong>：<ul><li>这个寄存器对应 DFI 参数 <code>trddata_en</code>，它是 DFI 设计中的一个标准化参数，表示读取数据使能信号的延迟。</li></ul></li><li><strong>针对 RDIMM&#x2F;LRDIMM 的特殊处理</strong>：<ul><li>如果系统中使用 RDIMM（注册 DIMM）或 LRDIMM（负载减少 DIMM），可能需要在计算 <code>trddata_en</code> 时使用调整后的 CL 值（CAS Latency，列地址选通延迟）。这意味着 RDIMM 和 LRDIMM 在处理信号时会引入额外的延迟，因此需要调整设置。</li></ul></li><li><strong>单位</strong>：<ul><li>单位是 DFI 时钟周期或 DFI PHY 时钟周期，这取决于前面提到的寄存器 <code>DFITMG0.dfi_rddata_use_dfi_phy_clk</code> 的配置。也就是说，延迟的时间可以根据所选的时钟基准不同而有所差异。</li></ul></li><li><strong>默认值和编程模式</strong>：<ul><li>在复位后，此寄存器的默认值为 <code>0x2</code>，表示在给定条件下的初始延迟为 2 个时钟周期。</li><li>编程模式为“准动态”（Quasi-dynamic），这意味着它可能在一些条件下需要在运行时进行调整，具体取决于系统状态和需求。</li></ul></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> DDR </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DDR </tag>
+            
+            <tag> uMCTL2 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>uMCTL2-SDRAM Power Saving Features</title>
       <link href="/2024/12/14/DDR/uMCTL2-SDRAM%20Power%20Saving%20Features/"/>
       <url>/2024/12/14/DDR/uMCTL2-SDRAM%20Power%20Saving%20Features/</url>
@@ -198,9 +227,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -2094,9 +2123,9 @@
           
           <category> Programming </category>
           
-          <category> SystemVerilog </category>
-          
           <category> UVM </category>
+          
+          <category> SystemVerilog </category>
           
       </categories>
       
@@ -2105,9 +2134,9 @@
             
             <tag> Programming </tag>
             
-            <tag> SystemVerilog </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> SystemVerilog </tag>
             
         </tags>
       
@@ -2162,9 +2191,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -2191,9 +2220,9 @@
             
             <tag> Programming </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -2222,9 +2251,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
