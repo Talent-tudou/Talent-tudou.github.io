@@ -4,6 +4,93 @@
   
     
     <entry>
+      <title>uMCTL2-DFI Interface</title>
+      <link href="/2024/12/19/DDR/uMCTL2-DFI%20Interface/"/>
+      <url>/2024/12/19/DDR/uMCTL2-DFI%20Interface/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>uMCTL2手册2.6，DFI Interface, DFI接口是内存控制器和物理层之间的标准通信协议，确保数据可靠传输和系统稳定性。<a><span id="more"></span></a></p></blockquote><h2 id="2-6-DFI（DDR-PHY-Interface）接口的概述"><a href="#2-6-DFI（DDR-PHY-Interface）接口的概述" class="headerlink" title="2.6 DFI（DDR PHY Interface）接口的概述"></a>2.6 DFI（DDR PHY Interface）接口的概述</h2><h4 id="1-DFI接口简介"><a href="#1-DFI接口简介" class="headerlink" title="1. DFI接口简介"></a>1. DFI接口简介</h4><ul><li>DFI是内存控制器（MC）和物理层（PHY）之间的标准接口</li><li>用于传输地址、控制信号和数据</li><li>支持单数据率（SDR）和半数据率（HDR）时钟模式</li></ul><h4 id="2-DFI接口的主要子接口组"><a href="#2-DFI接口的主要子接口组" class="headerlink" title="2. DFI接口的主要子接口组"></a>2. DFI接口的主要子接口组</h4><p>a) 控制接口（Control Interface）</p><ul><li>包含SDRAM控制信号</li><li>如地址、Bank、片选、行列选通、写使能等</li></ul><p>b) 写数据接口（Write Data Interface）</p><ul><li>处理写数据传输</li><li>通过DFITMG0寄存器配置时序(dfi_tphy_wrlat, dfi_tphy_wrdata)</li></ul><p>c) 读数据接口（Read Data Interface）</p><ul><li>处理读数据返回</li><li>通过DFITMG0寄存器配置时序(t_rddata_en)</li></ul><p>d) 更新接口（Update Interface）</p><ul><li>用于在系统运行时更新内部设置</li><li>确保更新不会干扰SDRAM接口</li></ul><p>e) 状态接口（Status Interface）</p><ul><li>提供初始化和时钟控制相关的状态信息</li></ul><p>f) 训练接口（Training Interface）</p><ul><li>支持写和读电平校准</li><li>PHY独立模式，无需控制器交互</li></ul><p>g) 低功耗控制接口</p><ul><li>通知PHY进入&#x2F;退出低功耗模式</li></ul><h4 id="3-关键特点"><a href="#3-关键特点" class="headerlink" title="3. 关键特点"></a>3. 关键特点</h4><ul><li>兼容不同的DDR PHY</li><li>可配置的接口时序</li><li>支持系统运行时的动态调整</li></ul><h3 id="2-6-1-1-1-Frequency-Ratio-Mode-Considerations"><a href="#2-6-1-1-1-Frequency-Ratio-Mode-Considerations" class="headerlink" title="2.6.1 1:1 Frequency Ratio Mode Considerations"></a><strong>2.6.1 1:1 Frequency Ratio Mode Considerations</strong></h3><p><strong>1:1频率比模式</strong>也叫做单数据速率（SDR，Single Data Rate）模式。在这种模式下，uMCTL2控制器及其DFI接口与DDR SDRAM的工作频率是相同的。具体来说：</p><ul><li><strong>DFI命令和地址信号宽度与DDR信号相同</strong>：在1:1模式下，DFI的命令和地址信号的宽度与DDR SDRAM的命令和地址信号宽度相同。例如，如果DDR的命令宽度是32位，那么DFI的命令宽度也是32位。</li><li><strong>DFI数据信号宽度是DDR信号的两倍</strong>：DFI的数据线是DDR数据线宽度的两倍，这意味着在DFI接口上有更多的信号来支持数据的传输。例如，如果DDR的一个数据总线宽度是16位，那么DFI的数据总线宽度是32位。</li><li><strong>时钟频率</strong>：uMCTL2控制器使用SDR时钟运行，也就是说，uMCTL2控制器和PHY都以相同的频率运行，不需要进行速率转换。<code>core_ddrc_core_clk</code>和<code>CK/CK#</code>（时钟信号）以相同的频率运行。</li><li><strong>PHY进行数据转换</strong>：虽然DFI控制器和SDR时钟频率相同，但数据传输是由PHY（物理层）来实现从SDR到DDR的速率转换，尤其是在数据总线中，PHY会根据时钟信号对数据进行转换。</li></ul><hr><h3 id="2-6-2-1-2-Frequency-Ratio-Mode-Considerations"><a href="#2-6-2-1-2-Frequency-Ratio-Mode-Considerations" class="headerlink" title="2.6.2 1:2 Frequency Ratio Mode Considerations"></a><strong>2.6.2 1:2 Frequency Ratio Mode Considerations</strong></h3><p><strong>1:2频率比模式</strong>也叫做半数据速率（HDR，Half Data Rate）模式。与1:1模式不同，在1:2模式下，控制器和物理层的时钟频率不同。</p><ul><li><strong>DFI命令和地址信号宽度是DDR信号的两倍</strong>：在1:2模式下，DFI的命令和地址信号的宽度是DDR信号宽度的两倍。例如，如果DDR的命令是32位，那么DFI的命令是64位。</li><li><strong>DFI数据信号宽度是DDR信号的四倍</strong>：DFI的数据线是DDR数据线宽度的四倍。例如，如果DDR的数据总线宽度是16位，那么DFI的数据总线宽度是64位。</li><li><strong>时钟频率</strong>：在1:2模式下，uMCTL2控制器运行在半速率时钟（HDR clock）下，这意味着<code>core_ddrc_core_clk</code>的频率是<code>CK/CK#</code>频率的一半。</li><li><strong>PHY进行时钟转换</strong>：在这种模式下，PHY不仅需要处理数据总线的HDR到SDR的转换，还需要处理地址总线从HDR到SDR的转换，确保时钟和数据在物理层之间正确同步。</li></ul><hr><h3 id="DFI协议中的-p0-和-p1-信号"><a href="#DFI协议中的-p0-和-p1-信号" class="headerlink" title="DFI协议中的_ p0 和 _p1 信号"></a><strong>DFI协议中的_ p0 和 _p1 信号</strong></h3><p>在1:2频率比模式下，DFI协议引入了<strong>相位（Phase）</strong>的概念，分别是<strong>Phase 0（p0）</strong>和<strong>Phase 1（p1）</strong>。DFI协议要求将数据和信号分成两个相位（p0和p1）进行传输，但uMCTL2控制器并没有明确的p0和p1信号，而是通过信号的低半部分和高半部分来区分。</p><h4 id="DFI命令信号"><a href="#DFI命令信号" class="headerlink" title="DFI命令信号"></a><strong>DFI命令信号</strong></h4><ul><li>例如，在4rank系统中，<code>dfi_cs[7:0]</code>表示所有的命令信号。在uMCTL2中，低半部分<code>dfi_cs[3:0]</code>对应于<strong>Phase 0</strong>，高半部分<code>dfi_cs[7:4]</code>对应于<strong>Phase 1</strong>。</li></ul><h4 id="DFI写数据信号"><a href="#DFI写数据信号" class="headerlink" title="DFI写数据信号"></a><strong>DFI写数据信号</strong></h4><ul><li>在一个16位的系统中，<code>dfi_wrdata[63:0]</code>表示所有的写数据。低半部分<code>dfi_wrdata[31:0]</code>对应于<strong>Phase 0</strong>，高半部分<code>dfi_wrdata[63:32]</code>对应于<strong>Phase 1</strong>。</li><li>类似的，<code>dfi_wrdata_en[3:0]</code>表示写数据的使能信号，低半部分<code>dfi_wrdata_en[1:0]</code>对应于<strong>Phase 0</strong>，高半部分<code>dfi_wrdata_en[3:2]</code>对应于<strong>Phase 1</strong>。</li><li>数据掩码<code>dfi_wrdata_mask</code>也有类似的分配：例如，在一个16位的系统中，<code>dfi_wrdata_mask[7:0]</code>的低半部分对应于<strong>Phase 0</strong>，高半部分对应于<strong>Phase 1</strong>。</li></ul><h4 id="DFI读数据信号"><a href="#DFI读数据信号" class="headerlink" title="DFI读数据信号"></a><strong>DFI读数据信号</strong></h4><ul><li>读数据信号<code>dfi_rddata_en</code>、<code>dfi_rddata_valid</code>、<code>dfi_rddata_dbi</code>也遵循类似的规则，在1:2模式下，低半部分对应于<strong>Phase 0</strong>，高半部分对应于<strong>Phase 1</strong></li></ul><h3 id="2-6-3-DFI-Write-Read-Data-to-SDRAM-Conversion"><a href="#2-6-3-DFI-Write-Read-Data-to-SDRAM-Conversion" class="headerlink" title="2.6.3 DFI Write&#x2F;Read Data to SDRAM Conversion"></a>2.6.3 DFI Write&#x2F;Read Data to SDRAM Conversion</h3><h4 id="1-数据转换的背景"><a href="#1-数据转换的背景" class="headerlink" title="1. 数据转换的背景"></a>1. <strong>数据转换的背景</strong></h4><p>DFI 数据信号包括读取数据（<code>dfi_rddata</code>）和写入数据（<code>dfi_wrdata</code>），这些信号从 DFI 传递到物理层 (PHY) 后，会根据 <strong>SDRAM 配置</strong>（比如 SDRAM 数据总线宽度、时钟模式等）进行转换。在 DFI 接口中，数据可能需要按不同的规则组织（如按数据节拍 <code>beat</code> 或字节 <code>byte</code> 来排列），而物理层（PHY）将根据这些规则将数据送入或读取出内存。</p><h4 id="2-1-1-和-1-2-时钟模式"><a href="#2-1-1-和-1-2-时钟模式" class="headerlink" title="2. 1:1 和 1:2 时钟模式"></a>2. <strong>1:1 和 1:2 时钟模式</strong></h4><ul><li><strong>1:1 模式</strong>：控制器和 PHY 使用相同的时钟频率。</li><li><strong>1:2 模式</strong>：控制器使用比 PHY 更低的时钟频率。具体来说，控制器的时钟频率是 PHY 时钟的二分之一。</li></ul><h4 id="3-DFI-数据组织与物理层的数据传输"><a href="#3-DFI-数据组织与物理层的数据传输" class="headerlink" title="3. DFI 数据组织与物理层的数据传输"></a>3. <strong>DFI 数据组织与物理层的数据传输</strong></h4><p>对于 <strong>1:1</strong> 和 <strong>1:2</strong> 时钟模式，DFI 数据信号的组织顺序有所不同。在这些模式下，数据通常是以“**节拍 (beat)**”为单位组织的，每个节拍包含一个字节或多个字节。</p><h4 id="详细说明"><a href="#详细说明" class="headerlink" title="详细说明"></a>详细说明</h4><h5 id="1-在-1-1-模式下的数据组织"><a href="#1-在-1-1-模式下的数据组织" class="headerlink" title="1. 在 1:1 模式下的数据组织"></a>1. <strong>在 1:1 模式下的数据组织</strong></h5><p>对于 <strong>16 位</strong>（2 字节）SDRAM 配置的情况，在 1:1 模式下，DFI 数据顺序如下：</p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">byte1-beat1, byte0-beat1, byte1-beat0, byte0-beat0</span>]</span><br></pre></td></tr></table></figure><ul><li>这意味着第一个节拍 <code>beat0</code> 包含 <code>byte1</code> 和 <code>byte0</code> 的数据，然后依此类推。数据传输顺序是：首先传输 <code>dfi_wrdata[15:0]</code> 到 DQ[15:0]，接着是 <code>dfi_wrdata[31:16]</code> 到 DQ[15:0]。</li></ul><p>在这个模式下，数据是按照 <strong>节拍（beat）</strong> 和 <strong>字节（byte）</strong> 来组织的，并且 PHY 会把这些数据依次发送到内存。</p><h5 id="2-在-1-2-模式下的数据组织"><a href="#2-在-1-2-模式下的数据组织" class="headerlink" title="2. 在 1:2 模式下的数据组织"></a>2. <strong>在 1:2 模式下的数据组织</strong></h5><p>对于 <strong>16 位</strong> SDRAM 配置的 1:2 模式，数据的顺序如下：(MSB-&gt;LSB)</p><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">byte1-beat3, byte0-beat3, byte1-beat2, byte0-beat2, byte1-beat1, byte0-beat1, byte1-beat0, byte0-beat0</span>]</span><br></pre></td></tr></table></figure><p>这里可以看到，<strong>4 个节拍</strong>（beat）被定义为不同的数据片段。具体地，数据首先按节拍 0 到 3 进行传输。相同的数据结构适用于 32 位 SDRAM 配置（4 字节）和更多节拍数据。</p><h5 id="3-数据写入和读取示例"><a href="#3-数据写入和读取示例" class="headerlink" title="3. 数据写入和读取示例"></a>3. <strong>数据写入和读取示例</strong></h5><ul><li><p>在 16 位 SDRAM 1:2 配置下：</p><ul><li><p>写入数据（<code>dfi_wrdata</code>）：dfi_wrdata[63:0] 代表 4 个节拍的写入数据。数据将依次传送到内存：</p><ul><li>beat 0: <code>dfi_wrdata[15:0]</code> 传送到 DQ[15:0]</li><li>beat 1: <code>dfi_wrdata[31:16]</code> 传送到 DQ[15:0]</li><li>beat 2: <code>dfi_wrdata[47:32]</code> 传送到 DQ[15:0]</li><li>beat 3: <code>dfi_wrdata[63:48]</code> 传送到 DQ[15:0]</li></ul></li><li><p>读取数据（<code>dfi_rddata</code>）</p><p>：类似于写入数据，读取数据也是按节拍传送，顺序如下：</p><ul><li>beat 0: <code>dfi_rddata[15:0]</code> 传送到 DQ[15:0]</li><li>beat 1: <code>dfi_rddata[31:16]</code> 传送到 DQ[15:0]</li><li>等等。</li></ul></li></ul></li></ul><h5 id="4-dfi-wrdata-en-和-dfi-rddata-en-信号"><a href="#4-dfi-wrdata-en-和-dfi-rddata-en-信号" class="headerlink" title="4. dfi_wrdata_en 和 dfi_rddata_en 信号"></a>4. <strong><code>dfi_wrdata_en</code> 和 <code>dfi_rddata_en</code> 信号</strong></h5><ul><li><p><code>dfi_wrdata_en</code>、<code>dfi_rddata_en</code>、<code>dfi_rddata_valid</code> 等信号有一个位对应于 DQ 总线的每个字节，而不是对应于 DFI 数据信号。</p></li><li><p>举个例子，在 32 位 SDRAM 1:2 配置中，<code>dfi_wrdata_en</code> 的信号顺序如下：（MSB-&gt;LSB)</p><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[byte3-phase1, byte2-phase1, byte1-phase1, byte0-phase1, byte3-phase0, byte2-phase0, byte1-phase0, byte0-phase0]</span></span><br></pre></td></tr></table></figure><p>这表示每个字节的使能信号在两个阶段（phase0 和 phase1）之间按字节顺序分配。</p></li></ul><h5 id="5-例子"><a href="#5-例子" class="headerlink" title="5. 例子"></a>5. <strong>例子</strong></h5><ul><li><p>在一个 32 位的 SDRAM 配置下，<code>dfi_wrdata_en </code>与 <code>dfi_wrdata</code>的映射如下：</p><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dfi_wrdata_en<span class="selector-attr">[0]</span> -&gt; &#123;dfi_wrdata<span class="selector-attr">[39:32]</span>, dfi_wrdata<span class="selector-attr">[7:0]</span>&#125;  (byte0-phase0)</span><br><span class="line">dfi_wrdata_en<span class="selector-attr">[1]</span> -&gt; &#123;dfi_wrdata<span class="selector-attr">[47:40]</span>, dfi_wrdata<span class="selector-attr">[15:8]</span>&#125; (byte1-phase0)</span><br></pre></td></tr></table></figure></li><li><p>这意味着 <code>dfi_wrdata_en[0]</code> 控制着 <code>dfi_wrdata[39:32]</code> 和 <code>dfi_wrdata[7:0]</code> 数据的使能信号，分别对应于 <strong>字节0</strong> 在 <strong>phase0</strong> 阶段的写入。</p></li></ul><h3 id="2-6-3-补充"><a href="#2-6-3-补充" class="headerlink" title="2.6.3 补充"></a>2.6.3 补充</h3><p>在 <strong>DDR (Double Data Rate)</strong> 系统中，<strong>phase0</strong> 和 <strong>phase1</strong> 是指在数据传输过程中，时钟信号的 <strong>两个不同阶段</strong>。它们的存在主要是为了提高数据传输速率和利用率。</p><h4 id="1-背景：DDR-中的时钟"><a href="#1-背景：DDR-中的时钟" class="headerlink" title="1. 背景：DDR 中的时钟"></a>1. <strong>背景：DDR 中的时钟</strong></h4><p>DDR 内存的主要特点是它能够在 <strong>时钟信号的上升沿和下降沿</strong>同时进行数据传输。换句话说，在每个时钟周期内，数据在时钟的 <strong>两个不同阶段</strong> 被传输，这就是所谓的 <strong>双倍数据速率（DDR）</strong>。</p><p>通常，DDR 内存使用一个 <strong>时钟信号</strong>来驱动数据的读写操作，而数据的传输则发生在这个时钟信号的 <strong>上升沿</strong> 和 <strong>下降沿</strong>，这两个沿分别代表两个阶段：</p><ul><li><strong>phase0</strong>：对应 <strong>时钟的上升沿</strong>（在时钟信号由低变高的瞬间）。</li><li><strong>phase1</strong>：对应 <strong>时钟的下降沿</strong>（在时钟信号由高变低的瞬间）。</li></ul><h4 id="2-phase0-和-phase1-在-DFI-中的作用"><a href="#2-phase0-和-phase1-在-DFI-中的作用" class="headerlink" title="2. phase0 和 phase1 在 DFI 中的作用"></a>2. <strong>phase0 和 phase1 在 DFI 中的作用</strong></h4><p>在 DFI 接口中，<strong>phase0</strong> 和 <strong>phase1</strong> 指的是数据和控制信号在时钟的不同阶段上进行的活动。具体来说，<strong>phase0</strong> 和 <strong>phase1</strong> 是与 DFI 接口的 <strong>数据传输时序</strong>相关的。</p><h4 id="为什么会有-phase0-和-phase1？"><a href="#为什么会有-phase0-和-phase1？" class="headerlink" title="为什么会有 phase0 和 phase1？"></a>为什么会有 phase0 和 phase1？</h4><p>由于 DDR 内存的时钟信号具有 <strong>双倍速率</strong>，每个时钟周期内有 <strong>两个时钟边沿</strong>可以进行数据传输。为了区分在这两个时钟边沿上传输的数据，DFI 接口在设计时会将数据划分为 <strong>phase0 和 phase1</strong>。每个时钟周期内的 <strong>前半部分</strong> 和 <strong>后半部分</strong>（即上升沿和下降沿）都会承载不同的数据片段。</p><p>例如，在一个 4 字节的配置（32 位 SDRAM），在 DFI 信号中，写数据使能（<code>dfi_wrdata_en</code>）会被分为两部分：<strong>phase0 和 phase1</strong>。这意味着数据会分布到两个时钟边沿，确保最大的数据传输速率。</p><h4 id="3-例子"><a href="#3-例子" class="headerlink" title="3. 例子"></a>3. <strong>例子</strong></h4><p>假设你有一个 32 位的 SDRAM 配置，且工作在 <strong>1:2 模式</strong>下。数据写入的使能信号（<code>dfi_wrdata_en</code>）和数据（<code>dfi_wrdata</code>）的映射可能是这样的：</p><ul><li><p>dfi_wrdata_en[0]</p><p> 负责控制：</p><ul><li><code>dfi_wrdata[39:32]</code> 和 <code>dfi_wrdata[7:0]</code>，即 <strong>byte0-phase0</strong></li></ul></li><li><p>dfi_wrdata_en[1]</p><p> 负责控制：</p><ul><li><code>dfi_wrdata[47:40]</code> 和 <code>dfi_wrdata[15:8]</code>，即 <strong>byte1-phase0</strong></li></ul></li><li><p>dfi_wrdata_en[4]</p><p> 负责控制：</p><ul><li><code>dfi_wrdata[103:96]</code> 和 <code>dfi_wrdata[71:64]</code>，即 <strong>byte0-phase1</strong></li></ul></li><li><p>dfi_wrdata_en[5]</p><p> 负责控制：</p><ul><li><code>dfi_wrdata[111:104]</code> 和 <code>dfi_wrdata[79:72]</code>，即 <strong>byte1-phase1</strong></li></ul></li></ul><h4 id="4-phase0-和-phase1-如何影响数据传输"><a href="#4-phase0-和-phase1-如何影响数据传输" class="headerlink" title="4. phase0 和 phase1 如何影响数据传输"></a>4. <strong>phase0 和 phase1 如何影响数据传输</strong></h4><ul><li><strong>阶段划分</strong>：每个时钟周期的 <strong>phase0</strong> 会在时钟的上升沿发生，<strong>phase1</strong> 会在时钟的下降沿发生，这样在同一个时钟周期内可以传输两倍的数据。</li><li><strong>数据同步</strong>：在写操作时，数据和使能信号会按照这些阶段进行同步，以确保在正确的时钟沿上发送正确的数据。</li><li><strong>性能提升</strong>：通过这种方式，DDR 内存可以在一个时钟周期内完成两次数据传输，提高了内存带宽和数据传输速率。</li></ul><h3 id="2-6-4-Control-Interface（控制接口）"><a href="#2-6-4-Control-Interface（控制接口）" class="headerlink" title="2.6.4 Control Interface（控制接口）"></a>2.6.4 <strong>Control Interface</strong>（控制接口）</h3><p>控制接口反映了 <strong>SDRAM 控制接口</strong>，它处理一些控制信号，比如地址、芯片选择、行选通信号、列选通信号、写使能、时钟使能和 <strong>ODT</strong>（On Die Termination，芯片内终端）控制等。具体的信号和控制取决于所使用的内存技术（如 DDR3、DDR4 等）。</p><ul><li>**地址 (Address)**：指示要读写的内存位置。</li><li>**芯片选择 (Chip Select, CS)**：指示操作的是哪个内存芯片。</li><li>**行选通信号 (Row Strobe, RAS)**：用来选择内存的特定行。</li><li>**列选通信号 (Column Strobe, CAS)**：用来选择内存的特定列。</li><li>**写使能 (Write Enable, WE)**：用来标记是否是写操作。</li><li>**时钟使能 (Clock Enable, CKE)**：控制时钟是否启用。</li><li>**ODT 控制 (ODT Control)**：控制内存的终端阻抗，用于高频信号的稳定性。</li></ul><p>这些控制信号与 SDRAM 的工作方式密切相关。DFI 协议将这些控制信号映射到其接口上，以便正确地控制内存的读写操作。</p><h3 id="2-6-5-Write-Data-Interface（写数据接口）"><a href="#2-6-5-Write-Data-Interface（写数据接口）" class="headerlink" title="2.6.5 Write Data Interface（写数据接口）"></a>2.6.5 <strong>Write Data Interface</strong>（写数据接口）</h3><p>写数据接口负责通过 DFI 接口传输写数据。DFI 规范定义了写数据的信号和时序关系。</p><h4 id="配置和时序"><a href="#配置和时序" class="headerlink" title="配置和时序"></a>配置和时序</h4><ul><li>写数据的时序是可以配置的，通过 <strong>DFITMG0.dfi_tphy_wrlat</strong> 和 <strong>DFITMG0.dfi_tphy_wrdata</strong> 寄存器来调整。</li><li>DFI 1:2模式下，<code>DFITMG0.dfi_wrdata_use_dfi_phy_clk</code>决定了时序是基于 SDR 时钟还是 HDR 时钟：<ul><li><strong>HDR</strong> 时钟：表示数据生成的时序在 phase0 和 phase1 是一样的，所有的 <strong>dfi_wrdata</strong> 信号都与 HDR 时钟对齐。</li><li><strong>SDR</strong> 时钟：表示 phase0 和 phase1 的时序分开处理，<strong>dfi_wrdata</strong> 信号在这两个阶段不一定对齐 HDR 时钟。</li></ul></li></ul><p><strong>DFI Write Data Mask（dfi_wrdata_mask）</strong>：用于控制写数据的字节反转（DBI），尤其是在 DDR4 或 LPDDR4 配置中。如果启用 DBI，<code>dfi_wrdata_mask</code> 信号的极性会在 DDR4 中反转。比如，如果 <code>dfi_wrdata_mask</code> 的某个位为 ‘0’，则对应的字节将会被屏蔽（不写）。</p><h3 id="2-6-6-1-Support-for-dfi-wrdata-cs-dfi-rddata-cs-Signals-DFI-3-1-（支持-dfi-wrdata-cs-和-dfi-rddata-cs-信号）"><a href="#2-6-6-1-Support-for-dfi-wrdata-cs-dfi-rddata-cs-Signals-DFI-3-1-（支持-dfi-wrdata-cs-和-dfi-rddata-cs-信号）" class="headerlink" title="2.6.6.1 **Support for dfi_wrdata_cs&#x2F;dfi_rddata_cs Signals (DFI 3.1)**（支持 dfi_wrdata_cs 和 dfi_rddata_cs 信号）"></a>2.6.6.1 **Support for dfi_wrdata_cs&#x2F;dfi_rddata_cs Signals (DFI 3.1)**（支持 <code>dfi_wrdata_cs</code> 和 <code>dfi_rddata_cs</code> 信号）</h3><p>DFI 3.1 引入了对 <code>dfi_wrdata_cs</code> 和 <code>dfi_rddata_cs</code> 的支持。这些信号与 <strong>芯片选择 (CS)</strong> 信号相关，控制特定内存芯片的读写。</p><ul><li><strong>dfi_wrdata_cs</strong>：在发生写操作时（如写命令或 DDR4 中的 PDA），根据相应的 <code>tphy_wrcslat</code> 时钟周期后驱动。它会在一定时间内保持不变，以保证写数据的传输完整性。</li><li><strong>dfi_rddata_cs</strong>：与读操作相关（如 DDR4 中的 MPR 或其他内存类型的读命令）。它会在相应的 <code>tphy_rdcslat</code> 时钟周期后驱动，并保持一定时间，直到读取操作完成。</li></ul><p>这些信号的极性是可配置的，通过 <strong>DFIMISC.dfi_data_cs_polarity</strong> 设置。</p><h3 id="2-6-6-Read-Data-Interface（读数据接口）"><a href="#2-6-6-Read-Data-Interface（读数据接口）" class="headerlink" title="2.6.6 Read Data Interface（读数据接口）"></a>2.6.6 <strong>Read Data Interface</strong>（读数据接口）</h3><p>读数据接口负责通过 DFI 接口返回读取的数据。DFI 规范定义了该接口的信号和时序关系。</p><h4 id="配置和时序-1"><a href="#配置和时序-1" class="headerlink" title="配置和时序"></a>配置和时序</h4><ul><li>读数据的时序也是可以配置的，通过 <strong>DFITMG0.t_rddata_en</strong> 寄存器来调整。</li><li>DFI 1:2 模式下，<code>DFITMG0.dfi_rddata_use_dfi_phy_clk</code>决定了读数据时序是否使用 SDR时钟或 HDR时钟：<ul><li><strong>HDR</strong> 时钟：表示 phase0 和 phase1 的时序相同，<strong>dfi_rddata</strong> 信号与 HDR 时钟对齐。</li><li><strong>SDR</strong> 时钟：表示 phase0 和 phase1 的时序分开处理，<strong>dfi_rddata</strong> 信号不一定对齐 HDR 时钟。</li></ul></li></ul><p>**DFI Read Data Inversion (dfi_rddata_dbi)**：类似于写数据接口中的 DBI，读数据接口也可能使用 DBI 信号。在 <strong>DDR4</strong> 配置下，<code>dfi_rddata_dbi</code> 用于反转读数据的字节。</p><h3 id="2-6-6-1-Latency-Considerations"><a href="#2-6-6-1-Latency-Considerations" class="headerlink" title="2.6.6.1 Latency Considerations"></a>2.6.6.1 <strong>Latency Considerations</strong></h3><ul><li><strong>tphy_rdlat</strong>：这是一个寄存器参数，表示读取数据的延迟。DFI 控制器假设 <strong>tphy_rdlat</strong> 的最大值在 48 个时钟周期以内（对于 <strong>mDDR</strong> 使用 26 个时钟周期）。</li><li><strong>trddata_en</strong>：这个参数决定了读数据使能信号的延迟，不能超过 SDRAM 的读延迟（RL）。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> DDR </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DDR </tag>
+            
+            <tag> uMCTL2 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PUB Architecture-Read Responses</title>
+      <link href="/2024/12/18/DDR/PUB%20Architecture-Read%20Responses/"/>
+      <url>/2024/12/18/DDR/PUB%20Architecture-Read%20Responses/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Pub手册4.5.5，DDR PUB（PHY Utility Block）控制器中读响应的三种机制<a><span id="more"></span></a></p></blockquote><h3 id="1-读响应机制概述"><a href="#1-读响应机制概述" class="headerlink" title="1. 读响应机制概述"></a>1. 读响应机制概述</h3><p>PUB控制器提供三种读响应机制：</p><ol><li>异步读响应（PGCR3.RDMODE &#x3D; 2’b00）</li><li>静态读响应（PGCR3.RDMODE &#x3D; 2’b01）</li><li>读FIFO旁路（可选）</li></ol><h3 id="2-异步读响应模式（Asynchronous-Read-Response-Mode）"><a href="#2-异步读响应模式（Asynchronous-Read-Response-Mode）" class="headerlink" title="2. 异步读响应模式（Asynchronous Read Response Mode）"></a>2. 异步读响应模式（Asynchronous Read Response Mode）</h3><h4 id="工作原理："><a href="#工作原理：" class="headerlink" title="工作原理："></a>工作原理：</h4><ul><li>使用读DQS#（差分时钟）作为DATX8读FIFO的写时钟</li><li>读FIFO工作类似传统的异步FIFO</li></ul><h4 id="数据传输流程："><a href="#数据传输流程：" class="headerlink" title="数据传输流程："></a>数据传输流程：</h4><ol><li>读DQS#上升沿将DRAM的DQ数据写入读FIFO</li><li>同时更新FIFO的写指针</li><li>写指针被同步到读时钟域（ctl_clk）</li><li>比较写指针和读指针</li><li>当指针不同时，从FIFO中弹出数据并更新指针</li></ol><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ul><li>读响应延迟直接与读DQS#时序和同步器延迟相关</li><li>延迟不可预测，取决于实际信号传输情况</li></ul><h3 id="3-静态读响应模式（Static-Read-Response-Mode）"><a href="#3-静态读响应模式（Static-Read-Response-Mode）" class="headerlink" title="3. 静态读响应模式（Static Read Response Mode）"></a>3. 静态读响应模式（Static Read Response Mode）</h3><h4 id="工作原理：-1"><a href="#工作原理：-1" class="headerlink" title="工作原理："></a>工作原理：</h4><ul><li>数据写入FIFO的方式与异步模式相同</li><li>但读取FIFO的方式不同</li></ul><h4 id="数据读取特点："><a href="#数据读取特点：" class="headerlink" title="数据读取特点："></a>数据读取特点：</h4><ol><li>PUB从dfi_rddata_en计数周期</li><li>经过固定周期后，从DATX8读FIFO提供读数据到DFI总线</li></ol><h4 id="延迟设置："><a href="#延迟设置：" class="headerlink" title="延迟设置："></a>延迟设置：</h4><ul><li>每个字节通道的延迟由DXnGCR0.RDDLY寄存器单独设置</li><li>可以为每个字节通道优化读延迟</li><li>最大延迟的字节通道决定整体读延迟</li></ul><h4 id="训练特点："><a href="#训练特点：" class="headerlink" title="训练特点："></a>训练特点：</h4><ul><li>可以使用PUB的自动静态读训练算法</li><li>有1个ctl_clk的裕量</li><li>DQS漂移总量必须小于2个时钟周期</li><li>超出会导致读取失败</li></ul><h3 id="4-读FIFO旁路（Read-FIFO-Bypass）"><a href="#4-读FIFO旁路（Read-FIFO-Bypass）" class="headerlink" title="4. 读FIFO旁路（Read FIFO Bypass）"></a>4. 读FIFO旁路（Read FIFO Bypass）</h3><h4 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h4><ul><li>PUB在读响应路径包含FIFO</li><li>用于对齐各字节通道的读响应</li></ul><h4 id="旁路条件："><a href="#旁路条件：" class="headerlink" title="旁路条件："></a>旁路条件：</h4><ul><li>所有字节通道的往返读延迟良好匹配</li><li>DXnGCR0.RDDLY值基本相同</li></ul><h4 id="启用方法："><a href="#启用方法：" class="headerlink" title="启用方法："></a>启用方法：</h4><ul><li>设置PGCR3.PRFBYP &#x3D; 1</li><li>目的是减少延迟</li></ul><h3 id="实际应用建议"><a href="#实际应用建议" class="headerlink" title="实际应用建议"></a>实际应用建议</h3><ol><li>选择模式时考虑：<ul><li>系统延迟要求</li><li>信号完整性</li><li>字节通道匹配程度</li></ul></li><li>异步模式适合：<ul><li>延迟要求不严格</li><li>信号变化较大的场景</li></ul></li><li>静态模式适合：<ul><li>延迟可预测</li><li>信号相对稳定</li><li>需要精确控制读取时序</li></ul></li><li>旁路模式适合：<ul><li>所有通道延迟高度一致</li><li>追求最低延迟</li></ul></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> DDR </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DDR </tag>
+            
+            <tag> PUB </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>uMCTL2-Dynamic SDRAM Constraints</title>
+      <link href="/2024/12/18/DDR/uMCTL2-Dynamic%20SDRAM%20Constraints/"/>
+      <url>/2024/12/18/DDR/uMCTL2-Dynamic%20SDRAM%20Constraints/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>uMCTL2手册2.20，动态SDRAM约束<a><span id="more"></span></a></p></blockquote><h2 id="2-20-1-Overview-of-Dynamic-SDRAM-Constraints"><a href="#2-20-1-Overview-of-Dynamic-SDRAM-Constraints" class="headerlink" title="2.20.1 Overview of Dynamic SDRAM Constraints"></a>2.20.1 Overview of Dynamic SDRAM Constraints</h2><ol><li><strong>动态SDRAM约束概述</strong>：<ul><li>动态SDRAM约束是指根据SDRAM规范制定的对事务调度器（transaction scheduler）的限制。这些限制的具体值是可编程的，并且会根据使用的特定SDRAM型号的规范而变化。因此，在向uMCTL2发送数据流之前，必须正确地设置这些约束。</li></ul></li><li><strong>约束的分类</strong>：<br>段落提到动态SDRAM约束可以细分为三种基本类别：<ul><li><strong>bank约束（Bank Constraints）</strong> ：这一约束影响可以调度到特定内存bank的事务。bank是SDRAM内部的一种结构，它允许多个数据存储的操作同时进行。具体的描述可以查看提到的“Dynamic SDRAM Bank Constraints”部分。</li><li><strong>等级约束（Rank Constraints）</strong> ：这一约束影响可以调度到特定内存等级（Rank）的事务。SDRAM可以有多个等级，每个等级可能包含多个bank。对于每个等级开启或关闭的事务会受到这个约束的影响。具体内容可以参考“Dynamic SDRAM Rank Constraints”部分。</li><li><strong>全局约束（Global Constraints）</strong> ：这一约束影响所有事务调度，不限于特定的bank或等级。全局约束是在所有内存操作和访问中必须遵循的规则。详细信息可以参考“Dynamic SDRAM Global Constraints”部分。</li></ul></li><li><strong>读延迟（RL）和写延迟（WL）</strong> ：<ul><li>读延迟和写延迟是指内存在数据读写操作中需要等待的时钟周期数，各种SDRAM的延迟描述如下：<ul><li>DDR2：<ul><li>读延迟（RL） &#x3D; CL（CAS延迟） + AL（提前延迟）</li><li>写延迟（WL） &#x3D; CL - 1 + AL</li></ul></li><li>DDR3：<ul><li>读延迟（RL） &#x3D; CL + AL</li><li>写延迟（WL） &#x3D; CWL（写CAS延迟） + AL</li></ul></li><li>DDR4：<ul><li>读延迟（RL）&#x3D; CL + AL + PL（预充电延迟）</li><li>写延迟（WL）&#x3D; CWL + AL + PL</li></ul></li><li>mDDR：<ul><li>读延迟（RL） &#x3D; CL</li><li>写延迟（WL） &#x3D; 1</li></ul></li><li>LPDDR2&#x2F;LPDDR3&#x2F;LPDDR4：<ul><li>读延迟和写延迟直接在模式寄存器中定义。</li></ul></li></ul></li></ul></li></ol><h2 id="2-20-7-Preamble-and-Postamble-DDR4-LPDDR4-Only"><a href="#2-20-7-Preamble-and-Postamble-DDR4-LPDDR4-Only" class="headerlink" title="2.20.7 Preamble and Postamble (DDR4&#x2F;LPDDR4 Only)"></a>2.20.7 Preamble and Postamble (DDR4&#x2F;LPDDR4 Only)</h2><h3 id="1-写前导脉冲（Write-Preamble）"><a href="#1-写前导脉冲（Write-Preamble）" class="headerlink" title="1. 写前导脉冲（Write Preamble）"></a>1. 写前导脉冲（Write Preamble）</h3><h4 id="基本特性"><a href="#基本特性" class="headerlink" title="基本特性"></a>基本特性</h4><ul><li>DDR4支持1个时钟周期（tCK）或2个时钟周期的可编程写前导脉冲</li><li>2个时钟周期的前导脉冲适用于DDR4-2400及更快的内存</li><li>仅在1:2频率比模式下使用</li></ul><h4 id="配置方法"><a href="#配置方法" class="headerlink" title="配置方法"></a>配置方法</h4><ul><li>通过MR4[12]选择写前导脉冲</li><li>需要调整INIT6.mr4寄存器</li></ul><h4 id="使用2tCK写前导脉冲的影响"><a href="#使用2tCK写前导脉冲的影响" class="headerlink" title="使用2tCK写前导脉冲的影响"></a>使用2tCK写前导脉冲的影响</h4><ol><li><strong>设置寄存器</strong><ul><li>将DRAMTMG9.ddr4_wr_preamble设置为1</li></ul></li><li><strong>CRC和tCCD约束</strong><ul><li>启用CRC（CRCPARCTL1.crc_enable &#x3D; 1）时：<ul><li>tCCD不能为6</li><li>可用的tCCD值为8、10、12等偶数</li><li>控制器只发出tCCD &#x3D; 8, 10, 12等的写命令</li></ul></li><li>当同时启用CRC和2tCK前导脉冲时，理论写带宽将限制到50%</li><li>未启用CRC时，DRAMTMG9.ddr4_wr_preamble不影响功能</li></ul></li><li><strong>时序参数调整</strong><ul><li>WTR_l增加1：调整DRAMTMG2.wr2rd</li><li>tWTR_s增加1：调整DRAMTMG9.wr2rd_s</li><li>tWR增加1或2（最终值必须为偶数）：调整DRAMTMG0.wr2pre</li><li>tRTP增加1：调整所有使用tRTP的寄存器</li><li>CWL必须增加2：调整所有使用CWL的寄存器</li></ul></li><li><strong>多等级系统调整</strong><ul><li>针对DRAMTMG2.rd2wr的调整：<ul><li>写前导脉冲为1 tCK：RL + BL&#x2F;2 + 2 - WL</li><li>写前导脉冲为2 tCK：RL + BL&#x2F;2 + 3 - WL</li></ul></li><li>调整RANKCTL.diff_rank_wr_gap_msb和RANKCTL.diff_rank_wr_gap<ul><li>计算公式：((N+1)&#x2F;2)，向上取整</li></ul></li></ul></li></ol><h3 id="2-读前导脉冲（Read-Preamble）"><a href="#2-读前导脉冲（Read-Preamble）" class="headerlink" title="2. 读前导脉冲（Read Preamble）"></a>2. 读前导脉冲（Read Preamble）</h3><h4 id="基本特性："><a href="#基本特性：" class="headerlink" title="基本特性："></a>基本特性：</h4><ul><li>DDR4支持1个或2个时钟周期的可编程读前导脉冲</li><li>2个时钟周期的前导脉冲适用于DDR2666&#x2F;DDR3200及更快的内存</li><li>仅在1:2频率比模式下使用</li></ul><h4 id="配置方法："><a href="#配置方法：" class="headerlink" title="配置方法："></a>配置方法：</h4><ul><li>通过MR4[11]选择读前导脉冲</li><li>需要调整INIT6.mr4寄存器</li></ul><h4 id="使用2tCK读前导脉冲的影响："><a href="#使用2tCK读前导脉冲的影响：" class="headerlink" title="使用2tCK读前导脉冲的影响："></a>使用2tCK读前导脉冲的影响：</h4><ul><li>对于多等级系统，调整RANKCTL.diff_rank_rd_gap_msb和RANKCTL.diff_rank_rd_gap</li><li>计算公式：((N+1)&#x2F;2)，向上取整</li></ul><h3 id="关键点解释"><a href="#关键点解释" class="headerlink" title="关键点解释"></a>关键点解释</h3><ol><li><strong>前导脉冲</strong>：在数据传输开始前的额外时钟周期，用于信号稳定和同步</li><li><strong>CRC</strong>：循环冗余校验，用于检测数据传输中的错误</li><li><strong>1:2频率比</strong>：控制器工作频率是内存频率的一半</li></ol><h3 id="实际意义"><a href="#实际意义" class="headerlink" title="实际意义"></a>实际意义</h3><ul><li>这些配置确保DDR4内存在高速和复杂的工作模式下能够稳定、可靠地工作</li><li>通过精确调整时序参数，可以优化内存性能和数据传输质量</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> DDR </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DDR </tag>
+            
+            <tag> uMCTL2 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>uMCTL2-Read Data Interface</title>
       <link href="/2024/12/17/DDR/uMCTL2-Read%20Data%20Interface/"/>
       <url>/2024/12/17/DDR/uMCTL2-Read%20Data%20Interface/</url>
@@ -227,9 +314,9 @@
             
             <tag> IC </tag>
             
-            <tag> VIP </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> VIP </tag>
             
         </tags>
       
@@ -2123,9 +2210,9 @@
           
           <category> Programming </category>
           
-          <category> UVM </category>
-          
           <category> SystemVerilog </category>
+          
+          <category> UVM </category>
           
       </categories>
       
@@ -2134,9 +2221,9 @@
             
             <tag> Programming </tag>
             
-            <tag> UVM </tag>
-            
             <tag> SystemVerilog </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -2191,9 +2278,9 @@
             
             <tag> IC </tag>
             
-            <tag> VIP </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> VIP </tag>
             
         </tags>
       
@@ -2220,9 +2307,9 @@
             
             <tag> Programming </tag>
             
-            <tag> VIP </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> VIP </tag>
             
         </tags>
       
@@ -2251,9 +2338,9 @@
             
             <tag> IC </tag>
             
-            <tag> VIP </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> VIP </tag>
             
         </tags>
       
