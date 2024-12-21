@@ -430,9 +430,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -1492,9 +1492,9 @@
             
             <tag> DDR </tag>
             
-            <tag> PUB </tag>
-            
             <tag> VT compensation </tag>
+            
+            <tag> PUB </tag>
             
             <tag> DDL </tag>
             
@@ -2326,9 +2326,9 @@
           
           <category> Programming </category>
           
-          <category> SystemVerilog </category>
-          
           <category> UVM </category>
+          
+          <category> SystemVerilog </category>
           
       </categories>
       
@@ -2337,9 +2337,9 @@
             
             <tag> Programming </tag>
             
-            <tag> SystemVerilog </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> SystemVerilog </tag>
             
         </tags>
       
@@ -2394,9 +2394,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -2423,9 +2423,9 @@
             
             <tag> Programming </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -2454,9 +2454,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       

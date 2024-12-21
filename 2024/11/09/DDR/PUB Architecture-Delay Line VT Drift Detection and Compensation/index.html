@@ -20,8 +20,8 @@
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="DDR">
-<meta property="article:tag" content="PUB">
 <meta property="article:tag" content="VT compensation">
+<meta property="article:tag" content="PUB">
 <meta property="article:tag" content="DDL">
 <meta property="article:tag" content="MDL">
 <meta name="twitter:card" content="summary">
@@ -411,11 +411,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PUB</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">VT compensation</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">VT compensation</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PUB</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -534,6 +534,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-VT%E6%BC%82%E7%A7%BB%E8%A1%A5%E5%81%BF%E9%80%BB%E8%BE%91"><span class="toc-number">1.</span> <span class="toc-text">1. VT漂移补偿逻辑</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%BB%E5%BB%B6%E8%BF%9F%E7%BA%BF-MDL-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">2. 主延迟线 (MDL) 的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%BB%B6%E8%BF%9F%E7%BA%BF%E7%9A%84%E6%B8%A9%E5%BA%A6%E5%92%8C%E7%94%B5%E5%8E%8B%E8%A1%A5%E5%81%BF"><span class="toc-number">3.</span> <span class="toc-text">3. 延迟线的温度和电压补偿</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%A1%A5%E5%81%BF%E5%85%AC%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">4. 补偿公式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E8%A1%A5%E5%81%BF%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B"><span class="toc-number">5.</span> <span class="toc-text">5. 补偿计算过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">6. 关键点总结</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -674,6 +687,10 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags" style="display: block;">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
@@ -690,15 +707,35 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">IC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Marco</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DV</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -714,19 +751,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DFI</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PUB</a>
+                <a href="javascript:void(0)" class="js-tag color1">VT compensation</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">VT compensation</a>
+                <a href="javascript:void(0)" class="js-tag color4">PUB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -746,11 +779,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
+                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
+                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -758,35 +791,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Marco</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DMA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -795,6 +800,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
               </li>
              
               <li class="article-tag-list-item">

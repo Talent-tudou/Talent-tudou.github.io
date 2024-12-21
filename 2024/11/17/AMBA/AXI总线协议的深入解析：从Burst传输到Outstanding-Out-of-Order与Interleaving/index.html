@@ -486,6 +486,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-AXI%E6%80%BB%E7%BA%BF%E4%B8%8A%E7%9A%84%E6%AD%A3%E5%B8%B8Burst%E4%BC%A0%E8%BE%93"><span class="toc-number">1.</span> <span class="toc-text">1. AXI总线上的正常Burst传输</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Outstanding%EF%BC%88%E8%B6%85%E5%89%8D%E4%BC%A0%E8%BE%93%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">2. Outstanding（超前传输）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-Outstanding%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Outstanding的含义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-%E5%A6%82%E6%9E%9CSlave%E4%B8%8D%E6%94%AF%E6%8C%81Outstanding%EF%BC%8C%E5%A6%82%E4%BD%95%E5%93%8D%E5%BA%94%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 如果Slave不支持Outstanding，如何响应？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-Outstanding%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 Outstanding的实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-Outstanding%E8%83%BD%E5%8A%9B"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 Outstanding能力</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Out-of-Order%EF%BC%88%E4%B9%B1%E5%BA%8F%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">3. Out-of-Order（乱序）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-Out-of-Order%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 Out-of-Order的含义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-Out-of-Order%E7%9A%84%E5%BA%94%E7%94%A8"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 Out-of-Order的应用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Interleaving%EF%BC%88%E4%BA%A4%E7%BB%87%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">4. Interleaving（交织）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-%E4%BA%A4%E7%BB%87%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 交织的定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-%E4%BA%A4%E7%BB%87%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 交织的实现</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-Outstanding%E3%80%81Out-of-Order%E4%B8%8EInterleaving%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB"><span class="toc-number">5.</span> <span class="toc-text">5. Outstanding、Out-of-Order与Interleaving的区别与联系</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -625,6 +638,10 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags" style="display: block;">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
@@ -641,15 +658,35 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">IC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Marco</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DV</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -665,19 +702,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DFI</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PUB</a>
+                <a href="javascript:void(0)" class="js-tag color1">VT compensation</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">VT compensation</a>
+                <a href="javascript:void(0)" class="js-tag color4">PUB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -697,11 +730,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
+                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
+                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -709,35 +742,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Marco</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DMA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -746,6 +751,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
               </li>
              
               <li class="article-tag-list-item">

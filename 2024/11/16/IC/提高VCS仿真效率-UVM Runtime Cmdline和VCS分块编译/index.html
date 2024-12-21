@@ -690,6 +690,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%85%85%E5%88%86%E5%88%A9%E7%94%A8UVM%E7%9A%84runtime-cmdline%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0%E6%9C%BA%E5%88%B6"><span class="toc-number">1.</span> <span class="toc-text">1. 充分利用UVM的runtime cmdline传递参数机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%A2%9E%E9%87%8F%E7%BC%96%E8%AF%91"><span class="toc-number">2.</span> <span class="toc-text">2. 增量编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-VCS%E5%88%86%E5%9D%97%E7%BC%96%E8%AF%91%EF%BC%88Partition-Compile%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">3. VCS分块编译（Partition Compile）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%9D%97%E7%BC%96%E8%AF%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">分块编译的基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VCS%E5%88%86%E5%9D%97%E7%BC%96%E8%AF%91%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.2.</span> <span class="toc-text">VCS分块编译的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%B5%E5%90%91%E5%88%86%E6%9E%90%EF%BC%9AVCS%E4%BB%BF%E7%9C%9F%E6%B5%81%E7%A8%8B"><span class="toc-number">3.2.1.</span> <span class="toc-text">纵向分析：VCS仿真流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%AA%E5%90%91%E5%88%86%E6%9E%90%EF%BC%9AVCS%E4%BB%BF%E7%9C%9F%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87"><span class="toc-number">3.2.2.</span> <span class="toc-text">横向分析：VCS仿真性能指标</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E5%8A%A8%E6%8C%87%E5%AE%9APartition"><span class="toc-number">3.3.</span> <span class="toc-text">手动指定Partition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partition%E5%B9%B6%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="toc-number">3.4.</span> <span class="toc-text">Partition并行参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E5%9C%A8-unit%E7%A9%BA%E9%97%B4%E5%AF%BC%E5%85%A5package%EF%BC%9A%E5%A2%9E%E9%87%8F%E7%BC%96%E8%AF%91%E6%95%88%E7%8E%87%E7%9A%84%E9%99%B7%E9%98%B1"><span class="toc-number">4.</span> <span class="toc-text">避免在$unit空间导入package：增量编译效率的陷阱</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-unit%E7%A9%BA%E9%97%B4%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">什么是$unit空间？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%81%BF%E5%85%8D%E5%9C%A8-unit%E7%A9%BA%E9%97%B4%E5%AF%BC%E5%85%A5package%EF%BC%9F"><span class="toc-number">4.2.</span> <span class="toc-text">为什么避免在$unit空间导入package？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E8%BF%99%E4%B8%AA%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-number">4.3.</span> <span class="toc-text">如何避免这个问题？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -829,6 +842,10 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags" style="display: block;">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
@@ -845,15 +862,35 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">IC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Marco</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DV</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -869,19 +906,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DFI</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PUB</a>
+                <a href="javascript:void(0)" class="js-tag color1">VT compensation</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">VT compensation</a>
+                <a href="javascript:void(0)" class="js-tag color4">PUB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -901,11 +934,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
+                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
+                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -913,35 +946,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Marco</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DMA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -950,6 +955,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
               </li>
              
               <li class="article-tag-list-item">
