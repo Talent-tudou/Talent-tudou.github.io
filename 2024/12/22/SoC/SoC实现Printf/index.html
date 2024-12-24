@@ -11,12 +11,12 @@
   <meta name="description" content="要实现实时输出，即每次写入数据到内存时立即打印出来，您可以使用一种更高效、即时的机制来实现数据的写入和读取。这种机制可能是通过 共享内存、socket通信 或 管道，并且系统Verilog的DPI或VPI接口可以通过某些同步机制和轮询方式实时检查和读取这些数据。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SoC实现Printf">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/12/22/DV/SoC%E5%AE%9E%E7%8E%B0Printf/index.html">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/12/22/SoC/SoC%E5%AE%9E%E7%8E%B0Printf/index.html">
 <meta property="og:site_name" content="ZLIN">
 <meta property="og:description" content="要实现实时输出，即每次写入数据到内存时立即打印出来，您可以使用一种更高效、即时的机制来实现数据的写入和读取。这种机制可能是通过 共享内存、socket通信 或 管道，并且系统Verilog的DPI或VPI接口可以通过某些同步机制和轮询方式实时检查和读取这些数据。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-12-22T15:51:37.000Z">
-<meta property="article:modified_time" content="2024-12-22T15:54:52.123Z">
+<meta property="article:modified_time" content="2024-12-22T15:59:45.420Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="C">
@@ -111,7 +111,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数92
+			总文章数94
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -219,7 +219,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-DV/SoC实现Printf" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-SoC/SoC实现Printf" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -237,7 +237,7 @@
 		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
 	</span>
 
-<a href="/2024/12/22/DV/SoC%E5%AE%9E%E7%8E%B0Printf/" class="archive-article-date">
+<a href="/2024/12/22/SoC/SoC%E5%AE%9E%E7%8E%B0Printf/" class="archive-article-date">
   	<time datetime="2024-12-22T15:51:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-22</time>
 </a>
         
@@ -255,7 +255,7 @@
 </ol>
 <h3 id="C-代码（共享内存写入）："><a href="#C-代码（共享内存写入）：" class="headerlink" title="C 代码（共享内存写入）："></a>C 代码（共享内存写入）：</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHM_NAME <span class="string">&quot;/shm_display&quot;</span> <span class="comment">// 共享内存的名称</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHM_SIZE 1024          <span class="comment">// 共享内存大小</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">write_to_shared_memory</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *str)</span> &#123;</span><br><span class="line">    <span class="comment">// 打开或创建共享内存</span></span><br><span class="line">    <span class="type">int</span> shm_fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, <span class="number">0666</span>);</span><br><span class="line">    <span class="keyword">if</span> (shm_fd == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to open shared memory&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调整共享内存大小</span></span><br><span class="line">    ftruncate(shm_fd, SHM_SIZE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 映射共享内存到进程地址空间</span></span><br><span class="line">    <span class="type">char</span> *shared_memory = (<span class="type">char</span> *) mmap(<span class="literal">NULL</span>, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (shared_memory == MAP_FAILED) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to map shared memory&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将字符串写入共享内存</span></span><br><span class="line">    <span class="built_in">strncpy</span>(shared_memory, str, SHM_SIZE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解除映射</span></span><br><span class="line">    munmap(shared_memory, SHM_SIZE);</span><br><span class="line">    close(shm_fd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 每次调用都会向共享内存写入新的数据</span></span><br><span class="line">    write_to_shared_memory(<span class="string">&quot;Hello from server memory!&quot;</span>); <span class="comment">// 在内存中写入字符串</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="SystemVerilog-代码（轮询共享内存并打印）："><a href="#SystemVerilog-代码（轮询共享内存并打印）：" class="headerlink" title="SystemVerilog 代码（轮询共享内存并打印）："></a>SystemVerilog 代码（轮询共享内存并打印）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">`timescale 1ns / 1ps</span><br><span class="line"></span><br><span class="line">module print_output;</span><br><span class="line">    import &quot;DPI-C&quot; function void read_from_server_memory(input string address, output string data);</span><br><span class="line"></span><br><span class="line">    // 轮询方式实时读取共享内存并打印</span><br><span class="line">    initial begin</span><br><span class="line">        string data;</span><br><span class="line">        while (1) begin</span><br><span class="line">            read_from_server_memory(&quot;/shm_display&quot;, data);  // 从共享内存中读取数据</span><br><span class="line">            if (data != &quot;&quot;) begin  // 如果读取到数据，则打印</span><br><span class="line">                $display(&quot;Data from server memory: %s&quot;, data);</span><br><span class="line">            end</span><br><span class="line">            #10ns; // 每10ns检查一次共享内存</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
+<h3 id="SystemVerilog-代码（轮询共享内存并打印）："><a href="#SystemVerilog-代码（轮询共享内存并打印）：" class="headerlink" title="SystemVerilog 代码（轮询共享内存并打印）："></a>SystemVerilog 代码（轮询共享内存并打印）：</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="keyword">timescale</span> 1ns / 1ps</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> print_output;</span><br><span class="line">    <span class="keyword">import</span> <span class="string">&quot;DPI-C&quot;</span> <span class="keyword">function</span> <span class="keyword">void</span> read_from_server_memory(<span class="keyword">input</span> <span class="keyword">string</span> address, <span class="keyword">output</span> <span class="keyword">string</span> data);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 轮询方式实时读取共享内存并打印</span></span><br><span class="line">    <span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">string</span> data;</span><br><span class="line">        <span class="keyword">while</span> (<span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">            read_from_server_memory(<span class="string">&quot;/shm_display&quot;</span>, data);  <span class="comment">// 从共享内存中读取数据</span></span><br><span class="line">            <span class="keyword">if</span> (data != <span class="string">&quot;&quot;</span>) <span class="keyword">begin</span>  <span class="comment">// 如果读取到数据，则打印</span></span><br><span class="line">                <span class="built_in">$display</span>(<span class="string">&quot;Data from server memory: %s&quot;</span>, data);</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            #<span class="number">10</span>ns; <span class="comment">// 每10ns检查一次共享内存</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="C-代码（读取共享内存并返回给-Verilog）："><a href="#C-代码（读取共享内存并返回给-Verilog）：" class="headerlink" title="C 代码（读取共享内存并返回给 Verilog）："></a>C 代码（读取共享内存并返回给 Verilog）：</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;svdpi.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHM_NAME <span class="string">&quot;/shm_display&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHM_SIZE 1024</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取共享内存并返回数据</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">read_from_shared_memory</span><span class="params">(<span class="type">char</span> *address, <span class="type">char</span> *data)</span> &#123;</span><br><span class="line">    <span class="comment">// 打开共享内存</span></span><br><span class="line">    <span class="type">int</span> shm_fd = shm_open(address, O_RDWR, <span class="number">0666</span>);</span><br><span class="line">    <span class="keyword">if</span> (shm_fd == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to open shared memory&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 映射共享内存到进程地址空间</span></span><br><span class="line">    <span class="type">char</span> *shared_memory = (<span class="type">char</span> *) mmap(<span class="literal">NULL</span>, SHM_SIZE, PROT_READ, MAP_SHARED, shm_fd, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (shared_memory == MAP_FAILED) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to map shared memory&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将共享内存中的数据复制到 data 中</span></span><br><span class="line">    <span class="built_in">strncpy</span>(data, shared_memory, SHM_SIZE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解除映射并关闭文件</span></span><br><span class="line">    munmap(shared_memory, SHM_SIZE);</span><br><span class="line">    close(shm_fd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SystemVerilog DPI-C 函数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">read_from_server_memory</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *address, <span class="type">char</span> *data)</span> &#123;</span><br><span class="line">    read_from_shared_memory(address, data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -304,7 +304,7 @@
 </ol>
 <h3 id="C-代码（共享内存写入）："><a href="#C-代码（共享内存写入）：" class="headerlink" title="C 代码（共享内存写入）："></a>C 代码（共享内存写入）：</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHM_NAME <span class="string">&quot;/shm_display&quot;</span> <span class="comment">// 共享内存的名称</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHM_SIZE 1024          <span class="comment">// 共享内存大小</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">write_to_shared_memory</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *str)</span> &#123;</span><br><span class="line">    <span class="comment">// 打开或创建共享内存</span></span><br><span class="line">    <span class="type">int</span> shm_fd = shm_open(SHM_NAME, O_CREAT | O_RDWR, <span class="number">0666</span>);</span><br><span class="line">    <span class="keyword">if</span> (shm_fd == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to open shared memory&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调整共享内存大小</span></span><br><span class="line">    ftruncate(shm_fd, SHM_SIZE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 映射共享内存到进程地址空间</span></span><br><span class="line">    <span class="type">char</span> *shared_memory = (<span class="type">char</span> *) mmap(<span class="literal">NULL</span>, SHM_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (shared_memory == MAP_FAILED) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to map shared memory&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将字符串写入共享内存</span></span><br><span class="line">    <span class="built_in">strncpy</span>(shared_memory, str, SHM_SIZE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解除映射</span></span><br><span class="line">    munmap(shared_memory, SHM_SIZE);</span><br><span class="line">    close(shm_fd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 每次调用都会向共享内存写入新的数据</span></span><br><span class="line">    write_to_shared_memory(<span class="string">&quot;Hello from server memory!&quot;</span>); <span class="comment">// 在内存中写入字符串</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="SystemVerilog-代码（轮询共享内存并打印）："><a href="#SystemVerilog-代码（轮询共享内存并打印）：" class="headerlink" title="SystemVerilog 代码（轮询共享内存并打印）："></a>SystemVerilog 代码（轮询共享内存并打印）：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">`timescale 1ns / 1ps</span><br><span class="line"></span><br><span class="line">module print_output;</span><br><span class="line">    import &quot;DPI-C&quot; function void read_from_server_memory(input string address, output string data);</span><br><span class="line"></span><br><span class="line">    // 轮询方式实时读取共享内存并打印</span><br><span class="line">    initial begin</span><br><span class="line">        string data;</span><br><span class="line">        while (1) begin</span><br><span class="line">            read_from_server_memory(&quot;/shm_display&quot;, data);  // 从共享内存中读取数据</span><br><span class="line">            if (data != &quot;&quot;) begin  // 如果读取到数据，则打印</span><br><span class="line">                $display(&quot;Data from server memory: %s&quot;, data);</span><br><span class="line">            end</span><br><span class="line">            #10ns; // 每10ns检查一次共享内存</span><br><span class="line">        end</span><br><span class="line">    end</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
+<h3 id="SystemVerilog-代码（轮询共享内存并打印）："><a href="#SystemVerilog-代码（轮询共享内存并打印）：" class="headerlink" title="SystemVerilog 代码（轮询共享内存并打印）："></a>SystemVerilog 代码（轮询共享内存并打印）：</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">`<span class="keyword">timescale</span> 1ns / 1ps</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">module</span> print_output;</span><br><span class="line">    <span class="keyword">import</span> <span class="string">&quot;DPI-C&quot;</span> <span class="keyword">function</span> <span class="keyword">void</span> read_from_server_memory(<span class="keyword">input</span> <span class="keyword">string</span> address, <span class="keyword">output</span> <span class="keyword">string</span> data);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 轮询方式实时读取共享内存并打印</span></span><br><span class="line">    <span class="keyword">initial</span> <span class="keyword">begin</span></span><br><span class="line">        <span class="keyword">string</span> data;</span><br><span class="line">        <span class="keyword">while</span> (<span class="number">1</span>) <span class="keyword">begin</span></span><br><span class="line">            read_from_server_memory(<span class="string">&quot;/shm_display&quot;</span>, data);  <span class="comment">// 从共享内存中读取数据</span></span><br><span class="line">            <span class="keyword">if</span> (data != <span class="string">&quot;&quot;</span>) <span class="keyword">begin</span>  <span class="comment">// 如果读取到数据，则打印</span></span><br><span class="line">                <span class="built_in">$display</span>(<span class="string">&quot;Data from server memory: %s&quot;</span>, data);</span><br><span class="line">            <span class="keyword">end</span></span><br><span class="line">            #<span class="number">10</span>ns; <span class="comment">// 每10ns检查一次共享内存</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">endmodule</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="C-代码（读取共享内存并返回给-Verilog）："><a href="#C-代码（读取共享内存并返回给-Verilog）：" class="headerlink" title="C 代码（读取共享内存并返回给 Verilog）："></a>C 代码（读取共享内存并返回给 Verilog）：</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/mman.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;svdpi.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHM_NAME <span class="string">&quot;/shm_display&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SHM_SIZE 1024</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取共享内存并返回数据</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">read_from_shared_memory</span><span class="params">(<span class="type">char</span> *address, <span class="type">char</span> *data)</span> &#123;</span><br><span class="line">    <span class="comment">// 打开共享内存</span></span><br><span class="line">    <span class="type">int</span> shm_fd = shm_open(address, O_RDWR, <span class="number">0666</span>);</span><br><span class="line">    <span class="keyword">if</span> (shm_fd == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to open shared memory&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 映射共享内存到进程地址空间</span></span><br><span class="line">    <span class="type">char</span> *shared_memory = (<span class="type">char</span> *) mmap(<span class="literal">NULL</span>, SHM_SIZE, PROT_READ, MAP_SHARED, shm_fd, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (shared_memory == MAP_FAILED) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Failed to map shared memory&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将共享内存中的数据复制到 data 中</span></span><br><span class="line">    <span class="built_in">strncpy</span>(data, shared_memory, SHM_SIZE);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解除映射并关闭文件</span></span><br><span class="line">    munmap(shared_memory, SHM_SIZE);</span><br><span class="line">    close(shm_fd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SystemVerilog DPI-C 函数</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">read_from_server_memory</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *address, <span class="type">char</span> *data)</span> &#123;</span><br><span class="line">    read_from_shared_memory(address, data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -351,7 +351,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/12/22/DV/SoC实现Printf/" title="SoC实现Printf" target="_blank">https://talent-tudou.github.io/2024/12/22/DV/SoC实现Printf/</a>
+   <a href="https://talent-tudou.github.io/2024/12/22/SoC/SoC实现Printf/" title="SoC实现Printf" target="_blank">https://talent-tudou.github.io/2024/12/22/SoC/SoC实现Printf/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -481,7 +481,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/12/22/DV/SoC%E5%AE%9E%E7%8E%B0Printf/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/12/22/SoC/SoC%E5%AE%9E%E7%8E%B0Printf/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -494,6 +494,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2024/12/24/Programming/Python%E8%84%9A%E6%9C%AC-jtag_client/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Python脚本-jtag_client
+        
+      </div>
+    </a>
   
   
     <a href="/2024/12/22/C%E8%AF%AD%E8%A8%80/C%E8%AF%AD%E8%A8%80-mmap%E5%87%BD%E6%95%B0/" id="article-nav-older" class="article-nav-link-wrap">
@@ -669,14 +678,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags" style="display: block;">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -689,11 +690,27 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">IC</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,11 +754,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
+                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
+                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -753,19 +770,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SoC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Marco</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -773,7 +778,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
+                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -782,6 +791,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VCS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -802,6 +815,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SoC</a>
               </li>
             
             <div class="clearfix"></div>
