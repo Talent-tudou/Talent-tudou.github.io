@@ -461,6 +461,8 @@
             
             <tag> uMCTL2 </tag>
             
+            <tag> ECC </tag>
+            
         </tags>
       
     </entry>
@@ -518,6 +520,8 @@
             <tag> DDR </tag>
             
             <tag> uMCTL2 </tag>
+            
+            <tag> ECC </tag>
             
         </tags>
       
@@ -2655,9 +2659,9 @@
       
         <tags>
             
-            <tag> Linux </tag>
-            
             <tag> Programming </tag>
+            
+            <tag> Linux </tag>
             
         </tags>
       
