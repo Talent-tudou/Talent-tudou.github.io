@@ -4,6 +4,87 @@
   
     
     <entry>
+      <title>Makefile-findstring函数</title>
+      <link href="/2024/12/28/makefile/Makefile-findstring%E5%87%BD%E6%95%B0/"/>
+      <url>/2024/12/28/makefile/Makefile-findstring%E5%87%BD%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Makefile的findstring内置函数。<a><span id="more"></span></a></p></blockquote><h3 id="findstring-函数在-Makefile-中的作用"><a href="#findstring-函数在-Makefile-中的作用" class="headerlink" title="findstring 函数在 Makefile 中的作用"></a><code>findstring</code> 函数在 <code>Makefile</code> 中的作用</h3><p>在 <code>Makefile</code> 中，<code>findstring</code> 是一个内置的字符串操作函数，它用于在一个字符串中查找另一个子字符串。如果找到了子字符串，它会返回该子字符串，否则返回空字符串。</p><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">findstring &lt;substring&gt;, &lt;string&gt;</span><br></pre></td></tr></table></figure><ul><li>**<code>&lt;substring&gt;</code>**：你要查找的子字符串。</li><li>**<code>&lt;string&gt;</code>**：你要搜索的字符串。</li></ul><h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><ul><li>如果 <code>substring</code> 在 <code>string</code> 中找到了，<code>findstring</code> 会返回 <code>substring</code>。</li><li>如果没有找到，返回空字符串。</li></ul><h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>假设你有如下的 <code>Makefile</code>：</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">VAR = abcdef</span><br><span class="line"></span><br><span class="line">RESULT = <span class="variable">$(<span class="built_in">findstring</span> abc, <span class="variable">$(VAR)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">@echo <span class="variable">$(RESULT)</span></span><br></pre></td></tr></table></figure><p>在这个例子中：</p><ol><li><code>VAR = abcdef</code> 变量包含了字符串 <code>abcdef</code>。</li><li><code>$(findstring abc, $(VAR))</code> 会查找 <code>abc</code> 是否存在于 <code>abcdef</code> 中。</li><li>由于 <code>abc</code> 确实出现在 <code>abcdef</code> 中，<code>findstring</code> 会返回 <code>abc</code>，然后将其赋值给 <code>RESULT</code>。</li></ol><p>运行 <code>make</code> 会输出：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abc</span><br></pre></td></tr></table></figure><h3 id="另一个例子"><a href="#另一个例子" class="headerlink" title="另一个例子"></a>另一个例子</h3><p>如果你查找一个不存在的子字符串：</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">VAR = abcdef</span><br><span class="line"></span><br><span class="line">RESULT = <span class="variable">$(<span class="built_in">findstring</span> xyz, <span class="variable">$(VAR)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">@echo <span class="variable">$(RESULT)</span></span><br></pre></td></tr></table></figure><p>在这个例子中：</p><ol><li><code>$(findstring xyz, $(VAR))</code> 会查找 <code>xyz</code> 是否存在于 <code>abcdef</code> 中。</li><li>由于 <code>xyz</code> 不在 <code>abcdef</code> 中，<code>findstring</code> 返回的是空字符串。</li></ol><p>运行 <code>make</code> 会输出：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><p>（没有输出，因为结果是空字符串）</p><h3 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h3><p><code>findstring</code> 函数通常用于条件判断、字符串匹配和过滤。例如，可以根据某个子字符串来决定是否执行某个规则，或者根据给定的条件修改变量值。</p><h4 id="示例-1：根据条件选择操作"><a href="#示例-1：根据条件选择操作" class="headerlink" title="示例 1：根据条件选择操作"></a>示例 1：根据条件选择操作</h4><p>你可以使用 <code>findstring</code> 来检查变量是否包含某些标志，并根据检查结果做不同的事情。</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">DEBUG_FLAGS = -g -O2</span><br><span class="line"></span><br><span class="line"><span class="keyword">ifeq</span> (<span class="variable">$(<span class="built_in">findstring</span> -g, <span class="variable">$(DEBUG_FLAGS)</span>)</span>, -g)</span><br><span class="line">    CFLAGS += -DDEBUG</span><br><span class="line"><span class="keyword">endif</span></span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">@echo <span class="variable">$(CFLAGS)</span></span><br></pre></td></tr></table></figure><ul><li><code>findstring -g, $(DEBUG_FLAGS)</code> 会查找 <code>-g</code> 是否在 <code>DEBUG_FLAGS</code> 中。</li><li>如果找到了 <code>-g</code>，就会给 <code>CFLAGS</code> 变量添加 <code>-DDEBUG</code>。</li><li>这是一种在 <code>Makefile</code> 中进行条件编译的方式。</li></ul><h4 id="示例-2：用-findstring-筛选标志"><a href="#示例-2：用-findstring-筛选标志" class="headerlink" title="示例 2：用 findstring 筛选标志"></a>示例 2：用 <code>findstring</code> 筛选标志</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FLAGS = -g -O2</span><br><span class="line"></span><br><span class="line">CFLAGS = <span class="variable">$(<span class="built_in">findstring</span> -g, <span class="variable">$(FLAGS)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">@echo <span class="variable">$(CFLAGS)</span></span><br></pre></td></tr></table></figure><ul><li>这个例子中，<code>findstring</code> 会查找 <code>-g</code> 是否在 <code>FLAGS</code> 中。如果找到了，就将 <code>-g</code> 赋值给 <code>CFLAGS</code>。</li><li>如果 <code>FLAGS</code> 包含 <code>-g</code>，则输出 <code>-g</code>；否则输出空字符串。</li></ul><h3 id="findstring-和-filter-的区别"><a href="#findstring-和-filter-的区别" class="headerlink" title="findstring 和 filter 的区别"></a><code>findstring</code> 和 <code>filter</code> 的区别</h3><p><code>findstring</code> 和 <code>filter</code> 都是用来处理字符串的，但它们有一些不同：</p><ul><li><code>findstring &lt;substring&gt;, &lt;string&gt;</code>：查找一个子字符串，如果找到了就返回该子字符串，否则返回空字符串。</li><li><code>filter &lt;pattern&gt;, &lt;string&gt;</code>：与 <code>findstring</code> 类似，但可以匹配多个子字符串（使用模式匹配），并返回所有匹配的子字符串。</li></ul><p>例如：</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">VAR = foo bar baz</span><br><span class="line"></span><br><span class="line">RESULT = <span class="variable">$(<span class="built_in">filter</span> bar, <span class="variable">$(VAR)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">@echo <span class="variable">$(RESULT)</span></span><br></pre></td></tr></table></figure><p>输出是：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bar</span><br></pre></td></tr></table></figure><p>如果你需要检查多个子字符串，可以使用 <code>filter</code> 来匹配多个模式，而 <code>findstring</code> 更适用于检查单一子字符串。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li><code>findstring &lt;substring&gt;, &lt;string&gt;</code>：在 <code>string</code> 中查找 <code>substring</code>，如果找到则返回 <code>substring</code>，否则返回空字符串。</li><li>常用于在 <code>Makefile</code> 中进行条件判断、字符串匹配和变量修改。</li><li>与 <code>filter</code> 不同，<code>findstring</code> 只能查找单个子字符串，而 <code>filter</code> 可以处理模式匹配并返回多个结果。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Makefile </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> makefile </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Makefile-export关键字</title>
+      <link href="/2024/12/28/makefile/Makefile-export%E5%85%B3%E9%94%AE%E5%AD%97/"/>
+      <url>/2024/12/28/makefile/Makefile-export%E5%85%B3%E9%94%AE%E5%AD%97/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Makefile的export关键字。<a><span id="more"></span></a></p></blockquote><h3 id="1-export-的作用"><a href="#1-export-的作用" class="headerlink" title="1. export 的作用"></a>1. <code>export</code> 的作用</h3><p><code>export</code> 是 Shell（如 <code>bash</code>、<code>csh</code>）中的一个命令，用于将一个 shell 变量设置为环境变量。环境变量会被传递给所有的子进程和外部程序。因此，<code>export</code> 可以确保变量不仅在当前的 Shell 中可用，还能传递到 <code>make</code> 以及它启动的任何子进程中。</p><p>在 <code>Makefile</code> 中，<code>export</code> 可以用来设置变量，并确保它被作为环境变量传递给 <code>make</code> 及其子进程。</p><h4 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h4><p>在 <code>Makefile</code> 中，<code>export</code> 的用法如下：</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> var_name = value</span><br></pre></td></tr></table></figure><p>这表示将 <code>var_name</code> 变量设置为环境变量，并将它传递给 <code>make</code> 和 <code>make</code> 启动的所有子进程。</p><h3 id="2-export-在-Makefile-中的作用"><a href="#2-export-在-Makefile-中的作用" class="headerlink" title="2. export 在 Makefile 中的作用"></a>2. <code>export</code> 在 <code>Makefile</code> 中的作用</h3><p>当你在 <code>Makefile</code> 中使用 <code>export</code> 时，<code>make</code> 会将这些变量传递给它所启动的所有子进程（包括其他规则中的命令和目标）。因此，任何在 <code>Makefile</code> 中设置并导出的变量都会在后续的命令执行中保持可用。</p><h4 id="示例：export-用法"><a href="#示例：export-用法" class="headerlink" title="示例：export 用法"></a>示例：<code>export</code> 用法</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> sim = sdf</span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">    @echo <span class="variable">$(sim)</span></span><br></pre></td></tr></table></figure><p>在这个例子中：</p><ul><li><code>export sim = sdf</code> 将变量 <code>sim</code> 设置为环境变量并传递给所有的子进程（包括 <code>make</code> 的子命令）。</li><li><code>@echo $(sim)</code> 会打印出 <code>sdf</code>，因为 <code>sim</code> 是通过 <code>export</code> 设置为环境变量的，且它被传递给 <code>make</code>。</li></ul><p>如果你在命令行上传递了 <code>sim</code> 的值：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make all sim=rtl</span><br></pre></td></tr></table></figure><p>**<code>make</code> 会优先使用命令行传递的值 <code>sim=rtl</code>**。所以 <code>echo</code> 输出的是 <code>rtl</code>，而不是 <code>sdf</code>。这是因为命令行传递的变量值会覆盖 <code>Makefile</code> 中的赋值。</p><h3 id="3-export-和环境变量"><a href="#3-export-和环境变量" class="headerlink" title="3. export 和环境变量"></a>3. <code>export</code> 和环境变量</h3><p><code>export</code> 的一个关键点是它会将变量 <strong>变成环境变量</strong>，并传递给 <code>make</code> 和 <code>make</code> 启动的子进程。如果你没有使用 <code>export</code>，那么该变量只会在 <code>Makefile</code> 的当前上下文中有效，而不会被传递给 <code>make</code> 的子进程。</p><h4 id="对比：没有-export-和有-export-的区别"><a href="#对比：没有-export-和有-export-的区别" class="headerlink" title="对比：没有 export 和有 export 的区别"></a>对比：没有 <code>export</code> 和有 <code>export</code> 的区别</h4><ol><li><strong>没有 <code>export</code>：</strong></li></ol><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sim = sdf</span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">    @echo <span class="variable">$(sim)</span></span><br></pre></td></tr></table></figure><p>在这种情况下，<code>sim</code> 只是一个普通的 <code>Makefile</code> 变量，它在 <code>Makefile</code> 中可用。如果你在命令行传递了 <code>sim</code> 变量：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make all sim=rtl</span><br></pre></td></tr></table></figure><p>**输出会是 <code>rtl</code>**，因为命令行中的 <code>sim=rtl</code> 会覆盖 <code>Makefile</code> 中的 <code>sim</code> 值。</p><ol><li><strong>使用 <code>export</code>：</strong></li></ol><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> sim = sdf</span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">    @echo <span class="variable">$(sim)</span></span><br></pre></td></tr></table></figure><p>如果你执行：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make all sim=rtl</span><br></pre></td></tr></table></figure><p>**输出会是 <code>rtl</code>**，因为命令行传递的变量 <code>sim=rtl</code> 会覆盖 <code>Makefile</code> 中的默认值 <code>sdf</code>，但 <code>export</code> 确保了变量是作为环境变量传递给 <code>make</code> 和它的子进程的。</p><h3 id="4-export-和命令行传递的变量"><a href="#4-export-和命令行传递的变量" class="headerlink" title="4. export 和命令行传递的变量"></a>4. <code>export</code> 和命令行传递的变量</h3><p>当你传递变量给 <code>make</code> 时，比如 <code>make all sim=rtl</code>，<code>make</code> 会优先使用命令行中的值。因此，即使你在 <code>Makefile</code> 中使用了 <code>export sim = sdf</code>，如果在命令行上传递了 <code>sim=rtl</code>，<code>make</code> 会使用命令行中的值。</p><h3 id="5-export-在不同-Shell-环境中的差异"><a href="#5-export-在不同-Shell-环境中的差异" class="headerlink" title="5. export 在不同 Shell 环境中的差异"></a>5. <code>export</code> 在不同 Shell 环境中的差异</h3><ul><li><strong>在 <code>bash</code> 中</strong>，<code>export</code> 设置环境变量后，该变量会传递给 <code>make</code> 以及 <code>make</code> 启动的子进程。Shell 会优先使用命令行中传递的变量值（如果有）。</li><li><strong>在 <code>csh</code> 中</strong>，如果你在 <code>Makefile</code> 中使用 <code>export</code>，同样会将变量设置为环境变量，但在 <code>csh</code> 中，Shell 本身的行为可能会稍有不同，处理命令行参数时会有不同的方式，但 <code>export</code> 也会确保将变量传递给 <code>make</code>。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Makefile </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> makefile </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Makefile-override关键字</title>
+      <link href="/2024/12/28/makefile/Makefile-override%E5%85%B3%E9%94%AE%E5%AD%97/"/>
+      <url>/2024/12/28/makefile/Makefile-override%E5%85%B3%E9%94%AE%E5%AD%97/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Makefile的关键字override<a><span id="more"></span></a></p></blockquote><h3 id="1-override-的作用"><a href="#1-override-的作用" class="headerlink" title="1. override 的作用"></a>1. <strong><code>override</code> 的作用</strong></h3><p><code>override</code> 是 <code>make</code> 的一个特性，它确保即使命令行中传递了一个变量，也会强制使用 <code>Makefile</code> 中指定的值，<strong>前提是</strong>该变量尚未在命令行中设置。</p><p>具体来说：</p><ul><li>如果你在 <code>Makefile</code> 中使用了 <code>override sim ?= sdf</code>，并且执行 <code>make all sim=rtl</code>，那么 <code>sim</code> 变量的值仍然会是 <code>rtl</code>，**而不是 <code>sdf</code>**，因为 <code>make</code> 会优先使用命令行中传递的值。</li></ul><p>所以，**如果你传递了 <code>sim=rtl</code>，即使在 <code>Makefile</code> 中有 <code>override sim ?= sdf</code>，<code>sim</code> 的值仍然是 <code>rtl</code>**。这是因为 <code>override</code> 只会在变量没有被命令行赋值时才生效。</p><h4 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> sim ?= sdf</span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">    @echo <span class="variable">$(sim)</span></span><br></pre></td></tr></table></figure><p>如果你执行：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make all sim=rtl</span><br></pre></td></tr></table></figure><p><strong>输出会是</strong>：</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rtl</span><br></pre></td></tr></table></figure><p>而不是 <code>sdf</code>。因为 <code>make</code> 会使用命令行中传递的 <code>sim=rtl</code> 变量。</p><h3 id="2-override-和命令行传递的变量"><a href="#2-override-和命令行传递的变量" class="headerlink" title="2. override 和命令行传递的变量"></a>2. <code>override</code> 和命令行传递的变量</h3><p><code>override</code> 的作用是确保在 <code>Makefile</code> 中的变量如果没有在命令行中传递的情况下才会生效。也就是说：</p><ul><li><strong>如果命令行中没有传递 <code>sim</code> 变量，<code>override sim ?= sdf</code> 就会生效</strong>，将 <code>sim</code> 设置为 <code>sdf</code>。</li><li><strong>如果命令行中已经传递了 <code>sim=rtl</code>，<code>override</code> 不会干扰命令行的赋值</strong>，所以 <code>sim</code> 会是 <code>rtl</code>。</li></ul><h3 id="3-解决方法"><a href="#3-解决方法" class="headerlink" title="3. 解决方法"></a>3. 解决方法</h3><p>如果你希望强制 <code>sim</code> 的值无论如何都为 <code>sdf</code>，并且不受命令行传递的影响，应该直接赋值，而不是使用 <code>?=</code>。比如：</p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sim = sdf</span><br><span class="line"></span><br><span class="line"><span class="section">all:</span></span><br><span class="line">    @echo <span class="variable">$(sim)</span></span><br></pre></td></tr></table></figure><p>在这种情况下，无论你在命令行传递什么 <code>sim=rtl</code>，<code>sim</code> 的值都会是 <code>sdf</code>，因为 <code>sim</code> 是在 <code>Makefile</code> 中强制赋值的。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li><strong><code>override sim ?= sdf</code></strong> 会在 <code>sim</code> 未被命令行赋值时才生效，但如果你执行 <code>make all sim=rtl</code>，那么 <code>sim</code> 的值会是 <code>rtl</code>，**不会是 <code>sdf</code>**。</li><li>如果你希望 <code>sim</code> 始终保持为 <code>sdf</code>，你需要直接使用 <code>sim = sdf</code>（而不是 <code>?=</code>），这样无论命令行如何传递，<code>sim</code> 都是 <code>sdf</code>。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Makefile </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> makefile </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>DFI Spec-Glossary</title>
       <link href="/2024/12/28/DFI/DFI%20Spec-Glossary/"/>
       <url>/2024/12/28/DFI/DFI%20Spec-Glossary/</url>
@@ -755,9 +836,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -2651,9 +2732,9 @@
           
           <category> Programming </category>
           
-          <category> SystemVerilog </category>
-          
           <category> UVM </category>
+          
+          <category> SystemVerilog </category>
           
       </categories>
       
@@ -2662,9 +2743,9 @@
             
             <tag> Programming </tag>
             
-            <tag> SystemVerilog </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> SystemVerilog </tag>
             
         </tags>
       
@@ -2719,9 +2800,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -2748,9 +2829,9 @@
             
             <tag> Programming </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -2779,9 +2860,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
