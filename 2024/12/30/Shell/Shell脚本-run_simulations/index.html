@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>shell脚本-delete_output | ZLIN</title>
+  <title>Shell脚本-run_simulations | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="This script traverses the current directory and its subdirectories.">
+  <meta name="description" content="此脚本对“testcase”文件夹下的每个案例目录运行模拟，执行“make run”，并监视所有模拟过程。每次模拟完成后，它将通知用户。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shell脚本-delete_output">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/11/03/Programming/shell%E8%84%9A%E6%9C%AC-delete-output/index.html">
+<meta property="og:title" content="Shell脚本-run_simulations">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/12/30/Shell/Shell%E8%84%9A%E6%9C%AC-run_simulations/index.html">
 <meta property="og:site_name" content="ZLIN">
-<meta property="og:description" content="This script traverses the current directory and its subdirectories.">
+<meta property="og:description" content="此脚本对“testcase”文件夹下的每个案例目录运行模拟，执行“make run”，并监视所有模拟过程。每次模拟完成后，它将通知用户。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-11-03T11:40:02.000Z">
-<meta property="article:modified_time" content="2024-11-03T13:35:02.505Z">
+<meta property="article:published_time" content="2024-12-30T12:08:25.000Z">
+<meta property="article:modified_time" content="2024-12-30T12:15:19.499Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="Programming">
 <meta property="article:tag" content="Shell">
@@ -110,7 +110,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数104
+			总文章数105
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -218,14 +218,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Programming/shell脚本-delete-output" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Shell/Shell脚本-run_simulations" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      shell脚本-delete_output
+      Shell脚本-run_simulations
     </h1>
   
 
@@ -236,8 +236,8 @@
 		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
 	</span>
 
-<a href="/2024/11/03/Programming/shell%E8%84%9A%E6%9C%AC-delete-output/" class="archive-article-date">
-  	<time datetime="2024-11-03T11:40:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-11-03</time>
+<a href="/2024/12/30/Shell/Shell%E8%84%9A%E6%9C%AC-run_simulations/" class="archive-article-date">
+  	<time datetime="2024-12-30T12:08:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-30</time>
 </a>
         
       </header>
@@ -245,17 +245,123 @@
     <div class="article-entry" itemprop="articleBody">
       <!-- 
         <blockquote>
-<p>This script traverses the current directory and its subdirectories.<a><span id="more"></span></a></p>
+<p>此脚本对“testcase”文件夹下的每个案例目录运行模拟，执行“make run”，并监视所有模拟过程。每次模拟完成后，它将通知用户。<a><span id="more"></span></a></p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Author: ZLin</span></span><br><span class="line"><span class="comment"># Date: 2024-11-03</span></span><br><span class="line"><span class="comment"># Description: This script traverses the current directory and its subdirectories,</span></span><br><span class="line"><span class="comment">#              searching for directories that end with &#x27;test&#x27;. If found, it deletes</span></span><br><span class="line"><span class="comment">#              the &#x27;output&#x27; directory within those &#x27;test&#x27; directories, if it exists</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Function to traverse directories</span></span><br><span class="line"><span class="function"><span class="title">traverse</span></span>() &#123;</span><br><span class="line">  <span class="comment"># Loop through all items in the current directory</span></span><br><span class="line">  <span class="keyword">for</span> item <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/*; <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># Check if the item is a directory</span></span><br><span class="line">    <span class="keyword">if</span> [ -d <span class="string">&quot;<span class="variable">$item</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">      <span class="comment"># Check if the directory name ends with &#x27;test&#x27;</span></span><br><span class="line">      <span class="keyword">if</span> [[ <span class="string">&quot;<span class="subst">$(basename <span class="string">&quot;<span class="variable">$item</span>&quot;</span>)</span>&quot;</span> == *<span class="built_in">test</span> ]]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Entering directory: <span class="variable">$item</span>&quot;</span></span><br><span class="line">        <span class="comment"># Check if &#x27;output&#x27; directory exists, then delete it</span></span><br><span class="line">        <span class="keyword">if</span> [ -d <span class="string">&quot;<span class="variable">$item</span>/output&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">          <span class="built_in">echo</span> <span class="string">&quot;Deleting output directory in: <span class="variable">$item</span>&quot;</span></span><br><span class="line">          <span class="built_in">rm</span> -rf <span class="string">&quot;<span class="variable">$item</span>/output&quot;</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">      <span class="keyword">fi</span></span><br><span class="line">      <span class="comment"># Recursively traverse subdirectories</span></span><br><span class="line">      traverse <span class="string">&quot;<span class="variable">$item</span>&quot;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start traversing from the current directory</span></span><br><span class="line">traverse <span class="string">&quot;<span class="subst">$(pwd)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Script Name: run_simulations.sh</span></span><br><span class="line"><span class="comment"># Author: ZLin</span></span><br><span class="line"><span class="comment"># Date: 2024-12-30</span></span><br><span class="line"><span class="comment"># Description: This script runs simulations for each case directory under the </span></span><br><span class="line"><span class="comment">#              &quot;testcase&quot; folder, executes &quot;make run&quot;, and monitors all the </span></span><br><span class="line"><span class="comment">#              simulation processes. It will notify the user once each simulation</span></span><br><span class="line"><span class="comment">#              is completed.</span></span><br><span class="line"><span class="comment"># Usage: ./run_simulations.sh</span></span><br><span class="line"><span class="comment"># -----------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the directory containing test cases</span></span><br><span class="line">testcase_dir=<span class="string">&quot;./testcase&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a directory to store log files</span></span><br><span class="line">log_dir=<span class="string">&quot;./logs&quot;</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="variable">$log_dir</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># File to store the PID and log file information</span></span><br><span class="line">pid_file=<span class="string">&quot;sim_processes.txt&quot;</span></span><br><span class="line">&gt; <span class="variable">$pid_file</span>  <span class="comment"># Clear the previous records in the pid file</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Go through each directory in &quot;testcase&quot; that ends with &quot;_case&quot;</span></span><br><span class="line"><span class="keyword">for</span> case_dir <span class="keyword">in</span> <span class="variable">$testcase_dir</span>/*_case</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -d <span class="string">&quot;<span class="variable">$case_dir</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># Get the name of the case directory (without the path)</span></span><br><span class="line">        case_name=$(<span class="built_in">basename</span> <span class="variable">$case_dir</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Create a log file for each case</span></span><br><span class="line">        log_file=<span class="string">&quot;<span class="variable">$log_dir</span>/<span class="variable">$case_name</span>.log&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Change to the current case directory and run &quot;make run&quot;</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Starting simulation for <span class="variable">$case_name</span>, logging to <span class="variable">$log_file</span>&quot;</span></span><br><span class="line">        <span class="built_in">cd</span> <span class="variable">$case_dir</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Run the simulation in the background</span></span><br><span class="line">        make run -l <span class="variable">$log_file</span> &amp;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Get the process ID (PID) of the background process</span></span><br><span class="line">        pid=$!</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Record the PID and log file path to the pid file</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$pid</span> <span class="variable">$log_file</span>&quot;</span> &gt;&gt; <span class="string">&quot;../<span class="variable">$pid_file</span>&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Return to the original directory</span></span><br><span class="line">        <span class="built_in">cd</span> - &gt; /dev/null</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Monitor all the simulation processes</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Starting to monitor all simulation processes...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Read the PID and log file path from the pid file and wait for each process to finish</span></span><br><span class="line"><span class="keyword">while</span> IFS=<span class="string">&quot; &quot;</span> <span class="built_in">read</span> -r pid log_file</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="comment"># Wait for the simulation process to finish</span></span><br><span class="line">    <span class="built_in">wait</span> <span class="variable">$pid</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Notify the user that the simulation has completed</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Simulation task completed, log file: <span class="variable">$log_file</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># You can add an email or other notification method here</span></span><br><span class="line">    <span class="comment"># For example: echo &quot;Simulation completed: $log_file&quot; | mail -s &quot;Simulation Complete&quot; your_email@example.com</span></span><br><span class="line"><span class="keyword">done</span> &lt; <span class="variable">$pid_file</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Notify when all simulations are completed</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;All simulation tasks are completed.&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="脚本功能概述"><a href="#脚本功能概述" class="headerlink" title="脚本功能概述"></a>脚本功能概述</h3><p>这个脚本的主要作用是：</p>
+<ol>
+<li>遍历 <code>testcase</code> 目录下所有以 <code>_case</code> 结尾的文件夹。</li>
+<li>进入每个文件夹，执行 <code>make run</code> 命令启动仿真，并将仿真日志输出到对应的日志文件。</li>
+<li>记录每个仿真进程的进程号（PID）和对应的日志文件路径。</li>
+<li>监控所有仿真进程，等待它们结束，结束后通知用户仿真已完成。</li>
+</ol>
+<h3 id="定义相关目录"><a href="#定义相关目录" class="headerlink" title="定义相关目录"></a><strong>定义相关目录</strong></h3><ul>
+<li><p><code>testcase_dir=&quot;./testcase&quot;</code>：定义了存放所有测试用例的目录路径。</p>
+</li>
+<li><p><code>log_dir=&quot;./logs&quot;</code>：定义了存放日志文件的目录，使用 <code>mkdir -p</code> 命令确保如果该目录不存在，自动创建。</p>
+</li>
+<li><p><code>pid_file=&quot;sim_processes.txt&quot;</code>：定义了一个文件来记录所有仿真进程的 PID 和对应的日志文件路径。</p>
+</li>
+<li><p><code>&gt; $pid_file</code>：清空 <code>sim_processes.txt</code> 文件，确保每次运行时都是从一个空的文件开始。</p>
+</li>
+</ul>
+<h3 id="遍历-case-结尾的文件夹并执行-make-run"><a href="#遍历-case-结尾的文件夹并执行-make-run" class="headerlink" title="遍历 _case 结尾的文件夹并执行 make run"></a>遍历 <code>_case</code> 结尾的文件夹并执行 <code>make run</code></h3><ul>
+<li><p>**<code>for case_dir in $testcase_dir/\*_case</code>**：循环遍历 <code>testcase</code> 目录下所有以 <code>_case</code> 结尾的文件夹。</p>
+</li>
+<li><p>**<code>if [ -d &quot;$case_dir&quot; ]; then</code>**：检查每个目录是否存在。</p>
+</li>
+<li><p>**<code>case_name=$(basename $case_dir)</code>**：获取当前目录的名称（去掉路径部分），以便作为日志文件名。</p>
+</li>
+<li><p>**<code>log_file=&quot;$log_dir/$case_name.log&quot;</code>**：为每个仿真任务创建一个日志文件，保存在 <code>logs</code> 目录下，文件名为 <code>case_name.log</code>。</p>
+</li>
+<li><p>**<code>cd $case_dir</code>**：进入当前的测试用例目录。</p>
+</li>
+<li><p>**<code>make run -l $log_file &amp;</code>**：在后台运行 <code>make run</code> 命令，并将日志输出到对应的日志文件中。</p>
+</li>
+<li><p>**<code>pid=$!</code>**：获取刚才后台运行进程的 PID。</p>
+</li>
+<li><p>**<code>echo &quot;$pid $log_file&quot; &gt;&gt; &quot;../$pid_file&quot;</code>**：将进程号和日志文件路径记录到 <code>sim_processes.txt</code> 文件中。</p>
+</li>
+<li><p>**<code>cd - &gt; /dev/null</code>**：返回上层目录，并将输出重定向到 <code>/dev/null</code>，避免显示冗余信息。</p>
+</li>
+</ul>
+<h3 id="监控仿真进程并通知"><a href="#监控仿真进程并通知" class="headerlink" title="监控仿真进程并通知"></a>监控仿真进程并通知</h3><ul>
+<li><p>**<code>while IFS=&quot; &quot; read -r pid log_file</code>**：从 <code>sim_processes.txt</code> 文件中读取每一行数据，并将每行内容（PID 和日志文件路径）分配给 <code>pid</code> 和 <code>log_file</code> 变量。</p>
+</li>
+<li><p>**<code>wait $pid</code>**：等待每个仿真进程（根据 PID）完成。<code>wait</code> 会阻塞脚本，直到指定的进程结束。</p>
+</li>
+<li><p>**<code>echo &quot;Simulation task completed, log file: $log_file&quot;</code>**：仿真进程完成后，打印一条消息，告知仿真任务已经完成，并显示对应的日志文件路径。</p>
+</li>
+<li><p><strong>可选邮件通知</strong>：如果需要在仿真完成后发送邮件，可以在此处添加邮件发送的命令。示例代码被注释掉了，可以根据需要解开注释并修改邮件地址。</p>
+</li>
+</ul>
+
        -->
       
         
 
         <blockquote>
-<p>This script traverses the current directory and its subdirectories.<a><span id="more"></span></a></p>
+<p>此脚本对“testcase”文件夹下的每个案例目录运行模拟，执行“make run”，并监视所有模拟过程。每次模拟完成后，它将通知用户。<a><span id="more"></span></a></p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Author: ZLin</span></span><br><span class="line"><span class="comment"># Date: 2024-11-03</span></span><br><span class="line"><span class="comment"># Description: This script traverses the current directory and its subdirectories,</span></span><br><span class="line"><span class="comment">#              searching for directories that end with &#x27;test&#x27;. If found, it deletes</span></span><br><span class="line"><span class="comment">#              the &#x27;output&#x27; directory within those &#x27;test&#x27; directories, if it exists</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Function to traverse directories</span></span><br><span class="line"><span class="function"><span class="title">traverse</span></span>() &#123;</span><br><span class="line">  <span class="comment"># Loop through all items in the current directory</span></span><br><span class="line">  <span class="keyword">for</span> item <span class="keyword">in</span> <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/*; <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># Check if the item is a directory</span></span><br><span class="line">    <span class="keyword">if</span> [ -d <span class="string">&quot;<span class="variable">$item</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">      <span class="comment"># Check if the directory name ends with &#x27;test&#x27;</span></span><br><span class="line">      <span class="keyword">if</span> [[ <span class="string">&quot;<span class="subst">$(basename <span class="string">&quot;<span class="variable">$item</span>&quot;</span>)</span>&quot;</span> == *<span class="built_in">test</span> ]]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Entering directory: <span class="variable">$item</span>&quot;</span></span><br><span class="line">        <span class="comment"># Check if &#x27;output&#x27; directory exists, then delete it</span></span><br><span class="line">        <span class="keyword">if</span> [ -d <span class="string">&quot;<span class="variable">$item</span>/output&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">          <span class="built_in">echo</span> <span class="string">&quot;Deleting output directory in: <span class="variable">$item</span>&quot;</span></span><br><span class="line">          <span class="built_in">rm</span> -rf <span class="string">&quot;<span class="variable">$item</span>/output&quot;</span></span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">      <span class="keyword">fi</span></span><br><span class="line">      <span class="comment"># Recursively traverse subdirectories</span></span><br><span class="line">      traverse <span class="string">&quot;<span class="variable">$item</span>&quot;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start traversing from the current directory</span></span><br><span class="line">traverse <span class="string">&quot;<span class="subst">$(pwd)</span>&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Source-Code"><a href="#Source-Code" class="headerlink" title="Source Code"></a>Source Code</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Script Name: run_simulations.sh</span></span><br><span class="line"><span class="comment"># Author: ZLin</span></span><br><span class="line"><span class="comment"># Date: 2024-12-30</span></span><br><span class="line"><span class="comment"># Description: This script runs simulations for each case directory under the </span></span><br><span class="line"><span class="comment">#              &quot;testcase&quot; folder, executes &quot;make run&quot;, and monitors all the </span></span><br><span class="line"><span class="comment">#              simulation processes. It will notify the user once each simulation</span></span><br><span class="line"><span class="comment">#              is completed.</span></span><br><span class="line"><span class="comment"># Usage: ./run_simulations.sh</span></span><br><span class="line"><span class="comment"># -----------------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define the directory containing test cases</span></span><br><span class="line">testcase_dir=<span class="string">&quot;./testcase&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a directory to store log files</span></span><br><span class="line">log_dir=<span class="string">&quot;./logs&quot;</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="variable">$log_dir</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># File to store the PID and log file information</span></span><br><span class="line">pid_file=<span class="string">&quot;sim_processes.txt&quot;</span></span><br><span class="line">&gt; <span class="variable">$pid_file</span>  <span class="comment"># Clear the previous records in the pid file</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Go through each directory in &quot;testcase&quot; that ends with &quot;_case&quot;</span></span><br><span class="line"><span class="keyword">for</span> case_dir <span class="keyword">in</span> <span class="variable">$testcase_dir</span>/*_case</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -d <span class="string">&quot;<span class="variable">$case_dir</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># Get the name of the case directory (without the path)</span></span><br><span class="line">        case_name=$(<span class="built_in">basename</span> <span class="variable">$case_dir</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Create a log file for each case</span></span><br><span class="line">        log_file=<span class="string">&quot;<span class="variable">$log_dir</span>/<span class="variable">$case_name</span>.log&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Change to the current case directory and run &quot;make run&quot;</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Starting simulation for <span class="variable">$case_name</span>, logging to <span class="variable">$log_file</span>&quot;</span></span><br><span class="line">        <span class="built_in">cd</span> <span class="variable">$case_dir</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Run the simulation in the background</span></span><br><span class="line">        make run -l <span class="variable">$log_file</span> &amp;</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Get the process ID (PID) of the background process</span></span><br><span class="line">        pid=$!</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Record the PID and log file path to the pid file</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$pid</span> <span class="variable">$log_file</span>&quot;</span> &gt;&gt; <span class="string">&quot;../<span class="variable">$pid_file</span>&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Return to the original directory</span></span><br><span class="line">        <span class="built_in">cd</span> - &gt; /dev/null</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Monitor all the simulation processes</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Starting to monitor all simulation processes...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Read the PID and log file path from the pid file and wait for each process to finish</span></span><br><span class="line"><span class="keyword">while</span> IFS=<span class="string">&quot; &quot;</span> <span class="built_in">read</span> -r pid log_file</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    <span class="comment"># Wait for the simulation process to finish</span></span><br><span class="line">    <span class="built_in">wait</span> <span class="variable">$pid</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Notify the user that the simulation has completed</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;Simulation task completed, log file: <span class="variable">$log_file</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># You can add an email or other notification method here</span></span><br><span class="line">    <span class="comment"># For example: echo &quot;Simulation completed: $log_file&quot; | mail -s &quot;Simulation Complete&quot; your_email@example.com</span></span><br><span class="line"><span class="keyword">done</span> &lt; <span class="variable">$pid_file</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Notify when all simulations are completed</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;All simulation tasks are completed.&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="脚本功能概述"><a href="#脚本功能概述" class="headerlink" title="脚本功能概述"></a>脚本功能概述</h3><p>这个脚本的主要作用是：</p>
+<ol>
+<li>遍历 <code>testcase</code> 目录下所有以 <code>_case</code> 结尾的文件夹。</li>
+<li>进入每个文件夹，执行 <code>make run</code> 命令启动仿真，并将仿真日志输出到对应的日志文件。</li>
+<li>记录每个仿真进程的进程号（PID）和对应的日志文件路径。</li>
+<li>监控所有仿真进程，等待它们结束，结束后通知用户仿真已完成。</li>
+</ol>
+<h3 id="定义相关目录"><a href="#定义相关目录" class="headerlink" title="定义相关目录"></a><strong>定义相关目录</strong></h3><ul>
+<li><p><code>testcase_dir=&quot;./testcase&quot;</code>：定义了存放所有测试用例的目录路径。</p>
+</li>
+<li><p><code>log_dir=&quot;./logs&quot;</code>：定义了存放日志文件的目录，使用 <code>mkdir -p</code> 命令确保如果该目录不存在，自动创建。</p>
+</li>
+<li><p><code>pid_file=&quot;sim_processes.txt&quot;</code>：定义了一个文件来记录所有仿真进程的 PID 和对应的日志文件路径。</p>
+</li>
+<li><p><code>&gt; $pid_file</code>：清空 <code>sim_processes.txt</code> 文件，确保每次运行时都是从一个空的文件开始。</p>
+</li>
+</ul>
+<h3 id="遍历-case-结尾的文件夹并执行-make-run"><a href="#遍历-case-结尾的文件夹并执行-make-run" class="headerlink" title="遍历 _case 结尾的文件夹并执行 make run"></a>遍历 <code>_case</code> 结尾的文件夹并执行 <code>make run</code></h3><ul>
+<li><p>**<code>for case_dir in $testcase_dir/\*_case</code>**：循环遍历 <code>testcase</code> 目录下所有以 <code>_case</code> 结尾的文件夹。</p>
+</li>
+<li><p>**<code>if [ -d &quot;$case_dir&quot; ]; then</code>**：检查每个目录是否存在。</p>
+</li>
+<li><p>**<code>case_name=$(basename $case_dir)</code>**：获取当前目录的名称（去掉路径部分），以便作为日志文件名。</p>
+</li>
+<li><p>**<code>log_file=&quot;$log_dir/$case_name.log&quot;</code>**：为每个仿真任务创建一个日志文件，保存在 <code>logs</code> 目录下，文件名为 <code>case_name.log</code>。</p>
+</li>
+<li><p>**<code>cd $case_dir</code>**：进入当前的测试用例目录。</p>
+</li>
+<li><p>**<code>make run -l $log_file &amp;</code>**：在后台运行 <code>make run</code> 命令，并将日志输出到对应的日志文件中。</p>
+</li>
+<li><p>**<code>pid=$!</code>**：获取刚才后台运行进程的 PID。</p>
+</li>
+<li><p>**<code>echo &quot;$pid $log_file&quot; &gt;&gt; &quot;../$pid_file&quot;</code>**：将进程号和日志文件路径记录到 <code>sim_processes.txt</code> 文件中。</p>
+</li>
+<li><p>**<code>cd - &gt; /dev/null</code>**：返回上层目录，并将输出重定向到 <code>/dev/null</code>，避免显示冗余信息。</p>
+</li>
+</ul>
+<h3 id="监控仿真进程并通知"><a href="#监控仿真进程并通知" class="headerlink" title="监控仿真进程并通知"></a>监控仿真进程并通知</h3><ul>
+<li><p>**<code>while IFS=&quot; &quot; read -r pid log_file</code>**：从 <code>sim_processes.txt</code> 文件中读取每一行数据，并将每行内容（PID 和日志文件路径）分配给 <code>pid</code> 和 <code>log_file</code> 变量。</p>
+</li>
+<li><p>**<code>wait $pid</code>**：等待每个仿真进程（根据 PID）完成。<code>wait</code> 会阻塞脚本，直到指定的进程结束。</p>
+</li>
+<li><p>**<code>echo &quot;Simulation task completed, log file: $log_file&quot;</code>**：仿真进程完成后，打印一条消息，告知仿真任务已经完成，并显示对应的日志文件路径。</p>
+</li>
+<li><p><strong>可选邮件通知</strong>：如果需要在仿真完成后发送邮件，可以在此处添加邮件发送的命令。示例代码被注释掉了，可以根据需要解开注释并修改邮件地址。</p>
+</li>
+</ul>
+
       
 
  <!-- 添加版权声明 -->
@@ -268,7 +374,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/11/03/Programming/shell脚本-delete-output/" title="shell脚本-delete_output" target="_blank">https://talent-tudou.github.io/2024/11/03/Programming/shell脚本-delete-output/</a>
+   <a href="https://talent-tudou.github.io/2024/12/30/Shell/Shell脚本-run_simulations/" title="Shell脚本-run_simulations" target="_blank">https://talent-tudou.github.io/2024/12/30/Shell/Shell脚本-run_simulations/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -394,7 +500,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/11/03/Programming/shell%E8%84%9A%E6%9C%AC-delete-output/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/12/30/Shell/Shell%E8%84%9A%E6%9C%AC-run_simulations/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -408,18 +514,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/11/03/DV/%E5%9F%BA%E4%BA%8EC-Model%E7%9A%84%E9%AA%8C%E8%AF%81%E6%96%B9%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          基于C-Model的验证方法
-        
-      </div>
-    </a>
   
-  
-    <a href="/2024/11/03/editorconfig/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">editorconfig</div>
+    <a href="/2024/12/28/makefile/Makefile-findstring%E5%87%BD%E6%95%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Makefile-findstring函数</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -446,7 +543,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Source-Code"><span class="toc-number">1.</span> <span class="toc-text">Source Code</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC%E5%8A%9F%E8%83%BD%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">脚本功能概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E7%9B%B8%E5%85%B3%E7%9B%AE%E5%BD%95"><span class="toc-number">3.</span> <span class="toc-text">定义相关目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%8D%E5%8E%86-case-%E7%BB%93%E5%B0%BE%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%B9%E5%B9%B6%E6%89%A7%E8%A1%8C-make-run"><span class="toc-number">4.</span> <span class="toc-text">遍历 _case 结尾的文件夹并执行 make run</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%91%E6%8E%A7%E4%BB%BF%E7%9C%9F%E8%BF%9B%E7%A8%8B%E5%B9%B6%E9%80%9A%E7%9F%A5"><span class="toc-number">5.</span> <span class="toc-text">监控仿真进程并通知</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -591,14 +688,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags" style="display: block;">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
@@ -607,15 +696,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIM</a>
+                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -643,6 +728,18 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">VT compensation</a>
               </li>
              
@@ -651,19 +748,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DDR DFT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BIST</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DDL</a>
+                <a href="javascript:void(0)" class="js-tag color3">DDR DFT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
+                <a href="javascript:void(0)" class="js-tag color4">DDL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -675,71 +768,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">uMCTL2</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ECC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Parity Check</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Marco</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SoC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">makefile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -764,6 +801,66 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Write Transactions</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Marco</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Parity Check</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SoC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">makefile</a>
               </li>
             
             <div class="clearfix"></div>

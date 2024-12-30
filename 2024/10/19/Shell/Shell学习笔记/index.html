@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>Shell脚本-check_process | ZLIN</title>
+  <title>Shell基础 | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Here&#39;s something encrypted, password is required to continue reading.">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Shell脚本-check_process">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/11/03/Programming/Shell%E8%84%9A%E6%9C%AC-check_process/index.html">
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Shell基础">
+<meta property="og:url" content="https://talent-tudou.github.io/2024/10/19/Shell/Shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="ZLIN">
-<meta property="og:description" content="Here&#39;s something encrypted, password is required to continue reading.">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-11-03T05:59:03.000Z">
-<meta property="article:modified_time" content="2024-11-05T14:03:20.450Z">
+<meta property="og:image" content="https://s2.loli.net/2024/10/19/yfeJ1AmC9bQkFvL.png">
+<meta property="article:published_time" content="2024-10-19T04:54:59.000Z">
+<meta property="article:modified_time" content="2024-10-19T10:57:53.884Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="Programming">
 <meta property="article:tag" content="Shell">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/19/yfeJ1AmC9bQkFvL.png">
   
     <link rel="alternative" href="/atom.xml" title="ZLIN" type="application/atom+xml">
   
@@ -110,7 +110,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数104
+			总文章数105
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -218,14 +218,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Programming/Shell脚本-check_process" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Shell/Shell学习笔记" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Shell脚本-check_process
+      Shell基础
     </h1>
   
 
@@ -236,42 +236,436 @@
 		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
 	</span>
 
-<a href="/2024/11/03/Programming/Shell%E8%84%9A%E6%9C%AC-check_process/" class="archive-article-date">
-  	<time datetime="2024-11-03T05:59:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-11-03</time>
+<a href="/2024/10/19/Shell/Shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2024-10-19T04:54:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-19</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       <!-- 
-        <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="9cf873942620fa4ebb1cdb4f2a08fab0b2047b05cd5c32502e3ba72f37ce0dd3">bc784a9a828376686ad79bc9be5654d3a22b15b1afeb54116cf6fd646f3f269e0adbf41c9a58fae7cceb635ffeacd251950c08839941532676c31774c06305b07dc61c079b8fe4082797c91eb5686b8958f960be5521fbefd802b3cebeb26d8016124a6b2b012342b66d7b83fe8d5b360747491f3287c61981c927c7ce207d02a2f5edbafbab10081c9b384ce716e15cbc49c19af6dda3731c39aeeabee900a2de265329cd129072ee0e645c6f342048437d102f0382c5ec6ec868f503f0d051d16ecceb359ddf97e0e258dd7b8dfd8dacf640e94a7a4208a5071c90745e02ff61793187fef52dc3a903dbf60acb3977f4782b1dd31c5ad005b0f24538fd0b93a609bd401085cc8120f2fa066f9f81ff807f275573b4e7d426455249ea99ef491544a177b09c689f17ee1fc95775b92aba0ec2de223edfcb24ca24f85bc0c8d123106a750eb92f8ccbebaeb6af226706e5b0b796b7ba1a6f539982c223d23daba7a8940099cf7e2f7ae90704bbf6fb432abaf15ec215fa3f63d963059a3bfd641a6574a0607949752ee2e5b6f88a365fe01dd8e921a95e4b699bb5278ba3a2832a2c45d3c804a2aca98ffe367ffb7655689ac2caa047498fd841945cfd1395e16c05b1d7868f3617a0844525be764b4ee94808a80d0f1b6f1801032d0780a6b5fbcd5ecd3019ed760ea46fe19b36f00e56141b1a436fb5298c5d9d93f317eff2e6f6ff81ab7c60f99adf73e10e3438355f74a57d65983640682f67958970efa4ca7c5958c2965d451e1f579b761c7e8fd70599d0506e8329d28eb246e7a2c3db20091f7b9ff028c507537b0fd5a801da8b87a11ee30a13074c284bd2359f4d1a5dc6a4d0faf2555accd9ad6763b078bdb663c64643a9d42def460b3b31d8316763d9f96ca0e2e4fae541c5c5d3c7cb9a1957e9a21c14964dc1d340462ee1931623d78e784db110ccc6ea5a5ce3e53d26903ed7bebf5cec6c237a7d476dbffb6a6e6e93d7f8249bb706278ac19627832fec0e08cc0f6b49ed161f181b1824f48b93ee5dacc612ebfa24db12111c3474483c661749f53215e79317a5dca15be255efb02fbc336affaeb29f460c7672356a11eec25e46d20a8bdb555695f9b3e45b9237e43b103857206b47a4f3aec9214c067507b5f2db9ed9fc94c5ddee6e1ce898f819b9ad2e62f216ce6e92c8bc603908cf0ad6b6cd83debc6ef0a525fc9d6081d598ddacbae33575e0ee7a9527b299c98a0580cd7e6557f8f64115b53fa8f478910c8276295ec176f5a61a88bf1f5c7c644c4fd9fc991e6fada541081e1fbe3c6c8aa7e59141961e28545574c7b6d9af7418bf96bba6f418f56228ae81f4979bdbcb8b913473fd018ac424819ff42180e6219a3c71de954b4d3276926134920135f626d710ddbd76be7682ce06915a4e80069021d6c1e7b1fc939f8b70514867c76342037e08cb1a7a5680e21bd692af8c3b94e605d25c831911ab5459c77ba4d75a99fe6255596a8fec592a671d42f88e3b5ba7bbc565ad06eec4c22a4add83d3fd21344dce71b4de061c175499afe273890277707bea6a2dc6f1823e58d816ec636c8fb89f84e913efb417225475911aff7faf5fd2fd252fb556fa36b1566af1a546595043109366f2437b015c396d728e385d558006fe6c5683d6e71012dd4d5c8f17938c10b2524465e107aad8368e30c948c8c962d3e3d2c1f8a148b561f39ad2d429ff2c23cb5be33529bf71a3febb6340ae210aa277144cfc04b213fd50ef147155aa472680e74f112865086e171949fc62866e8623b2cd91853d84d06e4317122fd4b4378205ed17699927724e09853969ae2c727df98625ccc35897c2454435dee0bc9b9d74e0a24339433fb1a302da83420424648d7059b1e7f96e9323a6476ce22c7ea5692f2cd511270e21838aad66bde97578ba86d607ab08e3dd24018b1eace989b2b3d0d741b1d26aef1f9b5df65b0358c23e36b0f8d297c299a752beaa75206b28630d771ef91a5af6cc9146811d84416f801be265b1f1f5a7f397de02eb4f1bfa8010922e734981b1139b3efaa5698dad0f0dc1dee04a1857dbef6ee728a92971fd34c18539ef241b6d1101bc541fc42c84ef7fad8ae05f17b3651ae6b179d482535ffe331f41ca2e3d6d1efdbd58dbaeabd976b27a0baf89200bbc4a839ceadbf875848a8dc5b530e9aaedf5a992a9c11426f7eb1004ff2806f3622ba60870a6b203cac9b46f16e77b44263b347c62e950c7f3ad9635ce2147ec7b3d25fbc0f0f6f543e27216328b95f0053271080eb0ac9ddd8da1ba5ea976f1eeb28ad60becc3b26cd6279587dc054cf13658d5c0ff56137b2a50df02210d20a6e0dd078a25b2f09afe196ba932a6c70fcd3244ef2af44bbb2037ec6c283c35e086952b23cb6b9a13797573955dbb68e38a67af1de6d0c79172c25a33d91e3b5ab21b64c806dcc4c9bd8f6e518944f891c46c74235d35cde69a40e3507ff408755f03591075ccedf8dc2dae87a03c44ae99e0fc7ee4eb79b2e36fde75d3fd05c8dd0e90f2221d9c06d0c718a48aa602f5cf3b97a85ce303eecf4b18929c2759ddc8eeaf4833f19525a4286a186e1d032e35858694629620b5fc0ffaac0d016ecc0b2d739073ac7363566c3a411ff00e409460931b849343d81fa261e53f5e530b4816d0e64b8cbf4babad84963be7c7adb203d7f89205742e3a5472ae5d6120a3f2ca9adb884b7a73761b1a555ad9469151cf5ac3f5fdcd2458adbc5d3933b0c2f1c3c22c1285e959ac5451dab18e759d68f1ba9f54501f6226d64d860c22e78b0e2e921a32b7b41c654992c7dc5b949240f2bc7d6130fb3f11cc652a1f1a29ebd80d2807ffd5e86a3dd1e78a6b922096f51784e869276a4340d336dfeadb7b61235de239c1f303622829d706d851c2767ad420948e54c3686584f0286dc7ae80ddd1bf510ed75819701fd7a2b06ee6002b94136f59981df63ee0469ebe25524030c6ae9a4e86bc39e0d946911bd4c83fc2610ffb3aa7f14fbcabdba742b15148e0b42acb3abcaa68d3717e257f468334f64dbd9d001a57f20a5b0735a7f1f9fd9cbfc910aad5528283b7d0077cbe69f31522d333e77a70359b626952fe0a259a2090d1e04c35ba390e3ae12974793d1dffa1968afdfd963f39f97aba292a1c829587ad13d61d15c47d574a2787bd910add91f14314d4096aea2590b7bb87482266fbaad4ba136c8636e5777c4b8eea0e7fd23de3ce05d52e52661aefa65c3b6ebcd3d52c1e616771059a948529ffc22a1b0ec0689b00e27ec7f89038c7e44045217dd3fc5c06864b8a044264e9f4acf5174f077d79ca05d543f67edfa48da3f80fd8fa9aa384e3364a3e7b44b10868981fb6ed1eefa4a747c8ed4796efbb509e33b16baa17286b66747be4f81155128049ce7f7b908d83b4dfe3d2f3e830e169e39f0db6b027cc6d06099e99e7b60514dad067e4a7736d56e45d4d5b0a9bd10af7f985a4c346c13aed948335c5ca08080195d4fd6bd9ed9a9c979e2ca2d662e4b90fa584e4c2bec39501544257c7b5120384df3d37c434b1d340bea701a7b1e12860c690c4aa19e4f63c9fc89c719db5c501d858e649bb6dd4650c766b1527a39a32c8209a312e6b51503fc94f5a0c70df4b6b3a04bfadb3a62ba23407e51f1a713dcff04b350adc6356e19b9f252a4fdd5066ab870854a410a5181ce62a1ab2aa8f6f54c914abd660bd607dc480b99ce2b30380918add1458a0aa265f8123a3555e74a18c475b32c3e4357b0cbda36e14bd67b4ab5231f83f510c45a6a768b1f07c35dab014f633a5cd64313ac736e2920bfbdda5e8367e5bf14bd263dbcf47eb32b85f03942d1c124fc472df463174c3e3cd9b9010180697461bd28cbfbc93a569a5e21b2724f38efb3e9f193d5aacb4a30e6e8ce67c20de46f145ed25414d68a5ac34078d525552ba42f263ef7a59a7569b9ababfa46512355ae8c84756cee598de96ebea805961d6446c58539ebc85126947a077ab32fe60f99387f985aa35198b42b91e92400591a76af81a5f4fc6fded1c3d02e18acf2d201c6952855bff20523b1eb5b0596208e971b66829aa1ceca551d91d4c29ce0bf828573f213fd78c4fa77b18bc9575cedc5cc546d4b7627037673e228b9ae9e964d5cdbec85f0e13c4359ae7f8a4468146aa25f17be09b1f75593efa4221402a0b006053d72e6837107aed432e4652389149fbaf1f44e8d3386ba06f88a5e79dd4a04d86741289fe372f2ec6b38501291d7b2a5403b7f56aafa281ebb627ea9f31e8f9e4bf5cef933a8eed7ff56453881d3bec8778fd26bdde343e2d7081a2a8634c1dcfab1d95ee5b7bfbdeeff03916b8a8abcabdb92c87cfa214f095049ecba073d6ce27ee33afc292d79674671af58a9a3a552c3756f9667ef27e3c8b245cf992ace68a396729ba2a120e280cfb8ef9233835edad4559743a76c04a388754d9d07128a73c0134fb8ea204939cb7b70933990cd425cedcb8a919d648043c411362cdc98bc6ef7937dc640f95b7319e34ce019d93fc0cb2fa71429b6e33ef28486adfae5e9685804c5af132e16e02768486af8675bb06eefc0d8500949203e0dc796500dd1c3faff158655e6923fb2dfdfce9a5472e947c416e13316597552fef4427ef405ee72b52296bcc9937d97294f848dbbb9d3dae612225445d1b33fae99a5f4f18f75dd60a14338eb028569363a4d18ca49ae29271695b66d651c0e5cce84be6cc5b8b2f046595fd27b6c33a647623250f1cd55a21dd8c5a015250b6609c433db23b6022a6ccde3811908a8e8e9d28bfd83e9c10cadbb05792bd4c6899ddad01e5e18bb169fb3e4de22e923521e1e0504a81a6036cf48fb2253596fecdae372302e312d13101cfb4a69bc358666389560abb9147fe5a664eba82ba24b4baa7240eb72169e380bd27b254992cb497bb893ff5c87bf7d18951df0f9014a362cf442baf0af7be3e1215b677e406a21fde683555327b6eab7838fd0ee2c8e1592ff279214acdf38afc0450eba1785956fec6e2b4456834e90b7ad4cb2a3bbe935a38f95bfc96b4145282a0e3985c0eb79dd91deaa3e4482432f131195d6313bb5069d2180d679b4c186a523c2a5e3a074a732ed79876d6fc1a9a67d1136adc717140626306b30ccc6d2f7ccf31de4bb0b749b29502a6a52dd392f69242c5da3f597a593847de45080a3cf5d9213b4105e2006c5e02703e8f02a91c2737b19c74d11b7dd2253bafe0dd8d24fd8fcc0b54f2694efae1465bb7f0091d78457d30e55dac4bc826b5125a58a7e56fca2e5d2c2226e82642cf7e6f39ccd638839d7c6c4dd213c13f5e77c4832c0038587f633f594cf7f50c3bb96727eda63475409d45e0304dad8af95044fed38e953a2932fa12c36cd2e75f52616389b1efd34cc2bb256262d4230acfaf2f8f2856ca31dfdfea5151423e42bb378d1ef04086dd01466cf5ea7ab5094ae59999a99c62aaca1ee09168a39bf293cdd4efdb8415fa3d952669b557490b41c650fb3f43048f8ba9493007d89538fa247d8f1e9286928cf23e690e87a909270e03f960f3d8df7e9a7c866d6c589780a36dc511f6d7625e2215ffec6b029a8fa083ec962e78c4b374fcb59e839b59bdb6ba0df9e723f5e68f493eed863a754afaa20bad381dd06c7dd46f556ae79b6aa1417d5216b75873c3c0074874bdf77e1dd81dc75c0917a5527d741380e39ba7d11c2ffedb68d32e683bc4e06d4abc7e4abf5d5de0f7915c6637e06f7e90a0fc7b7955bc3db3336e</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">不是哥们，你谁啊？</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+        <p><a><span id="more"></span></a></p>
+<h2 id="Shell变量"><a href="#Shell变量" class="headerlink" title="Shell变量"></a>Shell变量</h2><h3 id="取出变量值"><a href="#取出变量值" class="headerlink" title="取出变量值"></a>取出变量值</h3><ul>
+<li><p>单引号：所见即所得</p>
+</li>
+<li><p>双引号：输出引号里面的所有内容，识别特殊字符，弱引用</p>
+</li>
+<li><p>无引号：连续的符号可以不加引号，有空格有歧义，最好使用双引号</p>
+</li>
+<li><p>反引号：<kbd><code>ls</code></kbd>引用命令执行的结果，就等于$()用法</p>
+</li>
+<li><h3 id="特殊变量"><a href="#特殊变量" class="headerlink" title="特殊变量"></a>特殊变量</h3></li>
+<li><p><a>$</a> : 获取shell脚本的文件名，以及脚本路径</p>
+</li>
+<li><p><a>$n</a> : 获取shell脚本的第n个参数，n在1-9之间，就可以写$1这样的，如果大于了10，就需要用$(10)，参数之间用空格隔开</p>
+</li>
+<li><p><a>$#</a> : 获取执行shell脚本后面的参数总个数</p>
+</li>
+<li><p><a>$*</a> : 获取shell脚本所有参数，不加引号等同于$@的作用，加上了引号就是把接受的参数作为单个字符串了 “$1  $2”</p>
+</li>
+<li><p><a>$@</a> : 不加引号，效果同上，加上了引号， 效果是分开每个参数，”$1”, “$2”， 空格保留</p>
+</li>
+</ul>
+<h3 id="特殊状态变量"><a href="#特殊状态变量" class="headerlink" title="特殊状态变量"></a>特殊状态变量</h3><ul>
+<li>$? ： 上一次命令执行是不是正常执行的，0正确，非0就是失败了</li>
+<li>$$ ： 当前shell脚本的进程号</li>
+<li>$! ： 上一次后台进程的PID</li>
+<li>$_ ： 上次命令的最后一个参数</li>
+</ul>
+<h3 id="内置命令"><a href="#内置命令" class="headerlink" title="内置命令"></a>内置命令</h3><ul>
+<li><h4 id="echo-：-输出内容到指定的"><a href="#echo-：-输出内容到指定的" class="headerlink" title="echo ： 输出内容到指定的"></a><a>echo</a> ： 输出内容到指定的</h4><ul>
+<li>-n : 不换行输出内容</li>
+<li>-e ： 解释转移字符</li>
+<li>\n : 换行</li>
+<li>\r ：回车</li>
+<li>\t : tab</li>
+<li>\b : 退格</li>
+<li>\v ： 纵向制表符</li>
+</ul>
+</li>
+<li><h4 id="eval-：-执行多个命令"><a href="#eval-：-执行多个命令" class="headerlink" title="eval ： 执行多个命令"></a><a>eval</a> ： 执行多个命令</h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval ls; cd xxx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="exec：-不创建子shell，执行该命令，完成命令之后自己就exit了"><a href="#exec：-不创建子shell，执行该命令，完成命令之后自己就exit了" class="headerlink" title="exec： 不创建子shell，执行该命令，完成命令之后自己就exit了"></a><a>exec</a>： 不创建子shell，执行该命令，完成命令之后自己就exit了</h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec date</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="export"><a href="#export" class="headerlink" title="export"></a><a>export</a></h4></li>
+<li><h4 id="read"><a href="#read" class="headerlink" title="read"></a><a>read</a></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read -p &quot;Input :&quot; var</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="shift"><a href="#shift" class="headerlink" title="shift"></a><a>shift</a></h4></li>
+</ul>
+<h2 id="逻辑控制"><a href="#逻辑控制" class="headerlink" title="逻辑控制"></a>逻辑控制</h2><h3 id="if"><a href="#if" class="headerlink" title="if"></a><a>if</a></h3><blockquote>
+<p>语法: 如果一行里面写了多个语句，就要写分号；了，如果是一行就写了一句话了，就不用写分号了</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if command</span><br><span class="line">then </span><br><span class="line">  command</span><br><span class="line">if</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>bash的if语句会直接运行if后面的命令，如果该命令执行正确（状态码位0），处于then的命令就会被执行，否则就不会被执行，或者执行其他的逻辑语句，最后到fi结束逻辑控制</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if [ pwd ]</span><br><span class="line">	then </span><br><span class="line">		echo &quot;hhh&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="if-then-else"><a href="#if-then-else" class="headerlink" title="if-then-else"></a><a>if-then-else</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line">if [ $1 -ge 2 ]</span><br><span class="line">  then</span><br><span class="line">    echo &quot;you need input a number more than 1&quot;</span><br><span class="line">else</span><br><span class="line">   echo &quot;sorry&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="嵌套if"><a href="#嵌套if" class="headerlink" title="嵌套if"></a><a>嵌套if</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if [ $1 -ge 2 ]</span><br><span class="line">  then</span><br><span class="line">    echo &quot;you need input a number more than 1&quot;</span><br><span class="line">else</span><br><span class="line">  if [ $1 -le 2 ]</span><br><span class="line">     echo &quot;sorry&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="elif语句"><a href="#elif语句" class="headerlink" title="elif语句"></a><a>elif语句</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if [ $1 -le 20 ]</span><br><span class="line">  then</span><br><span class="line">    echo &quot;you need input a number more than 1&quot;</span><br><span class="line">elif [ $1 -ge  30 ]</span><br><span class="line">  then</span><br><span class="line">        echo &quot;hhhh&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="test"><a href="#test" class="headerlink" title="test"></a><a>test</a></h3><ul>
+<li><p>test命令最短的定义可能是评估一个表达式；如果条件为真，则返回一个0。如果表达式不为真，则返回一个大于0的数值，也可以将其称为假值。检查最后所执行命令的状态的最简便的方法就是<kbd>$？</kbd></p>
+</li>
+<li><p>检测文件类型的option： test [option] filename，</p>
+<ul>
+<li><p>-e ： 该filename是不是存在</p>
+</li>
+<li><p>-f ： 该filename是不是文件</p>
+</li>
+<li><p>-d ： 该filename是不是目录</p>
+</li>
+<li><p>-b ： 该filename是不是要给block device</p>
+</li>
+<li><p>-c ： 该filename是不是一个character device</p>
+</li>
+<li><p>-s ： 该filename是不是一个socket</p>
+</li>
+<li><p>-p ： 该filename是不是一个FIFO（pipe）文件</p>
+</li>
+<li><p>-L ： 该filename是不是要给连结档</p>
+</li>
+</ul>
+</li>
+<li><p>文件权限的option ： test [option] filename</p>
+<ul>
+<li>-r 检测文件是不是有可读属性</li>
+<li>-w 检测文件是不是有可写属性</li>
+<li>-x 检测文件是不是有可执行属性</li>
+<li>-u 检测文件是不是有SUID属性</li>
+<li>-g 检测文件是不是有SGID属性</li>
+<li>-k 检测文件是不是有Sticky bit属性</li>
+<li>-s 检测文件是不是非空白文件</li>
+</ul>
+</li>
+<li><p>两个文件之变的比较 ： test filename1 [option] filename2</p>
+<ul>
+<li>-nt （newer than）判断filename1是不是比filename2新</li>
+<li>-ot （older than）判断filename1是不是比filename2旧</li>
+<li>-ef 判断filename1与filename2是不是一个文件，可以用在判断hard link上面，是不是指向了同一个文件</li>
+</ul>
+</li>
+<li><p>判断两个整数 ： test num1 [option] num2</p>
+<ul>
+<li>-eq : equal 判断两个数值相等的吗</li>
+<li>-ne ： not equal 判断两个数值不相等的吗</li>
+<li>-gt ： greater than 判断n1 大于 n2吗</li>
+<li>-lt : less than 判断n1 小于 n2 吗</li>
+<li>-ge ： greater than or equal 判断n1 大于等于 n2吗</li>
+<li>-le ： less than or equal 判断n1 小于等于 n2吗</li>
+</ul>
+</li>
+<li><p>判断字符串</p>
+<ul>
+<li><p>-z : 判断是不是空的，是用的就是true，不是空个，就是false</p>
+</li>
+<li><p>-n ： 判断是不是不是空的，不是空个就是true，是空的就是false</p>
+</li>
+<li><p>&#x3D; ： string1 是不是等于string2</p>
+</li>
+<li><p>!&#x3D; ： string1 是不是不等于string2</p>
+</li>
+</ul>
+</li>
+<li><p>&amp;&amp; 与 || （和c语言中的是一样的）</p>
+</li>
+<li><p>数学表达式： bash支持<strong>双小括号</strong>写入高级的数学表达式</p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/10/19/yfeJ1AmC9bQkFvL.png" alt="image-20240317154916014"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var=199</span><br><span class="line">if (( &quot;$var&quot; &gt; $1 ));then</span><br><span class="line">  echo &quot;$var is greater than $1&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="双中括号"><a href="#双中括号" class="headerlink" title="双中括号[[]]"></a>双中括号[[]]</h3><ul>
+<li>双中括号提供了针对字符串的高级特性，模式匹配，正则表达式的匹配</li>
+<li>&#x3D;&#x3D; ： 就是c语言里面的，是不是相等意思</li>
+</ul>
+<h3 id="case"><a href="#case" class="headerlink" title="case"></a>case</h3><ul>
+<li>就是和c语言里面是一样的</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">case &quot;$1&quot; in</span><br><span class="line">1)</span><br><span class="line">  echo &quot;\$1 is 1&quot;</span><br><span class="line">;;</span><br><span class="line">2)</span><br><span class="line">  echo &quot;\$2 is 2&quot;</span><br><span class="line">;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<h3 id="for命令"><a href="#for命令" class="headerlink" title="for命令"></a>for命令</h3><ul>
+<li>和c语言的一样,但是里面可能需要转义符号和双引号</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;1..100&#125;;do</span><br><span class="line"> echo &quot;$i&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>for遍历文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">for word in $(cat lin.sh)</span><br><span class="line">do</span><br><span class="line">echo &quot;$word&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>c语言风格的for循环</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (( a=1,b=2;a&lt;=10;a++,b++ ))</span><br><span class="line">do </span><br><span class="line">        echo &quot;$a &amp;&amp; $b&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">while [ $1 -gt $2 ];do</span><br><span class="line"> echo &quot;$1 is greater than $2&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行多个命令的时候，每条命令都是单独一行的</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">while echo &quot;$1&quot; </span><br><span class="line"> [ $1 -gt $2 ] </span><br><span class="line">do</span><br><span class="line"> echo &quot;$1 is greater than $2&quot;</span><br><span class="line">sleep 23</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h3 id="until命令"><a href="#until命令" class="headerlink" title="until命令"></a>until命令</h3><ul>
+<li>和while的用法是一样的，就是意思是相反的</li>
+</ul>
+<h3 id="IFS分隔符"><a href="#IFS分隔符" class="headerlink" title="IFS分隔符"></a>IFS分隔符</h3><ul>
+<li>用来指定分隔符的，没有指定的话，好像是空格，可以指定的分割符有：空格，制表符，换行符，逗号</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">oldifs=$IFS</span><br><span class="line">IFS=,</span><br><span class="line">names=&quot;lin,zhi,wen&quot;</span><br><span class="line">for i in $names;</span><br><span class="line">do</span><br><span class="line">  echo $i</span><br><span class="line">done</span><br><span class="line">IFS=$oldifs</span><br></pre></td></tr></table></figure>
+
+<h3 id="打断循环"><a href="#打断循环" class="headerlink" title="打断循环"></a>打断循环</h3><ul>
+<li>break<ul>
+<li>break 2，就是跳出两层循环，其他的和c语言是一样的</li>
+</ul>
+</li>
+<li>continue： 和c是一样的</li>
+</ul>
+<h3 id="循环输出的重新定向"><a href="#循环输出的重新定向" class="headerlink" title="循环输出的重新定向"></a>循环输出的重新定向</h3><ul>
+<li>在shell脚本里面，循环输出后的结果，可以进行重定向</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">oldifs=$IFS</span><br><span class="line">IFS=,</span><br><span class="line">names=&quot;lin,zhi,wen&quot;</span><br><span class="line">for i in $names;</span><br><span class="line">do</span><br><span class="line">  echo $i</span><br><span class="line">done &gt; tudou.txt</span><br><span class="line">IFS=$oldifs</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="函数的概念"><a href="#函数的概念" class="headerlink" title="函数的概念"></a>函数的概念</h3><ul>
+<li>当你需要一段重复的代码的时候，就可以把这段代码定义成函数了，可以重复的调用，下面是两种常用的定义函数的方式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">标准的函数的定义，func_name后面可以不给括号，建议标准的写法吧</span></span><br><span class="line">function func_name() &#123;</span><br><span class="line">	command</span><br><span class="line">	return 状态码</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">简化的函数的定义</span></span><br><span class="line">func_name() &#123;</span><br><span class="line">	command</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">lin_func_use() &#123;</span><br><span class="line">        echo &quot;$1&quot;</span><br><span class="line">&#125;</span><br><span class="line">if [ $# -gt 1 ];then</span><br><span class="line">  lin_func_use &quot;$1&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>函数名需要唯一，负责会覆盖函数的定义的，就是和c语言一样的</li>
+<li>在函数里面使用<kbd>return</kbd>命令来定制特殊的退出状态码，也可以保存到变量里面</li>
+<li>函数里面的变量是属于局部变量的，写在脚本里面的变量是全局变量（除了函数体内部的）</li>
+<li>可以在函数体里面生命上<kbd>local</kbd>，声明为局部的，虽然我认为没有什么用</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">name=&quot;linzhiwen&quot;</span><br><span class="line">lin_func_use() &#123;</span><br><span class="line">        local name=&quot;lin&quot;</span><br><span class="line">        echo &quot;$name&quot;</span><br><span class="line">        return 2;</span><br><span class="line">&#125;</span><br><span class="line">if [ $# -gt 1 ];then</span><br><span class="line">  lin_func_use &quot;$1&quot;</span><br><span class="line">fi</span><br><span class="line">echo $?</span><br></pre></td></tr></table></figure>
+
+
        -->
       
         
 
-        <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <script id="hbeData" type="hbeData" data-hmacdigest="9cf873942620fa4ebb1cdb4f2a08fab0b2047b05cd5c32502e3ba72f37ce0dd3">bc784a9a828376686ad79bc9be5654d3a22b15b1afeb54116cf6fd646f3f269e0adbf41c9a58fae7cceb635ffeacd251950c08839941532676c31774c06305b07dc61c079b8fe4082797c91eb5686b8958f960be5521fbefd802b3cebeb26d8016124a6b2b012342b66d7b83fe8d5b360747491f3287c61981c927c7ce207d02a2f5edbafbab10081c9b384ce716e15cbc49c19af6dda3731c39aeeabee900a2de265329cd129072ee0e645c6f342048437d102f0382c5ec6ec868f503f0d051d16ecceb359ddf97e0e258dd7b8dfd8dacf640e94a7a4208a5071c90745e02ff61793187fef52dc3a903dbf60acb3977f4782b1dd31c5ad005b0f24538fd0b93a609bd401085cc8120f2fa066f9f81ff807f275573b4e7d426455249ea99ef491544a177b09c689f17ee1fc95775b92aba0ec2de223edfcb24ca24f85bc0c8d123106a750eb92f8ccbebaeb6af226706e5b0b796b7ba1a6f539982c223d23daba7a8940099cf7e2f7ae90704bbf6fb432abaf15ec215fa3f63d963059a3bfd641a6574a0607949752ee2e5b6f88a365fe01dd8e921a95e4b699bb5278ba3a2832a2c45d3c804a2aca98ffe367ffb7655689ac2caa047498fd841945cfd1395e16c05b1d7868f3617a0844525be764b4ee94808a80d0f1b6f1801032d0780a6b5fbcd5ecd3019ed760ea46fe19b36f00e56141b1a436fb5298c5d9d93f317eff2e6f6ff81ab7c60f99adf73e10e3438355f74a57d65983640682f67958970efa4ca7c5958c2965d451e1f579b761c7e8fd70599d0506e8329d28eb246e7a2c3db20091f7b9ff028c507537b0fd5a801da8b87a11ee30a13074c284bd2359f4d1a5dc6a4d0faf2555accd9ad6763b078bdb663c64643a9d42def460b3b31d8316763d9f96ca0e2e4fae541c5c5d3c7cb9a1957e9a21c14964dc1d340462ee1931623d78e784db110ccc6ea5a5ce3e53d26903ed7bebf5cec6c237a7d476dbffb6a6e6e93d7f8249bb706278ac19627832fec0e08cc0f6b49ed161f181b1824f48b93ee5dacc612ebfa24db12111c3474483c661749f53215e79317a5dca15be255efb02fbc336affaeb29f460c7672356a11eec25e46d20a8bdb555695f9b3e45b9237e43b103857206b47a4f3aec9214c067507b5f2db9ed9fc94c5ddee6e1ce898f819b9ad2e62f216ce6e92c8bc603908cf0ad6b6cd83debc6ef0a525fc9d6081d598ddacbae33575e0ee7a9527b299c98a0580cd7e6557f8f64115b53fa8f478910c8276295ec176f5a61a88bf1f5c7c644c4fd9fc991e6fada541081e1fbe3c6c8aa7e59141961e28545574c7b6d9af7418bf96bba6f418f56228ae81f4979bdbcb8b913473fd018ac424819ff42180e6219a3c71de954b4d3276926134920135f626d710ddbd76be7682ce06915a4e80069021d6c1e7b1fc939f8b70514867c76342037e08cb1a7a5680e21bd692af8c3b94e605d25c831911ab5459c77ba4d75a99fe6255596a8fec592a671d42f88e3b5ba7bbc565ad06eec4c22a4add83d3fd21344dce71b4de061c175499afe273890277707bea6a2dc6f1823e58d816ec636c8fb89f84e913efb417225475911aff7faf5fd2fd252fb556fa36b1566af1a546595043109366f2437b015c396d728e385d558006fe6c5683d6e71012dd4d5c8f17938c10b2524465e107aad8368e30c948c8c962d3e3d2c1f8a148b561f39ad2d429ff2c23cb5be33529bf71a3febb6340ae210aa277144cfc04b213fd50ef147155aa472680e74f112865086e171949fc62866e8623b2cd91853d84d06e4317122fd4b4378205ed17699927724e09853969ae2c727df98625ccc35897c2454435dee0bc9b9d74e0a24339433fb1a302da83420424648d7059b1e7f96e9323a6476ce22c7ea5692f2cd511270e21838aad66bde97578ba86d607ab08e3dd24018b1eace989b2b3d0d741b1d26aef1f9b5df65b0358c23e36b0f8d297c299a752beaa75206b28630d771ef91a5af6cc9146811d84416f801be265b1f1f5a7f397de02eb4f1bfa8010922e734981b1139b3efaa5698dad0f0dc1dee04a1857dbef6ee728a92971fd34c18539ef241b6d1101bc541fc42c84ef7fad8ae05f17b3651ae6b179d482535ffe331f41ca2e3d6d1efdbd58dbaeabd976b27a0baf89200bbc4a839ceadbf875848a8dc5b530e9aaedf5a992a9c11426f7eb1004ff2806f3622ba60870a6b203cac9b46f16e77b44263b347c62e950c7f3ad9635ce2147ec7b3d25fbc0f0f6f543e27216328b95f0053271080eb0ac9ddd8da1ba5ea976f1eeb28ad60becc3b26cd6279587dc054cf13658d5c0ff56137b2a50df02210d20a6e0dd078a25b2f09afe196ba932a6c70fcd3244ef2af44bbb2037ec6c283c35e086952b23cb6b9a13797573955dbb68e38a67af1de6d0c79172c25a33d91e3b5ab21b64c806dcc4c9bd8f6e518944f891c46c74235d35cde69a40e3507ff408755f03591075ccedf8dc2dae87a03c44ae99e0fc7ee4eb79b2e36fde75d3fd05c8dd0e90f2221d9c06d0c718a48aa602f5cf3b97a85ce303eecf4b18929c2759ddc8eeaf4833f19525a4286a186e1d032e35858694629620b5fc0ffaac0d016ecc0b2d739073ac7363566c3a411ff00e409460931b849343d81fa261e53f5e530b4816d0e64b8cbf4babad84963be7c7adb203d7f89205742e3a5472ae5d6120a3f2ca9adb884b7a73761b1a555ad9469151cf5ac3f5fdcd2458adbc5d3933b0c2f1c3c22c1285e959ac5451dab18e759d68f1ba9f54501f6226d64d860c22e78b0e2e921a32b7b41c654992c7dc5b949240f2bc7d6130fb3f11cc652a1f1a29ebd80d2807ffd5e86a3dd1e78a6b922096f51784e869276a4340d336dfeadb7b61235de239c1f303622829d706d851c2767ad420948e54c3686584f0286dc7ae80ddd1bf510ed75819701fd7a2b06ee6002b94136f59981df63ee0469ebe25524030c6ae9a4e86bc39e0d946911bd4c83fc2610ffb3aa7f14fbcabdba742b15148e0b42acb3abcaa68d3717e257f468334f64dbd9d001a57f20a5b0735a7f1f9fd9cbfc910aad5528283b7d0077cbe69f31522d333e77a70359b626952fe0a259a2090d1e04c35ba390e3ae12974793d1dffa1968afdfd963f39f97aba292a1c829587ad13d61d15c47d574a2787bd910add91f14314d4096aea2590b7bb87482266fbaad4ba136c8636e5777c4b8eea0e7fd23de3ce05d52e52661aefa65c3b6ebcd3d52c1e616771059a948529ffc22a1b0ec0689b00e27ec7f89038c7e44045217dd3fc5c06864b8a044264e9f4acf5174f077d79ca05d543f67edfa48da3f80fd8fa9aa384e3364a3e7b44b10868981fb6ed1eefa4a747c8ed4796efbb509e33b16baa17286b66747be4f81155128049ce7f7b908d83b4dfe3d2f3e830e169e39f0db6b027cc6d06099e99e7b60514dad067e4a7736d56e45d4d5b0a9bd10af7f985a4c346c13aed948335c5ca08080195d4fd6bd9ed9a9c979e2ca2d662e4b90fa584e4c2bec39501544257c7b5120384df3d37c434b1d340bea701a7b1e12860c690c4aa19e4f63c9fc89c719db5c501d858e649bb6dd4650c766b1527a39a32c8209a312e6b51503fc94f5a0c70df4b6b3a04bfadb3a62ba23407e51f1a713dcff04b350adc6356e19b9f252a4fdd5066ab870854a410a5181ce62a1ab2aa8f6f54c914abd660bd607dc480b99ce2b30380918add1458a0aa265f8123a3555e74a18c475b32c3e4357b0cbda36e14bd67b4ab5231f83f510c45a6a768b1f07c35dab014f633a5cd64313ac736e2920bfbdda5e8367e5bf14bd263dbcf47eb32b85f03942d1c124fc472df463174c3e3cd9b9010180697461bd28cbfbc93a569a5e21b2724f38efb3e9f193d5aacb4a30e6e8ce67c20de46f145ed25414d68a5ac34078d525552ba42f263ef7a59a7569b9ababfa46512355ae8c84756cee598de96ebea805961d6446c58539ebc85126947a077ab32fe60f99387f985aa35198b42b91e92400591a76af81a5f4fc6fded1c3d02e18acf2d201c6952855bff20523b1eb5b0596208e971b66829aa1ceca551d91d4c29ce0bf828573f213fd78c4fa77b18bc9575cedc5cc546d4b7627037673e228b9ae9e964d5cdbec85f0e13c4359ae7f8a4468146aa25f17be09b1f75593efa4221402a0b006053d72e6837107aed432e4652389149fbaf1f44e8d3386ba06f88a5e79dd4a04d86741289fe372f2ec6b38501291d7b2a5403b7f56aafa281ebb627ea9f31e8f9e4bf5cef933a8eed7ff56453881d3bec8778fd26bdde343e2d7081a2a8634c1dcfab1d95ee5b7bfbdeeff03916b8a8abcabdb92c87cfa214f095049ecba073d6ce27ee33afc292d79674671af58a9a3a552c3756f9667ef27e3c8b245cf992ace68a396729ba2a120e280cfb8ef9233835edad4559743a76c04a388754d9d07128a73c0134fb8ea204939cb7b70933990cd425cedcb8a919d648043c411362cdc98bc6ef7937dc640f95b7319e34ce019d93fc0cb2fa71429b6e33ef28486adfae5e9685804c5af132e16e02768486af8675bb06eefc0d8500949203e0dc796500dd1c3faff158655e6923fb2dfdfce9a5472e947c416e13316597552fef4427ef405ee72b52296bcc9937d97294f848dbbb9d3dae612225445d1b33fae99a5f4f18f75dd60a14338eb028569363a4d18ca49ae29271695b66d651c0e5cce84be6cc5b8b2f046595fd27b6c33a647623250f1cd55a21dd8c5a015250b6609c433db23b6022a6ccde3811908a8e8e9d28bfd83e9c10cadbb05792bd4c6899ddad01e5e18bb169fb3e4de22e923521e1e0504a81a6036cf48fb2253596fecdae372302e312d13101cfb4a69bc358666389560abb9147fe5a664eba82ba24b4baa7240eb72169e380bd27b254992cb497bb893ff5c87bf7d18951df0f9014a362cf442baf0af7be3e1215b677e406a21fde683555327b6eab7838fd0ee2c8e1592ff279214acdf38afc0450eba1785956fec6e2b4456834e90b7ad4cb2a3bbe935a38f95bfc96b4145282a0e3985c0eb79dd91deaa3e4482432f131195d6313bb5069d2180d679b4c186a523c2a5e3a074a732ed79876d6fc1a9a67d1136adc717140626306b30ccc6d2f7ccf31de4bb0b749b29502a6a52dd392f69242c5da3f597a593847de45080a3cf5d9213b4105e2006c5e02703e8f02a91c2737b19c74d11b7dd2253bafe0dd8d24fd8fcc0b54f2694efae1465bb7f0091d78457d30e55dac4bc826b5125a58a7e56fca2e5d2c2226e82642cf7e6f39ccd638839d7c6c4dd213c13f5e77c4832c0038587f633f594cf7f50c3bb96727eda63475409d45e0304dad8af95044fed38e953a2932fa12c36cd2e75f52616389b1efd34cc2bb256262d4230acfaf2f8f2856ca31dfdfea5151423e42bb378d1ef04086dd01466cf5ea7ab5094ae59999a99c62aaca1ee09168a39bf293cdd4efdb8415fa3d952669b557490b41c650fb3f43048f8ba9493007d89538fa247d8f1e9286928cf23e690e87a909270e03f960f3d8df7e9a7c866d6c589780a36dc511f6d7625e2215ffec6b029a8fa083ec962e78c4b374fcb59e839b59bdb6ba0df9e723f5e68f493eed863a754afaa20bad381dd06c7dd46f556ae79b6aa1417d5216b75873c3c0074874bdf77e1dd81dc75c0917a5527d741380e39ba7d11c2ffedb68d32e683bc4e06d4abc7e4abf5d5de0f7915c6637e06f7e90a0fc7b7955bc3db3336e</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-default">
-      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-default">不是哥们，你谁啊？</span>
-      </label>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+        <p><a><span id="more"></span></a></p>
+<h2 id="Shell变量"><a href="#Shell变量" class="headerlink" title="Shell变量"></a>Shell变量</h2><h3 id="取出变量值"><a href="#取出变量值" class="headerlink" title="取出变量值"></a>取出变量值</h3><ul>
+<li><p>单引号：所见即所得</p>
+</li>
+<li><p>双引号：输出引号里面的所有内容，识别特殊字符，弱引用</p>
+</li>
+<li><p>无引号：连续的符号可以不加引号，有空格有歧义，最好使用双引号</p>
+</li>
+<li><p>反引号：<kbd><code>ls</code></kbd>引用命令执行的结果，就等于$()用法</p>
+</li>
+<li><h3 id="特殊变量"><a href="#特殊变量" class="headerlink" title="特殊变量"></a>特殊变量</h3></li>
+<li><p><a>$</a> : 获取shell脚本的文件名，以及脚本路径</p>
+</li>
+<li><p><a>$n</a> : 获取shell脚本的第n个参数，n在1-9之间，就可以写$1这样的，如果大于了10，就需要用$(10)，参数之间用空格隔开</p>
+</li>
+<li><p><a>$#</a> : 获取执行shell脚本后面的参数总个数</p>
+</li>
+<li><p><a>$*</a> : 获取shell脚本所有参数，不加引号等同于$@的作用，加上了引号就是把接受的参数作为单个字符串了 “$1  $2”</p>
+</li>
+<li><p><a>$@</a> : 不加引号，效果同上，加上了引号， 效果是分开每个参数，”$1”, “$2”， 空格保留</p>
+</li>
+</ul>
+<h3 id="特殊状态变量"><a href="#特殊状态变量" class="headerlink" title="特殊状态变量"></a>特殊状态变量</h3><ul>
+<li>$? ： 上一次命令执行是不是正常执行的，0正确，非0就是失败了</li>
+<li>$$ ： 当前shell脚本的进程号</li>
+<li>$! ： 上一次后台进程的PID</li>
+<li>$_ ： 上次命令的最后一个参数</li>
+</ul>
+<h3 id="内置命令"><a href="#内置命令" class="headerlink" title="内置命令"></a>内置命令</h3><ul>
+<li><h4 id="echo-：-输出内容到指定的"><a href="#echo-：-输出内容到指定的" class="headerlink" title="echo ： 输出内容到指定的"></a><a>echo</a> ： 输出内容到指定的</h4><ul>
+<li>-n : 不换行输出内容</li>
+<li>-e ： 解释转移字符</li>
+<li>\n : 换行</li>
+<li>\r ：回车</li>
+<li>\t : tab</li>
+<li>\b : 退格</li>
+<li>\v ： 纵向制表符</li>
+</ul>
+</li>
+<li><h4 id="eval-：-执行多个命令"><a href="#eval-：-执行多个命令" class="headerlink" title="eval ： 执行多个命令"></a><a>eval</a> ： 执行多个命令</h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval ls; cd xxx</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="exec：-不创建子shell，执行该命令，完成命令之后自己就exit了"><a href="#exec：-不创建子shell，执行该命令，完成命令之后自己就exit了" class="headerlink" title="exec： 不创建子shell，执行该命令，完成命令之后自己就exit了"></a><a>exec</a>： 不创建子shell，执行该命令，完成命令之后自己就exit了</h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec date</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="export"><a href="#export" class="headerlink" title="export"></a><a>export</a></h4></li>
+<li><h4 id="read"><a href="#read" class="headerlink" title="read"></a><a>read</a></h4></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read -p &quot;Input :&quot; var</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h4 id="shift"><a href="#shift" class="headerlink" title="shift"></a><a>shift</a></h4></li>
+</ul>
+<h2 id="逻辑控制"><a href="#逻辑控制" class="headerlink" title="逻辑控制"></a>逻辑控制</h2><h3 id="if"><a href="#if" class="headerlink" title="if"></a><a>if</a></h3><blockquote>
+<p>语法: 如果一行里面写了多个语句，就要写分号；了，如果是一行就写了一句话了，就不用写分号了</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if command</span><br><span class="line">then </span><br><span class="line">  command</span><br><span class="line">if</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>bash的if语句会直接运行if后面的命令，如果该命令执行正确（状态码位0），处于then的命令就会被执行，否则就不会被执行，或者执行其他的逻辑语句，最后到fi结束逻辑控制</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if [ pwd ]</span><br><span class="line">	then </span><br><span class="line">		echo &quot;hhh&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="if-then-else"><a href="#if-then-else" class="headerlink" title="if-then-else"></a><a>if-then-else</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line"></span><br><span class="line">if [ $1 -ge 2 ]</span><br><span class="line">  then</span><br><span class="line">    echo &quot;you need input a number more than 1&quot;</span><br><span class="line">else</span><br><span class="line">   echo &quot;sorry&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="嵌套if"><a href="#嵌套if" class="headerlink" title="嵌套if"></a><a>嵌套if</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if [ $1 -ge 2 ]</span><br><span class="line">  then</span><br><span class="line">    echo &quot;you need input a number more than 1&quot;</span><br><span class="line">else</span><br><span class="line">  if [ $1 -le 2 ]</span><br><span class="line">     echo &quot;sorry&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="elif语句"><a href="#elif语句" class="headerlink" title="elif语句"></a><a>elif语句</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if [ $1 -le 20 ]</span><br><span class="line">  then</span><br><span class="line">    echo &quot;you need input a number more than 1&quot;</span><br><span class="line">elif [ $1 -ge  30 ]</span><br><span class="line">  then</span><br><span class="line">        echo &quot;hhhh&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="test"><a href="#test" class="headerlink" title="test"></a><a>test</a></h3><ul>
+<li><p>test命令最短的定义可能是评估一个表达式；如果条件为真，则返回一个0。如果表达式不为真，则返回一个大于0的数值，也可以将其称为假值。检查最后所执行命令的状态的最简便的方法就是<kbd>$？</kbd></p>
+</li>
+<li><p>检测文件类型的option： test [option] filename，</p>
+<ul>
+<li><p>-e ： 该filename是不是存在</p>
+</li>
+<li><p>-f ： 该filename是不是文件</p>
+</li>
+<li><p>-d ： 该filename是不是目录</p>
+</li>
+<li><p>-b ： 该filename是不是要给block device</p>
+</li>
+<li><p>-c ： 该filename是不是一个character device</p>
+</li>
+<li><p>-s ： 该filename是不是一个socket</p>
+</li>
+<li><p>-p ： 该filename是不是一个FIFO（pipe）文件</p>
+</li>
+<li><p>-L ： 该filename是不是要给连结档</p>
+</li>
+</ul>
+</li>
+<li><p>文件权限的option ： test [option] filename</p>
+<ul>
+<li>-r 检测文件是不是有可读属性</li>
+<li>-w 检测文件是不是有可写属性</li>
+<li>-x 检测文件是不是有可执行属性</li>
+<li>-u 检测文件是不是有SUID属性</li>
+<li>-g 检测文件是不是有SGID属性</li>
+<li>-k 检测文件是不是有Sticky bit属性</li>
+<li>-s 检测文件是不是非空白文件</li>
+</ul>
+</li>
+<li><p>两个文件之变的比较 ： test filename1 [option] filename2</p>
+<ul>
+<li>-nt （newer than）判断filename1是不是比filename2新</li>
+<li>-ot （older than）判断filename1是不是比filename2旧</li>
+<li>-ef 判断filename1与filename2是不是一个文件，可以用在判断hard link上面，是不是指向了同一个文件</li>
+</ul>
+</li>
+<li><p>判断两个整数 ： test num1 [option] num2</p>
+<ul>
+<li>-eq : equal 判断两个数值相等的吗</li>
+<li>-ne ： not equal 判断两个数值不相等的吗</li>
+<li>-gt ： greater than 判断n1 大于 n2吗</li>
+<li>-lt : less than 判断n1 小于 n2 吗</li>
+<li>-ge ： greater than or equal 判断n1 大于等于 n2吗</li>
+<li>-le ： less than or equal 判断n1 小于等于 n2吗</li>
+</ul>
+</li>
+<li><p>判断字符串</p>
+<ul>
+<li><p>-z : 判断是不是空的，是用的就是true，不是空个，就是false</p>
+</li>
+<li><p>-n ： 判断是不是不是空的，不是空个就是true，是空的就是false</p>
+</li>
+<li><p>&#x3D; ： string1 是不是等于string2</p>
+</li>
+<li><p>!&#x3D; ： string1 是不是不等于string2</p>
+</li>
+</ul>
+</li>
+<li><p>&amp;&amp; 与 || （和c语言中的是一样的）</p>
+</li>
+<li><p>数学表达式： bash支持<strong>双小括号</strong>写入高级的数学表达式</p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/10/19/yfeJ1AmC9bQkFvL.png" alt="image-20240317154916014"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var=199</span><br><span class="line">if (( &quot;$var&quot; &gt; $1 ));then</span><br><span class="line">  echo &quot;$var is greater than $1&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h3 id="双中括号"><a href="#双中括号" class="headerlink" title="双中括号[[]]"></a>双中括号[[]]</h3><ul>
+<li>双中括号提供了针对字符串的高级特性，模式匹配，正则表达式的匹配</li>
+<li>&#x3D;&#x3D; ： 就是c语言里面的，是不是相等意思</li>
+</ul>
+<h3 id="case"><a href="#case" class="headerlink" title="case"></a>case</h3><ul>
+<li>就是和c语言里面是一样的</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">case &quot;$1&quot; in</span><br><span class="line">1)</span><br><span class="line">  echo &quot;\$1 is 1&quot;</span><br><span class="line">;;</span><br><span class="line">2)</span><br><span class="line">  echo &quot;\$2 is 2&quot;</span><br><span class="line">;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<h3 id="for命令"><a href="#for命令" class="headerlink" title="for命令"></a>for命令</h3><ul>
+<li>和c语言的一样,但是里面可能需要转义符号和双引号</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;1..100&#125;;do</span><br><span class="line"> echo &quot;$i&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>for遍历文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">for word in $(cat lin.sh)</span><br><span class="line">do</span><br><span class="line">echo &quot;$word&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>c语言风格的for循环</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (( a=1,b=2;a&lt;=10;a++,b++ ))</span><br><span class="line">do </span><br><span class="line">        echo &quot;$a &amp;&amp; $b&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h3 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a>while循环</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">while [ $1 -gt $2 ];do</span><br><span class="line"> echo &quot;$1 is greater than $2&quot;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行多个命令的时候，每条命令都是单独一行的</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">while echo &quot;$1&quot; </span><br><span class="line"> [ $1 -gt $2 ] </span><br><span class="line">do</span><br><span class="line"> echo &quot;$1 is greater than $2&quot;</span><br><span class="line">sleep 23</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h3 id="until命令"><a href="#until命令" class="headerlink" title="until命令"></a>until命令</h3><ul>
+<li>和while的用法是一样的，就是意思是相反的</li>
+</ul>
+<h3 id="IFS分隔符"><a href="#IFS分隔符" class="headerlink" title="IFS分隔符"></a>IFS分隔符</h3><ul>
+<li>用来指定分隔符的，没有指定的话，好像是空格，可以指定的分割符有：空格，制表符，换行符，逗号</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">oldifs=$IFS</span><br><span class="line">IFS=,</span><br><span class="line">names=&quot;lin,zhi,wen&quot;</span><br><span class="line">for i in $names;</span><br><span class="line">do</span><br><span class="line">  echo $i</span><br><span class="line">done</span><br><span class="line">IFS=$oldifs</span><br></pre></td></tr></table></figure>
+
+<h3 id="打断循环"><a href="#打断循环" class="headerlink" title="打断循环"></a>打断循环</h3><ul>
+<li>break<ul>
+<li>break 2，就是跳出两层循环，其他的和c语言是一样的</li>
+</ul>
+</li>
+<li>continue： 和c是一样的</li>
+</ul>
+<h3 id="循环输出的重新定向"><a href="#循环输出的重新定向" class="headerlink" title="循环输出的重新定向"></a>循环输出的重新定向</h3><ul>
+<li>在shell脚本里面，循环输出后的结果，可以进行重定向</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">oldifs=$IFS</span><br><span class="line">IFS=,</span><br><span class="line">names=&quot;lin,zhi,wen&quot;</span><br><span class="line">for i in $names;</span><br><span class="line">do</span><br><span class="line">  echo $i</span><br><span class="line">done &gt; tudou.txt</span><br><span class="line">IFS=$oldifs</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="函数的概念"><a href="#函数的概念" class="headerlink" title="函数的概念"></a>函数的概念</h3><ul>
+<li>当你需要一段重复的代码的时候，就可以把这段代码定义成函数了，可以重复的调用，下面是两种常用的定义函数的方式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">标准的函数的定义，func_name后面可以不给括号，建议标准的写法吧</span></span><br><span class="line">function func_name() &#123;</span><br><span class="line">	command</span><br><span class="line">	return 状态码</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">简化的函数的定义</span></span><br><span class="line">func_name() &#123;</span><br><span class="line">	command</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">lin_func_use() &#123;</span><br><span class="line">        echo &quot;$1&quot;</span><br><span class="line">&#125;</span><br><span class="line">if [ $# -gt 1 ];then</span><br><span class="line">  lin_func_use &quot;$1&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>函数名需要唯一，负责会覆盖函数的定义的，就是和c语言一样的</li>
+<li>在函数里面使用<kbd>return</kbd>命令来定制特殊的退出状态码，也可以保存到变量里面</li>
+<li>函数里面的变量是属于局部变量的，写在脚本里面的变量是全局变量（除了函数体内部的）</li>
+<li>可以在函数体里面生命上<kbd>local</kbd>，声明为局部的，虽然我认为没有什么用</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span></span><br><span class="line">name=&quot;linzhiwen&quot;</span><br><span class="line">lin_func_use() &#123;</span><br><span class="line">        local name=&quot;lin&quot;</span><br><span class="line">        echo &quot;$name&quot;</span><br><span class="line">        return 2;</span><br><span class="line">&#125;</span><br><span class="line">if [ $# -gt 1 ];then</span><br><span class="line">  lin_func_use &quot;$1&quot;</span><br><span class="line">fi</span><br><span class="line">echo $?</span><br></pre></td></tr></table></figure>
+
+
       
 
  <!-- 添加版权声明 -->
@@ -284,7 +678,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/11/03/Programming/Shell脚本-check_process/" title="Shell脚本-check_process" target="_blank">https://talent-tudou.github.io/2024/11/03/Programming/Shell脚本-check_process/</a>
+   <a href="https://talent-tudou.github.io/2024/10/19/Shell/Shell学习笔记/" title="Shell基础" target="_blank">https://talent-tudou.github.io/2024/10/19/Shell/Shell学习笔记/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -410,7 +804,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/11/03/Programming/Shell%E8%84%9A%E6%9C%AC-check_process/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/10/19/Shell/Shell%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -424,18 +818,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/11/03/editorconfig/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2024/10/19/Programming/Linux%E5%91%BD%E4%BB%A4/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          editorconfig
+          Linux基础
         
       </div>
     </a>
   
   
-    <a href="/2024/11/02/Programming/Python%E8%84%9A%E6%9C%AC-replace_script/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Python脚本-replace_script</div>
+    <a href="/2024/10/19/Programming/SystemVerilog%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SystemVerilog基础</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -462,7 +856,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Shell%E5%8F%98%E9%87%8F"><span class="toc-number">1.</span> <span class="toc-text">Shell变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%96%E5%87%BA%E5%8F%98%E9%87%8F%E5%80%BC"><span class="toc-number">1.1.</span> <span class="toc-text">取出变量值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F"><span class="toc-number">1.2.</span> <span class="toc-text">特殊变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E7%8A%B6%E6%80%81%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text">特殊状态变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.</span> <span class="toc-text">内置命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#echo-%EF%BC%9A-%E8%BE%93%E5%87%BA%E5%86%85%E5%AE%B9%E5%88%B0%E6%8C%87%E5%AE%9A%E7%9A%84"><span class="toc-number">1.4.1.</span> <span class="toc-text">echo ： 输出内容到指定的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#eval-%EF%BC%9A-%E6%89%A7%E8%A1%8C%E5%A4%9A%E4%B8%AA%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.2.</span> <span class="toc-text">eval ： 执行多个命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#exec%EF%BC%9A-%E4%B8%8D%E5%88%9B%E5%BB%BA%E5%AD%90shell%EF%BC%8C%E6%89%A7%E8%A1%8C%E8%AF%A5%E5%91%BD%E4%BB%A4%EF%BC%8C%E5%AE%8C%E6%88%90%E5%91%BD%E4%BB%A4%E4%B9%8B%E5%90%8E%E8%87%AA%E5%B7%B1%E5%B0%B1exit%E4%BA%86"><span class="toc-number">1.4.3.</span> <span class="toc-text">exec： 不创建子shell，执行该命令，完成命令之后自己就exit了</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#export"><span class="toc-number">1.4.4.</span> <span class="toc-text">export</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#read"><span class="toc-number">1.4.5.</span> <span class="toc-text">read</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shift"><span class="toc-number">1.4.6.</span> <span class="toc-text">shift</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6"><span class="toc-number">2.</span> <span class="toc-text">逻辑控制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#if"><span class="toc-number">2.1.</span> <span class="toc-text">if</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if-then-else"><span class="toc-number">2.2.</span> <span class="toc-text">if-then-else</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B5%8C%E5%A5%97if"><span class="toc-number">2.3.</span> <span class="toc-text">嵌套if</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#elif%E8%AF%AD%E5%8F%A5"><span class="toc-number">2.4.</span> <span class="toc-text">elif语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#test"><span class="toc-number">2.5.</span> <span class="toc-text">test</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E4%B8%AD%E6%8B%AC%E5%8F%B7"><span class="toc-number">2.6.</span> <span class="toc-text">双中括号[[]]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#case"><span class="toc-number">2.7.</span> <span class="toc-text">case</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for%E5%91%BD%E4%BB%A4"><span class="toc-number">2.8.</span> <span class="toc-text">for命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#while%E5%BE%AA%E7%8E%AF"><span class="toc-number">2.9.</span> <span class="toc-text">while循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#until%E5%91%BD%E4%BB%A4"><span class="toc-number">2.10.</span> <span class="toc-text">until命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IFS%E5%88%86%E9%9A%94%E7%AC%A6"><span class="toc-number">2.11.</span> <span class="toc-text">IFS分隔符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E6%96%AD%E5%BE%AA%E7%8E%AF"><span class="toc-number">2.12.</span> <span class="toc-text">打断循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E8%BE%93%E5%87%BA%E7%9A%84%E9%87%8D%E6%96%B0%E5%AE%9A%E5%90%91"><span class="toc-number">2.13.</span> <span class="toc-text">循环输出的重新定向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">3.1.</span> <span class="toc-text">函数的概念</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -607,14 +1001,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags" style="display: block;">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
@@ -623,15 +1009,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIM</a>
+                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,6 +1041,18 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">VT compensation</a>
               </li>
              
@@ -667,19 +1061,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DDR DFT</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">BIST</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DDL</a>
+                <a href="javascript:void(0)" class="js-tag color3">DDR DFT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
+                <a href="javascript:void(0)" class="js-tag color4">DDL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -691,71 +1081,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">uMCTL2</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ECC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DV</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Parity Check</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Marco</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SoC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">makefile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -780,6 +1114,66 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Write Transactions</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Marco</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">UVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VCS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Verdi</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Parity Check</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SoC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">makefile</a>
               </li>
             
             <div class="clearfix"></div>
