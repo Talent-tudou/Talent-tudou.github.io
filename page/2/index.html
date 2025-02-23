@@ -107,7 +107,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数116
+			总文章数124
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -216,6 +216,886 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-后仿/高温对晶体管延迟的影响：从半导体物理到电路设计" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E9%AB%98%E6%B8%A9%E5%AF%B9%E6%99%B6%E4%BD%93%E7%AE%A1%E5%BB%B6%E8%BF%9F%E7%9A%84%E5%BD%B1%E5%93%8D%EF%BC%9A%E4%BB%8E%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%89%A9%E7%90%86%E5%88%B0%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/">高温对晶体管延迟的影响：从半导体物理到电路设计</a>
+    </h1>
+  
+
+        
+        
+<a href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E9%AB%98%E6%B8%A9%E5%AF%B9%E6%99%B6%E4%BD%93%E7%AE%A1%E5%BB%B6%E8%BF%9F%E7%9A%84%E5%BD%B1%E5%93%8D%EF%BC%9A%E4%BB%8E%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%89%A9%E7%90%86%E5%88%B0%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/" class="archive-article-date">
+  	<time datetime="2025-02-16T15:05:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-02-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <blockquote>
+<p>在芯片设计中，温度对晶体管性能的影响是时序分析的关键因素之一。本文将深入探讨 高温如何导致晶体管延迟增加，并结合 SS_max 工艺角 的应用场景，解释其对数据路径和时钟路径的影响差异。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E9%AB%98%E6%B8%A9%E5%AF%B9%E6%99%B6%E4%BD%93%E7%AE%A1%E5%BB%B6%E8%BF%9F%E7%9A%84%E5%BD%B1%E5%93%8D%EF%BC%9A%E4%BB%8E%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%89%A9%E7%90%86%E5%88%B0%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/#more"> </a>
+        
+       -->
+      
+        <blockquote>
+<p>在芯片设计中，温度对晶体管性能的影响是时序分析的关键因素之一。本文将深入探讨 高温如何导致晶体管延迟增加，并结合 SS_max 工艺角 的应用场景，解释其对数据路径和时钟路径的影响差异。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E9%AB%98%E6%B8%A9%E5%AF%B9%E6%99%B6%E4%BD%93%E7%AE%A1%E5%BB%B6%E8%BF%9F%E7%9A%84%E5%BD%B1%E5%93%8D%EF%BC%9A%E4%BB%8E%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%89%A9%E7%90%86%E5%88%B0%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/#more"> </a>
+          <!-- <a class="article-more-a" href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E9%AB%98%E6%B8%A9%E5%AF%B9%E6%99%B6%E4%BD%93%E7%AE%A1%E5%BB%B6%E8%BF%9F%E7%9A%84%E5%BD%B1%E5%93%8D%EF%BC%9A%E4%BB%8E%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%89%A9%E7%90%86%E5%88%B0%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/#more">more >></a> -->
+        
+      
+
+ <!-- 添加版权声明 -->
+ 
+
+ <div class="declare" hidden="hidden"></div>
+
+     <!-- 添加版权声明 -->
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后仿</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/DV/" class="article-tag-list-link color3">DV</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E9%AB%98%E6%B8%A9%E5%AF%B9%E6%99%B6%E4%BD%93%E7%AE%A1%E5%BB%B6%E8%BF%9F%E7%9A%84%E5%BD%B1%E5%93%8D%EF%BC%9A%E4%BB%8E%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%89%A9%E7%90%86%E5%88%B0%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-后仿/芯片后仿笔记-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E8%8A%AF%E7%89%87%E5%90%8E%E4%BB%BF%E7%AC%94%E8%AE%B0-1/">芯片后仿笔记-1</a>
+    </h1>
+  
+
+        
+        
+<a href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E8%8A%AF%E7%89%87%E5%90%8E%E4%BB%BF%E7%AC%94%E8%AE%B0-1/" class="archive-article-date">
+  	<time datetime="2025-02-16T14:36:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-02-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <blockquote>
+<p>在芯片设计流程中，后仿真（Post-Layout Simulation） 是确保芯片功能与时序正确性的关键环节。由于制造工艺的波动性，芯片的实际性能可能与设计预期存在偏差。本文将深入探讨后仿真的核心检查内容，并解析 工艺角（Process Corner）、电压（Voltage） 和 温度（Temperature）（合称 PVT）如何影响数据路径与时钟路径的时序特性。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E8%8A%AF%E7%89%87%E5%90%8E%E4%BB%BF%E7%AC%94%E8%AE%B0-1/#more"> </a>
+        
+       -->
+      
+        <blockquote>
+<p>在芯片设计流程中，后仿真（Post-Layout Simulation） 是确保芯片功能与时序正确性的关键环节。由于制造工艺的波动性，芯片的实际性能可能与设计预期存在偏差。本文将深入探讨后仿真的核心检查内容，并解析 工艺角（Process Corner）、电压（Voltage） 和 温度（Temperature）（合称 PVT）如何影响数据路径与时钟路径的时序特性。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E8%8A%AF%E7%89%87%E5%90%8E%E4%BB%BF%E7%AC%94%E8%AE%B0-1/#more"> </a>
+          <!-- <a class="article-more-a" href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E8%8A%AF%E7%89%87%E5%90%8E%E4%BB%BF%E7%AC%94%E8%AE%B0-1/#more">more >></a> -->
+        
+      
+
+ <!-- 添加版权声明 -->
+ 
+
+ <div class="declare" hidden="hidden"></div>
+
+     <!-- 添加版权声明 -->
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">后仿</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/DV/" class="article-tag-list-link color3">DV</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/02/16/%E5%90%8E%E4%BB%BF/%E8%8A%AF%E7%89%87%E5%90%8E%E4%BB%BF%E7%AC%94%E8%AE%B0-1/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Programming/Python脚本-file_operations" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/01/15/Programming/Python%E8%84%9A%E6%9C%AC-file_operations/">Python脚本-file_operations</a>
+    </h1>
+  
+
+        
+        
+<a href="/2025/01/15/Programming/Python%E8%84%9A%E6%9C%AC-file_operations/" class="archive-article-date">
+  	<time datetime="2025-01-14T16:05:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-01-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <blockquote>
+<p>该脚本是一个强大的文件操作工具，支持在指定目录及其子目录下批量执行各种文件操作。功能涵盖了文件备份、查找替换、插入字符、文件权限修改、文件删除等多个方面，方便进行自动化的文件管理和处理<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/15/Programming/Python%E8%84%9A%E6%9C%AC-file_operations/#more"> </a>
+        
+       -->
+      
+        <blockquote>
+<p>该脚本是一个强大的文件操作工具，支持在指定目录及其子目录下批量执行各种文件操作。功能涵盖了文件备份、查找替换、插入字符、文件权限修改、文件删除等多个方面，方便进行自动化的文件管理和处理<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/15/Programming/Python%E8%84%9A%E6%9C%AC-file_operations/#more"> </a>
+          <!-- <a class="article-more-a" href="/2025/01/15/Programming/Python%E8%84%9A%E6%9C%AC-file_operations/#more">more >></a> -->
+        
+      
+
+ <!-- 添加版权声明 -->
+ 
+
+ <div class="declare" hidden="hidden"></div>
+
+     <!-- 添加版权声明 -->
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/" class="article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/01/15/Programming/Python%E8%84%9A%E6%9C%AC-file_operations/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Programming/Python脚本-base_converter改进" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/01/13/Programming/Python%E8%84%9A%E6%9C%AC-base_converter%E6%94%B9%E8%BF%9B/">Python脚本-base_converter改进</a>
+    </h1>
+  
+
+        
+        
+<a href="/2025/01/13/Programming/Python%E8%84%9A%E6%9C%AC-base_converter%E6%94%B9%E8%BF%9B/" class="archive-article-date">
+  	<time datetime="2025-01-13T15:13:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-01-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <blockquote>
+<p>之前的进制转换改进，增加了bin2bin和hex2hex，以及大小端模式。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/13/Programming/Python%E8%84%9A%E6%9C%AC-base_converter%E6%94%B9%E8%BF%9B/#more"> </a>
+        
+       -->
+      
+        <blockquote>
+<p>之前的进制转换改进，增加了bin2bin和hex2hex，以及大小端模式。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/13/Programming/Python%E8%84%9A%E6%9C%AC-base_converter%E6%94%B9%E8%BF%9B/#more"> </a>
+          <!-- <a class="article-more-a" href="/2025/01/13/Programming/Python%E8%84%9A%E6%9C%AC-base_converter%E6%94%B9%E8%BF%9B/#more">more >></a> -->
+        
+      
+
+ <!-- 添加版权声明 -->
+ 
+
+ <div class="declare" hidden="hidden"></div>
+
+     <!-- 添加版权声明 -->
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/" class="article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/01/13/Programming/Python%E8%84%9A%E6%9C%AC-base_converter%E6%94%B9%E8%BF%9B/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Programming/Python脚本-extract_lines" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-extract_lines/">Python脚本-extract_lines</a>
+    </h1>
+  
+
+        
+        
+<a href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-extract_lines/" class="archive-article-date">
+  	<time datetime="2025-01-08T14:22:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-01-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <blockquote>
+<p>该脚本用于从输入文件中提取指定行范围的内容，并将提取的内容保存到一个新的输出文件中。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-extract_lines/#more"> </a>
+        
+       -->
+      
+        <blockquote>
+<p>该脚本用于从输入文件中提取指定行范围的内容，并将提取的内容保存到一个新的输出文件中。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-extract_lines/#more"> </a>
+          <!-- <a class="article-more-a" href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-extract_lines/#more">more >></a> -->
+        
+      
+
+ <!-- 添加版权声明 -->
+ 
+
+ <div class="declare" hidden="hidden"></div>
+
+     <!-- 添加版权声明 -->
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/" class="article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-extract_lines/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Programming/Python脚本-insert_start_end" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-insert_start_end/">Python脚本-insert_start_end</a>
+    </h1>
+  
+
+        
+        
+<a href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-insert_start_end/" class="archive-article-date">
+  	<time datetime="2025-01-08T14:15:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-01-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <blockquote>
+<p>脚本的功能是处理一个输入文件，并按指定的间隔插入 <code>start</code> 和 <code>end</code> 标签。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-insert_start_end/#more"> </a>
+        
+       -->
+      
+        <blockquote>
+<p>脚本的功能是处理一个输入文件，并按指定的间隔插入 <code>start</code> 和 <code>end</code> 标签。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-insert_start_end/#more"> </a>
+          <!-- <a class="article-more-a" href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-insert_start_end/#more">more >></a> -->
+        
+      
+
+ <!-- 添加版权声明 -->
+ 
+
+ <div class="declare" hidden="hidden"></div>
+
+     <!-- 添加版权声明 -->
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/" class="article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/01/08/Programming/Python%E8%84%9A%E6%9C%AC-insert_start_end/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Programming/Python脚本-base_converter" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/01/02/Programming/Python%E8%84%9A%E6%9C%AC-base_converter/">Python脚本-base_converter</a>
+    </h1>
+  
+
+        
+        
+<a href="/2025/01/02/Programming/Python%E8%84%9A%E6%9C%AC-base_converter/" class="archive-article-date">
+  	<time datetime="2025-01-02T14:16:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-01-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <blockquote>
+<p>这个脚本是一个进制转换工具，可以将<strong>二进制</strong>转成<strong>十六进制</strong>，或者将<strong>十六进制</strong>转成<strong>二进制</strong>。除了基本的进制转换功能，还可以根据需求加入<strong>奇偶校验位</strong>，并且能够处理从文件中的指定行开始进行转换，保留文件中的行尾符号（如逗号、分号等）。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/02/Programming/Python%E8%84%9A%E6%9C%AC-base_converter/#more"> </a>
+        
+       -->
+      
+        <blockquote>
+<p>这个脚本是一个进制转换工具，可以将<strong>二进制</strong>转成<strong>十六进制</strong>，或者将<strong>十六进制</strong>转成<strong>二进制</strong>。除了基本的进制转换功能，还可以根据需求加入<strong>奇偶校验位</strong>，并且能够处理从文件中的指定行开始进行转换，保留文件中的行尾符号（如逗号、分号等）。<a>
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/02/Programming/Python%E8%84%9A%E6%9C%AC-base_converter/#more"> </a>
+          <!-- <a class="article-more-a" href="/2025/01/02/Programming/Python%E8%84%9A%E6%9C%AC-base_converter/#more">more >></a> -->
+        
+      
+
+ <!-- 添加版权声明 -->
+ 
+
+ <div class="declare" hidden="hidden"></div>
+
+     <!-- 添加版权声明 -->
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/" class="article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/01/02/Programming/Python%E8%84%9A%E6%9C%AC-base_converter/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Programming/Python脚本-rename-dirs-files" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/01/01/Programming/Python%E8%84%9A%E6%9C%AC-rename-dirs-files/">Python脚本-rename_dirs_files</a>
+    </h1>
+  
+
+        
+        
+<a href="/2025/01/01/Programming/Python%E8%84%9A%E6%9C%AC-rename-dirs-files/" class="archive-article-date">
+  	<time datetime="2025-01-01T02:53:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-01-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      <!-- 
+        <blockquote>
+<p><a>该脚本允许您指定一个目录，它将重命名所有文件（默认行为），并可选择重命名子目录
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/01/Programming/Python%E8%84%9A%E6%9C%AC-rename-dirs-files/#more"> </a>
+        
+       -->
+      
+        <blockquote>
+<p><a>该脚本允许您指定一个目录，它将重命名所有文件（默认行为），并可选择重命名子目录
+        
+          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2025/01/01/Programming/Python%E8%84%9A%E6%9C%AC-rename-dirs-files/#more"> </a>
+          <!-- <a class="article-more-a" href="/2025/01/01/Programming/Python%E8%84%9A%E6%9C%AC-rename-dirs-files/#more">more >></a> -->
+        
+      
+
+ <!-- 添加版权声明 -->
+ 
+
+ <div class="declare" hidden="hidden"></div>
+
+     <!-- 添加版权声明 -->
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/" class="article-tag-list-link color2">Programming</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Programming/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2025/01/01/Programming/Python%E8%84%9A%E6%9C%AC-rename-dirs-files/">more >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-Programming/Python脚本-remove_line" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -439,905 +1319,9 @@
 
 
   
-    <article id="post-makefile/Makefile-findstring函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/12/28/makefile/Makefile-findstring%E5%87%BD%E6%95%B0/">Makefile-findstring函数</a>
-    </h1>
-  
-
-        
-        
-<a href="/2024/12/28/makefile/Makefile-findstring%E5%87%BD%E6%95%B0/" class="archive-article-date">
-  	<time datetime="2024-12-28T13:37:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      <!-- 
-        <blockquote>
-<p>Makefile的findstring内置函数。<a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/makefile/Makefile-findstring%E5%87%BD%E6%95%B0/#more"> </a>
-        
-       -->
-      
-        <blockquote>
-<p>Makefile的findstring内置函数。<a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/makefile/Makefile-findstring%E5%87%BD%E6%95%B0/#more"> </a>
-          <!-- <a class="article-more-a" href="/2024/12/28/makefile/Makefile-findstring%E5%87%BD%E6%95%B0/#more">more >></a> -->
-        
-      
-
- <!-- 添加版权声明 -->
- 
-
- <div class="declare" hidden="hidden"></div>
-
-     <!-- 添加版权声明 -->
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">makefile</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Makefile/" class="article-tag-list-link color4">Makefile</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/12/28/makefile/Makefile-findstring%E5%87%BD%E6%95%B0/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-makefile/Makefile-export关键字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/12/28/makefile/Makefile-export%E5%85%B3%E9%94%AE%E5%AD%97/">Makefile-export关键字</a>
-    </h1>
-  
-
-        
-        
-<a href="/2024/12/28/makefile/Makefile-export%E5%85%B3%E9%94%AE%E5%AD%97/" class="archive-article-date">
-  	<time datetime="2024-12-28T13:33:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      <!-- 
-        <blockquote>
-<p>Makefile的export关键字。<a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/makefile/Makefile-export%E5%85%B3%E9%94%AE%E5%AD%97/#more"> </a>
-        
-       -->
-      
-        <blockquote>
-<p>Makefile的export关键字。<a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/makefile/Makefile-export%E5%85%B3%E9%94%AE%E5%AD%97/#more"> </a>
-          <!-- <a class="article-more-a" href="/2024/12/28/makefile/Makefile-export%E5%85%B3%E9%94%AE%E5%AD%97/#more">more >></a> -->
-        
-      
-
- <!-- 添加版权声明 -->
- 
-
- <div class="declare" hidden="hidden"></div>
-
-     <!-- 添加版权声明 -->
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">makefile</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Makefile/" class="article-tag-list-link color4">Makefile</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/12/28/makefile/Makefile-export%E5%85%B3%E9%94%AE%E5%AD%97/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-makefile/Makefile-override关键字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/12/28/makefile/Makefile-override%E5%85%B3%E9%94%AE%E5%AD%97/">Makefile-override关键字</a>
-    </h1>
-  
-
-        
-        
-<a href="/2024/12/28/makefile/Makefile-override%E5%85%B3%E9%94%AE%E5%AD%97/" class="archive-article-date">
-  	<time datetime="2024-12-28T13:30:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      <!-- 
-        <blockquote>
-<p>Makefile的关键字override<a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/makefile/Makefile-override%E5%85%B3%E9%94%AE%E5%AD%97/#more"> </a>
-        
-       -->
-      
-        <blockquote>
-<p>Makefile的关键字override<a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/makefile/Makefile-override%E5%85%B3%E9%94%AE%E5%AD%97/#more"> </a>
-          <!-- <a class="article-more-a" href="/2024/12/28/makefile/Makefile-override%E5%85%B3%E9%94%AE%E5%AD%97/#more">more >></a> -->
-        
-      
-
- <!-- 添加版权声明 -->
- 
-
- <div class="declare" hidden="hidden"></div>
-
-     <!-- 添加版权声明 -->
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">makefile</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Makefile/" class="article-tag-list-link color4">Makefile</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/12/28/makefile/Makefile-override%E5%85%B3%E9%94%AE%E5%AD%97/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-DFI/DFI Spec-Glossary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/12/28/DFI/DFI%20Spec-Glossary/">DFI Spec-Glossary</a>
-    </h1>
-  
-
-        
-        
-<a href="/2024/12/28/DFI/DFI%20Spec-Glossary/" class="archive-article-date">
-  	<time datetime="2024-12-28T04:03:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      <!-- 
-        <blockquote>
-<p>DFI3.1协议的6.0， 词汇表，就是一些缩写和名词的解释 <a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Glossary/#more"> </a>
-        
-       -->
-      
-        <blockquote>
-<p>DFI3.1协议的6.0， 词汇表，就是一些缩写和名词的解释 <a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Glossary/#more"> </a>
-          <!-- <a class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Glossary/#more">more >></a> -->
-        
-      
-
- <!-- 添加版权声明 -->
- 
-
- <div class="declare" hidden="hidden"></div>
-
-     <!-- 添加版权声明 -->
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFI</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Glossary</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DFI/" class="article-tag-list-link color4">DFI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Glossary/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-DFI/DFI Spec-Frequency Ratios Across the DFI" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/12/28/DFI/DFI%20Spec-Frequency%20Ratios%20Across%20the%20DFI/">DFI Spec-Frequency Ratios Across the DFI</a>
-    </h1>
-  
-
-        
-        
-<a href="/2024/12/28/DFI/DFI%20Spec-Frequency%20Ratios%20Across%20the%20DFI/" class="archive-article-date">
-  	<time datetime="2024-12-28T03:20:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      <!-- 
-        <blockquote>
-<p>DFI3.1协议的4.8， 这段章节内容涉及DFI协议中的频率比率（Frequency Ratios），尤其是当MC（内存控制器）和PHY（物理层）使用不同频率时，DFI协议如何进行协调。DFI协议支持在不同频率下的信号传输，并且涉及多个方面的时序调整和信号同步。 <a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Frequency%20Ratios%20Across%20the%20DFI/#more"> </a>
-        
-       -->
-      
-        <blockquote>
-<p>DFI3.1协议的4.8， 这段章节内容涉及DFI协议中的频率比率（Frequency Ratios），尤其是当MC（内存控制器）和PHY（物理层）使用不同频率时，DFI协议如何进行协调。DFI协议支持在不同频率下的信号传输，并且涉及多个方面的时序调整和信号同步。 <a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Frequency%20Ratios%20Across%20the%20DFI/#more"> </a>
-          <!-- <a class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Frequency%20Ratios%20Across%20the%20DFI/#more">more >></a> -->
-        
-      
-
- <!-- 添加版权声明 -->
- 
-
- <div class="declare" hidden="hidden"></div>
-
-     <!-- 添加版权声明 -->
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFI</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Frequency Ratios</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DFI/" class="article-tag-list-link color4">DFI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Frequency%20Ratios%20Across%20the%20DFI/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-DFI/DFI Spec-Read Transactions" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/12/28/DFI/DFI%20Spec-Read%20Transactions/">DFI Spec-Read Transactions</a>
-    </h1>
-  
-
-        
-        
-<a href="/2024/12/28/DFI/DFI%20Spec-Read%20Transactions/" class="archive-article-date">
-  	<time datetime="2024-12-28T03:05:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      <!-- 
-        <blockquote>
-<p>DFI3.1协议的4.5， Read Transactions <a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Read%20Transactions/#more"> </a>
-        
-       -->
-      
-        <blockquote>
-<p>DFI3.1协议的4.5， Read Transactions <a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Read%20Transactions/#more"> </a>
-          <!-- <a class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Read%20Transactions/#more">more >></a> -->
-        
-      
-
- <!-- 添加版权声明 -->
- 
-
- <div class="declare" hidden="hidden"></div>
-
-     <!-- 添加版权声明 -->
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFI</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Read Transactions</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DFI/" class="article-tag-list-link color4">DFI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Read%20Transactions/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-DFI/DFI Spec-Write Transactions" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/12/28/DFI/DFI%20Spec-Write%20Transactions/">DFI Spec-Write Transactions</a>
-    </h1>
-  
-
-        
-        
-<a href="/2024/12/28/DFI/DFI%20Spec-Write%20Transactions/" class="archive-article-date">
-  	<time datetime="2024-12-28T02:04:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      <!-- 
-        <blockquote>
-<p>DFI3.1协议的4.4， Write Transactions <a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Write%20Transactions/#more"> </a>
-        
-       -->
-      
-        <blockquote>
-<p>DFI3.1协议的4.4， Write Transactions <a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Write%20Transactions/#more"> </a>
-          <!-- <a class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Write%20Transactions/#more">more >></a> -->
-        
-      
-
- <!-- 添加版权声明 -->
- 
-
- <div class="declare" hidden="hidden"></div>
-
-     <!-- 添加版权声明 -->
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFI</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Write Transactions</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DFI/" class="article-tag-list-link color4">DFI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Write%20Transactions/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-DFI/DFI Spec-Data Bus Inversion" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2024/12/28/DFI/DFI%20Spec-Data%20Bus%20Inversion/">DFI Spec-Data Bus Inversion</a>
-    </h1>
-  
-
-        
-        
-<a href="/2024/12/28/DFI/DFI%20Spec-Data%20Bus%20Inversion/" class="archive-article-date">
-  	<time datetime="2024-12-28T01:52:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      <!-- 
-        <blockquote>
-<p>DFI3.1协议的4.3， Data Bus Inversion (DBI) <a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Data%20Bus%20Inversion/#more"> </a>
-        
-       -->
-      
-        <blockquote>
-<p>DFI3.1协议的4.3， Data Bus Inversion (DBI) <a>
-        
-          <a style="color: rgb(47, 0, 255);" class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Data%20Bus%20Inversion/#more"> </a>
-          <!-- <a class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Data%20Bus%20Inversion/#more">more >></a> -->
-        
-      
-
- <!-- 添加版权声明 -->
- 
-
- <div class="declare" hidden="hidden"></div>
-
-     <!-- 添加版权声明 -->
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFI</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DBI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DFI/" class="article-tag-list-link color4">DFI</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2024/12/28/DFI/DFI%20Spec-Data%20Bus%20Inversion/">more >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -1465,23 +1449,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags" style="display: block;">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Shell</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1493,15 +1465,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">IC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1525,15 +1501,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">BIST</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DDR DFT</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">BIST</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DDL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1545,15 +1525,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Impedance Calibration</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">uMCTL2</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ECC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1565,15 +1545,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Glossary</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Frequency Ratios</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Read Transactions</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Glossary</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1585,7 +1565,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
+                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1593,11 +1573,27 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SystemVerilog</a>
+                <a href="javascript:void(0)" class="js-tag color4">VIP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1613,18 +1609,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">C++</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DMA</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
               </li>
              
@@ -1633,11 +1617,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SoC</a>
+                <a href="javascript:void(0)" class="js-tag color2">RISC-V</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">makefile</a>
+                <a href="javascript:void(0)" class="js-tag color4">SoC</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1650,6 +1634,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">IIC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">GPIO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">makefile</a>
               </li>
             
             <div class="clearfix"></div>
