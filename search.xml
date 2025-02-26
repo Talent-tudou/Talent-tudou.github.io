@@ -4,6 +4,114 @@
   
     
     <entry>
+      <title>gpio的ie和oe</title>
+      <link href="/2025/02/26/%E5%A4%96%E8%AE%BE/gpio%E7%9A%84ie%E5%92%8Coe/"/>
+      <url>/2025/02/26/%E5%A4%96%E8%AE%BE/gpio%E7%9A%84ie%E5%92%8Coe/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>同时使能输出（OE）和输入（IE）的风险分析<a><span id="more"></span></a></p></blockquote><h3 id="同时使能输出（OE）和输入（IE）的风险分析"><a href="#同时使能输出（OE）和输入（IE）的风险分析" class="headerlink" title="同时使能输出（OE）和输入（IE）的风险分析"></a><strong>同时使能输出（OE）和输入（IE）的风险分析</strong></h3><p>在数字电路中，同时使能输出使能（<strong>OE</strong>）和输入使能（<strong>IE</strong>）可能导致信号冲突或硬件损坏，具体风险取决于输出模式（推挽或开漏）及外部电路设计。</p><hr><h4 id="1-推挽输出模式下的风险"><a href="#1-推挽输出模式下的风险" class="headerlink" title="1. 推挽输出模式下的风险"></a><strong>1. 推挽输出模式下的风险</strong></h4><h5 id="1-1-信号冲突"><a href="#1-1-信号冲突" class="headerlink" title="1.1 信号冲突"></a><strong>1.1 信号冲突</strong></h5><ul><li><strong>场景</strong>：<br>当输出使能（OE）和输入使能（IE）同时打开时，引脚既驱动输出信号，又尝试读取外部信号。</li><li><strong>风险</strong>：<ul><li>若外部设备也在驱动同一总线，推挽输出的强驱动（PMOS&#x2F;NMOS）可能与外部信号电平冲突，导致<strong>总线竞争</strong>。</li><li>例如：<ul><li>内部输出高电平（PMOS导通），外部设备输出低电平 → 形成 <strong>VDD → PMOS → 外部NMOS → GND</strong> 的低阻抗路径，产生大电流（短路）。</li></ul></li></ul></li></ul><h5 id="1-2-电流倒灌"><a href="#1-2-电流倒灌" class="headerlink" title="1.2 电流倒灌"></a><strong>1.2 电流倒灌</strong></h5><ul><li><strong>风险</strong>：<ul><li>若输出电平与外部输入电平不一致，电流可能通过PMOS&#x2F;NMOS反向流入芯片电源或地，导致芯片内部电路损坏（如闩锁效应）。</li></ul></li></ul><h5 id="1-3-典型损坏场景"><a href="#1-3-典型损坏场景" class="headerlink" title="1.3 典型损坏场景"></a><strong>1.3 典型损坏场景</strong></h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MCU1（推挽输出高） ↔ MCU2（推挽输出低）</span><br><span class="line">       ↑同时使能OE和IE</span><br><span class="line">       ↓</span><br><span class="line">短路电流路径：VDD → PMOS（MCU1）→ NMOS（MCU2）→ GND</span><br></pre></td></tr></table></figure><hr><h4 id="2-开漏输出模式下的风险"><a href="#2-开漏输出模式下的风险" class="headerlink" title="2. 开漏输出模式下的风险"></a><strong>2. 开漏输出模式下的风险</strong></h4><h5 id="2-1-信号电平不稳定"><a href="#2-1-信号电平不稳定" class="headerlink" title="2.1 信号电平不稳定"></a><strong>2.1 信号电平不稳定</strong></h5><ul><li><strong>场景</strong>：<br>开漏输出模式下，OE使能时，引脚只能拉低电平；高电平依赖外部上拉电阻。</li><li><strong>风险</strong>：<ul><li>若同时使能IE，输入缓冲器可能读取到不稳定的中间电平（尤其是在总线竞争时）。</li><li>但开漏输出的“线与”特性天然支持多设备共享总线，冲突风险较低。</li></ul></li></ul><h5 id="2-2-潜在问题"><a href="#2-2-潜在问题" class="headerlink" title="2.2 潜在问题"></a><strong>2.2 潜在问题</strong></h5><ul><li><strong>电流消耗</strong>：<ul><li>若多个开漏输出同时拉低总线，上拉电阻会持续消耗电流（但通常较小，可接受）。</li></ul></li><li><strong>逻辑错误</strong>：<ul><li>若输出和输入同时使能，软件可能误判总线状态（如自身拉低时误读为外部设备拉低）。</li></ul></li></ul><hr><h4 id="3-风险对比总结"><a href="#3-风险对比总结" class="headerlink" title="3. 风险对比总结"></a><strong>3. 风险对比总结</strong></h4><table><thead><tr><th><strong>输出模式</strong></th><th><strong>主要风险</strong></th><th><strong>严重性</strong></th></tr></thead><tbody><tr><td>推挽输出</td><td>短路电流、器件损坏</td><td>高🔥</td></tr><tr><td>开漏输出</td><td>逻辑错误、功耗增加</td><td>低⚠️</td></tr></tbody></table><hr><h4 id="4-为何有些设计允许同时使能OE和IE？"><a href="#4-为何有些设计允许同时使能OE和IE？" class="headerlink" title="4. 为何有些设计允许同时使能OE和IE？"></a><strong>4. 为何有些设计允许同时使能OE和IE？</strong></h4><p>某些场景下，这种设计可能是合理的，但需满足以下条件：</p><p><strong>1. 开漏模式+外部上拉</strong>：</p><ul><li>用于I2C等总线，依赖“线与”逻辑避免短路（所有设备只能拉低，不能主动拉高）。</li></ul><p><strong>2. 严格时序控制</strong>：</p><ul><li>在切换输入&#x2F;输出方向时，短暂重叠OE和IE以避免信号浮空（需硬件&#x2F;软件保证重叠时间极短）。</li></ul><p><strong>3. 保护措施</strong>：</p><ul><li>添加串联电阻限制电流（如22Ω~100Ω），防止推挽模式下的短路电流。</li></ul><hr><h4 id="5-对现有设计的建议"><a href="#5-对现有设计的建议" class="headerlink" title="5. 对现有设计的建议"></a><strong>5. 对现有设计的建议</strong></h4><p><strong>1. 推挽输出模式</strong>：</p><ul><li><strong>禁止同时使能OE和IE</strong>，除非添加电流限制电阻并验证无总线竞争。</li></ul><p><strong>2. 开漏输出模式</strong>：</p><ul><li>允许同时使能OE和IE，但需确保外部上拉电阻存在，并避免逻辑冲突。</li></ul><p><strong>3. 通用检查项</strong>：</p><ul><li>使用逻辑分析仪监测总线电平，确认无异常脉冲或电流。</li><li>在PCB布局中，为推挽输出引脚增加保护电阻（如33Ω）。</li></ul><hr><h4 id="6-实际案例参考"><a href="#6-实际案例参考" class="headerlink" title="6. 实际案例参考"></a><strong>6. 实际案例参考</strong></h4><ul><li><strong>I2C总线</strong>：开漏输出，OE和IE可同时使能（SCL&#x2F;SDA由主从设备动态控制方向）。</li><li><strong>SPI从设备</strong>：推挽输出，OE和IE必须分时控制（输入时关闭输出）。</li></ul><hr><h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a><strong>结论</strong></h3><ul><li><strong>推挽输出同时使能OE和IE风险极高</strong>，需严格避免（除非有保护措施）。</li><li><strong>开漏输出可容忍OE和IE同时使能</strong>，但需依赖外部上拉和协议协调。</li><li><strong>建议</strong>：检查现有设计是否在推挽模式下滥用OE&#x2F;IE，并评估是否需要增加硬件保护或修改控制逻辑。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> DV </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> GPIO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>IIC的开漏输出</title>
+      <link href="/2025/02/26/%E5%A4%96%E8%AE%BE/IIC%E7%9A%84%E5%BC%80%E6%BC%8F%E8%BE%93%E5%87%BA/"/>
+      <url>/2025/02/26/%E5%A4%96%E8%AE%BE/IIC%E7%9A%84%E5%BC%80%E6%BC%8F%E8%BE%93%E5%87%BA/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>IIC为什么选择开漏输出。<a><span id="more"></span></a></p></blockquote><h3 id="为什么推挽输出在I2C总线上会导致短路？"><a href="#为什么推挽输出在I2C总线上会导致短路？" class="headerlink" title="为什么推挽输出在I2C总线上会导致短路？"></a><strong>为什么推挽输出在I2C总线上会导致短路？</strong></h3><h4 id="1-推挽输出的电路特性"><a href="#1-推挽输出的电路特性" class="headerlink" title="1. 推挽输出的电路特性"></a><strong>1. 推挽输出的电路特性</strong></h4><p>推挽输出由一对互补的MOS管（PMOS和NMOS）组成：</p><ul><li><strong>PMOS</strong>：连接电源（VCC），负责拉高电平。</li><li><strong>NMOS</strong>：连接地（GND），负责拉低电平。</li><li><strong>工作方式</strong>：<ul><li>输出高电平时，PMOS导通，NMOS关闭 → 引脚直接连接到VCC。</li><li>输出低电平时，NMOS导通，PMOS关闭 → 引脚直接连接到GND。</li></ul></li></ul><p><img src="https://s2.loli.net/2025/02/26/dTf7gZUPtLOFYbh.png" alt="推挽输出"></p><hr><h4 id="2-I2C总线的多主设备场景"><a href="#2-I2C总线的多主设备场景" class="headerlink" title="2. I2C总线的多主设备场景"></a><strong>2. I2C总线的多主设备场景</strong></h4><p>I2C总线允许多个主设备（如两个MCU）共享同一组信号线（SDA和SCL）。<br><strong>理想情况</strong>：所有设备应通过“线与”逻辑协调总线访问。<br><strong>关键规则</strong>：任何设备都可以拉低总线，但只有通过仲裁的设备才能控制总线。</p><hr><h4 id="3-推挽输出的致命问题"><a href="#3-推挽输出的致命问题" class="headerlink" title="3. 推挽输出的致命问题"></a><strong>3. 推挽输出的致命问题</strong></h4><p>假设两个主设备（MCU1和MCU2）使用推挽输出连接到I2C总线：</p><ul><li><p><strong>场景</strong>：</p><ul><li>MCU1尝试发送高电平（PMOS导通，引脚连接VCC）。</li><li>MCU2尝试发送低电平（NMOS导通，引脚连接GND）。</li></ul></li><li><p><strong>结果</strong>：</p><ul><li>MCU1的PMOS和MCU2的NMOS同时导通。</li><li>形成<strong>VCC → PMOS（MCU1）→ NMOS（MCU2）→ GND</strong>的低阻抗路径。</li><li>产生大电流（短路电流），可能烧毁MOS管或损坏设备。</li></ul></li></ul><hr><h4 id="4-对比开漏输出的安全性"><a href="#4-对比开漏输出的安全性" class="headerlink" title="4. 对比开漏输出的安全性"></a><strong>4. 对比开漏输出的安全性</strong></h4><p>开漏输出仅包含一个NMOS管：</p><ul><li><strong>输出低电平</strong>：NMOS导通，引脚接地。</li><li><strong>输出高电平</strong>：NMOS关闭，引脚通过外部上拉电阻（如4.7kΩ）拉高。</li></ul><p><strong>多主设备场景</strong>：</p><ul><li>所有设备默认输出高电平（NMOS关闭，总线由上拉电阻拉高）。</li><li>任一设备拉低总线时，其他设备即使输出高电平，也不会导通PMOS，因此<strong>不会形成短路</strong>。</li></ul><hr><h4 id="5-关键结论"><a href="#5-关键结论" class="headerlink" title="5. 关键结论"></a><strong>5. 关键结论</strong></h4><ul><li><p><strong>推挽输出的风险</strong>：<br>多个设备同时驱动总线时，可能形成<strong>VCC到GND的直接通路</strong>，导致短路电流（仅受MOS管导通电阻限制，电流可达安培级）。</p></li><li><p><strong>开漏输出的优势</strong>：<br>所有设备只能拉低总线，高电平由外部上拉电阻提供，从根本上避免了短路风险。</p></li></ul><hr><h4 id="6-实际案例"><a href="#6-实际案例" class="headerlink" title="6. 实际案例"></a><strong>6. 实际案例</strong></h4><p><strong>错误设计</strong>：<br>某工程师将I2C总线的SDA线配置为推挽输出，两个MCU同时尝试控制总线。<br><strong>结果</strong>：<br>MCU的IO引脚烧毁，总线电压异常，通信失败。</p><p><strong>正确设计</strong>：<br>使用开漏输出+上拉电阻，多个设备可安全共享总线。</p><hr><h4 id="7-总结"><a href="#7-总结" class="headerlink" title="7. 总结"></a><strong>7. 总结</strong></h4><ul><li><strong>I2C必须使用开漏输出</strong>：避免多设备竞争时的短路风险。</li><li><strong>推挽输出仅适用于独占式信号</strong>（如SPI、UART），不能用于共享总线。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> DV </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> IIC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>SPI模块</title>
+      <link href="/2025/02/26/%E5%A4%96%E8%AE%BE/SPI%E6%A8%A1%E5%9D%97/"/>
+      <url>/2025/02/26/%E5%A4%96%E8%AE%BE/SPI%E6%A8%A1%E5%9D%97/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p> SPI模块介绍。<a><span id="more"></span></a></p></blockquote><h3 id="SPI协议详解与STM32配置指南"><a href="#SPI协议详解与STM32配置指南" class="headerlink" title="SPI协议详解与STM32配置指南"></a><strong>SPI协议详解与STM32配置指南</strong></h3><hr><h4 id="1-SPI协议基础"><a href="#1-SPI协议基础" class="headerlink" title="1. SPI协议基础"></a><strong>1. SPI协议基础</strong></h4><p><strong>SPI（Serial Peripheral Interface）</strong> 是一种<strong>同步、全双工</strong>的串行通信协议，常用于微控制器与外围设备（如传感器、存储器、显示屏等）之间的高速数据传输。</p><hr><h4 id="2-SPI-vs-UART-核心区别"><a href="#2-SPI-vs-UART-核心区别" class="headerlink" title="2. SPI vs UART 核心区别"></a><strong>2. SPI vs UART 核心区别</strong></h4><table><thead><tr><th>特性</th><th>SPI</th><th>UART</th></tr></thead><tbody><tr><td><strong>通信方式</strong></td><td>同步（需时钟信号）</td><td>异步（无需时钟）</td></tr><tr><td><strong>全双工</strong></td><td>支持同时发送和接收</td><td>通常半双工</td></tr><tr><td><strong>信号线</strong></td><td>4根（SCK, MOSI, MISO, CS）</td><td>2根（TX, RX）</td></tr><tr><td><strong>拓扑结构</strong></td><td>主从结构，一主多从</td><td>点对点</td></tr><tr><td><strong>速度</strong></td><td>高速（可达数十MHz）</td><td>较低速（通常&lt;1Mbps）</td></tr></tbody></table><hr><h4 id="3-SPI硬件连接与信号线"><a href="#3-SPI硬件连接与信号线" class="headerlink" title="3. SPI硬件连接与信号线"></a><strong>3. SPI硬件连接与信号线</strong></h4><ul><li><strong>SCK（Serial Clock）</strong>：主设备输出的时钟信号，同步数据传输。</li><li><strong>MOSI（Master Out Slave In）</strong>：主设备发送数据到从设备的线路。</li><li><strong>MISO（Master In Slave Out）</strong>：从设备发送数据到主设备的线路。</li><li><strong>CS&#x2F;SS（Chip Select）</strong>：主设备控制从设备片选的信号（低电平有效）。</li></ul><p><img src="https://s2.loli.net/2025/02/26/v2rGCiE4TPyQqZF.png" alt="SPI连接示意图"></p><hr><h4 id="4-SPI关键配置参数"><a href="#4-SPI关键配置参数" class="headerlink" title="4. SPI关键配置参数"></a><strong>4. SPI关键配置参数</strong></h4><h5 id="4-1-时钟极性（CPOL）与相位（CPHA）"><a href="#4-1-时钟极性（CPOL）与相位（CPHA）" class="headerlink" title="4.1 时钟极性（CPOL）与相位（CPHA）"></a><strong>4.1 时钟极性（CPOL）与相位（CPHA）</strong></h5><ul><li><p><strong>CPOL（Clock Polarity）</strong>：决定SCK空闲时的电平。</p><ul><li><strong>CPOL&#x3D;0</strong>：空闲时SCK为低电平。</li><li><strong>CPOL&#x3D;1</strong>：空闲时SCK为高电平。</li></ul></li><li><p><strong>CPHA（Clock Phase）</strong>：决定数据采样的时刻。</p><ul><li><strong>CPHA&#x3D;0</strong>：数据在SCK的第一个边沿（上升或下降）采样。</li><li><strong>CPHA&#x3D;1</strong>：数据在SCK的第二个边沿采样。</li></ul></li></ul><p><strong>四种模式组合</strong>：</p><table><thead><tr><th>模式</th><th>CPOL</th><th>CPHA</th><th>数据采样边沿</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td><td>SCK上升沿采样</td></tr><tr><td>1</td><td>0</td><td>1</td><td>SCK下降沿采样</td></tr><tr><td>2</td><td>1</td><td>0</td><td>SCK下降沿采样</td></tr><tr><td>3</td><td>1</td><td>1</td><td>SCK上升沿采样</td></tr></tbody></table><p><img src="https://s2.loli.net/2025/02/26/rYebRlcTyBPtGV7.png" alt="SPI模式时序图"></p><h5 id="4-2-数据帧格式"><a href="#4-2-数据帧格式" class="headerlink" title="4.2 数据帧格式"></a><strong>4.2 数据帧格式</strong></h5><ul><li><strong>数据位长度</strong>：通常为8位或16位，STM32支持4-16位可配置。</li><li><strong>传输顺序</strong>：MSB（高位在前）或LSB（低位在前）。</li></ul><h5 id="4-3-传输模式"><a href="#4-3-传输模式" class="headerlink" title="4.3 传输模式"></a><strong>4.3 传输模式</strong></h5><ul><li><strong>主模式（Master）</strong>：生成SCK时钟，控制数据传输。</li><li><strong>从模式（Slave）</strong>：响应主设备的SCK，被动传输数据。</li></ul><hr><h4 id="5-STM32-SPI寄存器详解"><a href="#5-STM32-SPI寄存器详解" class="headerlink" title="5. STM32 SPI寄存器详解"></a><strong>5. STM32 SPI寄存器详解</strong></h4><p>以STM32F103为例，关键寄存器如下：</p><h5 id="5-1-SPI控制寄存器1（SPI-CR1）"><a href="#5-1-SPI控制寄存器1（SPI-CR1）" class="headerlink" title="5.1 SPI控制寄存器1（SPI_CR1）"></a><strong>5.1 SPI控制寄存器1（SPI_CR1）</strong></h5><table><thead><tr><th>位域</th><th>功能</th></tr></thead><tbody><tr><td>DFF</td><td>数据帧格式：0&#x3D;8位，1&#x3D;16位</td></tr><tr><td>LSBFIRST</td><td>传输顺序：0&#x3D;MSB，1&#x3D;LSB</td></tr><tr><td>MSTR</td><td>主从模式：1&#x3D;主模式，0&#x3D;从模式</td></tr><tr><td>CPOL</td><td>时钟极性</td></tr><tr><td>CPHA</td><td>时钟相位</td></tr><tr><td>BR[2:0]</td><td>波特率分频系数（见下表）</td></tr><tr><td>SPE</td><td>SPI使能：1&#x3D;启用</td></tr></tbody></table><p><strong>波特率分频系数（BR[2:0]）</strong>：</p><table><thead><tr><th>BR值</th><th>分频系数</th><th>波特率（假设APB2&#x3D;72MHz）</th></tr></thead><tbody><tr><td>000</td><td>2</td><td>36 MHz</td></tr><tr><td>001</td><td>4</td><td>18 MHz</td></tr><tr><td>010</td><td>8</td><td>9 MHz</td></tr><tr><td>011</td><td>16</td><td>4.5 MHz</td></tr><tr><td>100</td><td>32</td><td>2.25 MHz</td></tr><tr><td>101</td><td>64</td><td>1.125 MHz</td></tr><tr><td>110</td><td>128</td><td>562.5 kHz</td></tr><tr><td>111</td><td>256</td><td>281.25 kHz</td></tr></tbody></table><h5 id="5-2-SPI控制寄存器2（SPI-CR2）"><a href="#5-2-SPI控制寄存器2（SPI-CR2）" class="headerlink" title="5.2 SPI控制寄存器2（SPI_CR2）"></a><strong>5.2 SPI控制寄存器2（SPI_CR2）</strong></h5><table><thead><tr><th>位域</th><th>功能</th></tr></thead><tbody><tr><td>SSOE</td><td>从设备选择输出使能（主模式）</td></tr><tr><td>TXEIE</td><td>发送缓冲区空中断使能</td></tr><tr><td>RXNEIE</td><td>接收缓冲区非空中断使能</td></tr></tbody></table><h5 id="5-3-SPI状态寄存器（SPI-SR）"><a href="#5-3-SPI状态寄存器（SPI-SR）" class="headerlink" title="5.3 SPI状态寄存器（SPI_SR）"></a><strong>5.3 SPI状态寄存器（SPI_SR）</strong></h5><table><thead><tr><th>位域</th><th>功能</th></tr></thead><tbody><tr><td>RXNE</td><td>接收缓冲区非空（数据可读）</td></tr><tr><td>TXE</td><td>发送缓冲区空（可写入新数据）</td></tr><tr><td>BSY</td><td>总线忙标志（传输中）</td></tr></tbody></table><h5 id="5-4-SPI数据寄存器（SPI-DR）"><a href="#5-4-SPI数据寄存器（SPI-DR）" class="headerlink" title="5.4 SPI数据寄存器（SPI_DR）"></a><strong>5.4 SPI数据寄存器（SPI_DR）</strong></h5><ul><li>写入数据时启动发送，读取时获取接收数据。</li></ul><hr><h4 id="6-STM32-SPI配置步骤（主模式示例）"><a href="#6-STM32-SPI配置步骤（主模式示例）" class="headerlink" title="6. STM32 SPI配置步骤（主模式示例）"></a><strong>6. STM32 SPI配置步骤（主模式示例）</strong></h4><p><strong>目标</strong>：配置SPI1为主模式，CPOL&#x3D;0，CPHA&#x3D;0，8位数据，波特率18MHz（APB2&#x3D;72MHz）。</p><p><strong>1. 使能时钟</strong>：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);</span><br></pre></td></tr></table></figure><p><strong>2. 配置GPIO</strong>（以PA5&#x3D;SCK, PA7&#x3D;MOSI, PA6&#x3D;MISO）：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GPIO_InitTypeDef GPIO_InitStruct;</span><br><span class="line">GPIO_InitStruct.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_7 | GPIO_Pin_6;</span><br><span class="line">GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;  <span class="comment">// 复用推挽输出</span></span><br><span class="line">GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;</span><br><span class="line">GPIO_Init(GPIOA, &amp;GPIO_InitStruct);</span><br></pre></td></tr></table></figure><p><strong>3. 配置SPI_CR1</strong>：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SPI_InitTypeDef SPI_InitStruct;</span><br><span class="line">SPI_InitStruct.SPI_Direction = SPI_Direction_2Lines_FullDuplex;</span><br><span class="line">SPI_InitStruct.SPI_Mode = SPI_Mode_Master;</span><br><span class="line">SPI_InitStruct.SPI_DataSize = SPI_DataSize_8b;</span><br><span class="line">SPI_InitStruct.SPI_CPOL = SPI_CPOL_Low;</span><br><span class="line">SPI_InitStruct.SPI_CPHA = SPI_CPHA_1Edge;</span><br><span class="line">SPI_InitStruct.SPI_NSS = SPI_NSS_Soft;  <span class="comment">// 软件控制片选</span></span><br><span class="line">SPI_InitStruct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_4; <span class="comment">// 72MHz/4=18MHz</span></span><br><span class="line">SPI_InitStruct.SPI_FirstBit = SPI_FirstBit_MSB;</span><br><span class="line">SPI_Init(SPI1, &amp;SPI_InitStruct);</span><br></pre></td></tr></table></figure><p><strong>4. 使能SPI</strong>：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SPI_Cmd(SPI1, ENABLE);</span><br></pre></td></tr></table></figure><hr><h4 id="7-SPI数据传输流程（轮询方式）"><a href="#7-SPI数据传输流程（轮询方式）" class="headerlink" title="7. SPI数据传输流程（轮询方式）"></a><strong>7. SPI数据传输流程（轮询方式）</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 拉低片选信号（假设CS引脚为PA4）</span></span><br><span class="line">GPIO_ResetBits(GPIOA, GPIO_Pin_4);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送数据</span></span><br><span class="line"><span class="type">uint8_t</span> tx_data = <span class="number">0x55</span>;</span><br><span class="line">SPI_I2S_SendData(SPI1, tx_data);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等待发送完成</span></span><br><span class="line"><span class="keyword">while</span> (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等待接收数据</span></span><br><span class="line"><span class="keyword">while</span> (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == RESET);</span><br><span class="line"><span class="type">uint8_t</span> rx_data = SPI_I2S_ReceiveData(SPI1);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 拉高片选信号</span></span><br><span class="line">GPIO_SetBits(GPIOA, GPIO_Pin_4);</span><br></pre></td></tr></table></figure><hr><h4 id="8-验证SPI配置的关键点"><a href="#8-验证SPI配置的关键点" class="headerlink" title="8. 验证SPI配置的关键点"></a><strong>8. 验证SPI配置的关键点</strong></h4><p><strong>1. 信号测量</strong>：</p><ul><li>使用逻辑分析仪或示波器检查SCK、MOSI、MISO波形。</li><li>确认SCK频率是否符合预期（如18MHz）。</li><li>检查CPOL和CPHA是否与从设备匹配。</li></ul><p><strong>2. 回环测试</strong>：</p><ul><li>将MOSI与MISO短接，发送数据并验证接收是否一致。</li></ul><p><strong>3. 错误处理</strong>：</p><ul><li>监控<code>SPI_SR</code>中的错误标志（如<code>OVR</code>溢出错误）。</li></ul><hr><h4 id="9-常见问题与解决"><a href="#9-常见问题与解决" class="headerlink" title="9. 常见问题与解决"></a><strong>9. 常见问题与解决</strong></h4><ul><li><p><strong>问题</strong>：SPI无输出信号。<br><strong>解决</strong>：检查SPI是否使能（SPE&#x3D;1），GPIO是否配置为复用模式。</p></li><li><p><strong>问题</strong>：数据错位或错误。<br><strong>解决</strong>：确认CPOL&#x2F;CPHA设置，检查时钟分频和数据位顺序。</p></li><li><p><strong>问题</strong>：从设备无响应。<br><strong>解决</strong>：验证片选信号（CS）是否有效，硬件连接是否正常。</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> DV </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> SPI </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>uart模块</title>
+      <link href="/2025/02/26/%E5%A4%96%E8%AE%BE/uart%E6%A8%A1%E5%9D%97/"/>
+      <url>/2025/02/26/%E5%A4%96%E8%AE%BE/uart%E6%A8%A1%E5%9D%97/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p> uart模块介绍。<a><span id="more"></span></a></p></blockquote><h3 id="一、UART协议核心要点"><a href="#一、UART协议核心要点" class="headerlink" title="一、UART协议核心要点"></a><strong>一、UART协议核心要点</strong></h3><h4 id="1-基本特性"><a href="#1-基本特性" class="headerlink" title="1. 基本特性"></a>1. <strong>基本特性</strong></h4><ul><li><strong>异步串行通信</strong>：无时钟信号，依赖双方预定义的波特率</li><li><strong>全双工</strong>：TX（发送）和RX（接收）独立通道</li><li><strong>数据帧结构</strong>：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">| 起始位 | 数据位（5-9位） | 校验位（可选） | 停止位（1/1.5/2位） |</span><br></pre></td></tr></table></figure><ul><li><strong>起始位</strong>：1位低电平</li><li><strong>数据位</strong>：通常8位（LSB先发）</li><li><strong>校验位</strong>：奇偶校验（可选）</li><li><strong>停止位</strong>：高电平，标志帧结束</li></ul></li></ul><h4 id="2-关键参数"><a href="#2-关键参数" class="headerlink" title="2. 关键参数"></a>2. <strong>关键参数</strong></h4><ul><li><strong>波特率</strong>：需双方一致（如115200 bps）</li><li><strong>数据格式</strong>：数据位长度、停止位数量、校验类型</li></ul><hr><h3 id="二、STM32F103-UART模块关键点"><a href="#二、STM32F103-UART模块关键点" class="headerlink" title="二、STM32F103 UART模块关键点"></a><strong>二、STM32F103 UART模块关键点</strong></h3><h4 id="1-模块类型"><a href="#1-模块类型" class="headerlink" title="1. 模块类型"></a>1. <strong>模块类型</strong></h4><ul><li><strong>USART</strong>：支持同步&#x2F;异步模式（UART是子集）</li><li><strong>UART</strong>：仅异步模式（STM32F103的USART可配置为UART模式）</li></ul><h4 id="2-核心寄存器"><a href="#2-核心寄存器" class="headerlink" title="2. 核心寄存器"></a>2. <strong>核心寄存器</strong></h4><p>以下是需要配置的主要寄存器（以USART1为例）：</p><table><thead><tr><th>寄存器</th><th>功能描述</th><th>关键配置位</th></tr></thead><tbody><tr><td><strong>USART_CR1</strong></td><td>控制寄存器1</td><td><code>UE</code>（使能模块）、<code>M</code>（数据位长度）、<code>PCE</code>（校验使能）、<code>TE</code>&#x2F;<code>RE</code>（发送&#x2F;接收使能）</td></tr><tr><td><strong>USART_CR2</strong></td><td>控制寄存器2</td><td><code>STOP</code>（停止位长度）</td></tr><tr><td><strong>USART_CR3</strong></td><td>控制寄存器3</td><td><code>DMAT</code>&#x2F;<code>DMAR</code>（DMA使能）</td></tr><tr><td><strong>USART_BRR</strong></td><td>波特率寄存器</td><td>写入波特率分频值</td></tr><tr><td><strong>USART_SR</strong></td><td>状态寄存器</td><td><code>TXE</code>（发送寄存器空）、<code>RXNE</code>（接收寄存器非空）、错误标志（如<code>FE</code>, <code>ORE</code>）</td></tr><tr><td><strong>USART_DR</strong></td><td>数据寄存器</td><td>读写发送&#x2F;接收的数据</td></tr></tbody></table><hr><h3 id="三、配置步骤（以115200bps-8N1为例）"><a href="#三、配置步骤（以115200bps-8N1为例）" class="headerlink" title="三、配置步骤（以115200bps, 8N1为例）"></a><strong>三、配置步骤（以115200bps, 8N1为例）</strong></h3><h4 id="1-使能时钟"><a href="#1-使能时钟" class="headerlink" title="1. 使能时钟"></a>1. <strong>使能时钟</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RCC_APB2ENR |= (<span class="number">1</span> &lt;&lt; <span class="number">14</span>);  <span class="comment">// 使能USART1时钟（APB2总线）</span></span><br><span class="line">RCC_APB2ENR |= (<span class="number">1</span> &lt;&lt; <span class="number">2</span>);   <span class="comment">// 使能GPIOA时钟（假设使用PA9-TX, PA10-RX）</span></span><br></pre></td></tr></table></figure><h4 id="2-配置GPIO"><a href="#2-配置GPIO" class="headerlink" title="2. 配置GPIO"></a>2. <strong>配置GPIO</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PA9为复用推挽输出（TX）</span></span><br><span class="line">GPIOA_CRH &amp;= ~(<span class="number">0xF</span> &lt;&lt; <span class="number">4</span>);   <span class="comment">// 清除PA9配置</span></span><br><span class="line">GPIOA_CRH |= (<span class="number">0xB</span> &lt;&lt; <span class="number">4</span>);    <span class="comment">// 复用推挽输出，50MHz</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// PA10为浮空输入（RX）</span></span><br><span class="line">GPIOA_CRH &amp;= ~(<span class="number">0xF</span> &lt;&lt; <span class="number">8</span>);</span><br><span class="line">GPIOA_CRH |= (<span class="number">0x4</span> &lt;&lt; <span class="number">8</span>);    <span class="comment">// 浮空输入</span></span><br></pre></td></tr></table></figure><h4 id="3-配置波特率（BRR寄存器）"><a href="#3-配置波特率（BRR寄存器）" class="headerlink" title="3. 配置波特率（BRR寄存器）"></a>3. <strong>配置波特率（BRR寄存器）</strong></h4><ul><li><strong>公式</strong>(16倍过采样来过滤毛刺)：<br>$$<br>\text{BRR} &#x3D; \frac{f_{\text{PCLK}}}{16 \times \text{BaudRate}}<br>$$<br>假设APB2时钟为72MHz：<br>$$<br>\text{BRR} &#x3D; 72000000 &#x2F; (16 * 115200) &#x3D; 39.0625<br>$$<br>写入<code>BRR</code>：整数部分39（0x27），小数部分0.0625×16&#x3D;1 → <code>BRR = 0x271</code></li></ul><h4 id="4-配置数据格式（CR1-CR2）"><a href="#4-配置数据格式（CR1-CR2）" class="headerlink" title="4. 配置数据格式（CR1&#x2F;CR2）"></a>4. <strong>配置数据格式（CR1&#x2F;CR2）</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">USART1_CR1 = <span class="number">0</span>;</span><br><span class="line">USART1_CR1 |= (<span class="number">1</span> &lt;&lt; <span class="number">13</span>);     <span class="comment">// UE = 1（使能模块）</span></span><br><span class="line">USART1_CR1 &amp;= ~(<span class="number">1</span> &lt;&lt; <span class="number">12</span>);    <span class="comment">// M=0（8位数据）</span></span><br><span class="line">USART1_CR1 &amp;= ~(<span class="number">1</span> &lt;&lt; <span class="number">10</span>);    <span class="comment">// PCE=0（无校验）</span></span><br><span class="line"></span><br><span class="line">USART1_CR2 &amp;= ~(<span class="number">3</span> &lt;&lt; <span class="number">12</span>);    <span class="comment">// STOP=00（1位停止位）</span></span><br></pre></td></tr></table></figure><h4 id="5-使能发送-接收"><a href="#5-使能发送-接收" class="headerlink" title="5. 使能发送&#x2F;接收"></a>5. <strong>使能发送&#x2F;接收</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">USART1_CR1 |= (<span class="number">1</span> &lt;&lt; <span class="number">3</span>);      <span class="comment">// TE = 1（使能发送）</span></span><br><span class="line">USART1_CR1 |= (<span class="number">1</span> &lt;&lt; <span class="number">2</span>);      <span class="comment">// RE = 1（使能接收）</span></span><br></pre></td></tr></table></figure><hr><h3 id="四、数据收发操作"><a href="#四、数据收发操作" class="headerlink" title="四、数据收发操作"></a><strong>四、数据收发操作</strong></h3><h4 id="1-发送数据"><a href="#1-发送数据" class="headerlink" title="1. 发送数据"></a>1. <strong>发送数据</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (!(USART1_SR &amp; (<span class="number">1</span> &lt;&lt; <span class="number">7</span>)));  <span class="comment">// 等待TXE标志置1</span></span><br><span class="line">USART1_DR = data;                 <span class="comment">// 写入数据到DR寄存器</span></span><br></pre></td></tr></table></figure><h4 id="2-接收数据"><a href="#2-接收数据" class="headerlink" title="2. 接收数据"></a>2. <strong>接收数据</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (USART1_SR &amp; (<span class="number">1</span> &lt;&lt; <span class="number">5</span>)) &#123;       <span class="comment">// 检查RXNE标志</span></span><br><span class="line">    data = USART1_DR;             <span class="comment">// 读取数据</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h3 id="五、验证关注点"><a href="#五、验证关注点" class="headerlink" title="五、验证关注点"></a><strong>五、验证关注点</strong></h3><ol><li><strong>波特率误差</strong>：计算BRR时的分频值是否精确。</li><li><strong>帧错误</strong>：检查<code>USART_SR</code>中的<code>FE</code>位。</li><li><strong>溢出错误</strong>：检查<code>ORE</code>位（接收溢出）。</li><li><strong>中断&#x2F;DMA</strong>：若使用中断，需配置NVIC和<code>USART_CR1</code>中的<code>RXNEIE</code>&#x2F;<code>TXEIE</code>。</li></ol><hr><h3 id="六、常见问题"><a href="#六、常见问题" class="headerlink" title="六、常见问题"></a><strong>六、常见问题</strong></h3><ul><li><strong>时钟未使能</strong>：配置寄存器前需通过RCC使能USART和GPIO时钟。</li><li><strong>波特率不匹配</strong>：确认APB时钟频率和BRR计算。</li><li><strong>GPIO模式错误</strong>：TX需配置为复用推挽输出，RX为浮空输入。</li></ul><p>如果需要更深入的代码示例或特定场景验证方法，可以进一步讨论！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> DV </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> UART </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>timer的referen model(SV)</title>
       <link href="/2025/02/23/%E5%A4%96%E8%AE%BE/timer%E7%9A%84referen%20model(SV)/"/>
       <url>/2025/02/23/%E5%A4%96%E8%AE%BE/timer%E7%9A%84referen%20model(SV)/</url>
@@ -313,9 +421,9 @@
             
             <tag> IC </tag>
             
-            <tag> IIC </tag>
-            
             <tag> IP </tag>
+            
+            <tag> IIC </tag>
             
         </tags>
       
@@ -1442,9 +1550,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -3338,9 +3446,9 @@
           
           <category> Programming </category>
           
-          <category> SystemVerilog </category>
-          
           <category> UVM </category>
+          
+          <category> SystemVerilog </category>
           
       </categories>
       
@@ -3349,9 +3457,9 @@
             
             <tag> Programming </tag>
             
-            <tag> SystemVerilog </tag>
-            
             <tag> UVM </tag>
+            
+            <tag> SystemVerilog </tag>
             
         </tags>
       
@@ -3406,9 +3514,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -3435,9 +3543,9 @@
             
             <tag> Programming </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
@@ -3466,9 +3574,9 @@
             
             <tag> IC </tag>
             
-            <tag> UVM </tag>
-            
             <tag> VIP </tag>
+            
+            <tag> UVM </tag>
             
         </tags>
       
