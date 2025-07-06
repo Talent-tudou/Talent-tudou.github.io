@@ -4,6 +4,215 @@
   
     
     <entry>
+      <title>PUB Architecture-Data Training系列（1）</title>
+      <link href="/2025/07/06/DDR/PUB%20Architecture-Data%20Training%E7%B3%BB%E5%88%97-1/"/>
+      <url>/2025/07/06/DDR/PUB%20Architecture-Data%20Training%E7%B3%BB%E5%88%97-1/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Pub手册4.4.1的CA Training。<a><span id="more"></span></a></p></blockquote><ul><li>由于是正对LPDDR3的，这里先跳过。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> DDR </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DDR </tag>
+            
+            <tag> Data Training </tag>
+            
+            <tag> PUB </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PUB Architecture-Data Training系列</title>
+      <link href="/2025/07/06/DDR/PUB%20Architecture-Data%20Training%E7%B3%BB%E5%88%97/"/>
+      <url>/2025/07/06/DDR/PUB%20Architecture-Data%20Training%E7%B3%BB%E5%88%97/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Pub手册4.4 data training部分的概述。<a><span id="more"></span></a></p></blockquote><h3 id="4-4-数据训练"><a href="#4-4-数据训练" class="headerlink" title="4.4 数据训练"></a>4.4 数据训练</h3><p>在DDR PHY和SDRAM成功初始化后，数据训练用于优化操作时序和性能。训练包括多个方面，如命令地址（CA）训练、写对齐、读取时DQS门控训练、写延迟调整、位偏移（bit deskew）以及读写数据眼训练。训练的目标是确保内存的时序优化，保证数据的稳定传输。</p><h4 id="训练类型"><a href="#训练类型" class="headerlink" title="训练类型"></a>训练类型</h4><ol><li><strong>命令地址（CA）训练</strong>：仅在LPDDR3中使用，目的是优化命令地址的时序。</li><li><strong>写对齐（Write leveling）</strong>：确保写数据的时序对齐，优化写操作的稳定性。</li><li><strong>读取时的DQS门控训练</strong>：确保读取数据时，DQS信号的时序正确门控。</li><li><strong>写延迟调整（Write latency adjustment）</strong>：对写操作延迟进行精确调整，确保数据正确写入。</li><li><strong>位偏移（Bit deskew）</strong>：调整数据位之间的时序，避免信号偏移引发错误。</li><li><strong>读写数据眼训练</strong>：调整数据采样窗口，以确保稳定的数据采样。</li></ol><h4 id="训练过程中的关键点："><a href="#训练过程中的关键点：" class="headerlink" title="训练过程中的关键点："></a>训练过程中的关键点：</h4><ul><li><strong>最大训练加载次数</strong>：数据训练最多支持四个负载。在训练过程中，只有每个训练组中的第一个逻辑rank（logical rank）会被使用。比如，对于3DS堆栈0，始终会选中该堆栈，并使用每个训练组中的第一个物理rank（physical rank）进行训练。</li><li><strong>逻辑rank与物理rank的映射</strong>：在数据训练过程中，逻辑rank首先会映射到物理rank，再将物理rank映射到训练rank。</li></ul><hr><h3 id="物理rank到训练rank的映射（Table-4-4）"><a href="#物理rank到训练rank的映射（Table-4-4）" class="headerlink" title="物理rank到训练rank的映射（Table 4-4）"></a><strong>物理rank到训练rank的映射（Table 4-4）</strong></h3><p>以下是物理rank（Physical Ranks）与训练rank（Trained Ranks）之间的映射关系：</p><table><thead><tr><th>物理rank</th><th>训练rank 0</th><th>训练rank 1</th><th>训练rank 2</th><th>训练rank 3</th></tr></thead><tbody><tr><td><strong>UDIMM 组件物理rank</strong></td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td><strong>RDIMM 双rank物理rank</strong></td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td><strong>RDIMM 四rank物理rank</strong></td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td><strong>LRDIMM 双rank物理rank</strong></td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td><strong>LRDIMM 四rank物理rank</strong></td><td>0</td><td>1</td><td>2</td><td>3</td></tr></tbody></table><p>如表所示，<strong>UDIMM、RDIMM、LRDIMM</strong>等不同内存组件的物理rank和训练rank是有特定映射关系的。每种类型的内存模块都有不同的物理rank到训练rank的对应关系，确保内存的时序训练可以根据具体的硬件配置进行优化。</p><hr><h3 id="逻辑rank到训练rank的映射"><a href="#逻辑rank到训练rank的映射" class="headerlink" title="逻辑rank到训练rank的映射"></a><strong>逻辑rank到训练rank的映射</strong></h3><p>这些表格展示了在不同物理rank配置下，<strong>逻辑rank（Logical Rank）</strong>是如何映射到<strong>训练rank（Trained Rank）</strong>的。映射关系取决于3DS堆栈的数量和物理rank的数量。下面是一些常见的映射：</p><h4 id="Table-4-5：逻辑rank到训练rank映射-—-UDIMM-with-4-physical-ranks"><a href="#Table-4-5：逻辑rank到训练rank映射-—-UDIMM-with-4-physical-ranks" class="headerlink" title="Table 4-5：逻辑rank到训练rank映射 — UDIMM with 4 physical ranks"></a><strong>Table 4-5</strong>：逻辑rank到训练rank映射 — UDIMM with 4 physical ranks</h4><table><thead><tr><th>3DS数量</th><th>训练rank 0</th><th>训练rank 1</th><th>训练rank 2</th><th>训练rank 3</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>2</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>0</td><td>1</td><td>2</td><td>3</td></tr></tbody></table><h4 id="Table-4-6：逻辑rank到训练rank映射-—-UDIMM-with-3-physical-ranks"><a href="#Table-4-6：逻辑rank到训练rank映射-—-UDIMM-with-3-physical-ranks" class="headerlink" title="Table 4-6：逻辑rank到训练rank映射 — UDIMM with 3 physical ranks"></a><strong>Table 4-6</strong>：逻辑rank到训练rank映射 — UDIMM with 3 physical ranks</h4><table><thead><tr><th>3DS数量</th><th>训练rank 0</th><th>训练rank 1</th><th>训练rank 2</th><th>训练rank 3</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>2</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>0</td><td>1</td><td>2</td><td>3</td></tr></tbody></table><h4 id="Table-4-7：逻辑rank到训练rank映射-—-UDIMM-with-2-physical-ranks"><a href="#Table-4-7：逻辑rank到训练rank映射-—-UDIMM-with-2-physical-ranks" class="headerlink" title="Table 4-7：逻辑rank到训练rank映射 — UDIMM with 2 physical ranks"></a><strong>Table 4-7</strong>：逻辑rank到训练rank映射 — UDIMM with 2 physical ranks</h4><table><thead><tr><th>3DS数量</th><th>训练rank 0</th><th>训练rank 1</th><th>训练rank 2</th><th>训练rank 3</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>2</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>8</td><td>0</td><td>1</td><td>2</td><td>3</td></tr></tbody></table><h4 id="Table-4-8：逻辑rank到训练rank映射-—-UDIMM-with-1-physical-rank"><a href="#Table-4-8：逻辑rank到训练rank映射-—-UDIMM-with-1-physical-rank" class="headerlink" title="Table 4-8：逻辑rank到训练rank映射 — UDIMM with 1 physical rank"></a><strong>Table 4-8</strong>：逻辑rank到训练rank映射 — UDIMM with 1 physical rank</h4><table><thead><tr><th>3DS数量</th><th>训练rank 0</th><th>训练rank 1</th><th>训练rank 2</th><th>训练rank 3</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>2</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>8</td><td>0</td><td>1</td><td>2</td><td>3</td></tr></tbody></table><h4 id="Table-4-9：逻辑rank到训练rank映射-—-双或四rankRDIMM-with-4-physical-ranks"><a href="#Table-4-9：逻辑rank到训练rank映射-—-双或四rankRDIMM-with-4-physical-ranks" class="headerlink" title="Table 4-9：逻辑rank到训练rank映射 — 双或四rankRDIMM with 4 physical ranks"></a><strong>Table 4-9</strong>：逻辑rank到训练rank映射 — 双或四rankRDIMM with 4 physical ranks</h4><table><thead><tr><th>3DS数量</th><th>训练rank 0</th><th>训练rank 1</th><th>训练rank 2</th><th>训练rank 3</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>2</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>0</td><td>1</td><td>2</td><td>3</td></tr></tbody></table><h4 id="Table-4-10：逻辑rank到训练rank映射-—-双rankRDIMM-with-2-physical-ranks"><a href="#Table-4-10：逻辑rank到训练rank映射-—-双rankRDIMM-with-2-physical-ranks" class="headerlink" title="Table 4-10：逻辑rank到训练rank映射 — 双rankRDIMM with 2 physical ranks"></a><strong>Table 4-10</strong>：逻辑rank到训练rank映射 — 双rankRDIMM with 2 physical ranks</h4><table><thead><tr><th>3DS数量</th><th>训练rank 0</th><th>训练rank 1</th><th>训练rank 2</th><th>训练rank 3</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>2</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>0</td><td>1</td><td>2</td><td>3</td></tr><tr><td>8</td><td>0</td><td>1</td><td>2</td><td>3</td></tr></tbody></table><hr><h3 id="训练支持"><a href="#训练支持" class="headerlink" title="训练支持"></a>训练支持</h3><p>大部分的训练例程（如写对齐、位偏移等）都支持离散组件、无缓冲DIMM和有缓冲DIMM。然而，当使用LRDIMM组件时，可能需要额外的软件支持来完成训练。有关LRDIMM初始化和训练的更多信息，可以参考文档中的相关章节。</p><hr><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li><strong>数据训练</strong>旨在通过调整时序和延迟来优化DDR内存的性能。训练包括写对齐、读写数据眼训练等多个方面。</li><li><strong>物理rank和训练rank的映射</strong>非常关键，帮助确定如何将内存模块的物理rank映射到训练rank，从而确保数据训练的正确性和效率。</li><li><strong>逻辑rank到训练rank的映射</strong>取决于内存模块的配置（如UDIMM、RDIMM、LRDIMM）和3DS堆栈的数量。通过这些映射，内存模块可以在训练过程中得到正确的配置。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> DDR </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DDR </tag>
+            
+            <tag> Data Training </tag>
+            
+            <tag> PUB </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>PUB Architecture-Read Responses</title>
+      <link href="/2025/07/06/DDR/PUB-Architecture-Read%20Responses/"/>
+      <url>/2025/07/06/DDR/PUB-Architecture-Read%20Responses/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Pub手册4.5.5，DDR PUB（PHY Utility Block）控制器中读响应的三种机制<a><span id="more"></span></a></p></blockquote><h3 id="4-5-5-读响应"><a href="#4-5-5-读响应" class="headerlink" title="4.5.5 读响应"></a>4.5.5 读响应</h3><p>这部分描述了从DRAM DQ总线到DFI总线的读响应机制。总共有两种模式：</p><ol><li><strong>异步读响应 (PGCR3.RDMODE&#x3D;2’b00)</strong></li><li><strong>静态读响应 (PGCR3.RDMODE&#x3D;2’b01)</strong></li></ol><h4 id="4-5-5-1-异步读响应模式"><a href="#4-5-5-1-异步读响应模式" class="headerlink" title="4.5.5.1 异步读响应模式"></a>4.5.5.1 异步读响应模式</h4><p>在异步读响应模式下（<code>RDMODE=2&#39;b00</code>），<strong>读DQS#信号</strong>被用作写时钟，将数据写入到DATX8读FIFO（先进先出队列）。这个FIFO的功能类似于传统的异步FIFO。在这个FIFO中，读DQS#的上升沿会将数据从DRAM的DQ总线中采样并写入FIFO，同时更新FIFO的写指针。然后，写指针会被同步到读取时钟域（<code>ctl_clk</code>），并与读取指针进行比较。</p><p>当写指针和读指针不相同时，就会从FIFO中弹出数据，并更新读指针。</p><p><strong>关键点：</strong></p><ul><li>读响应的延迟与读DQS#信号的时序以及同步器的延迟直接相关。</li></ul><h4 id="4-5-5-2-静态读响应模式"><a href="#4-5-5-2-静态读响应模式" class="headerlink" title="4.5.5.2 静态读响应模式"></a>4.5.5.2 静态读响应模式</h4><p>在静态读响应模式下，数据同样会以与异步模式相同的方式写入DATX8读FIFO。但是，读取FIFO数据的方式有所不同。静态读模式下，<strong>PUB</strong>（可能是某个时钟控制单元）会从<code>dfi_rddata_en</code>信号开始计数，并在固定的周期数之后，将读数据从DATX8读FIFO回送到DFI总线。</p><p>在这种模式下，延迟是由每个字节通道在<code>DXnGCR0.RDDLY</code>寄存器中设置的固定读响应值来确定的。每个字节通道的延迟可能有所不同，因此需要进行对齐。具有最大<code>DXnGCR0.RDDLY</code>值的字节通道将决定整个接口的读延迟。</p><p><strong>静态读延迟</strong>可以通过PUB的<strong>自动静态读训练算法</strong>来进行调整和优化。静态读模式具有一个1个<code>ctl_clk</code>的裕度。如果DQS信号发生漂移并超过这个范围（超过2个<code>tCK</code>周期），那么静态读训练值就会失效，可能导致读取失败。</p><h4 id="4-5-5-3-读FIFO旁路"><a href="#4-5-5-3-读FIFO旁路" class="headerlink" title="4.5.5.3 读FIFO旁路"></a>4.5.5.3 读FIFO旁路</h4><p><strong>PUB</strong>还包含一个FIFO，用于在读取响应路径中对每个字节通道的响应进行对齐。对于静态读模式，如果所有字节通道的往返读延迟已经匹配得很好，可以设置相同的<code>DXnGCR0.RDDLY</code>值，从而减少延迟。在这种情况下，你可以选择绕过这些对齐的FIFO，从而进一步减少延迟。通过设置<code>PGCR3.PRFBYP=1</code>来实现FIFO旁路。</p><h3 id="示例场景"><a href="#示例场景" class="headerlink" title="示例场景"></a>示例场景</h3><p>假设有一个简单的DDR内存系统，它有两个字节通道（Byte Lane 0 和 Byte Lane 1），每个字节通道的数据读响应是通过PHY的读FIFO进行处理的。我们需要从内存中读取数据，并将数据从内存传输到DFI总线。</p><p>在这个场景中，主要关注两种不同的读响应模式：<strong>异步读响应模式</strong> 和 <strong>静态读响应模式</strong>。</p><hr><h3 id="1-异步读响应模式-RDMODE-00"><a href="#1-异步读响应模式-RDMODE-00" class="headerlink" title="1. 异步读响应模式 (RDMODE &#x3D; 00)"></a>1. <strong>异步读响应模式 (RDMODE &#x3D; 00)</strong></h3><h4 id="工作原理："><a href="#工作原理：" class="headerlink" title="工作原理："></a>工作原理：</h4><ul><li>假设在DDR内存中，数据读取操作是通过<strong>读DQS#信号</strong>触发的。</li><li>在异步读响应模式下，<strong>读DQS#</strong>信号会被用作时钟，时钟信号带动数据进入FIFO。每次读DQS#上升沿到来时，数据会从内存的DQ总线进入到FIFO中。</li><li>读FIFO在异步模式下工作，就像一个普通的FIFO。数据被写入FIFO后，会不断向前推进（更新写指针）。当读指针和写指针不同步时，FIFO中的数据就会被弹出。</li><li><strong>延迟</strong>：延迟受读DQS#时序和同步器延迟的影响，因为读DQS#的时序可能会受到外部时钟变化的影响，所以延迟不固定。</li></ul><h4 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h4><p>假设你在内存中有一个数据块，内存读操作发起后，DQS#上升沿到来时，数据会从内存的DQ总线被采样，并写入FIFO。FIFO中的数据会按照DQS#信号的节奏逐步进入，并最终被送到DFI总线。但是，如果DQS#的时序发生漂移（即DQS#的时序没有完全与数据同步），可能会导致读数据的延迟波动。</p><p>这种模式适合对延迟要求不高的场合，但对DQS#时序的稳定性有一定要求。</p><hr><h3 id="2-静态读响应模式-RDMODE-01"><a href="#2-静态读响应模式-RDMODE-01" class="headerlink" title="2. 静态读响应模式 (RDMODE &#x3D; 01)"></a>2. <strong>静态读响应模式 (RDMODE &#x3D; 01)</strong></h3><h4 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h4><ul><li>在静态读响应模式下，数据还是首先写入FIFO，就像在异步模式中那样。</li><li>不同的是，在静态读模式下，<strong>PUB</strong>会从<code>dfi_rddata_en</code>信号开始计数，并等待固定的周期数后再将数据从FIFO传送到DFI总线。</li><li><strong>延迟</strong>：静态读模式的延迟是固定的，它由<code>DXnGCR0.RDDLY</code>寄存器的值决定。每个字节通道的延迟可以根据不同的需求进行调整。</li><li>每个字节通道的延迟值可能会不同，<strong>最大延迟</strong>的字节通道会决定整个系统的延迟。这个延迟值可以通过静态读训练算法进行优化。</li></ul><h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><p>假设你在读取一个数据块时，数据会进入FIFO并根据<code>dfi_rddata_en</code>信号计数。假设字节通道0的延迟需要4个周期，而字节通道1的延迟需要6个周期。在这种情况下，<strong>字节通道1</strong>会成为决定整个系统读延迟的瓶颈，因为它的延迟较大。</p><p>如果系统的静态读延迟经过训练并优化过，这样可以保证延迟是固定的，并且不会像异步模式那样因为时序问题而波动。因此，静态读响应模式适用于那些对延迟有严格要求的系统。</p><hr><h3 id="对比总结："><a href="#对比总结：" class="headerlink" title="对比总结："></a>对比总结：</h3><table><thead><tr><th>特性</th><th>异步读响应模式</th><th>静态读响应模式</th></tr></thead><tbody><tr><td><strong>时序控制</strong></td><td>依赖于DQS#时钟的上升沿，时序波动较大</td><td>固定延迟，时序稳定</td></tr><tr><td><strong>延迟</strong></td><td>延迟受DQS#时序和同步器影响，可能不稳定</td><td>延迟由<code>DXnGCR0.RDDLY</code>设置，经过训练可以优化</td></tr><tr><td><strong>适用场景</strong></td><td>对延迟要求不严格，时序漂移不会影响整体功能</td><td>对延迟要求严格，需要保证稳定的读延迟</td></tr><tr><td><strong>FIFO行为</strong></td><td>异步FIFO，数据通过DQS#时钟输入FIFO并弹出</td><td>静态FIFO，数据从FIFO按固定周期读取</td></tr></tbody></table><h3 id="具体应用"><a href="#具体应用" class="headerlink" title="具体应用"></a>具体应用</h3><ul><li><strong>异步模式</strong>：适用于对时序要求不高，系统需要简单处理并不需要精确控制延迟的情况。</li><li><strong>静态模式</strong>：适用于对延迟有精确要求的情况，特别是在需要优化每个字节通道的读延迟时，静态模式可以提供更稳定的性能。</li></ul><hr><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul><li><strong>异步读响应模式</strong>：数据通过DQS#时钟进入FIFO，延迟主要由DQS#的时序决定。</li><li><strong>静态读响应模式</strong>：数据写入FIFO后，PUB根据固定的周期数将其送回DFI总线，延迟由<code>DXnGCR0.RDDLY</code>设置来控制，支持自动训练。</li><li><strong>读FIFO旁路</strong>：当所有字节通道的延迟匹配时，可以绕过对齐FIFO来减少延迟。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> DDR </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> DDR </tag>
+            
+            <tag> PUB </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>svt_vip</title>
+      <link href="/2025/07/06/DV/svt-vip/"/>
+      <url>/2025/07/06/DV/svt-vip/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Synopsys VIP的一些使用心得<a><span id="more"></span></a></p></blockquote><ul><li>amba vip两个宏开关     <ul><li>+define+SVT_AMBA_DATA_UTIL_ENABLE_INTERNAL_MESSAGING    </li><li>+define+_SVT_AXI_TEMP_DW_DEBUG</li></ul></li></ul><p> 可以加上这两个宏，会有详细的log打印，追一些corner问题，很有用的。 </p><ul><li>ahb_mem</li></ul><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">svt_mem slave_mem_l;</span><br><span class="line">slave=<span class="keyword">new</span>(<span class="string">&quot;slave_mem_l&quot;</span>,  <span class="string">&quot;AMBA3&quot;</span>, <span class="number">256</span>， <span class="number">0</span>， <span class="number">0</span>， <span class="number">64</span>‘hffff_ffff_fffff_ffff）;</span><br><span class="line">svt_config_object_db#（svt_mem)：set(<span class="keyword">this</span>, <span class="string">&quot;*&quot;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> UVM </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Programming </tag>
+            
+            <tag> IC </tag>
+            
+            <tag> VIP </tag>
+            
+            <tag> UVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>算术移位与逻辑移位的区别详解</title>
+      <link href="/2025/03/02/C%E8%AF%AD%E8%A8%80/%E7%AE%97%E6%9C%AF%E7%A7%BB%E4%BD%8D%E4%B8%8E%E9%80%BB%E8%BE%91%E7%A7%BB%E4%BD%8D%E7%9A%84%E5%8C%BA%E5%88%AB%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2025/03/02/C%E8%AF%AD%E8%A8%80/%E7%AE%97%E6%9C%AF%E7%A7%BB%E4%BD%8D%E4%B8%8E%E9%80%BB%E8%BE%91%E7%A7%BB%E4%BD%8D%E7%9A%84%E5%8C%BA%E5%88%AB%E8%AF%A6%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>算术移位与逻辑移位的区别详解<a><span id="more"></span></a></p></blockquote><h4 id="1-核心概念"><a href="#1-核心概念" class="headerlink" title="1. 核心概念"></a><strong>1. 核心概念</strong></h4><ul><li><strong>逻辑移位</strong>：将二进制数整体左移或右移，<strong>空位补0</strong>，不关注符号位。</li><li><strong>算术移位</strong>：针对<strong>有符号数</strong>设计，右移时<strong>保持符号位不变</strong>（左侧补符号位），左移与逻辑移位相同（补0）。</li></ul><hr><h4 id="2-具体操作对比"><a href="#2-具体操作对比" class="headerlink" title="2. 具体操作对比"></a><strong>2. 具体操作对比</strong></h4><table><thead><tr><th><strong>操作类型</strong></th><th><strong>方向</strong></th><th><strong>填充规则</strong></th><th><strong>适用场景</strong></th></tr></thead><tbody><tr><td>逻辑移位</td><td>左移</td><td>低位补0，高位丢弃</td><td>无符号数、位掩码操作</td></tr><tr><td></td><td>右移</td><td>高位补0，低位丢弃</td><td></td></tr><tr><td>算术移位</td><td>左移</td><td>与逻辑左移相同（补0）</td><td>有符号数、数值计算优化</td></tr><tr><td></td><td>右移</td><td>高位补符号位（正数补0，负数补1）</td><td></td></tr></tbody></table><hr><h4 id="3-C语言中的移位运算符"><a href="#3-C语言中的移位运算符" class="headerlink" title="3. C语言中的移位运算符"></a><strong>3. C语言中的移位运算符</strong></h4><ul><li><p><strong><code>&lt;&lt;</code>（左移）</strong>：</p><ul><li><strong>统一补0</strong>，无论有无符号。</li><li>示例：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">-8</span>;          <span class="comment">// 二进制补码：1111 1000 (假设8位)</span></span><br><span class="line">a = a &lt;&lt; <span class="number">2</span>;         <span class="comment">// 左移两位 → 1110 0000（值-32，补0）</span></span><br></pre></td></tr></table></figure></li></ul></li><li><p><strong><code>&gt;&gt;</code>（右移）</strong>：</p><ul><li><p><strong>行为依赖数据类型</strong>：</p><ul><li><strong>无符号数</strong>：逻辑右移（高位补0）。</li><li><strong>有符号数</strong>：通常为算术右移（高位补符号位），但<strong>C标准未明确定义</strong>，具体由编译器决定。</li></ul></li><li><p>示例：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> b = <span class="number">-8</span>;           <span class="comment">// 补码：1111 1000</span></span><br><span class="line">b = b &gt;&gt; <span class="number">2</span>;          <span class="comment">// 算术右移 → 1111 1110（值-2，补符号位1）</span></span><br><span class="line"><span class="type">unsigned</span> c = <span class="number">0xF0</span>;    <span class="comment">// 二进制：1111 0000</span></span><br><span class="line">c = c &gt;&gt; <span class="number">2</span>;          <span class="comment">// 逻辑右移 → 0011 1100（值0x3C）</span></span><br></pre></td></tr></table></figure></li></ul></li></ul><hr><h4 id="4-关键区别与注意事项"><a href="#4-关键区别与注意事项" class="headerlink" title="4. 关键区别与注意事项"></a><strong>4. 关键区别与注意事项</strong></h4><ol><li><p><strong>符号位处理</strong>：</p><ul><li>逻辑右移无视符号位，算术右移保持符号位。</li><li>左移对两种移位无区别（均补0），但有符号数左移可能溢出（如从正变负）。</li></ul></li><li><p><strong>C语言规范</strong>：</p><ul><li><code>&gt;&gt;</code>对有符号数的结果取决于编译器（通常实现为算术右移）。</li><li>移位位数超过类型宽度（如<code>int a = 1; a &lt;&lt; 32</code>）是<strong>未定义行为</strong>。</li></ul></li><li><p><strong>应用场景</strong>：</p><ul><li><strong>逻辑移位</strong>：处理位掩码、数据包解析（如提取RGB颜色分量）。</li><li><strong>算术移位</strong>：高效实现乘除运算（右移1位等价于除以2）。</li></ul></li></ol><hr><h4 id="5-示例代码验证"><a href="#5-示例代码验证" class="headerlink" title="5. 示例代码验证"></a><strong>5. 示例代码验证</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 有符号数右移（通常为算术移位）</span></span><br><span class="line">    <span class="type">int</span> a = <span class="number">-8</span>; <span class="comment">// 二进制补码（假设32位）：0xFFFFFFF8</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &gt;&gt; 2 = %d\n&quot;</span>, a, a &gt;&gt; <span class="number">2</span>); <span class="comment">// 输出-2（0xFFFFFFFE）</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 无符号数右移（逻辑移位）</span></span><br><span class="line">    <span class="type">unsigned</span> b = <span class="number">0xF0</span>; <span class="comment">// 0x000000F0</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;0x%x &gt;&gt; 2 = 0x%x\n&quot;</span>, b, b &gt;&gt; <span class="number">2</span>); <span class="comment">// 输出0x3C</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 左移（统一补0）</span></span><br><span class="line">    <span class="type">int</span> c = <span class="number">5</span>; </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d &lt;&lt; 1 = %d\n&quot;</span>, c, c &lt;&lt; <span class="number">1</span>); <span class="comment">// 输出10</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h4 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a><strong>6. 总结</strong></h4><ul><li><strong>逻辑右移</strong>：无符号数默认行为，高位补0。</li><li><strong>算术右移</strong>：有符号数常见处理方式，高位补符号位。</li><li><strong>左移</strong>：始终补0，但有符号数可能溢出。</li><li><strong>编程注意</strong>：避免对有符号数右移的依赖（因编译器差异），处理大数值时检查溢出。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Programming </category>
+          
+          <category> C </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> C </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>C语言运算类型详解</title>
+      <link href="/2025/03/02/C%E8%AF%AD%E8%A8%80/C%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2025/03/02/C%E8%AF%AD%E8%A8%80/C%E8%AF%AD%E8%A8%80%E8%BF%90%E7%AE%97%E7%B1%BB%E5%9E%8B%E8%AF%A6%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>C语言运算类型详解<a><span id="more"></span></a></p></blockquote><h4 id="1-算术运算"><a href="#1-算术运算" class="headerlink" title="1. 算术运算"></a><strong>1. 算术运算</strong></h4><ul><li><strong>定义</strong>：处理数值计算，操作数为数字（整数或浮点数）。</li><li><strong>运算符</strong>：<ul><li><code>+</code>（加）、<code>-</code>（减）、<code>*</code>（乘）、<code>/</code>（除）、<code>%</code>（取模）</li><li>自增&#x2F;自减：<code>++</code>、<code>--</code></li></ul></li><li><strong>示例</strong>：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">10</span> / <span class="number">3</span>;    <span class="comment">// 结果为3（整数除法）</span></span><br><span class="line"><span class="type">float</span> b = <span class="number">10.0</span> / <span class="number">3</span>; <span class="comment">// 结果为3.333...</span></span><br><span class="line"><span class="type">int</span> c = <span class="number">10</span> % <span class="number">3</span>;     <span class="comment">// 结果为1</span></span><br></pre></td></tr></table></figure></li><li><strong>注意事项</strong>：<ul><li>整数除法会截断小数部分。</li><li>取模运算<code>%</code>仅适用于整数。</li></ul></li></ul><hr><h4 id="2-逻辑运算"><a href="#2-逻辑运算" class="headerlink" title="2. 逻辑运算"></a><strong>2. 逻辑运算</strong></h4><ul><li><strong>定义</strong>：基于布尔逻辑（真&#x2F;假），操作数视为逻辑值（0为假，非0为真）。</li><li><strong>运算符</strong>：<ul><li><code>&amp;&amp;</code>（逻辑与）、<code>||</code>（逻辑或）、<code>!</code>（逻辑非）</li></ul></li><li><strong>示例</strong>：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> result = (<span class="number">5</span> &gt; <span class="number">3</span>) &amp;&amp; (<span class="number">2</span> != <span class="number">4</span>); <span class="comment">// 结果为1（真）</span></span><br></pre></td></tr></table></figure></li><li><strong>特点</strong>：<ul><li><strong>短路求值</strong>：若<code>&amp;&amp;</code>左侧为假，右侧不执行；若<code>||</code>左侧为真，右侧不执行。</li><li>结果只能是<code>0</code>（假）或<code>1</code>（真）。</li></ul></li></ul><hr><h4 id="3-位运算"><a href="#3-位运算" class="headerlink" title="3. 位运算"></a><strong>3. 位运算</strong></h4><ul><li><strong>定义</strong>：直接操作二进制位，用于硬件控制或优化。</li><li><strong>运算符</strong>：<ul><li><code>&amp;</code>（按位与）、<code>|</code>（按位或）、<code>^</code>（异或）、<code>~</code>（取反）</li><li><code>&lt;&lt;</code>（左移）、<code>&gt;&gt;</code>（右移）</li></ul></li><li><strong>示例</strong>：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">5</span> &amp; <span class="number">3</span>;     <span class="comment">// 0101 &amp; 0011 = 0001（结果为1）</span></span><br><span class="line"><span class="type">int</span> b = <span class="number">5</span> &lt;&lt; <span class="number">2</span>;    <span class="comment">// 0101 → 10100（结果为20）</span></span><br></pre></td></tr></table></figure></li><li><strong>与逻辑运算的区别</strong>：<ul><li>操作对象是数值的所有二进制位。</li><li>结果仍是数值，而非<code>0/1</code>。</li></ul></li></ul><hr><h4 id="4-关系运算"><a href="#4-关系运算" class="headerlink" title="4. 关系运算"></a><strong>4. 关系运算</strong></h4><ul><li><strong>定义</strong>：比较两个值的大小或相等性。</li><li><strong>运算符</strong>：<ul><li><code>==</code>（等于）、<code>!=</code>（不等于）</li><li><code>&gt;</code>（大于）、<code>&lt;</code>（小于）、<code>&gt;=</code>（大于等于）、<code>&lt;=</code>（小于等于）</li></ul></li><li><strong>示例</strong>：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> result = (<span class="number">5</span> == <span class="number">3</span>); <span class="comment">// 结果为0（假）</span></span><br></pre></td></tr></table></figure></li><li><strong>结果</strong>：<code>0</code>（假）或<code>1</code>（真）。</li></ul><hr><h4 id="5-赋值运算"><a href="#5-赋值运算" class="headerlink" title="5. 赋值运算"></a><strong>5. 赋值运算</strong></h4><ul><li><strong>定义</strong>：给变量赋值，可结合其他运算。</li><li><strong>运算符</strong>：<ul><li><code>=</code>（基本赋值）</li><li><code>+=</code>、<code>-=</code>、<code>*=</code>、<code>/=</code>、<code>%=</code>、<code>&lt;&lt;=</code>等（复合赋值）</li></ul></li><li><strong>示例</strong>：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">a += <span class="number">5</span>; <span class="comment">// 等价于a = a + 5;</span></span><br></pre></td></tr></table></figure></li></ul><hr><h4 id="6-其他运算符"><a href="#6-其他运算符" class="headerlink" title="6. 其他运算符"></a><strong>6. 其他运算符</strong></h4><ul><li><strong>条件运算符（三目运算符）</strong>：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> max = (a &gt; b) ? a : b; <span class="comment">// 若a&gt;b返回a，否则返回b</span></span><br></pre></td></tr></table></figure></li><li><strong>逗号运算符</strong>：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> result = (a=<span class="number">2</span>, b=<span class="number">3</span>, a+b); <span class="comment">// 依次执行表达式，结果为5</span></span><br></pre></td></tr></table></figure></li><li><strong>sizeof运算符</strong>：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> size = <span class="keyword">sizeof</span>(<span class="type">int</span>); <span class="comment">// 返回int类型占用的字节数</span></span><br></pre></td></tr></table></figure></li></ul><hr><h4 id="7-运算符优先级总结"><a href="#7-运算符优先级总结" class="headerlink" title="7. 运算符优先级总结"></a><strong>7. 运算符优先级总结</strong></h4><table><thead><tr><th><strong>类别</strong></th><th><strong>运算符</strong></th><th><strong>优先级顺序</strong></th></tr></thead><tbody><tr><td>算术运算</td><td><code>* / %</code> → <code>+ -</code></td><td>高 → 低</td></tr><tr><td>关系运算</td><td><code>== !=</code> → <code>&lt; &lt;= &gt; &gt;=</code></td><td></td></tr><tr><td>逻辑运算</td><td><code>!</code> → <code>&amp;&amp;</code> → &#96;</td><td></td></tr><tr><td>赋值运算</td><td><code>=</code>、<code>+=</code>等</td><td>最低</td></tr></tbody></table><ul><li><strong>关键提醒</strong>：<ul><li>使用括号<code>()</code>明确优先级，避免混淆。</li><li>混淆<code>&amp;</code>和<code>&amp;&amp;</code>、<code>|</code>和<code>||</code>是常见错误！</li></ul></li></ul><hr><h4 id="示例对比：逻辑运算-vs-位运算"><a href="#示例对比：逻辑运算-vs-位运算" class="headerlink" title="示例对比：逻辑运算 vs 位运算"></a><strong>示例对比：逻辑运算 vs 位运算</strong></h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">5</span> &amp;&amp; <span class="number">3</span>;   <span class="comment">// 逻辑与：5和3均为非零，结果为1</span></span><br><span class="line"><span class="type">int</span> b = <span class="number">5</span> &amp; <span class="number">3</span>;    <span class="comment">// 按位与：0101 &amp; 0011 = 0001 → 1</span></span><br><span class="line"><span class="type">int</span> c = <span class="number">5</span> || <span class="number">0</span>;    <span class="comment">// 逻辑或：5非零，结果为1</span></span><br><span class="line"><span class="type">int</span> d = <span class="number">5</span> | <span class="number">0</span>;    <span class="comment">// 按位或：0101 | 0000 = 0101 →5</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Programming </category>
+          
+          <category> C </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> C </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>原码、反码、补码详解</title>
+      <link href="/2025/03/02/C%E8%AF%AD%E8%A8%80/%E5%8E%9F%E7%A0%81%E3%80%81%E5%8F%8D%E7%A0%81%E3%80%81%E8%A1%A5%E7%A0%81%E8%AF%A6%E8%A7%A3/"/>
+      <url>/2025/03/02/C%E8%AF%AD%E8%A8%80/%E5%8E%9F%E7%A0%81%E3%80%81%E5%8F%8D%E7%A0%81%E3%80%81%E8%A1%A5%E7%A0%81%E8%AF%A6%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>原码、反码、补码详解<a><span id="more"></span></a></p></blockquote><h4 id="1-原码（Sign-Magnitude）"><a href="#1-原码（Sign-Magnitude）" class="headerlink" title="1. 原码（Sign-Magnitude）"></a><strong>1. 原码（Sign-Magnitude）</strong></h4><ul><li><strong>定义</strong>：最高位表示符号（0正，1负），其余位为数值的绝对值。</li><li><strong>示例（8位）</strong>：<ul><li>+5：<code>0000 0101</code></li><li>-5：<code>1000 0101</code></li></ul></li><li><strong>优点</strong>：直观，与人类书写习惯一致。</li><li><strong>缺点</strong>：<ul><li><strong>加减运算复杂</strong>：需判断符号位，逻辑电路设计复杂。</li><li><strong>零的歧义</strong>：存在<code>+0 (0000 0000)</code>和<code>-0 (1000 0000)</code>两种表示。</li></ul></li><li><strong>应用场景</strong>：早期计算机（如IBM 704），现代计算机已弃用。</li></ul><hr><h4 id="2-反码（1’s-Complement）"><a href="#2-反码（1’s-Complement）" class="headerlink" title="2. 反码（1’s Complement）"></a><strong>2. 反码（1’s Complement）</strong></h4><ul><li><strong>定义</strong>：正数与原码相同；负数为原码符号位不变，其余位按位取反。</li><li><strong>示例（8位）</strong>：<ul><li>+5：<code>0000 0101</code></li><li>-5：<code>1111 1010</code>（原码<code>1000 0101</code>取反）</li></ul></li><li><strong>优点</strong>：减法可转换为加法（需处理循环进位）。</li><li><strong>缺点</strong>：<ul><li><strong>零的歧义</strong>：仍然存在<code>+0 (0000 0000)</code>和<code>-0 (1111 1111)</code>。</li><li><strong>运算复杂</strong>：需处理进位循环，硬件实现复杂。</li></ul></li><li><strong>应用场景</strong>：早期通信协议校验（如TCP校验和）。</li></ul><hr><h4 id="3-补码（2’s-Complement）"><a href="#3-补码（2’s-Complement）" class="headerlink" title="3. 补码（2’s Complement）"></a><strong>3. 补码（2’s Complement）</strong></h4><ul><li><strong>定义</strong>：正数与原码相同；负数为其绝对值的原码取反后加1。</li><li><strong>示例（8位）</strong>：<ul><li>+5：<code>0000 0101</code></li><li>-5：<code>1111 1011</code>（绝对值原码<code>0000 0101</code> → 取反<code>1111 1010</code> → 加1 → <code>1111 1011</code>）</li></ul></li><li><strong>优点</strong>：<ul><li><strong>统一加减法</strong>：减法转换为加法，无需额外电路。</li><li><strong>零唯一</strong>：<code>0</code>仅一种表示（<code>0000 0000</code>）。</li><li><strong>扩展性强</strong>：直接支持有符号数运算。</li></ul></li><li><strong>缺点</strong>：负数转换需额外加1操作。</li><li><strong>应用场景</strong>：现代计算机标准表示法。</li></ul><hr><h4 id="4-关键对比"><a href="#4-关键对比" class="headerlink" title="4. 关键对比"></a><strong>4. 关键对比</strong></h4><table><thead><tr><th><strong>特性</strong></th><th><strong>原码</strong></th><th><strong>反码</strong></th><th><strong>补码</strong></th></tr></thead><tbody><tr><td><strong>零的表示</strong></td><td><code>+0</code>和<code>-0</code>两种</td><td><code>+0</code>和<code>-0</code>两种</td><td><code>0</code>唯一（<code>000...0</code>）</td></tr><tr><td><strong>加减运算</strong></td><td>需判断符号，逻辑复杂</td><td>需处理循环进位</td><td>直接相加，无需额外逻辑</td></tr><tr><td><strong>数值范围</strong></td><td>-127 ~ +127（8位）</td><td>-127 ~ +127（8位）</td><td>-128 ~ +127（8位）</td></tr><tr><td><strong>硬件实现</strong></td><td>复杂（需符号判断）</td><td>较复杂（循环进位）</td><td>简单（统一加法器）</td></tr></tbody></table><hr><h4 id="5-补码运算原理"><a href="#5-补码运算原理" class="headerlink" title="5. 补码运算原理"></a><strong>5. 补码运算原理</strong></h4><ul><li><p><strong>加法规则</strong>：直接按二进制相加，忽略最高位进位。</p><ul><li><strong>示例</strong>：5 + (-3) &#x3D; 2<ul><li>5的补码：<code>0000 0101</code></li><li>-3的补码：<code>1111 1101</code></li><li>相加：<code>0000 0101 + 1111 1101 = 1 0000 0010</code> → 舍去进位 → <code>0000 0010</code>（即+2）</li></ul></li></ul></li><li><p><strong>溢出检测</strong>：若两个正数相加结果为负，或两个负数相加结果为正，则溢出。</p><ul><li><strong>示例</strong>：127 + 1 &#x3D; -128（8位补码）<ul><li>127：<code>0111 1111</code></li><li>1：<code>0000 0001</code></li><li>结果：<code>1000 0000</code>（-128，溢出）</li></ul></li></ul></li></ul><hr><h4 id="6-补码扩展与截断"><a href="#6-补码扩展与截断" class="headerlink" title="6. 补码扩展与截断"></a><strong>6. 补码扩展与截断</strong></h4><ul><li><strong>符号扩展</strong>：正数补0，负数补1。<ul><li>例：8位补码<code>1111 1011</code>（-5）→ 16位补码<code>1111 1111 1111 1011</code>。</li></ul></li><li><strong>截断风险</strong>：高位截断可能改变数值符号（需确保数值在目标位数范围内）。</li></ul><hr><h4 id="7-总结"><a href="#7-总结" class="headerlink" title="7. 总结"></a><strong>7. 总结</strong></h4><ul><li><strong>补码统治原因</strong>：运算统一、零唯一、硬件简单。</li><li><strong>原码&#x2F;反码淘汰</strong>：运算复杂、零歧义。</li><li><strong>实践技巧</strong>：<ul><li>负数转补码：取反加1。</li><li>快速计算补码：从右向左找到第一个1，其左侧全部取反。<ul><li>例：<code>0010 0100</code> → 补码为<code>1101 1100</code>（右侧第一个1在第三位，左侧全部取反）。</li></ul></li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Programming </category>
+          
+          <category> C </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IC </tag>
+            
+            <tag> PC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>gpio的ie和oe</title>
       <link href="/2025/02/26/%E5%A4%96%E8%AE%BE/gpio%E7%9A%84ie%E5%92%8Coe/"/>
       <url>/2025/02/26/%E5%A4%96%E8%AE%BE/gpio%E7%9A%84ie%E5%92%8Coe/</url>
@@ -421,9 +630,9 @@
             
             <tag> IC </tag>
             
-            <tag> IP </tag>
-            
             <tag> IIC </tag>
+            
+            <tag> IP </tag>
             
         </tags>
       
@@ -1265,35 +1474,6 @@
     
     
     <entry>
-      <title>PUB Architecture-Read Responses</title>
-      <link href="/2024/12/18/DDR/PUB%20Architecture-Read%20Responses/"/>
-      <url>/2024/12/18/DDR/PUB%20Architecture-Read%20Responses/</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>Pub手册4.5.5，DDR PUB（PHY Utility Block）控制器中读响应的三种机制<a><span id="more"></span></a></p></blockquote><h3 id="1-读响应机制概述"><a href="#1-读响应机制概述" class="headerlink" title="1. 读响应机制概述"></a>1. 读响应机制概述</h3><p>PUB控制器提供三种读响应机制：</p><ol><li>异步读响应（PGCR3.RDMODE &#x3D; 2’b00）</li><li>静态读响应（PGCR3.RDMODE &#x3D; 2’b01）</li><li>读FIFO旁路（可选）</li></ol><h3 id="2-异步读响应模式（Asynchronous-Read-Response-Mode）"><a href="#2-异步读响应模式（Asynchronous-Read-Response-Mode）" class="headerlink" title="2. 异步读响应模式（Asynchronous Read Response Mode）"></a>2. 异步读响应模式（Asynchronous Read Response Mode）</h3><h4 id="工作原理："><a href="#工作原理：" class="headerlink" title="工作原理："></a>工作原理：</h4><ul><li>使用读DQS#（差分时钟）作为DATX8读FIFO的写时钟</li><li>读FIFO工作类似传统的异步FIFO</li></ul><h4 id="数据传输流程："><a href="#数据传输流程：" class="headerlink" title="数据传输流程："></a>数据传输流程：</h4><ol><li>读DQS#上升沿将DRAM的DQ数据写入读FIFO</li><li>同时更新FIFO的写指针</li><li>写指针被同步到读时钟域（ctl_clk）</li><li>比较写指针和读指针</li><li>当指针不同时，从FIFO中弹出数据并更新指针</li></ol><h4 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h4><ul><li>读响应延迟直接与读DQS#时序和同步器延迟相关</li><li>延迟不可预测，取决于实际信号传输情况</li></ul><h3 id="3-静态读响应模式（Static-Read-Response-Mode）"><a href="#3-静态读响应模式（Static-Read-Response-Mode）" class="headerlink" title="3. 静态读响应模式（Static Read Response Mode）"></a>3. 静态读响应模式（Static Read Response Mode）</h3><h4 id="工作原理：-1"><a href="#工作原理：-1" class="headerlink" title="工作原理："></a>工作原理：</h4><ul><li>数据写入FIFO的方式与异步模式相同</li><li>但读取FIFO的方式不同</li></ul><h4 id="数据读取特点："><a href="#数据读取特点：" class="headerlink" title="数据读取特点："></a>数据读取特点：</h4><ol><li>PUB从dfi_rddata_en计数周期</li><li>经过固定周期后，从DATX8读FIFO提供读数据到DFI总线</li></ol><h4 id="延迟设置："><a href="#延迟设置：" class="headerlink" title="延迟设置："></a>延迟设置：</h4><ul><li>每个字节通道的延迟由DXnGCR0.RDDLY寄存器单独设置</li><li>可以为每个字节通道优化读延迟</li><li>最大延迟的字节通道决定整体读延迟</li></ul><h4 id="训练特点："><a href="#训练特点：" class="headerlink" title="训练特点："></a>训练特点：</h4><ul><li>可以使用PUB的自动静态读训练算法</li><li>有1个ctl_clk的裕量</li><li>DQS漂移总量必须小于2个时钟周期</li><li>超出会导致读取失败</li></ul><h3 id="4-读FIFO旁路（Read-FIFO-Bypass）"><a href="#4-读FIFO旁路（Read-FIFO-Bypass）" class="headerlink" title="4. 读FIFO旁路（Read FIFO Bypass）"></a>4. 读FIFO旁路（Read FIFO Bypass）</h3><h4 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h4><ul><li>PUB在读响应路径包含FIFO</li><li>用于对齐各字节通道的读响应</li></ul><h4 id="旁路条件："><a href="#旁路条件：" class="headerlink" title="旁路条件："></a>旁路条件：</h4><ul><li>所有字节通道的往返读延迟良好匹配</li><li>DXnGCR0.RDDLY值基本相同</li></ul><h4 id="启用方法："><a href="#启用方法：" class="headerlink" title="启用方法："></a>启用方法：</h4><ul><li>设置PGCR3.PRFBYP &#x3D; 1</li><li>目的是减少延迟</li></ul><h3 id="实际应用建议"><a href="#实际应用建议" class="headerlink" title="实际应用建议"></a>实际应用建议</h3><ol><li>选择模式时考虑：<ul><li>系统延迟要求</li><li>信号完整性</li><li>字节通道匹配程度</li></ul></li><li>异步模式适合：<ul><li>延迟要求不严格</li><li>信号变化较大的场景</li></ul></li><li>静态模式适合：<ul><li>延迟可预测</li><li>信号相对稳定</li><li>需要精确控制读取时序</li></ul></li><li>旁路模式适合：<ul><li>所有通道延迟高度一致</li><li>追求最低延迟</li></ul></li></ol>]]></content>
-      
-      
-      <categories>
-          
-          <category> DDR </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> IC </tag>
-            
-            <tag> DDR </tag>
-            
-            <tag> PUB </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>uMCTL2-Dynamic SDRAM Constraints</title>
       <link href="/2024/12/18/DDR/uMCTL2-Dynamic%20SDRAM%20Constraints/"/>
       <url>/2024/12/18/DDR/uMCTL2-Dynamic%20SDRAM%20Constraints/</url>
@@ -1522,37 +1702,6 @@
             <tag> uMCTL2 </tag>
             
             <tag> ECC </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>svt axi vip的使用心得-1</title>
-      <link href="/2024/12/12/DV/svt-axi-vip%E7%9A%84%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97-1/"/>
-      <url>/2024/12/12/DV/svt-axi-vip%E7%9A%84%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97-1/</url>
-      
-        <content type="html"><![CDATA[<blockquote><p>Synopsys AXI VIP的一些使用心得<a><span id="more"></span></a></p></blockquote><ul><li>关于配置bvaild delay，以及其他的delay配置，可以查阅transaction中的相关信息</li></ul><p><img src="https://s2.loli.net/2024/12/12/MbXdGQhmLIFcfEv.png" alt="image-20241212231536129"></p><ul><li>如果使用了协议分析，那么建议就开到both，因为我测试下来，如果开了，但是选择了xml的，那么会默认dump novas.fsdb出来，目前还没有分析原因，建议直接文档中的推荐配置（直接用both）</li></ul><p><img src="https://s2.loli.net/2024/12/12/KS9iR8C5v6a7mYT.png" alt="image-20241212231325757"></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> UVM </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Programming </tag>
-            
-            <tag> IC </tag>
-            
-            <tag> VIP </tag>
-            
-            <tag> UVM </tag>
             
         </tags>
       
@@ -3498,7 +3647,7 @@
       <link href="/2024/10/19/DV/svt-axi-vip/"/>
       <url>/2024/10/19/DV/svt-axi-vip/</url>
       
-        <content type="html"><![CDATA[<blockquote><p>Synopsys AXI VIP的一些使用心得<a><span id="more"></span></a></p></blockquote><ul><li><p>配置一些axi信号的默认值</p><ul><li>read_addr_chan_idle_val</li><li>read_data_chan_idle_val</li><li>write_addr_chan_idle_val</li><li>write_data_chan_idle_val</li><li>write_resp_chan_idle_val</li></ul></li><li><p>配置id的宽度</p><ul><li>id_width</li></ul></li><li><p>配置数据和地址宽度</p><ul><li>addr_width</li><li>data_width</li></ul></li><li><p>bus_inactivity_timeout</p></li><li><p>system_monitor_enable</p></li><li><p>enable_xml_gen</p></li><li><p>当配置成axi4的时候，数据和地址的id我感觉是分开的，需要下面的参数</p><ul><li>wid_for_non_axi3_enable</li></ul></li><li><p>使能其他的信号</p><ul><li><p>arqos_enable</p></li><li><p>awqos_enable</p></li></ul></li><li><p>想要跨过4K边界（下面以8K为例，重定义这个宏就行了）</p><ul><li>&#96;define SVT_AXI_TRANSACTION_ADDR_RANGE_NUM_LSB_BITS 13</li></ul></li><li><p>axi VIP master 构造异常情况：</p><p>1）如果想发addr和wstrb mismatch 的激励可以参考这个配置：wysiwyg_enable；ignore_wstrb_check_for_wysiwyg_format （两个需要配合使用），细节的话可以参考port_cfg里面的说明）</p></li></ul>]]></content>
+        <content type="html"><![CDATA[<blockquote><p>Synopsys AXI VIP的一些使用心得<a><span id="more"></span></a></p></blockquote><ul><li><p>配置一些axi信号的默认值</p><ul><li>read_addr_chan_idle_val</li><li>read_data_chan_idle_val</li><li>write_addr_chan_idle_val</li><li>write_data_chan_idle_val</li><li>write_resp_chan_idle_val</li></ul></li><li><p>配置id的宽度</p><ul><li>id_width</li></ul></li><li><p>配置数据和地址宽度</p><ul><li>addr_width</li><li>data_width</li></ul></li><li><p>bus_inactivity_timeout</p></li><li><p>system_monitor_enable</p></li><li><p>enable_xml_gen</p></li><li><p>当配置成axi4的时候，数据和地址的id我感觉是分开的，需要下面的参数</p><ul><li>wid_for_non_axi3_enable</li></ul></li><li><p>使能其他的信号</p><ul><li><p>arqos_enable</p></li><li><p>awqos_enable</p></li></ul></li><li><p>想要跨过4K边界（下面以8K为例，重定义这个宏就行了）</p><ul><li>&#96;define SVT_AXI_TRANSACTION_ADDR_RANGE_NUM_LSB_BITS 13</li></ul></li><li><p>axi VIP master 构造异常情况：</p><p>1）如果想发addr和wstrb mismatch 的激励可以参考这个配置：wysiwyg_enable；ignore_wstrb_check_for_wysiwyg_format （两个需要配合使用），细节的话可以参考port_cfg里面的说明）</p></li><li><p>关于配置bvaild delay，以及其他的delay配置，可以查阅transaction中的相关信息</p></li></ul><p><img src="https://s2.loli.net/2024/12/12/MbXdGQhmLIFcfEv.png" alt="image-20241212231536129"></p><ul><li>如果使用了协议分析，那么建议就开到both，因为我测试下来，如果开了，但是选择了xml的，那么会默认dump novas.fsdb出来，目前还没有分析原因，建议直接文档中的推荐配置（直接用both）</li></ul><p><img src="https://s2.loli.net/2024/12/12/KS9iR8C5v6a7mYT.png" alt="image-20241212231325757"></p>]]></content>
       
       
       <categories>

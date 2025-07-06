@@ -15,14 +15,17 @@
 <meta property="og:site_name" content="ZLIN">
 <meta property="og:description" content="Synopsys AXI VIP的一些使用心得">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/12/12/MbXdGQhmLIFcfEv.png">
+<meta property="og:image" content="https://s2.loli.net/2024/12/12/KS9iR8C5v6a7mYT.png">
 <meta property="article:published_time" content="2024-10-19T10:53:12.000Z">
-<meta property="article:modified_time" content="2024-12-21T04:29:53.373Z">
+<meta property="article:modified_time" content="2025-07-06T11:03:33.593Z">
 <meta property="article:author" content="ICXNM-ZLin">
 <meta property="article:tag" content="Programming">
 <meta property="article:tag" content="IC">
 <meta property="article:tag" content="VIP">
 <meta property="article:tag" content="UVM">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/12/12/MbXdGQhmLIFcfEv.png">
   
     <link rel="alternative" href="/atom.xml" title="ZLIN" type="application/atom+xml">
   
@@ -112,7 +115,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数130
+			总文章数135
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -297,7 +300,14 @@
 <li><p>axi VIP master 构造异常情况：</p>
 <p>1）如果想发addr和wstrb mismatch 的激励可以参考这个配置：wysiwyg_enable；ignore_wstrb_check_for_wysiwyg_format （两个需要配合使用），细节的话可以参考port_cfg里面的说明）</p>
 </li>
+<li><p>关于配置bvaild delay，以及其他的delay配置，可以查阅transaction中的相关信息</p>
+</li>
 </ul>
+<p><img src="https://s2.loli.net/2024/12/12/MbXdGQhmLIFcfEv.png" alt="image-20241212231536129"></p>
+<ul>
+<li>如果使用了协议分析，那么建议就开到both，因为我测试下来，如果开了，但是选择了xml的，那么会默认dump novas.fsdb出来，目前还没有分析原因，建议直接文档中的推荐配置（直接用both）</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/12/12/KS9iR8C5v6a7mYT.png" alt="image-20241212231325757"></p>
 
        -->
       
@@ -354,7 +364,14 @@
 <li><p>axi VIP master 构造异常情况：</p>
 <p>1）如果想发addr和wstrb mismatch 的激励可以参考这个配置：wysiwyg_enable；ignore_wstrb_check_for_wysiwyg_format （两个需要配合使用），细节的话可以参考port_cfg里面的说明）</p>
 </li>
+<li><p>关于配置bvaild delay，以及其他的delay配置，可以查阅transaction中的相关信息</p>
+</li>
 </ul>
+<p><img src="https://s2.loli.net/2024/12/12/MbXdGQhmLIFcfEv.png" alt="image-20241212231536129"></p>
+<ul>
+<li>如果使用了协议分析，那么建议就开到both，因为我测试下来，如果开了，但是选择了xml的，那么会默认dump novas.fsdb出来，目前还没有分析原因，建议直接文档中的推荐配置（直接用both）</li>
+</ul>
+<p><img src="https://s2.loli.net/2024/12/12/KS9iR8C5v6a7mYT.png" alt="image-20241212231325757"></p>
 
       
 
@@ -703,6 +720,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
@@ -711,7 +732,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -728,18 +757,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Data Training</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -763,11 +780,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
+                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
+                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -783,6 +800,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">PC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DFI</a>
               </li>
              
@@ -791,7 +816,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Glossary</a>
+                <a href="javascript:void(0)" class="js-tag color2">Frequency Ratios</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -799,15 +824,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Glossary</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Write Transactions</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Frequency Ratios</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -843,23 +864,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Parity Check</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Parity Check</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -871,27 +884,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">IP</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IIC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TIMER</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SPI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">UART</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">GPIO</a>
+                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -900,6 +897,30 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">后仿</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IIC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">GPIO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SPI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TIMER</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">UART</a>
               </li>
             
             <div class="clearfix"></div>

@@ -6,26 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://talent-tudou.github.io">
-  <title>svt axi vip的使用心得-1 | ZLIN</title>
+  <title>PUB Architecture-Data Training系列（1） | ZLIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Synopsys AXI VIP的一些使用心得">
+  <meta name="description" content="Pub手册4.4.1的CA Training。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="svt axi vip的使用心得-1">
-<meta property="og:url" content="https://talent-tudou.github.io/2024/12/12/DV/svt-axi-vip%E7%9A%84%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97-1/index.html">
+<meta property="og:title" content="PUB Architecture-Data Training系列（1）">
+<meta property="og:url" content="https://talent-tudou.github.io/2025/07/06/DDR/PUB%20Architecture-Data%20Training%E7%B3%BB%E5%88%97-1/index.html">
 <meta property="og:site_name" content="ZLIN">
-<meta property="og:description" content="Synopsys AXI VIP的一些使用心得">
+<meta property="og:description" content="Pub手册4.4.1的CA Training。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/12/12/MbXdGQhmLIFcfEv.png">
-<meta property="og:image" content="https://s2.loli.net/2024/12/12/KS9iR8C5v6a7mYT.png">
-<meta property="article:published_time" content="2024-12-12T15:11:36.000Z">
-<meta property="article:modified_time" content="2024-12-12T15:15:58.802Z">
+<meta property="article:published_time" content="2025-07-06T13:11:37.000Z">
+<meta property="article:modified_time" content="2025-07-06T13:14:40.486Z">
 <meta property="article:author" content="ICXNM-ZLin">
-<meta property="article:tag" content="Programming">
 <meta property="article:tag" content="IC">
-<meta property="article:tag" content="VIP">
-<meta property="article:tag" content="UVM">
+<meta property="article:tag" content="DDR">
+<meta property="article:tag" content="Data Training">
+<meta property="article:tag" content="PUB">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://s2.loli.net/2024/12/12/MbXdGQhmLIFcfEv.png">
   
     <link rel="alternative" href="/atom.xml" title="ZLIN" type="application/atom+xml">
   
@@ -115,7 +112,7 @@
 			</ul>
 		</nav>
 		<!-- <nav>
-			总文章数130
+			总文章数135
 		</nav> -->
 		<nav class="header-smart-menu">
     		
@@ -223,14 +220,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-DV/svt-axi-vip的使用心得-1" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-DDR/PUB Architecture-Data Training系列-1" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      svt axi vip的使用心得-1
+      PUB Architecture-Data Training系列（1）
     </h1>
   
 
@@ -241,8 +238,8 @@
 		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
 	</span>
 
-<a href="/2024/12/12/DV/svt-axi-vip%E7%9A%84%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97-1/" class="archive-article-date">
-  	<time datetime="2024-12-12T15:11:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-12-12</time>
+<a href="/2025/07/06/DDR/PUB%20Architecture-Data%20Training%E7%B3%BB%E5%88%97-1/" class="archive-article-date">
+  	<time datetime="2025-07-06T13:11:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-06</time>
 </a>
         
       </header>
@@ -250,32 +247,22 @@
     <div class="article-entry" itemprop="articleBody">
       <!-- 
         <blockquote>
-<p>Synopsys AXI VIP的一些使用心得<a><span id="more"></span></a></p>
+<p>Pub手册4.4.1的CA Training。<a><span id="more"></span></a></p>
 </blockquote>
 <ul>
-<li>关于配置bvaild delay，以及其他的delay配置，可以查阅transaction中的相关信息</li>
+<li>由于是正对LPDDR3的，这里先跳过。</li>
 </ul>
-<p><img src="https://s2.loli.net/2024/12/12/MbXdGQhmLIFcfEv.png" alt="image-20241212231536129"></p>
-<ul>
-<li>如果使用了协议分析，那么建议就开到both，因为我测试下来，如果开了，但是选择了xml的，那么会默认dump novas.fsdb出来，目前还没有分析原因，建议直接文档中的推荐配置（直接用both）</li>
-</ul>
-<p><img src="https://s2.loli.net/2024/12/12/KS9iR8C5v6a7mYT.png" alt="image-20241212231325757"></p>
 
        -->
       
         
 
         <blockquote>
-<p>Synopsys AXI VIP的一些使用心得<a><span id="more"></span></a></p>
+<p>Pub手册4.4.1的CA Training。<a><span id="more"></span></a></p>
 </blockquote>
 <ul>
-<li>关于配置bvaild delay，以及其他的delay配置，可以查阅transaction中的相关信息</li>
+<li>由于是正对LPDDR3的，这里先跳过。</li>
 </ul>
-<p><img src="https://s2.loli.net/2024/12/12/MbXdGQhmLIFcfEv.png" alt="image-20241212231536129"></p>
-<ul>
-<li>如果使用了协议分析，那么建议就开到both，因为我测试下来，如果开了，但是选择了xml的，那么会默认dump novas.fsdb出来，目前还没有分析原因，建议直接文档中的推荐配置（直接用both）</li>
-</ul>
-<p><img src="https://s2.loli.net/2024/12/12/KS9iR8C5v6a7mYT.png" alt="image-20241212231325757"></p>
 
       
 
@@ -289,7 +276,7 @@
    
    <br>
    <strong>本文链接：</strong>
-   <a href="https://talent-tudou.github.io/2024/12/12/DV/svt-axi-vip的使用心得-1/" title="svt axi vip的使用心得-1" target="_blank">https://talent-tudou.github.io/2024/12/12/DV/svt-axi-vip的使用心得-1/</a>
+   <a href="https://talent-tudou.github.io/2025/07/06/DDR/PUB Architecture-Data Training系列-1/" title="PUB Architecture-Data Training系列（1）" target="_blank">https://talent-tudou.github.io/2025/07/06/DDR/PUB Architecture-Data Training系列-1/</a>
    <br>
    <strong>版权声明：</strong>
    本作品采用
@@ -340,19 +327,19 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Programming</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IC</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VIP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DDR</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">UVM</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Data Training</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">PUB</a>
         		</li>
       		
 		</ul>
@@ -364,7 +351,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/UVM/" class="article-tag-list-link color4">UVM</a>
+        			<a href="/categories/DDR/" class="article-tag-list-link color4">DDR</a>
         		</li>
       		
 		</ul>
@@ -419,7 +406,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2024/12/12/DV/svt-axi-vip%E7%9A%84%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97-1/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://talent-tudou.github.io/2025/07/06/DDR/PUB%20Architecture-Data%20Training%E7%B3%BB%E5%88%97-1/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -433,18 +420,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2024/12/13/DDR/uMCTL2-On-chip%20ECC/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          uMCTL2-On-chip ECC
-        
-      </div>
-    </a>
   
-  
-    <a href="/2024/12/11/IC/Verdi%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Verdi常用参数</div>
+    <a href="/2025/07/06/DDR/PUB%20Architecture-Data%20Training%E7%B3%BB%E5%88%97/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">PUB Architecture-Data Training系列</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -624,6 +602,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
@@ -632,7 +614,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VIM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -649,18 +639,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Data Training</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VIM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">AMBA</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -684,11 +662,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
+                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">DCU</a>
+                <a href="javascript:void(0)" class="js-tag color4">MDL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -704,6 +682,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">PC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DFI</a>
               </li>
              
@@ -712,7 +698,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Glossary</a>
+                <a href="javascript:void(0)" class="js-tag color2">Frequency Ratios</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -720,15 +706,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Glossary</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Write Transactions</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Frequency Ratios</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">C</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -764,23 +746,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Parity Check</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Parity Check</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -792,27 +766,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">IP</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">IIC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TIMER</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SPI</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">UART</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">GPIO</a>
+                <a href="javascript:void(0)" class="js-tag color4">Makefile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -821,6 +779,30 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">后仿</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">IIC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">GPIO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SPI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TIMER</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">UART</a>
               </li>
             
             <div class="clearfix"></div>
